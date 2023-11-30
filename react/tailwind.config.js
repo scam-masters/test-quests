@@ -6,12 +6,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary": '#3C486B',
-        "secondary": {
-          1: '#F9D949',
-          2: '#F45050',
-        },
-        'white-alt': '#F0F0F0',
+        'tq-primary': '#374161',
+        'tq-accent':  '#3C486B',
+        'tq-red':     '#F45050',
+        'tq-yellow':  '#F9D949',
+        'tq-green':   '#69995D',
+        'tq-white':   '#F0F0F0',
       },
       fontFamily: {
         'logo': ['Lexend Deca', 'sans-serif'],
