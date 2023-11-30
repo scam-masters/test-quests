@@ -1,9 +1,6 @@
-import './footer.css'
-
-
 function Footer() {
 	return (
-		<footer>Copyright © Scam Masters</footer>
+		<footer className='w-full fixed bottom-0 text-center text-white-alt bg-primary'>Copyright © Scam Masters</footer>
 	)
 }
 
