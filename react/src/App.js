@@ -4,11 +4,11 @@ import Button from './components/button/button';
 
 function App() {
 	return (
-		<>
+		<div className='bg-tq-white dark:bg-tq-black h-screen w-screen'>
 			<Header/>
-			<Button type="blue">Ciao</Button>
+			<Button type="blue">This is a button</Button>
 			<Footer />
-		</>
+		</div>
 	);
 }
 
