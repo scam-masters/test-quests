@@ -7,6 +7,7 @@
 @layer base {
 
 	:root {
+		/* ligth mode color palette */
 		--color-primary: #374161;
 		--color-accent: #3C486B;
 		--color-red: #F45050;
@@ -17,6 +18,7 @@
 	}
 
 	:root[class~="dark"] {
+		/* dark mode color palette */
 		/* todo: change dark mode colors */
 		--color-primary: #374161;
 		--color-accent: #3C486B;
