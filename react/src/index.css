@@ -15,6 +15,7 @@
 		--color-green: #69995D;
 		--color-white: #F0F0F0;
 		--color-black: #181a1b;
+		--color-gray: #2a2d2e;
 	}
 
 	:root[class~="dark"] {
@@ -27,5 +28,10 @@
 		--color-green: #69995D;
 		--color-white: #181a1b;
 		--color-black: #f0f0f0;
+		--color-gray: #2a2d2e;
 	}
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }

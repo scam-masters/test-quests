@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         'tq-primary': 'var(--color-primary)',
         'tq-accent':  'var(--color-accent)',
+        'tq-gray':    'var(--color-gray)',
         'tq-red':     'var(--color-red)',
         'tq-yellow':  'var(--color-yellow)',
         'tq-green':   'var(--color-green)',
