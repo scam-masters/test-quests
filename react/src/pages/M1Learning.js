@@ -82,6 +82,12 @@ The score of the mission will be evaluated checking the correctness of the drags
       {/* Use the LearningComponent with mission-specific content */}
     </div>
   );
+	return (
+		<>
+			<Button onClick={() => switchPage('landing')} type="blue">Go back to main page</Button>
+			<Button onClick={() => switchPage('exercise')} type="blue">Go to the exercise page</Button>
+		</>
+	);
 }
 
 export default M1Learning;
