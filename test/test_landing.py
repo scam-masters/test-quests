@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -11,25 +10,25 @@ driver = webdriver.Firefox()
 
 try:
     driver.get(base_url)
+    WebDriverWait(driver, 10).until(EC.title_contains(expected_title)) # Wait for the page to load
 
-    # Wait for the page to load
-    WebDriverWait(driver, 10).until(EC.title_contains(expected_title))
-
-    # Check if the page is up and running
+    '''
+    Test 1: Check the page is up and running and its title 
+    '''
     assert expected_title in driver.title
 
-    # Check the first CircleMission is clickable
+    '''
+    Test 2: Check the first CircleMission is present and has the right text 
+    '''
     first_circle_mission = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div[1]/button")
     assert first_circle_mission.text == "Path Traversal"
     
-    #Go to main menu button check
+    '''
+    Test 3: Check for accessing to the first learning page
+    '''
     first_circle_mission.click()
     assert driver.find_element(By.XPATH, "/html/body/div/div/button").text == "Go back to main page"
-  
-
-    
-
 
 finally:
-    # Close the WebDriver
+    print("All the tests are successful!")
     driver.quit()
