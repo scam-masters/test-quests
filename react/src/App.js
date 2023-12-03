@@ -3,6 +3,7 @@ import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Landing from './pages/Landing';
 import M1Learning from './pages/M1Learning';
+import DndExercise from './pages/DragAndDropExercise';
 
 
 function App() {
@@ -14,13 +15,18 @@ function App() {
 
 	return (
 		<div className='bg-tq-white dark:bg-tq-black h-screen w-screen overflow-y-auto scrollbar-hide'>
-			<Header/>
-			{currentPage === 'landing' ? (
-			<Landing switchPage={switchPage} />
-			) : (
-				<M1Learning switchPage={switchPage} />
-			)}
-			<Footer/>
+			<Header />
+			{
+				currentPage === 'landing' ? (
+					<Landing switchPage={switchPage} />
+				) : 
+				currentPage === 'exercise' ? (
+					<DndExercise switchPage={switchPage} />
+				) :
+				(
+					<M1Learning switchPage={switchPage} />
+				)}
+			<Footer />
 		</div>
 
 	);
