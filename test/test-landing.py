@@ -6,7 +6,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 base_url = "http://localhost:3000/"
 expected_title = "React App"
-circle_mission_class = "your-circle-mission-class"
 
 driver = webdriver.Firefox()
 
