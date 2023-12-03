@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({ children, type, onClick }) => {
+const Button = ({ children, type, onClick, href, external }) => {
 	
 	var custom_classes = '';
 	switch (type) {
@@ -21,11 +21,27 @@ const Button = ({ children, type, onClick }) => {
 			break;
 	}
 	custom_classes += ' text-tq-white font-bold py-2 px-4 rounded-full transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md';
-	return (
-		<button className={custom_classes} onClick={onClick}>
+	if (href) {
+		if (external) {
+		  return (
+			<a href={href} className={custom_classes} target="_blank" rel="noopener noreferrer">
+			  {children}
+			</a>
+		  );
+		} else {
+		  return (
+			<a href={href} className={custom_classes}>
+			  {children}
+			</a>
+		  );
+		}
+	  } else {
+		return (
+		  <button className={custom_classes} onClick={onClick}>
 			{children}
-		</button>
-	);
+		  </button>
+		);
+	  }
 };
 
 export default Button;
