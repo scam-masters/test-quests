@@ -6,7 +6,7 @@ function M1Exercise({ switchPage }) {
 
   // Placeholder content for drag and drop and exercise explanation sections
   const dragAndDropSection = (
-    <div className="p-4 h-full">
+    <div className="p-4 h-full text-white">
       {/* Your drag and drop content */}
       <h2>Drag and Drop Section</h2>
       {/* Placeholder for the drag and drop functionality */}
@@ -14,7 +14,7 @@ function M1Exercise({ switchPage }) {
   );
 
   const dragsList = (
-    <div className="p-4 h-full">
+    <div className="p-4 h-full text-white">
       {/* List of drags */}
       <h2>Drags List</h2>
       {/* Placeholder for drags list */}
@@ -22,7 +22,7 @@ function M1Exercise({ switchPage }) {
   );
 
   const exerciseExplanation = (
-    <div className="p-4 h-full">
+    <div className="p-4 h-full text-white">
       {/* Explanation of the exercise */}
       <h2>Exercise Explanation</h2>
       <p>Your explanation content here...</p>
@@ -33,17 +33,17 @@ function M1Exercise({ switchPage }) {
     <>
       <div className="flex h-3/4">
         {/* Column for the exercise description*/}
-        <div className="px-2 flex-1 rounded overflow-hidden shadow-2xl mt-2">
-          <div className="bg-white flex-1 rounded flex flex-col h-full">
+        <div className="border-2 px-2 flex-1 rounded overflow-hidden shadow-2xl mt-2 ml-2">
+          <div className="flex-1 rounded flex flex-col h-full">
             {exerciseExplanation}
           </div>
         </div>
         {/* Right column for drag and drop */}
-        <div className="w-1/2 px-2 flex flex-col overflow-hidden shadow-lg mt-2">
-          <div className="bg-white rounded h-1/2 border-b">
+        <div className="w-1/2 px-2 flex flex-col overflow-hidden mt-2">
+          <div className="border-2 rounded h-1/2 shadow-2xl">
             {dragAndDropSection}
           </div>
-          <div className="mt-2 bg-white rounded h-1/2">{dragsList}</div>
+          <div className="border-2 mt-2 rounded h-1/2 shadow-2xl">{dragsList}</div>
         </div>
       </div>
       <div className="flex justify-between mt-2 px-8">
