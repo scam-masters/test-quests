@@ -2,47 +2,41 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Button from '../components/button/button';
 
-// Reusable Learning Component
 const LearningComponent = ({
   title,
   subtitle,
   understandingPathTraversal,
   risksAndImpact,
-  preventionAndBestPractices,
   furtherResources,
   howToPlay,
-  resourcesLink,
-  exerciseLink,
   switchPage
 }) => {
   return (
-    <div>
-      <div className='learning-content' style={{ color: 'white', textAlign: 'left' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', marginBottom: "2%", marginTop: "2%", padding: 20}}>
+    <div className="text-white text-left">
+      <div className="max-w-screen-md mx-auto mb-8 mt-8 p-4">
+        <div className="text-center">
           <ReactMarkdown>{title}</ReactMarkdown>
           <ReactMarkdown>{subtitle}</ReactMarkdown>
-          <ReactMarkdown>{understandingPathTraversal}</ReactMarkdown>
-          <ReactMarkdown>{risksAndImpact}</ReactMarkdown>
-          {/* <ReactMarkdown>{preventionAndBestPractices}</ReactMarkdown> */}
-          <ReactMarkdown>{furtherResources}</ReactMarkdown>
-          <ReactMarkdown>{howToPlay}</ReactMarkdown>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: '80%', margin: '20px auto' }}>
-          <Button onClick={() => switchPage('landing')} type='blue'>
-            Go back to main page
-          </Button>
-          <Button href='https://owasp.org/www-community/attacks/Path_Traversal' type='green' external>
-            Learn More
-          </Button>
-          <Button  onClick={() => switchPage('m1exercise')} type='red'>
-            Start Exercise
-          </Button>
-        </div>
+        <ReactMarkdown>{understandingPathTraversal}</ReactMarkdown>
+        <ReactMarkdown>{risksAndImpact}</ReactMarkdown>
+        <ReactMarkdown>{furtherResources}</ReactMarkdown>
+        <ReactMarkdown>{howToPlay}</ReactMarkdown>
+      </div>
+      <div className="flex justify-between w-4/5 mx-auto mb-8">
+        <Button onClick={() => switchPage('landing')} type='blue'>
+          Go back to main page
+        </Button>
+        <Button href='https://owasp.org/www-community/attacks/Path_Traversal' type='green' external>
+          Learn More
+        </Button>
+        <Button onClick={() => switchPage('m1exercise')} type='red'>
+          Start Exercise
+        </Button>
       </div>
     </div>
   );
 };
-
 // M1Learning Component
 function M1Learning({ switchPage }) {
   // Define the content for Mission 1
