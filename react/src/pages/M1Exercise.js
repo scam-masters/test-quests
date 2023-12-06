@@ -1,12 +1,16 @@
 import React from "react";
 import Button from "../components/button/button";
+// import SplitterLayout from "react-splitter-layout";
+// import "react-splitter-layout/lib/index.css";
+import { Splitter, SplitterPanel } from 'primereact/splitter';
+import 'primereact/resources/themes/bootstrap4-dark-blue/theme.css';
+//import 'primereact/resources/primereact.min.css';
 
 // M1Exercise Component
 function M1Exercise({ switchPage }) {
-
   // Placeholder content for drag and drop and exercise explanation sections
   const dragAndDropSection = (
-    <div className="p-4 h-full text-white">
+    <div className="p-4 text-white">
       {/* Your drag and drop content */}
       <h2>Drag and Drop Section</h2>
       {/* Placeholder for the drag and drop functionality */}
@@ -14,7 +18,7 @@ function M1Exercise({ switchPage }) {
   );
 
   const dragsList = (
-    <div className="p-4 h-full text-white">
+    <div className="p-4 text-white">
       {/* List of drags */}
       <h2>Drags List</h2>
       {/* Placeholder for drags list */}
@@ -22,7 +26,7 @@ function M1Exercise({ switchPage }) {
   );
 
   const exerciseExplanation = (
-    <div className="p-4 h-full text-white">
+    <div className="p-4 text-white">
       {/* Explanation of the exercise */}
       <h2>Exercise Explanation</h2>
       <p>Your explanation content here...</p>
@@ -31,21 +35,27 @@ function M1Exercise({ switchPage }) {
 
   return (
     <>
-      <div className="flex h-3/4">
-        {/* Column for the exercise description*/}
-        <div className="border-2 px-2 flex-1 rounded overflow-hidden shadow-2xl mt-2 ml-2">
-          <div className="flex-1 rounded flex flex-col h-full">
-            {exerciseExplanation}
-          </div>
-        </div>
+      <Splitter className="h-3/4 border-4 m-2" gutterSize={10}>
+        {/* Column for the exercise description */}
+        <SplitterPanel className="flex flex-col border-r-4" minSize={20} size={40}>
+          <div className="h-full px-2">{exerciseExplanation}</div>
+        </SplitterPanel>
         {/* Right column for drag and drop */}
-        <div className="w-1/2 px-2 flex flex-col overflow-hidden mt-2">
-          <div className="border-2 rounded h-1/2 shadow-2xl">
-            {dragAndDropSection}
-          </div>
-          <div className="border-2 mt-2 rounded h-1/2 shadow-2xl">{dragsList}</div>
-        </div>
-      </div>
+        <SplitterPanel className="border-l-4" minSize={20} size={60}>
+          <Splitter layout="vertical" className="h-full ml-2" gutterSize={10}>
+            <SplitterPanel className="border-b-4 w-full" minSize={20}>
+              <div id="pane2_1" className="h-full">
+                {dragAndDropSection}
+              </div>
+            </SplitterPanel>
+            <SplitterPanel className="border-t-4 h-full" minSize={20}>
+              <div id="pane2_2" className="h-full">
+                {dragsList}
+              </div>
+            </SplitterPanel>
+          </Splitter>
+        </SplitterPanel>
+      </Splitter>
       <div className="flex justify-between mt-2 px-8">
         <Button onClick={() => switchPage("landing")} type="blue">
           Go back to main page

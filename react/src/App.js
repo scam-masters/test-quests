@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { PrimeReactProvider } from 'primereact/api';
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import Landing from "./pages/Landing";
@@ -33,4 +34,10 @@ function App() {
   );
 }
 
-export default App;
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <PrimeReactProvider>
+      <App />
+    </PrimeReactProvider>
+  );
+}
