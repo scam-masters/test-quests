@@ -9,11 +9,20 @@ import Fillable from '../components/dnd/fillable'
 function DndExercise() {
 	return (
 		<DndProvider backend={HTML5Backend}>
-			<p>Answer here: <Fillable />.</p>
-			<div>
-				<Draggable text='zio pera'/>
-				<Draggable text='zio di tutte le pere'/>
-			</div>
+		<p>The query you have to make is:</p>
+		<Fillable />
+		<p className='mt-5'>Compose it starting from these blocks:</p>
+		<div className="min-w-max grid grid-cols-4 gap-1">
+			<Draggable text="?" />
+			<Draggable text="secrets/" />
+			<Draggable text="../" />
+			<Draggable text="flag.txt" />
+			<Draggable text="file=" />
+			<Draggable text="../" />
+			<Draggable text="files.php" />
+			<Draggable text="server/" />
+		</div>
+
 		</DndProvider>
 	)
 }

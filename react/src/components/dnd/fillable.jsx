@@ -11,12 +11,7 @@ export default function Fillable({ child }) {
 
 	return (
 		<span ref={drop}
-			style={{
-				width: '10ch',
-				height: '1em',
-				display: 'inline-block',
-				'background-color': 'gray'
-			}}
+		className="w-full h-10 inline-block bg-gray-500"
 		> {child}</span>
 	)
 }

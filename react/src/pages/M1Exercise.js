@@ -6,56 +6,85 @@ import { Splitter, SplitterPanel } from 'primereact/splitter';
 import 'primereact/resources/themes/bootstrap4-dark-blue/theme.css';
 //import 'primereact/resources/primereact.min.css';
 
+import DragAndDropExercise from './DragAndDropExercise';
+
 // M1Exercise Component
 function M1Exercise({ switchPage }) {
   // Placeholder content for drag and drop and exercise explanation sections
   const dragAndDropSection = (
     <div className="p-4 text-white">
       {/* Your drag and drop content */}
-      <h2>Drag and Drop Section</h2>
       {/* Placeholder for the drag and drop functionality */}
-    </div>
-  );
-
-  const dragsList = (
-    <div className="p-4 text-white">
-      {/* List of drags */}
-      <h2>Drags List</h2>
-      {/* Placeholder for drags list */}
+      <DragAndDropExercise></DragAndDropExercise>
     </div>
   );
 
   const exerciseExplanation = (
     <div className="p-4 text-white">
       {/* Explanation of the exercise */}
-      <h2>Exercise Explanation</h2>
-      <p>Your explanation content here...</p>
+      <h2>Website Structure</h2>
+      <br></br>
+      <p>Suppose we have a simple website structure with the following directories:</p>
+      <ul>
+        <li> - <b>/home/</b> (contains user home directories)</li>
+        <li> - <b>/public/</b> (publicly accessible files)</li>
+        <li> - <b>/server/</b> (server-related files)</li>
+        <li> - <b>/admin/</b> (admin-related files)</li>
+      </ul>
+      <br></br>
+
+      <ul>
+        <pre>
+        <li>/</li>
+        <li>|-- home/</li>
+        <li>|   |-- user1/</li>
+        <li>|   |-- ...</li>
+        <li>|</li>
+        <li>|-- public/</li>
+        <li>|   |-- index.html</li>
+        <li>|   |-- about.html</li>
+        <li>|   |-- user_uploaded_file.txt</li>
+        <li>|   |-- ...</li>
+        <li>|</li>
+        <li>|-- server/</li>
+        <li>|   |-- secrets/</li>
+        <li>|       |-- flag.txt</li>
+        <li>|</li>
+        <li>|-- index.html</li>
+        <li>|-- about.html</li>
+        <li>|-- contact.html</li>
+        <li>|-- files.php</li>
+        </pre>
+      </ul>
+      <br></br>
+      <b>Target File:</b>
+      <p>The sensitive file we want to access is located at: <b>/server/secrets/flag.txt</b></p>
+      <br></br>
+      <p><b>Website Description:</b></p>
+      <p>The website allows users to access certain public files.</p>
+      <p>The website employs a simple mechanism to serve files based on user requests.</p>
+      <p>The URL structure might look like this: <b>http://example.com/files.php?file=user_uploaded_file.txt</b></p>
     </div>
   );
 
   return (
     <>
       <Splitter className="h-3/4 border-4 m-2" gutterSize={10}>
+        
         {/* Column for the exercise description */}
-        <SplitterPanel className="flex flex-col border-r-4" minSize={20} size={40}>
+        <SplitterPanel className="flex flex-col border-r-4 overflow-y-auto scrollbar-hide" minSize={20} size={40}>
           <div className="h-full px-2">{exerciseExplanation}</div>
         </SplitterPanel>
+
         {/* Right column for drag and drop */}
         <SplitterPanel className="border-l-4" minSize={20} size={60}>
-          <Splitter layout="vertical" className="h-full ml-2" gutterSize={10}>
-            <SplitterPanel className="border-b-4 w-full" minSize={20}>
-              <div id="pane2_1" className="h-full">
-                {dragAndDropSection}
-              </div>
-            </SplitterPanel>
-            <SplitterPanel className="border-t-4 h-full" minSize={20}>
-              <div id="pane2_2" className="h-full">
-                {dragsList}
-              </div>
-            </SplitterPanel>
-          </Splitter>
+          <div id="pane2_1" className="h-full">
+            {dragAndDropSection}
+          </div>
         </SplitterPanel>
+      
       </Splitter>
+      
       <div className="flex justify-between mt-2 px-8">
         <Button onClick={() => switchPage("landing")} type="blue">
           Go back to main page
