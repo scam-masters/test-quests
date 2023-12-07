@@ -1,7 +1,8 @@
-import React from 'react'
-import { useDrag } from 'react-dnd'
+import React, { useRef } from 'react'
+import { useDrag, useDrop } from 'react-dnd'
 
-export default function Draggable({ text, type }) {
+export default function Answer({ id, text, swap, type }) {
+	const ref = useRef(null)
 	var custom_classes = '';
 	switch (type) {
 		case 'red':
@@ -22,18 +23,31 @@ export default function Draggable({ text, type }) {
 	}
 	custom_classes += ' m-1 cursor-grab text-tq-white w-fit p-2 rounded-sm font-bold transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md';
 
-	const [{ opacity }, dragRef] = useDrag(
+	const [{ opacity }, drag] = useDrag(
 		() => ({
 			type: 'answer',
-			item: { text },
+			item: { id },
 			collect: (monitor) => ({
 				opacity: monitor.isDragging() ? 0.5 : 1
-			})
+			}),
+			end: (_item, monitor) => {
+				if (monitor.didDrop()) {
+					swap(id, monitor.getDropResult().id)
+				}
+			}
 		}),
 		[]
 	)
+
+	const [collectedProps, drop] = useDrop(() => ({
+		accept: "answer",
+		drop: function() {
+			return { id }
+		}
+	}))
+
 	return (
-		<div className={custom_classes} ref={dragRef} style={{ opacity }}>
+		<div className={custom_classes} ref={drag(drop(ref))} style={{ opacity, minWidth: '6ch', minHeight: '3em' }}>
 			{text}
 		</div>
 	)
