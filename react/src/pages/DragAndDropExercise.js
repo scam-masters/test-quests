@@ -10,9 +10,7 @@ function DndExercise() {
 		null,
 		null,
 		null,
-		null,
 		"?",
-		"secrets/",
 		"../",
 		"flag.txt",
 		"file=",
@@ -41,14 +39,17 @@ function DndExercise() {
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<p>The query you have to make is:</p>
-			{draggableAnswers.slice(0, 4)}
+			<p>
+				{draggableAnswers.slice(0,2)}
+				secrets/
+				{draggableAnswers[2]}
+			</p>
 			<p className='mt-5'>Compose it starting from these blocks:</p>
 			<div className="min-w-max grid grid-cols-4 gap-1">
 				{draggableAnswers.slice(4)}
 			</div>
 
 		</DndProvider>
-		// <div></div>
 	)
 }
 

@@ -47,8 +47,8 @@ export default function Answer({ id, text, swap, type }) {
 	}))
 
 	return (
-		<div className={custom_classes} ref={drag(drop(ref))} style={{ opacity, minWidth: '6ch', minHeight: '3em' }}>
+		<span className={custom_classes} ref={drag(drop(ref))} style={{ opacity, minWidth: '6ch', minHeight: '3em' }}>
 			{text}
-		</div>
+		</span>
 	)
 }
