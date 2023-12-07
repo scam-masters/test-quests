@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PrimeReactProvider } from 'primereact/api';
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
@@ -9,10 +9,19 @@ import NotfoundERR from "./pages/NotfoundERR";
 import DndExercise from "./pages/DragAndDropExercise";
 
 function App() {
+
   const [currentPage, setCurrentPage] = useState("landing");
+
+  useEffect(() => {
+    const storedPage = sessionStorage.getItem("currentPage");
+    if (storedPage) {
+      setCurrentPage(storedPage);
+    }
+  }, []);
 
   const switchPage = (page) => {
     setCurrentPage(page);
+    sessionStorage.setItem("currentPage", page);
   };
 
   return (
