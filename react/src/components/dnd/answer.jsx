@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 
+
 export default function Answer({ id, text, swap, type }) {
 	const ref = useRef(null)
 	var custom_classes = '';
@@ -46,9 +47,16 @@ export default function Answer({ id, text, swap, type }) {
 		}
 	}))
 
-	return (
-		<span className={custom_classes} ref={drag(drop(ref))} style={{ opacity, minWidth: '6ch', minHeight: '3em' }}>
-			{text}
-		</span>
-	)
+	if (text === null)
+		// TODO: differentiate style of empty block
+		return (
+			<span className={custom_classes} ref={drop(ref)} style={{ opacity }}> </span>
+		)
+	else
+		return (
+			<span className={custom_classes} ref={drag(drop(ref))} style={{ opacity }}>
+				{text}
+			</span>
+		)
+
 }
