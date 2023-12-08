@@ -10,6 +10,7 @@ function DndExercise() {
 		null,
 		null,
 		null,
+		null,
 		"?",
 		"../",
 		"flag.txt",
@@ -20,29 +21,30 @@ function DndExercise() {
 	])
 
 	function swap(x, y) {
-		let tmp = answers[x]
-		answers[x] = answers[y]
-		answers[y] = tmp
-		console.log("swapping")
+		setAnswers(prev => {
+			let a = Array.from(prev)
+			let tmp = a[x]
+			a[x] = a[y]
+			a[y] = tmp
+			console.log("swapping")
 
-		// if i do not waste time copying the array this does not work 🤡
-		setAnswers(Array.from(answers))
+			return a
+		})
 	}
 
 	let draggableAnswers = []
 
 	answers.forEach((x, i) => {
-		draggableAnswers.push(<Answer id={i} text={x} swap={swap} />)
+		draggableAnswers.push(<Answer key={i} id={i} text={x} swap={swap} />)
 	})
 
-	console.log(draggableAnswers)
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<p>The query you have to make is:</p>
 			<p>
-				{draggableAnswers.slice(0,2)}
+				{draggableAnswers.slice(0, 3)}
 				secrets/
-				{draggableAnswers[2]}
+				{draggableAnswers[3]}
 			</p>
 			<p className='mt-5'>Compose it starting from these blocks:</p>
 			<div className="min-w-max grid grid-cols-4 gap-1">
