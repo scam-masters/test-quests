@@ -44,18 +44,6 @@ try:
 
     assert driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/p[2]/span[1]').text == "../"
 
-    # '''
-    # Test 2: Check the first CircleMission is present and has the right text 
-    # '''
-    # first_circle_mission = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div[1]/button")
-    # assert first_circle_mission.text == "Path Traversal"
-    
-    # '''
-    # Test 3: Check for accessing to the first learning page
-    # '''
-    # first_circle_mission.click()
-    # assert driver.find_element(By.XPATH, "/html/body/div/div/button").text == "Go back to main page"
-
 finally:
     print("All the tests are successful!")
     driver.quit()
