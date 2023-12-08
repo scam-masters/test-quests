@@ -4,6 +4,7 @@ import { useDrag, useDrop } from 'react-dnd'
 
 export default function Answer({ id, text, swap, type }) {
 	const ref = useRef(null)
+	const commonClasses = ' rounded-sm font-bold m-1 text-tq-white w-fit p-2 '
 	var custom_classes = '';
 	switch (type) {
 		case 'red':
@@ -22,7 +23,7 @@ export default function Answer({ id, text, swap, type }) {
 			custom_classes = 'bg-tq-accent hover:bg-tq-primary-500';
 			break;
 	}
-	custom_classes += ' m-1 cursor-grab text-tq-white w-fit p-2 rounded-sm font-bold transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md';
+	custom_classes += commonClasses + ' cursor-grab transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md ';
 
 	const [{ opacity }, drag] = useDrag(
 		() => ({
@@ -35,9 +36,12 @@ export default function Answer({ id, text, swap, type }) {
 				if (monitor.didDrop()) {
 					swap(id, monitor.getDropResult().id)
 				}
+			},
+			canDrag: (_monitor) => {
+				return text !== null
 			}
 		}),
-		[]
+		[text]
 	)
 
 	const [collectedProps, drop] = useDrop(() => ({
@@ -47,16 +51,20 @@ export default function Answer({ id, text, swap, type }) {
 		}
 	}))
 
-	if (text === null)
+	// const classesEmpty = commonClasses + ' m-1 bg-gray-500  w-24 inline-block m-1 bg-gray-500 active:scale-95 '
+	const classesEmpty = 'bg-gray-500 ' + commonClasses
+
+	if (text === null) {
 		// TODO: differentiate style of empty block
 		return (
-			<span className={custom_classes} ref={drop(ref)} style={{ opacity }}> </span>
+			<span className={classesEmpty} ref={drop(ref)} style={{ opacity }}>___</span>
 		)
-	else
+	} else {
 		return (
 			<span className={custom_classes} ref={drag(drop(ref))} style={{ opacity }}>
 				{text}
 			</span>
 		)
+	}
 
 }

@@ -32,7 +32,7 @@ function DndExercise() {
 	let draggableAnswers = []
 
 	answers.forEach((x, i) => {
-		draggableAnswers.push(<Answer id={i} text={answers[i]} swap={swap} />)
+		draggableAnswers.push(<Answer id={i} text={x} swap={swap} />)
 	})
 
 	console.log(draggableAnswers)
