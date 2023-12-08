@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({ children, type, onClick, href, external }) => {
+const Button = ({ children, type, onClick, href, external, clickable }) => {
 	
 	var custom_classes = '';
 	switch (type) {
@@ -35,13 +35,18 @@ const Button = ({ children, type, onClick, href, external }) => {
 			</a>
 		  );
 		}
-	  } else {
+	} else if(clickable){
+		<button className={custom_classes}>
+			{children}
+		</button>
+	} 
+	else {
 		return (
 		  <button className={custom_classes} onClick={onClick}>
 			{children}
 		  </button>
 		);
-	  }
+	}
 };
 
 export default Button;
