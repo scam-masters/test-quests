@@ -44,7 +44,7 @@ export default function Answer({ id, text, swap, type }) {
 		[text]
 	)
 
-	const [collectedProps, drop] = useDrop(() => ({
+	const [, drop] = useDrop(() => ({
 		accept: "answer",
 		drop: function() {
 			return { id }
