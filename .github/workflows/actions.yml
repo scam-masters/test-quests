@@ -25,7 +25,8 @@ jobs:
 
       - name: execute py script
         env:
-          SOME_SECRET: ${{ secrets.SOME_SECRET }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          DATABASE_ID: ${{ secrets.DATABASE_ID }}
         run: python scrum/burndown_chart.py --sprint_num 1
 
       - name: commit files
