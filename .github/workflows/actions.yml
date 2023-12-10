@@ -2,8 +2,8 @@ name: run scrum actions
 
 on:
   schedule:
-    # run every 48h (crontab.guru/#0_*/48_*_*_*)
-    - cron: '0 */48 * * *'
+    # run every 1h (crontab.guru/#0_*/24_*_*_*)
+    - cron: '0 */1 * * *'
 
 jobs:
   build:
