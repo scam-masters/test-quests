@@ -1,0 +1,6 @@
+argparse
+python-dotenv
+requests
+pandas
+matplotlib
+selenium
