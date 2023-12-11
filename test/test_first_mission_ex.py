@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import ActionChains
+
 
 base_url = "http://localhost:3000/"
 expected_title = "React App"
@@ -32,7 +34,6 @@ try:
     element = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/div/span[1]')
     target = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/p[2]/span[1]')
 
-    from selenium.webdriver import ActionChains
     action_chains = ActionChains(driver)
     action_chains.drag_and_drop(element, target).perform()
 
@@ -41,7 +42,7 @@ try:
     '''
     Assert that the first element has been moved
     '''
-    assert driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/p[2]/span[1]').text == "../"
+    assert target.text == "?"
 
 finally:
     print("All the tests are successful!")

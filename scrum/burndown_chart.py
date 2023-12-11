@@ -58,13 +58,16 @@ def get_tasks():
 def create_burndown(tasks, chosen_sprint):
     data = []
 
+    total_tasks = 0
+
     for page in tasks:
         props = page["properties"]
         
         sprint = props.get("Sprint", {}).get("select", {})
         if sprint:
             sprint = sprint.get("name", "").lower()
-
+            total_tasks += 1
+        
         if sprint == chosen_sprint.lower():
             status = props.get("Status", {}).get("status", {}).get("name", "").lower()
             if status == "done":
@@ -82,8 +85,6 @@ def create_burndown(tasks, chosen_sprint):
     tasks_done_per_day = df.groupby("Date").size().reset_index(name="T_Done")
     tasks_done_per_day = pd.merge(all_days_df, tasks_done_per_day, on="Date", how="left").fillna(0)
     print(tasks_done_per_day)
-
-    total_tasks = len(tasks)
 
     tasks_remaining_per_day = pd.DataFrame({
         "Date": all_days_in_sprint,
