@@ -21,10 +21,14 @@ Given that we are the Mission story page
 When user click on Go Back to main page button
 Then user should be redirected to main page
 
-Given i'm in the first exercise page
+Given i'm in the Mission story page
 When i drag and drop a piece of code from the possible answers to the empty spaces
 Then the empty spaces should be replaced by the code
 
-Given i'm in the first exercise page
+Given i'm in the Mission story page
 When i click on the submit button
 Then my answers should be evaluated and the result should be displayed
+
+Given i'm in the Mission story page
+when i click on the Learn More button
+Then i a new tab should be opened with the resource link
