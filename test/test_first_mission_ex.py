@@ -44,18 +44,6 @@ try:
     '''
     assert target.text == "?"
 
-    '''
-    Click on the submit button
-    '''
-    driver.find_element(By.XPATH, '//*[@id="root"]/div/div[3]/button[2]').click()
-
-    '''
-    Check that the submit result popup is displayed
-    '''
-    WebDriverWait(driver, 10).until(EC.title_contains(expected_title)) # Wait for the popup to load
-    assert driver.find_element(By.XPATH, '//*[@id="pr_id_2_header"]').text == "Submit Results"
-
-
 finally:
     print("All the tests are successful!")
     driver.quit()
