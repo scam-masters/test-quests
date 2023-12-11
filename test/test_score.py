@@ -33,6 +33,8 @@ try:
 
     # Assert that the popup is shown
     assert driver.find_element(By.XPATH, "/html[1]/body[1]/div[2]/div[1]").is_displayed(), "Popup not displayed"
+    
+    # now I need to close the popup and try to check the different messages that the user can recieve depending on the score he gets
 
 finally:
     print("All the tests are successful!")
