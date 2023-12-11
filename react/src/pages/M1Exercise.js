@@ -78,7 +78,7 @@ function M1Exercise({ switchPage }) {
           <li>|</li>
           <li>|-- server/</li>
           <li>| |-- secrets/</li>
-          <li>| |-- flag.txt</li>
+          <li>|   |-- flag.txt</li>
           <li>|</li>
           <li>|-- index.html</li>
           <li>|-- about.html</li>
