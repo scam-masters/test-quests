@@ -41,7 +41,6 @@ try:
     '''
     Assert that the first element has been moved
     '''
-
     assert driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/p[2]/span[1]').text == "../"
 
 finally:

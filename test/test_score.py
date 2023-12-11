@@ -35,6 +35,36 @@ try:
     assert driver.find_element(By.XPATH, "/html[1]/body[1]/div[2]/div[1]").is_displayed(), "Popup not displayed"
     
     # now I need to close the popup and try to check the different messages that the user can recieve depending on the score he gets
+    popup_button = "/html[1]/body[1]/div[2]/div[1]/div[2]/div[1]/div[2]/button[1]"
+    
+    driver.find_element(By.XPATH, popup_button).click()
+    
+    # null_element = "/html[1]/body[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[1]/div[2]/span[2]"
+    # question_mark_element = "/html[1]/body[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[1]/div[2]/span[1]"
+    
+    # WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, null_element)))  # Wait for the page to load
+    
+    # from selenium.webdriver import ActionChains
+    # action_chains = ActionChains(driver)
+    # action_chains.drag_and_drop(null_element, question_mark_element).perform()
+
+    # wait = WebDriverWait(driver, 10000)
+    
+    element = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/div/span[1]')
+    target = driver.find_element(By.XPATH, '/html[1]/body[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[1]/p[2]/span[1]') # can't find the blank target
+
+    from selenium.webdriver import ActionChains
+    action_chains = ActionChains(driver)
+    action_chains.drag_and_drop(element, target).perform()
+
+    wait = WebDriverWait(driver, 10000)
+    
+    '''
+    Assert that the first element has been moved
+    '''
+    assert driver.find_element(By.XPATH, '/html[1]/body[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[1]/p[2]/span[1]').text == "?", "Not performed the swap"
+
+    
 
 finally:
     print("All the tests are successful!")
