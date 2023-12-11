@@ -27,7 +27,7 @@ try:
     Test 3: Check for accessing to the first learning page
     '''
     first_circle_mission.click()
-    assert driver.find_element(By.XPATH, "/html/body/div/div/button").text == "Go back to main page"
+    assert driver.find_element(By.XPATH, "//*[@id=\"root\"]/div/div[2]/div/div[2]/button[1]").text == "Go back to main page"
 
 finally:
     print("All the tests are successful!")
