@@ -105,9 +105,9 @@ def create_burndown(tasks, chosen_sprint):
     plt.xticks(rotation=45)
     plt.tight_layout()
     if os.environ["NOTION_TOKEN"]:
-        plt.savefig(f"{sprint}/burndown_chart.png")
-    else:
         plt.savefig(f"scrum/{sprint}/burndown_chart.png")
+    else:
+        plt.savefig(f"{sprint}/burndown_chart.png")
 
 
 if __name__ == "__main__":
