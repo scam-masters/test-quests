@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useDrag, useDrop, DndProvider } from "react-dnd";
+import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 
 import Answer from '../components/dnd/answer'
 
-function DndExercise({ onScoreComputed }) {
+function DndExercise({ onScoreComputed: onCorrectnessComputed }) {
 	const [answers, setAnswers] = useState([
+		null,
+		null,
 		null,
 		null,
 		null,
@@ -27,31 +29,24 @@ function DndExercise({ onScoreComputed }) {
 			let tmp = a[x]
 			a[x] = a[y]
 			a[y] = tmp
-			console.log("swapping")
-			//console.log(a)
-
 			return a
 		})
 	}
 
-	function ComputeScore(answers){
-	
-		const solution = ["file=","../","../","server/","flag.txt"];
-		var score, count = 0;
+	function ComputeCorrectness(answers){
+		const solution = ["files.php","?","file=","../","../","server/","flag.txt"];
+		var correctness, count = 0;
 		var missing = false;
 		var solution_lenght = solution.length;
 		for(var i = 0; i < solution_lenght; i++){
-			// console.log(solution[i])
-			// console.log(answers[i])
 			if(solution[i] === answers[i])
 				count++;
 			if(answers[i] === null)
 				missing = true;
 		} 
 		if(!missing){
-			score = count / solution_lenght * 100;
-			console.log(score);
-			return score;
+			correctness = Math.floor(count / solution_lenght * 100);
+			return correctness;
 		}
 		else return -1; // return -1 to recognize wheter the user have not filled yet
 	}
@@ -62,21 +57,21 @@ function DndExercise({ onScoreComputed }) {
 		draggableAnswers.push(<Answer key={i} id={i} text={x} swap={swap}/>)
 	})
 
-	// Call the onScoreComputed function with the computed score
-	onScoreComputed && onScoreComputed(ComputeScore(answers));
+	onCorrectnessComputed && onCorrectnessComputed(ComputeCorrectness(answers));
 
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<p>The query you have to make is:</p>
 			<br/>
 			<p>
-				{draggableAnswers.slice(0, 4)}
+				example.com/
+				{draggableAnswers.slice(0, 6)}
 				secrets/
-				{draggableAnswers[4]}
+				{draggableAnswers[6]}
 			</p>
 			<p className='mt-5'>Compose it starting from these blocks:</p>
 			<div className="min-w-max grid grid-cols-4 gap-1">
-				{draggableAnswers.slice(5)}
+				{draggableAnswers.slice(7)}
 			</div>
 
 		</DndProvider>

@@ -1,54 +1,42 @@
 import React, { useState } from "react";
 import Button from "../components/button/button";
-// import SplitterLayout from "react-splitter-layout";
-// import "react-splitter-layout/lib/index.css";
 import { Splitter, SplitterPanel } from "primereact/splitter";
-import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
-//import 'primereact/resources/primereact.min.css';
 import { Dialog } from "primereact/dialog";
-
+import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import DragAndDropExercise from "./DragAndDropExercise";
 
-// M1Exercise Component
 function M1Exercise({ switchPage }) {
-  const [score, setScore] = useState(0);
-  // variables for the visibility of the score popup
-  // const [visible_dialog_confirm, setVisibleDialogConfirm] = useState(false);
-  // const [visible_dialog_error, setVisibleDialogError] = useState(false);
+  const ExercisePoints = 50; // TODO: retrieve it from the database
+
+  const [correctness, setCorrectness] = useState(0);
   const [visible_dialog, setVisibleDialog] = useState(false);
-  // handle the score computing from D&DExercise.js
-  const handleScoreComputed = (computedScore) => {
-    setScore(computedScore);
+
+  /* Handle the score computing from D&DExercise.js */
+  const handleCorrectnessComputed = (computedCorrectness) => {
+    setCorrectness(computedCorrectness);
   };
 
-  // show the dialog/popup with the score
+  /* Show the dialog/popup with the score */
   const handleSubmit = () => {
-    // Handle submission logic here using the obtained score
-    // if(score === -1) setVisibleDialogError(true); // if there are missing blanks the score is not computed
-    // else setVisibleDialogConfirm(true);
     setVisibleDialog(true);
   };
 
   const handleCloseDialog = () => {
-    // setVisibleDialogConfirm(false);
-    // setVisibleDialogError(false); // Close the dialog
     setVisibleDialog(false);
   };
 
-  // Placeholder content for drag and drop and exercise explanation sections
+  /* Placeholder content for drag and drop and exercise explanation sections */
   const dragAndDropSection = (
     <div className="p-4 text-white">
-      {/* Your drag and drop content */}
-      {/* Placeholder for the drag and drop functionality */}
       <DragAndDropExercise
-        onScoreComputed={handleScoreComputed}
+        onScoreComputed={handleCorrectnessComputed}
       ></DragAndDropExercise>
     </div>
   );
 
+  /* Placeholder content for exercise explanation */
   const exerciseExplanation = (
     <div className="p-4 text-white">
-      {/* Explanation of the exercise */}
       <h2>Website Structure</h2>
       <br></br>
       <p>
@@ -140,25 +128,15 @@ function M1Exercise({ switchPage }) {
         </SplitterPanel>
       </Splitter>
 
-      {/* Dialog to display the score when the user fill all the blanks */}
+      {/* Dialog to display the correctness when the user fill all the blanks */}
       <Dialog
         header="Submit Results"
         visible={visible_dialog}
-        className="w-1/3"
-        breakpoints={{ "960px": "75vw", "641px": "100vw" }}
+        className=" w-auto rounded-sm min-w-1/3"
         onHide={handleCloseDialog}
       >
         <div>
-          {/* Conditionally render the button based on the score */}
-          {score === 100 && (
-            <div className="flex justify-center ">
-              <p className="text-center mb-8 text-4xl">
-                Congratulations!
-                <br /> Your score is: {score}
-              </p>
-            </div>
-          )}
-          {score === -1 && (
+          {correctness === -1 && (
             <div>
               <p className="text-center mb-4 text-4xl">CHEATER!</p>
               <p className="text-center mb-4 text-xl">
@@ -166,39 +144,54 @@ function M1Exercise({ switchPage }) {
               </p>
             </div>
           )}
-          {score < 100 && score >= 80 && (
+          {correctness === 100 && (
+            <div className="flex justify-center ">
+              <p className="text-center mb-8 text-4xl">
+                {correctness}%
+                <br/> 
+                Congratulations!
+                <br/> 
+                <br/> 
+                You have earned {ExercisePoints} points!
+              </p>
+            </div>
+          )}
+          {correctness < 100 && correctness >= 80 && (
              <div className="flex justify-center ">
              <p className="text-center mb-8 text-4xl">
-               You are almost there!
-               <br /> Your score is: {score}
+                {correctness}%
+                <br/> 
+                You are almost there!
              </p>
            </div>
           )}
-          {score < 80 && score >= 20 && (
+          {correctness < 80 && correctness >= 20 && (
              <div className="flex justify-center ">
              <p className="text-center mb-8 text-4xl">
-               You have understand something!
-               <br /> Your score is: {score}
+                {correctness}%
+                <br/> 
+                Give it another chance!
              </p>
            </div>
           )}
-          {score < 20 && score >= 0 && (
+          {correctness < 20 && correctness >= 0 && (
              <div className="flex justify-center ">
              <p className="text-center mb-8 text-4xl">
-               You need more effort!
-               <br /> Your score is: {score}
+               {correctness}%  
+                <br/> 
+                You need more effort!
              </p>
            </div>
           )}
           <div className="flex justify-center mt-4">
-            {score < 100 && (
+            {correctness < 100 && (
               <Button type="green" onClick={handleCloseDialog}>
                 Let's try again!
               </Button>
             )}
-            {score === 100 && (
+            {correctness === 100 && (
               <Button onClick={() => switchPage("landing")} type="blue">
-                Go Back to Main Page
+                Continue
               </Button>
             )}
           </div>
