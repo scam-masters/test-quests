@@ -1,9 +1,6 @@
 name: run scrum actions
 
 on:
-  push:
-    branches:
-      - 'main'
   schedule:
     # run every 48h (crontab.guru/#0_*/48_*_*_*)
     - cron: '0 */48 * * *'
