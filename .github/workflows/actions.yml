@@ -2,8 +2,8 @@ name: run scrum actions
 
 on:
   schedule:
-    # run every 48h (crontab.guru/#0_*/48_*_*_*)
-    - cron: '0 */48 * * *'
+    # run at the end of every day (23:55)
+    - cron: '55 23 * * *'
 
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
-        run: python scrum/burndown_chart.py --sprint_num 1
+        run: python scrum/burndown_chart.py --sprint_num 2
 
       - name: commit files
         run: |
