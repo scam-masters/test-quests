@@ -42,9 +42,9 @@ function Landing() {
             </div>
 
             <Dialog
+                className='bg-tq-black text-tq-white w-1/2 h-auto'
                 header="Mission Locked"
                 visible={visible_dialog}
-                style={{ width: '50vw' }}
                 onHide={handleCloseDialog}
             >
                 <p>Please complete previous missions to access this one</p>
