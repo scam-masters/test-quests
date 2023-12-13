@@ -1,4 +1,7 @@
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -8,28 +11,31 @@ from selenium.webdriver import ActionChains
 base_url = "http://localhost:3000/"
 expected_title = "React App"
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
 try:
     driver.get(base_url)
-    WebDriverWait(driver, 10).until(EC.title_contains(expected_title)) # Wait for the page to load
+    WebDriverWait(driver, 10).until(
+        EC.title_contains(expected_title)
+    )  # Wait for the page to load
 
-    '''
+    """
     Click on the first mission button
-    '''
+    """
     driver.find_element(By.XPATH, '//*[@id="root"]/div/div[2]/div[1]/button').click()
 
-    '''
+    """
     Click on "Start Exercise" button
-    '''
+    """
 
-    driver.find_element(By.XPATH, '//*[@id="root"]/div/div[2]/div/div[2]/button[2]').click()
+    driver.find_element(
+        By.XPATH, '//*[@id="root"]/div/div[2]/div/div[2]/button[2]'
+    ).click()
 
-    '''
+    """
     Drag and drop the first element
-    '''
+    """
     wait = WebDriverWait(driver, 10)
-
 
     element = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/div/span[1]')
     target = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/p[2]/span[1]')
@@ -39,9 +45,9 @@ try:
 
     wait = WebDriverWait(driver, 10000)
 
-    '''
+    """
     Assert that the first element has been moved
-    '''
+    """
     assert target.text == "?"
 
 finally:
