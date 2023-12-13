@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 base_url = "http://localhost:3000/"
 expected_title = "React App"
 
-driver = webdriver.Firefox()
+driver = webdriver.Chrome()
 
 try:
     driver.get(base_url)
