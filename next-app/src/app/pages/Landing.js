@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import CircleMission from '../components/button/circle_mission';
+import CircleMission from '@/components/button/circle_mission';
 import { Dialog } from 'primereact/dialog';
 
 function Landing({ switchPage }) {
