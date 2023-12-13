@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CircleMission = ({ children, type, onClick }) => {
+const CircleMission = ({ children, type }) => {
 	
 	var custom_classes = '';
 	switch (type) {
@@ -28,7 +28,7 @@ const CircleMission = ({ children, type, onClick }) => {
 	}
     custom_classes += ' text-tq-black font-bold py-20 px-10 rounded-full transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md';
 	return (
-		<button className={custom_classes} onClick={onClick}>
+		<button className={custom_classes}>
 			{children}
 		</button>
 	);

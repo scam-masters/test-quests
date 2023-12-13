@@ -1,9 +1,9 @@
+"use client";
 import React, { useState } from 'react';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-
-import Answer from '../components/dnd/answer'
+import Answer from '@/components/dnd/answer'
 
 function DndExercise({ onScoreComputed: onCorrectnessComputed }) {
 	const [answers, setAnswers] = useState([
