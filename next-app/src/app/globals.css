@@ -17,19 +17,6 @@
     --color-black: #181a1b;
     --color-gray: #2a2d2e;
   }
-
-  :root[class~="dark"] {
-    /* dark mode color palette */
-    /* todo: change dark mode colors */
-    --color-primary: #374161;
-    --color-accent: #3C486B;
-    --color-red: #F45050;
-    --color-yellow: #F9D949;
-    --color-green: #69995D;
-    --color-white: #181a1b;
-    --color-black: #f0f0f0;
-    --color-gray: #2a2d2e;
-  }
 }
 
 .scrollbar-hide::-webkit-scrollbar {
