@@ -28,6 +28,13 @@ function Landing() {
                     </CircleMission>
                 </Link>
             </div>
+            <div className='text-center mt-5 relative right-14 align-middle'>
+                <Link href="/M2Exercise">
+                    <CircleMission type="gradient">
+                        Test M2
+                    </CircleMission>
+                </Link>
+            </div>
             <div className='text-center mt-5 relative right-14 align-middle' onClick={MissionLocked}>
                 <CircleMission type="locked">Mission Locked</CircleMission>
             </div>
