@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import Answer from '@/components/dnd/answer'
 
-function DndExercise({ onScoreComputed: onCorrectnessComputed }) {
+export default function DndExercise({ onScoreComputed: onCorrectnessComputed }) {
 	const [answers, setAnswers] = useState([
 		null,
 		null,
@@ -33,18 +33,18 @@ function DndExercise({ onScoreComputed: onCorrectnessComputed }) {
 		})
 	}
 
-	function ComputeCorrectness(answers){
-		const solution = ["files.php","?","file=","../","../","server/","flag.txt"];
+	function ComputeCorrectness(answers) {
+		const solution = ["files.php", "?", "file=", "../", "../", "server/", "flag.txt"];
 		var correctness, count = 0;
 		var missing = false;
 		var solution_lenght = solution.length;
-		for(var i = 0; i < solution_lenght; i++){
-			if(solution[i] === answers[i])
+		for (var i = 0; i < solution_lenght; i++) {
+			if (solution[i] === answers[i])
 				count++;
-			if(answers[i] === null)
+			if (answers[i] === null)
 				missing = true;
-		} 
-		if(!missing){
+		}
+		if (!missing) {
 			correctness = Math.floor(count / solution_lenght * 100);
 			return correctness;
 		}
@@ -54,7 +54,7 @@ function DndExercise({ onScoreComputed: onCorrectnessComputed }) {
 	let draggableAnswers = []
 
 	answers.forEach((x, i) => {
-		draggableAnswers.push(<Answer key={i} id={i} text={x} swap={swap}/>)
+		draggableAnswers.push(<Answer key={i} id={i} text={x} swap={swap} />)
 	})
 
 	onCorrectnessComputed && onCorrectnessComputed(ComputeCorrectness(answers));
@@ -62,7 +62,7 @@ function DndExercise({ onScoreComputed: onCorrectnessComputed }) {
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<p>The query you have to make is:</p>
-			<br/>
+			<br />
 			<p>
 				example.com/
 				{draggableAnswers.slice(0, 6)}
@@ -79,4 +79,3 @@ function DndExercise({ onScoreComputed: onCorrectnessComputed }) {
 }
 
 
-export default DndExercise
