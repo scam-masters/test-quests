@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -51,13 +51,13 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed }) 
 		else return -1; // return -1 to recognize wheter the user have not filled yet
 	}
 
-	let draggableAnswers = []
-
-	answers.forEach((x, i) => {
-		draggableAnswers.push(<Answer key={i} id={i} text={x} swap={swap} />)
+	let draggableAnswers = answers.map((x, i) => {
+		return (<Answer key={i} id={i} text={x} swap={swap} />)
 	})
 
-	onCorrectnessComputed && onCorrectnessComputed(ComputeCorrectness(answers));
+	useEffect(() => {
+		onCorrectnessComputed && onCorrectnessComputed(ComputeCorrectness(answers));
+	}, [answers])
 
 	return (
 		<DndProvider backend={HTML5Backend}>
