@@ -22,7 +22,7 @@ function Landing() {
     return (
         <div className='p-10'>
             <div className='text-center relative align-middle'>
-                <Link href="/M1Exercise">
+                <Link href="/M1Landing">
                     <CircleMission type="gradient">
                         Path Traversal
                     </CircleMission>
