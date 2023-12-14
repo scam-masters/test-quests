@@ -1,11 +1,13 @@
+"use client";
 import React, { useState } from "react";
-import Button from "../components/button/button";
+import Button from "@/components/button/button";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { Dialog } from "primereact/dialog";
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
-import DragAndDropExercise from "./DragAndDropExercise";
+import DragAndDropExercise from "../DragAndDropExercise/page";
+import Link from "next/link";
 
-function M1Exercise({ switchPage }) {
+function M1Exercise() {
   const ExercisePoints = 50; // TODO: retrieve it from the database
 
   const [correctness, setCorrectness] = useState(0);
@@ -186,7 +188,7 @@ function M1Exercise({ switchPage }) {
           <div className="flex justify-center mt-4">
             {correctness < 100 && (
               <Button type="green" onClick={handleCloseDialog}>
-                Let's try again!
+                Let&apos;s try again!
               </Button>
             )}
             {correctness === 100 && (
@@ -199,9 +201,11 @@ function M1Exercise({ switchPage }) {
       </Dialog>
 
       <div className="flex justify-between mx-auto ml-4 mr-4">
-        <Button onClick={() => switchPage("landing")} type="blue">
-          Go back to main page
-        </Button>
+        <Link href="/">
+          <Button type="blue">
+            Go back to main page
+          </Button>
+        </Link>
         <Button
           href="https://owasp.org/www-community/attacks/Path_Traversal"
           type="green"

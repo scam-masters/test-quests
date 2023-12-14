@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;600;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  :root {
+    /* ligth mode color palette */
+    --color-primary: #374161;
+    --color-accent: #3C486B;
+    --color-red: #F45050;
+    --color-yellow: #F9D949;
+    --color-green: #69995D;
+    --color-white: #F0F0F0;
+    --color-black: #181a1b;
+    --color-gray: #2a2d2e;
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

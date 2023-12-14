@@ -1,8 +1,10 @@
+"use client"
 import React, { useState } from 'react';
-import CircleMission from '../components/button/circle_mission';
+import CircleMission from '@/components/button/circle_mission';
 import { Dialog } from 'primereact/dialog';
+import Link from 'next/link';
 
-function Landing({ switchPage }) {
+function Landing() {
     const [visible_dialog, setVisibleDialog] = useState(false);
 
     function MissionLocked() {
@@ -20,7 +22,11 @@ function Landing({ switchPage }) {
     return (
         <div className='p-10'>
             <div className='text-center relative align-middle'>
-                <CircleMission onClick={() => switchPage('m1learning')} type="gradient">Path Traversal</CircleMission>
+                <Link href="/M1Exercise">
+                    <CircleMission type="gradient">
+                        Path Traversal
+                    </CircleMission>
+                </Link>
             </div>
             <div className='text-center mt-5 relative right-14 align-middle' onClick={MissionLocked}>
                 <CircleMission type="locked">Mission Locked</CircleMission>
@@ -36,9 +42,9 @@ function Landing({ switchPage }) {
             </div>
 
             <Dialog
+                className='bg-tq-black text-tq-white w-1/2 h-auto'
                 header="Mission Locked"
                 visible={visible_dialog}
-                style={{ width: '50vw' }}
                 onHide={handleCloseDialog}
             >
                 <p>Please complete previous missions to access this one</p>
