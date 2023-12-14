@@ -11,7 +11,7 @@ from selenium.webdriver import ActionChains
 base_url = "http://localhost:3000/"
 expected_title = "React App"
 
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+driver = webdriver.Chrome(ChromeDriverManager().install())
 
 
 def goto_first_mission():
