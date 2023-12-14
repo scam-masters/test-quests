@@ -22,3 +22,9 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+@layer components {
+	button {
+		@apply text-tq-white font-bold py-2 px-4 rounded-full transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md
+	}
+}

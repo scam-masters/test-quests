@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Button = ({ children, type, onClick, href, external, clickable }) => {
-	
+const Button = ({ children, type, onClick, href, external, clickable, form = '' }) => {
+
 	var custom_classes = '';
 	switch (type) {
 		case 'red':
@@ -20,31 +20,35 @@ const Button = ({ children, type, onClick, href, external, clickable }) => {
 			custom_classes = 'bg-tq-accent hover:bg-tq-primary-500';
 			break;
 	}
-	custom_classes += ' text-tq-white font-bold py-2 px-4 rounded-full transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md';
+
 	if (href) {
 		if (external) {
-		  return (
-			<a href={href} className={custom_classes} target="_blank" rel="noopener noreferrer">
-			  {children}
-			</a>
-		  );
+			return (
+				<a href={href} target="_blank" rel="noopener noreferrer">
+					<button className={custom_classes} >
+						{children}
+					</button>
+				</a>
+			);
 		} else {
-		  return (
-			<a href={href} className={custom_classes}>
-			  {children}
-			</a>
-		  );
+			return (
+				<a href={href}>
+					<button className={custom_classes} >
+						{children}
+					</button>
+				</a>
+			);
 		}
-	} else if(clickable){
-		<button className={custom_classes}>
+	} else if (clickable) {
+		<button className={custom_classes} form={form}>
 			{children}
 		</button>
-	} 
+	}
 	else {
 		return (
-		  <button className={custom_classes} onClick={onClick}>
-			{children}
-		  </button>
+			<button className={custom_classes} onClick={onClick} form={form}>
+				{children}
+			</button>
 		);
 	}
 };
