@@ -29,7 +29,7 @@ def driver():
 def load_page(base_url, expected_title, driver):
     driver.get(base_url)
     WebDriverWait(driver, 10).until(EC.title_contains(expected_title))
-    
+
 
 class TestLandingPageSuccess:
     def test_working_page(self, driver, expected_title):
@@ -60,9 +60,9 @@ class TestLandingPageUnsuccess:
 
         """ Check for accessing to the first learning page """
         locked_circle_mission.click()
-        
+
         popup_element = driver.find_element(
-            By.XPATH, '/html/body/div[2]/div/div[1]/div[1]'
+            By.XPATH, "/html/body/div[2]/div/div[1]/div[1]"
         )
         WebDriverWait(driver, 10).until(EC.visibility_of(popup_element))
-        assert (popup_element.text == "Mission Locked")
+        assert popup_element.text == "Mission Locked"
