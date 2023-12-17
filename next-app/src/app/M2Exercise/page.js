@@ -2,7 +2,7 @@
 import React from "react";
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import DropdownExercise from "@/components/DropdownExercise/exercise";
-import ExerciseView from "@/components/exerciseView/view"
+import ExerciseView from "@/components/exerciseView/view";
 
 export default function M2Exercise() {
 	/* Placeholder content for exercise explanation */

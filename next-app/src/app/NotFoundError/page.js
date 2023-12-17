@@ -1,6 +1,7 @@
+"use client";
 import React from 'react';
-import logo from '../assets/logo-transparent.svg';
-import Button from '../components/button/button';
+import logo from '../../../public/assets/logo-transparent.svg';
+import Button from '../../components/button/button';
 import Image from 'next/image';
 
 function Error404(switchPage) {
