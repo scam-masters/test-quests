@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../../firebase/index";
 
+
 const auth = getAuth();
 
 function Login() {
@@ -22,18 +23,33 @@ function Login() {
     };
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Email:
-                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <div className="p-4 w-3/12 mx-auto my-auto">
+            <h1 className="text-4xl text-white  mb-4 font-bold mx-auto text-center">Login</h1>
+            <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+                <label className="flex flex-col">
+                    <span className="mb-1 text-white text-2xl">Email:</span>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="border rounded px-2 py-1"
+                    />
                 </label>
-                <label>
-                    Password:
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                <label className="flex flex-col">
+                    <span className="mb-1 text-white text-2xl">Password:</span>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="border rounded px-2 py-1"
+                    />
                 </label>
-                <input type="submit" value="Submit" />
+                <button
+                    type="submit"
+                    className="rounded bg-tq-primary hover:bg-tq-accent font-bold py-2 px-4 rounded w-1/2 mt-sm mx-auto"
+                >
+                    Submit
+                </button>
             </form>
         </div>
     );
