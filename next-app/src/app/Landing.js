@@ -5,6 +5,7 @@ import { Dialog } from 'primereact/dialog';
 import Link from 'next/link';
 
 function Landing() {
+
     const [visible_dialog, setVisibleDialog] = useState(false);
 
     function MissionLocked() {
@@ -46,6 +47,20 @@ function Landing() {
             </div>
             <div className='text-center mt-5 mb-2.5 align-middle' onClick={MissionLocked}>
                 <CircleMission type="locked">Mission Locked</CircleMission>
+            </div>
+            <div className='text-center mt-5 mb-2.5 align-middle'>
+                <Link href="/Login">
+                    <CircleMission type="gradient">
+                        Login
+                    </CircleMission>
+                </Link>
+            </div>
+            <div className='text-center mt-5 mb-2.5 align-middle'>
+                <Link href="/Registration">
+                    <CircleMission type="gradient">
+                        Register
+                    </CircleMission>
+                </Link>
             </div>
 
             <Dialog

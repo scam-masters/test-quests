@@ -1,6 +1,13 @@
+"use client"
 import Link from "next/link"
+// Firebase stuff
+import app from "../../firebase/index";
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth();
 
 function Header() {
+	console.log(auth.currentUser)
 	return (
 		<>
 			<header className="fixed w-full flex flex-col justify-center items-center bg-tq-primary z-50">
