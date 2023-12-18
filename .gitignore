@@ -1,3 +1,6 @@
 **.env
 **/node_modules
 **/venv
+**/.firebase
+**/__pycache__
+**firebase-debug.log
