@@ -4,7 +4,44 @@ import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import DragAndDropExercise from "@/components/DragAndDropExercise/page";
 import ExerciseView from "@/components/exerciseView/view"
 
+/* Firestore Data Retrivial */
+import db from "../../firebase/index";
+import { collection, getDocs } from "firebase/firestore"; 
+
+
 function M1Exercise() {
+
+	/* 
+		getData is a function that retrieves dnd mission data 
+		it takes as input the document id (e.g. "mission_1") 
+		and returns an object with, as fields, the data of the mission
+		
+		Example:	 getDataDnD("mission_1")
+	*/
+	async function getDataDnD(doc_id) {
+		try {
+			const querySnapshot = await getDocs(collection(db, "dnd_exercises"));
+	
+			const filteredDocs = querySnapshot.docs.filter((doc) => doc.id === doc_id);
+	
+			if (filteredDocs.length === 1) {
+				const exercisesData = {
+					explanation_path: filteredDocs[0].data().explanation_path,
+					options: filteredDocs[0].data().options,
+				};
+	
+				console.log(exercisesData);
+				return exercisesData;
+			} else {
+				console.error("Document not found or multiple documents found.");
+				return null;
+			}
+		} catch (error) {
+			console.error("Error getting data: ", error);
+			throw error;
+		}
+	}
+
 	/* Placeholder content for exercise explanation */
 	const exerciseExplanation = (
 		<div className="p-4 text-white">
