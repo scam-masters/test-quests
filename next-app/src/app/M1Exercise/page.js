@@ -83,7 +83,7 @@ function M1Exercise() {
 		<ExerciseView
 			exerciseExplanation={exerciseExplanation}
 			resource='https://owasp.org/www-community/attacks/Path_Traversal'
-			Exercise={DragAndDropExercise}
+			Exercise={DragAndDropExercise(["server/", "../", "file=", "flag.txt", "?", "files.php", "../"], ["files.php", "?", "file=", "../", "../", "server/", "flag.txt"])}
 			exerciseArguments={{}}
 		/>
 	)
