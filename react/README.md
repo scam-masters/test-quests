@@ -1,3 +1,0 @@
-# ⚠️ WARNING - DEPRECATED
-
-PLEASE REFER TO THE [nex-app](/next-app/) FOLDER.
