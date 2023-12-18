@@ -5,23 +5,36 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import Answer from '@/components/dnd/answer'
 
-export default function DndExercise({ onScoreComputed: onCorrectnessComputed }) {
-	const [answers, setAnswers] = useState([
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		"?",
-		"../",
-		"flag.txt",
-		"file=",
-		"../",
-		"files.php",
-		"server/"
-	])
+function shuffle(array) {
+	let currentIndex = array.length, randomIndex;
+
+	// While there remain elements to shuffle.
+	while (currentIndex > 0) {
+
+		// Pick a remaining element.
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+
+		// And swap it with the current element.
+		[array[currentIndex], array[randomIndex]] = [
+			array[randomIndex], array[currentIndex]];
+	}
+
+	return array;
+}
+
+export default function DndExercise({ onScoreComputed: onCorrectnessComputed, data, solution }) {
+	let data = ["files.php", "?", "file=", "../", "../", "server/", "flag.txt"]
+	useEffect(() => {
+		data = shuffle(data)
+	});
+	data = shuffle(data)
+	console.log(data);
+	// buld an array of nulls of size data.size
+	let nulls = Array(data.length).fill(null)
+	data = nulls.concat(data)
+	console.log(data);
+	const [answers, setAnswers] = useState(data)
 
 	function swap(x, y) {
 		setAnswers(prev => {
