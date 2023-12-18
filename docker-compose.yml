@@ -3,17 +3,9 @@ version: '3'
 services:
   node_server:
     build:
-      context: ./react
+      context: ./next-app
     ports:
       - "3000:3000"
-    networks:
-      - my_network
-
-  test:
-    build:
-      context: ./test
-    depends_on:
-      - node_server
     networks:
       - my_network
 
