@@ -133,4 +133,4 @@ if __name__ == "__main__":
 
     sprint = f"sprint {args.sprint_num}"
     tasks = get_tasks()
-    create_burndown(tasks, "sprint 1")
+    create_burndown(tasks, sprint)

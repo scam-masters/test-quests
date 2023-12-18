@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;600;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  :root {
+    /* ligth mode color palette */
+    --color-primary: #374161;
+    --color-accent: #3C486B;
+    --color-red: #F45050;
+    --color-yellow: #F9D949;
+    --color-green: #69995D;
+    --color-white: #F0F0F0;
+    --color-black: #181a1b;
+    --color-gray: #2a2d2e;
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+button {
+	@apply text-tq-white font-bold py-2 px-4 rounded-full transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md
+}
+
+.circle-base {
+	@apply text-tq-black font-bold py-20 px-10 rounded-full transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md
+}
+
+.circle-mission-locked {
+	@apply circle-base bg-gradient-to-r from-tq-red to-tq-gray cursor-not-allowed
+}
+
+.circle-mission-gradient {
+	@apply circle-base bg-gradient-to-r from-tq-yellow to-tq-green hover:from-tq-yellow hover:to-tq-red
+}
