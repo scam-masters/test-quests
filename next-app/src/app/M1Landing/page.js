@@ -1,45 +1,9 @@
 "use client"
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import Button from '@/components/button/button';
+import LearningComponent from '@/components/Learning/learning'
 
-const LearningComponent = ({
-	title,
-	subtitle,
-	understandingPathTraversal,
-	risksAndImpact,
-	furtherResources,
-	howToPlay,
-	switchPage
-}) => {
-	return (
-		<div className="text-white text-left">
-			<div className="max-w-screen-md mx-auto mb-8 mt-8 p-4">
-				<div className="text-center">
-					<ReactMarkdown>{title}</ReactMarkdown>
-					<ReactMarkdown>{subtitle}</ReactMarkdown>
-				</div>
-				<ReactMarkdown>{understandingPathTraversal}</ReactMarkdown>
-				<ReactMarkdown>{risksAndImpact}</ReactMarkdown>
-				<ReactMarkdown>{furtherResources}</ReactMarkdown>
-				<ReactMarkdown>{howToPlay}</ReactMarkdown>
-			</div>
-			<div className="flex justify-between w-4/5 mx-auto mb-8">
-				<Button onClick={() => switchPage('landing')} type='blue'>
-					Go back to main page
-				</Button>
-				<Button href='https://owasp.org/www-community/attacks/Path_Traversal' type='green' external>
-					Learn More
-				</Button>
-				<Button href='/M1Exercise' type='red'>
-					Start Exercise
-				</Button>
-			</div>
-		</div>
-	);
-};
 // M1Learning Component
-function M1Learning({ switchPage }) {
+function M1Learning() {
 	// Define the content for Mission 1
 	const missionContent = {
 		title: '# **Welcome to Mission Number 1**',
@@ -67,13 +31,13 @@ You will complete a drag and drop exercise to play with Path Traversal.
 The score of the mission will be evaluated checking the correctness of the drags and drop that you will perform so play with your brain.
     `,
 
-		resourcesLink: 'https://owasp.org/www-community/attacks/Path_Traversal',
-		exerciseLink: '/m1-exercise',
+		resourceLink: 'https://owasp.org/www-community/attacks/Path_Traversal',
+		exerciseLink: '/M1Exercise',
 	};
 
 	return (
 		<div>
-			<LearningComponent {...missionContent} switchPage={switchPage} />
+			<LearningComponent {...missionContent} />
 			{/* Use the LearningComponent with mission-specific content */}
 		</div>
 	);
