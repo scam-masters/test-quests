@@ -121,7 +121,11 @@ function M1Exercise() {
 			exerciseExplanation={exerciseExplanation}
 			resource='https://owasp.org/www-community/attacks/Path_Traversal'
 			Exercise={DragAndDropExercise}
-			exerciseArguments={{}}
+			exerciseArguments={{
+				input: ["example.com/", "", "", "", "", "", "", "secrets/", ""],
+				data: ["server/", "../", "file=", "flag.txt", "?", "files.php", "../"],
+				solution: ["files.php", "?", "file=", "../", "../", "server/", "flag.txt"]
+			}}
 		/>
 	)
 }
