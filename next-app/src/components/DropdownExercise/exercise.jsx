@@ -1,5 +1,3 @@
-
-
 export default function DropdownExercise({ onScoreComputed: onCorrectnessComputed }) {
 	const input = (
 		<select>
@@ -12,7 +10,7 @@ export default function DropdownExercise({ onScoreComputed: onCorrectnessCompute
 			<option value="goldfish">Goldfish</option>
 		</select>
 	)
-
+	
 	function handleSubmit (e) {
 		e.preventDefault()
 		onCorrectnessComputed(100)

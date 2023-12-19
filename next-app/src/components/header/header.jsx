@@ -22,10 +22,10 @@ function Header() {
 	}, []);
 
 	return (
-		<header className="w-full flex items-center bg-tq-primary z-50 justify-between">
-			<Link href="/" className="mx-auto">
+		<header className="w-full flex items-center  bg-tq-primary z-50 justify-between">
+			<Link href="/" className="mx-auto " >
 				<img alt="logo" src="/assets/logo-transparent.svg" className="h-24" />
-				<h1 className='font-logo text-tq-white h-0 -translate-y-11'>TEST QUESTS</h1>
+				<h1 className='font-logo text-tq-white h-0 -translate-y-11 '>TEST QUESTS</h1>
 			</Link>
 
 			<div className="mr-0">
