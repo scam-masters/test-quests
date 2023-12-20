@@ -51,5 +51,19 @@ const exercisesData = {
 return exercisesData;
 ```
 
+Rertreive data from a collection for a specific document
+
+```javascript
+const docRef = doc(db, "cities", "SF");
+const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+  console.log("Document data:", docSnap.data());
+} else {
+  // docSnap.data() will be undefined in this case
+  console.log("No such document!");
+}
+```
+
 Ensure to customize the data retrieval based on your specific document structure.
 For more detailed information on Firestore queries, refer to the [official Firebase documentation on querying data](https://firebase.google.com/docs/firestore/query-data/queries?hl=en).
