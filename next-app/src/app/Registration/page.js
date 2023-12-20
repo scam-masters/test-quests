@@ -25,11 +25,6 @@ function Registration() {
       const q = query(collection(db, "users"), where("username", "==", username));
 
       const querySnapshot = await getDocs(q);
-      // querySnapshot.forEach((doc) => {
-      //   setCounter(1)
-      //   // doc.data() is never undefined for query doc snapshots
-      //   console.log(doc.id, " => ", doc.data());
-      // });
 
       // find if the username is already present and if is not present in the snapshot returned by the query,
       // then complite the registration of the user
@@ -43,8 +38,8 @@ function Registration() {
         window.location.href = "/";
       }
       else {
-        // print username already taken
-        console.log("username gia' preso");
+        // print username already taken TOFO: imlement an alert
+        console.log("Username already taken");
       }
 
     } catch (error) {
