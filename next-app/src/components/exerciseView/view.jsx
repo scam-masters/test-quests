@@ -1,3 +1,4 @@
+'use client'; // compute the function on server side (as the function is async)
 import React, { useState } from "react";
 import Button from "@/components/button/button";
 import { Splitter, SplitterPanel } from "primereact/splitter";
