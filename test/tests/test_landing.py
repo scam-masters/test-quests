@@ -15,7 +15,7 @@ def base_url():
 
 @pytest.fixture(scope="module")
 def expected_title():
-    return "React App"
+    return "test quests"
 
 
 @pytest.fixture(scope="class")
