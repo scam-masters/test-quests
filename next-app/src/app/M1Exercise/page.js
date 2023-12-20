@@ -5,7 +5,7 @@ import DragAndDropExercise from "@/components/DragAndDropExercise/page";
 import ExerciseView from "@/components/exerciseView/view"
 
 /* Firestore Data Retrivial */
-import db from "../../firebase/index";
+import {db} from "../../firebase/index";
 import { collection, getDocs } from "firebase/firestore"; 
 
 

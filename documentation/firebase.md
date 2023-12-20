@@ -14,7 +14,7 @@ Performing queries in Cloud Firestore allows you to retrieve data from your data
 Import the necessary Firestore modules in your JavaScript code:
 
 ```javascript
-import db from "../../firebase/index";
+import {db} from "../../firebase/index";
 import { collection, getDocs } from "firebase/firestore"; 
 ```
 
