@@ -2,7 +2,6 @@
 // Import necessary packages
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import app from "../../firebase/index";
 import Link from "next/link";
 
 // Get authentication instance

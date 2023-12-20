@@ -48,21 +48,7 @@ function Landing() {
             <div className='text-center mt-5 mb-2.5 align-middle' onClick={MissionLocked}>
                 <CircleMission type="locked">Mission Locked</CircleMission>
             </div>
-            <div className='text-center mt-5 mb-2.5 align-middle'>
-                <Link href="/Login">
-                    <CircleMission type="gradient">
-                        Login
-                    </CircleMission>
-                </Link>
-            </div>
-            <div className='text-center mt-5 mb-2.5 align-middle'>
-                <Link href="/Registration">
-                    <CircleMission type="gradient">
-                        Register
-                    </CircleMission>
-                </Link>
-            </div>
-
+            
             <Dialog
                 className='bg-tq-black text-tq-white w-1/2 h-auto'
                 header="Mission Locked"
