@@ -67,9 +67,9 @@ def create_burndown(tasks, chosen_sprint):
         props = page["properties"]
         
         try:
-            sprint = props.get("Sprint", {}).get("select", {}).get("name", "").lower()
+            task_sprint = props.get("Sprint", {}).get("select", {}).get("name", "").lower()
         
-            if sprint == chosen_sprint.lower() and props.get("Estimate", {}): 
+            if task_sprint == chosen_sprint.lower() and props.get("Estimate", {}): 
                 task_estimate_hours = float(props.get("Estimate", {}).get("select", {}).get("name", "").lower().split("[")[1].split("]")[0])
                 sprint_tasks += 1
                 sprint_hours += task_estimate_hours
@@ -117,14 +117,14 @@ def create_burndown(tasks, chosen_sprint):
     
     plt.xlabel("Date")
     plt.ylabel("Number of Hours")
-    plt.title(f"Burndown Chart - {sprint}")
+    plt.title(f"Burndown Chart - {chosen_sprint}")
     plt.legend()
     plt.xticks(rotation=45)
     plt.tight_layout()
 
     cwd = os.path.dirname(os.path.realpath(__file__))
     date = datetime.today().strftime('%Y-%m-%d')    
-    plt.savefig(f"{cwd}/{sprint}/bd-{date}.png")
+    plt.savefig(f"{cwd}/{chosen_sprint}/bd-{date}.png")
 
 
 if __name__ == "__main__":
