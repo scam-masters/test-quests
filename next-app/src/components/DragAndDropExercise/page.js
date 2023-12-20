@@ -27,18 +27,17 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, in
 	}
 
 	function ComputeCorrectness(answers) {
-		var correctness, count = 0;
-		var missing = false;
-		var solution_lenght = solution.length;
+		let correctness, count = 0;
+		let missing = false;
 
-		for (var i = 0; i < solution_lenght; i++) {
+		for (let i = 0; i < solution.length; i++) {
 			if (solution[i] === answers[i])
 				count++;
 			if (answers[i] === null)
 				missing = true;
 		}
 		if (!missing) {
-			correctness = Math.floor(count / solution_lenght * 100);
+			correctness = Math.floor(count / solution.length * 100);
 			return correctness;
 		}
 		else return -1; // return -1 to recognize wheter the user have not filled yet
@@ -56,9 +55,9 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, in
 
 	// function to parse the input and replace the blanks with the draggable answers
 	function parseInput(input) {
-		var res = Array(input.length).fill(null);
+		let res = Array(input.length).fill(null);
 
-		for (var i = 0, blank = 0; i < input.length; i++) {
+		for (let i = 0, blank = 0; i < input.length; i++) {
 			if (input[i] === "") {
 				res[i] = draggableAnswers[blank++];
 			}
