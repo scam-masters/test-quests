@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 
-// Get authentication instance
-const auth = getAuth();
 
-// Login component
+// TODO: investigate further if we should use "use server" to avoid leaks of credentials
 function Login() {
+  // Get authentication instance
+  const auth = getAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
