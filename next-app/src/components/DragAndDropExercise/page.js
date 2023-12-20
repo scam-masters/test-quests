@@ -71,7 +71,7 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, in
 
 	return (
 		<DndProvider backend={HTML5Backend}>
-			<p>The query you have to make is:</p>
+			<p>Complete the exercise:</p>
 			<br />
 			<p>
 				{parseInput(input)}
