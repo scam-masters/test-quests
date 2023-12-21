@@ -29,6 +29,9 @@ def get_notion_credentials():
 
     return notion_token, database_id
 
+def get_sprint(task_props):
+    return task_props.get("Sprint", {}).get("select", {}).get("name", "").lower()
+
 
 def get_tasks():
     notion_token, database_id = get_notion_credentials()
@@ -60,29 +63,42 @@ def create_burndown(tasks, chosen_sprint):
     data = []
 
     sprint_tasks = 0
-    sprint_hours = 0
     hours_spent_per_day = defaultdict(int) 
+    sprint_hours = defaultdict(int)
+    
+    dates = []
+    for task in tasks:
+        try:
+            if get_sprint(task["properties"]) == chosen_sprint.lower(): 
+                dates.append(task["properties"].get("Completion Date", {}).get("date", {}).get("start", ""))
+        except:
+            continue
+    
+    all_days_in_sprint = pd.date_range(start=min(dates), end=max(dates), freq="D")
+    all_days_df = pd.DataFrame({"Date": all_days_in_sprint})
+    all_days_df["Date"] = all_days_df["Date"].dt.date
 
-    for page in tasks:
-        props = page["properties"]
+    for task in tasks:
+        props = task["properties"]
         
         try:
             task_sprint = props.get("Sprint", {}).get("select", {}).get("name", "").lower()
-        
+            task_creation = datetime.strptime(task["created_time"], '%Y-%m-%dT%H:%M:%S.%fZ').date()
+
             if task_sprint == chosen_sprint.lower() and props.get("Estimate", {}): 
-                task_estimate_hours = float(props.get("Estimate", {}).get("select", {}).get("name", "").lower().split("[")[1].split("]")[0])
                 sprint_tasks += 1
-                sprint_hours += task_estimate_hours
                 status = props.get("Status", {}).get("status", {}).get("name", "").lower()
+                task_estimate_hours = float(props.get("Estimate", {}).get("select", {}).get("name", "").lower().split("[")[1].split("]")[0])
         
                 if status == "done":
                     completion_date = props.get("Completion Date", {}).get("date", {}).get("start", "")
                     completion_date = datetime.fromisoformat(completion_date)
-
                     hours_spent_per_day[completion_date] += task_estimate_hours
-
-                    data.append({"Page ID": page["id"], "Date": completion_date})
+                    data.append({"Page ID": task["id"], "Date": completion_date})
         
+                for day in all_days_df["Date"]:
+                    if day > task_creation:
+                        sprint_hours[day] += task_estimate_hours 
         except AttributeError:
             continue
 
@@ -90,25 +106,26 @@ def create_burndown(tasks, chosen_sprint):
     if df.empty: return
     df["Date"] = df["Date"].dt.date
 
-    all_days_in_sprint = pd.date_range(start=df["Date"].min(), end=df["Date"].max(), freq="D")
-    all_days_df = pd.DataFrame({"Date": all_days_in_sprint})
-    all_days_df["Date"] = all_days_df["Date"].dt.date
-
+    sprint_hours_df = pd.DataFrame.from_dict(sprint_hours, orient="index", columns=['Hours'])
+    sprint_hours_df = sprint_hours_df.reset_index().rename(columns={'index': 'Date'})
+    sprint_hours_df = pd.merge(all_days_df, sprint_hours_df, on="Date", how="left").fillna(0).groupby('Date')['Hours'].sum().reset_index()
+    
     hours_spent_per_day_df = pd.DataFrame.from_dict(hours_spent_per_day, orient="index", columns=['Hours'])
     hours_spent_per_day_df = hours_spent_per_day_df.reset_index().rename(columns={'index': 'Date'})
-    print(hours_spent_per_day_df)
-
     hours_spent_per_day_df["Date"] = hours_spent_per_day_df["Date"].dt.date
     hours_spent_per_day_df = pd.merge(all_days_df, hours_spent_per_day_df, on="Date", how="left").fillna(0).groupby('Date')['Hours'].sum().reset_index()
+    
+    
     print(hours_spent_per_day_df)
+    print(sprint_hours_df)
 
     hours_remaining_per_day = pd.DataFrame({
         "Date": all_days_in_sprint,
-        "Hours_Remaining": sprint_hours - hours_spent_per_day_df["Hours"].cumsum()
+        "Hours_Remaining": sprint_hours_df["Hours"] - hours_spent_per_day_df["Hours"].cumsum()
     })
 
-    ideal_hours_per_day = sprint_hours / len(all_days_in_sprint)
-    hours_remaining_per_day["Ideal"] = sprint_hours - ideal_hours_per_day * hours_spent_per_day_df.index
+    ideal_hours_per_day = min(sprint_hours.values()) / len(all_days_in_sprint)
+    hours_remaining_per_day["Ideal"] = min(sprint_hours.values()) - ideal_hours_per_day * hours_spent_per_day_df.index
 
     plt.figure(figsize=(10, 6))
     
@@ -128,9 +145,8 @@ def create_burndown(tasks, chosen_sprint):
 
 
 if __name__ == "__main__":
-    parser.add_argument('--sprint_num', required=True, type=int)
-    args = parser.parse_args()
 
-    sprint = f"sprint {args.sprint_num}"
+
+    sprint = f"sprint 2"
     tasks = get_tasks()
     create_burndown(tasks, sprint)
