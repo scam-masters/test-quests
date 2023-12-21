@@ -24,6 +24,20 @@ This make the user obtain all the information that they need to obtain a full kn
 
 When the user is ready to start the mission/exercise then he can simply click on the Start Exercise button.
 
+The structure of the learning page is static and the content is retrieved from the database using the ```getExerciseData``` function.
+This function take as input the exercise name and return the exercise data. The  learning page markdown can be retrieved as follows:
+
+```javascript
+const missionContent = await getExerciseData("mission_1");
+return (
+		<div>
+			{/* Use the LearningComponent with mission-specific content */}
+			<LearningComponent {...missionContent.learning} />
+		</div>
+	);
+```
+The ```LearningComponent``` is a component that takes as input the markdown content and render it in the page.
+
 ## Exercise Page
 
 The exercise page consists in two part that are draggable by the user to improve user experience and let the user be confortable with a dynamic interface. In the right we have the exercise realization while in the left we have the complete exercise description and quest.
