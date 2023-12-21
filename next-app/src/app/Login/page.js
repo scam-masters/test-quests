@@ -3,15 +3,17 @@
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
-
+import {auth} from "../../components/header/header";
 
 // TODO: investigate further if we should use "use server" to avoid leaks of credentials
 function Login() {
   // Get authentication instance
-  const auth = getAuth();
+  //const auth = getAuth();
+  // the authentication is obtained now from the header
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();

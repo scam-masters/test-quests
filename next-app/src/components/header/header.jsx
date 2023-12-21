@@ -1,12 +1,12 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import Link from "next/link"
-// Firebase stuff
-import app from "../../firebase/index";
+// Firebase authentication
 import { getAuth } from "firebase/auth";
-import firebase from 'firebase/app';
+import { app } from "../../firebase/index"
 
-const auth = getAuth();
+// export to obtain authentication inside the header and use this istance in pages
+export const auth = getAuth(app);
 
 function Header() {
 	const [currentUser, setCurrentUser] = useState(null);
