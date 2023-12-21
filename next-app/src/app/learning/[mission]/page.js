@@ -4,10 +4,11 @@ import LearningComponent from '@/components/Learning/learning'
 
 import { getExerciseData } from "@/app/actions"
 
-// M1Learning Component
-async function M1Learning() {
-	// Get the content for Mission 1
-	const missionContent = await getExerciseData("mission_1");
+// Learning Component
+// https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
+export default async function Learning({ params }) {
+	// Get the current mission
+	const missionContent = await getExerciseData(`mission_${params.mission}`);
 
 	return (
 		<div>
@@ -17,4 +18,3 @@ async function M1Learning() {
 	);
 }
 
-export default M1Learning;
