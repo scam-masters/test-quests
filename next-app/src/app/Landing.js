@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import CircleMission from '@/components/button/circle_mission';
 import { Dialog } from 'primereact/dialog';
+import { getUserData, getExerciseData } from '@/app/actions';
 import Link from 'next/link';
 
 function Landing() {
@@ -20,35 +21,44 @@ function Landing() {
         )
     }
 
-    return (
-        <div className='p-10'>
-            <div className='text-center relative align-middle'>
-                <Link href="/learning/1">
-                    <CircleMission type="gradient">
-                        Path Traversal
-                    </CircleMission>
-                </Link>
-            </div>
-            <div className='text-center mt-5 relative right-14 align-middle'>
-                <Link href="/M2Exercise">
-                    <CircleMission type="gradient">
-                        Test M2
-                    </CircleMission>
-                </Link>
-            </div>
-            <div className='text-center mt-5 relative right-14 align-middle' onClick={MissionLocked}>
-                <CircleMission type="locked">Mission Locked</CircleMission>
-            </div>
-            <div className='text-center mt-5 relative align-middle' onClick={MissionLocked}>
-                <CircleMission type="locked">Mission Locked</CircleMission>
-            </div>
-            <div className='text-center mt-5 relative left-14 align-middle' onClick={MissionLocked}>
-                <CircleMission type="locked">Mission Locked</CircleMission>
-            </div>
+    // ******************* Retrieve missions and user progress ******************* //
+    function retrieveMissions() {
+        const userInfo = getUserData()
+        const missions = userInfo.missions
+        for (const m in missions) {
+            if (missions[m].score === -1)
+                return lockedMission()
+            else
+                return unlockedMission(missions[m].id)
+        }
+    }
+
+    function lockedMission() {
+        return (
             <div className='text-center mt-5 mb-2.5 align-middle' onClick={MissionLocked}>
                 <CircleMission type="locked">Mission Locked</CircleMission>
             </div>
-            
+        )
+    }
+
+    function unlockedMission(missionId) {
+        missionData = getExerciseData(missionId)
+        return (
+            <div className='text-center relative align-middle'>
+                <Link href={missionData.learning.learningLink}>
+                    <CircleMission type="gradient">
+                        missionData.name
+                    </CircleMission>
+                </Link>
+            </div>
+        )
+    }
+
+    return (
+        <div className='p-10'>
+
+            {retrieveMissions()}
+
             <Dialog
                 className='bg-tq-black text-tq-white w-1/2 h-auto'
                 header="Mission Locked"
