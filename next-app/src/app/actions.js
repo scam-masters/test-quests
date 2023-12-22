@@ -11,15 +11,6 @@ export async function getExerciseData(exerciseName) {
 	return document.data()
 }
 
-export async function getUserData() {
-	const auth = getAuth();
-	const user = auth.currentUser;
-	const docRef = doc(db, "users", user.email);
-	const document = await getDoc(docRef);
-
-	return document.data()
-}
-
 // Retrieve the list of missions from the database to initialize the user progress
 async function getMissionList() {
 	let missionList = []
