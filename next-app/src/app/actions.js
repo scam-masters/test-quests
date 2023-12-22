@@ -6,7 +6,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 
 export async function getExerciseData(exerciseName) {
-	const docRef = doc(db, "dnd_exercises", exerciseName);
+	const docRef = doc(db, "exercises", exerciseName);
 	const document = await getDoc(docRef);
 
 	return document.data()
@@ -32,6 +32,10 @@ export async function registerUser(email, password, username) {
 			await setDoc(doc(db, "users", email), {
 				username: username,
 				score: 0,
+				missions: {
+					mission_1: { id: "mission_1", score: 0 },
+					mission_2: { id: "mission_2", score: -1 }
+				}
 			});
 		} else {
 			console.error("how this happened??")
