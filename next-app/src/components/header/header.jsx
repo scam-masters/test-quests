@@ -4,15 +4,17 @@ import Link from "next/link"
 // Firebase authentication
 import { getAuth } from "firebase/auth";
 import { app } from "../../firebase/index"
+import { useRouter } from "next/navigation"
 
 // export to obtain authentication inside the header and use this istance in pages
 export const auth = getAuth(app);
 
 function Header() {
+	const router = useRouter()
 	const [currentUser, setCurrentUser] = useState(null);
 
 	useEffect(() => {
-		auth.onAuthStateChanged(function (user) {
+		auth.onAuthStateChanged(function(user) {
 			if (user) {
 				setCurrentUser(auth.currentUser);
 			} else {
@@ -30,12 +32,15 @@ function Header() {
 
 			<div className="mr-0">
 				{currentUser ? (
-					<button onClick={() => auth.signOut()}>Logout</button>
+					<button onClick={() => {
+						auth.signOut()
+						router.push("/Login")
+					}}>Logout</button>
 				) : (
 					<div>
 						<Link href="/Login"><button>Login</button></Link>
 						<Link href="/Registration"><button>Register</button></Link>
-					</div	>
+					</div>
 				)}
 			</div>
 		</header >
