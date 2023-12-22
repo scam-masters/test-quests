@@ -24,7 +24,7 @@ async function M1Exercise() {
 	*/
 	let exercisesData = null;
 	try {
-		const querySnapshot = await getDocs(collection(db, "dnd_exercises"));
+		const querySnapshot = await getDocs(collection(db, "exercises"));
 
 		const filteredDocs = querySnapshot.docs.filter((doc) => doc.id === "mission_1");
 
