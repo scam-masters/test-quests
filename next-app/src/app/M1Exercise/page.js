@@ -30,6 +30,7 @@ async function M1Exercise() {
 
 		if (filteredDocs.length === 1) {
 			exercisesData = {
+				missionId: filteredDocs[0].id,
 				explanation: filteredDocs[0].data().explanation,
 				blocks: filteredDocs[0].data().blocks,
 				solution: filteredDocs[0].data().solution,
@@ -56,6 +57,7 @@ async function M1Exercise() {
 			exerciseExplanation={exerciseExplanation}
 			resource='https://owasp.org/www-community/attacks/Path_Traversal'
 			Exercise={DragAndDropExercise}
+			missionId={exercisesData.missionId}
 			exerciseArguments={{
 				input: exercisesData.blocks,
 				data: exercisesData.options,

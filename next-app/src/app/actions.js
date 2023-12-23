@@ -5,8 +5,8 @@ import { doc, getDoc, getDocs, setDoc, query, collection, where, or } from "fire
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export async function getExerciseData(exerciseName) {
-	const docRef = doc(db, "exercises", exerciseName);
-	const document = await getDoc(docRef);
+	const docRef = doc(db, "exercises", exerciseName)
+	const document = await getDoc(docRef)
 
 	return document.data()
 }

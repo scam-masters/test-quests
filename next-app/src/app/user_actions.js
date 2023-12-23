@@ -1,26 +1,34 @@
 "use client"
 
-import { db } from "@/firebase/index";
-import { doc, getDoc } from "firebase/firestore";
+import { db, app } from "@/firebase/index";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 export async function getUserData() {
-    const auth = getAuth();
+    const auth = getAuth(app);
     const user = auth.currentUser;
     const docRef = doc(db, "users", user.email);
     const document = await getDoc(docRef);
     return document.data()
 }
 
-// WARNING: This function is not used yet, not tested
-// It could be moved server-side but I haven't tested it yet
-export async function updateUserScore(missionId, score) {
-    const userData = await getUserData()
+export async function setUserData(userData) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const docRef = doc(db, "users", user.email);
+    await setDoc(docRef, userData, { merge: true });
+}
 
-    // Update the score only if it is higher than the previous one
-    if (score > userData.missions[missionId].score) {
-        userData.missions[missionId].score = score
-        userData.score += score
-        // await setDoc(docRef, { score: userData.score, missions.missionId.score: score }, { merge: true });
-    }
+export async function updateUserScore(missionId, score) {
+    await getUserData().then(userData => {
+        if (userData.missions[missionId].score < score) {
+            userData.missions[missionId].score = score
+            userData.score += score
+
+            const missionNumber = missionId.split("_")[1]
+            const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
+            userData.missions[nextMissionId] = { id: nextMissionId, score: 0 }
+            setUserData(userData)
+        }
+    })
 }
