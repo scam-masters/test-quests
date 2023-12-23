@@ -8,7 +8,10 @@ export async function getExerciseData(exerciseName) {
 	const docRef = doc(db, "exercises", exerciseName)
 	const document = await getDoc(docRef)
 
-	return document.data()
+	const result = document.data()
+	result.id = document.id
+
+	return result
 }
 
 // Retrieve the list of missions from the database to initialize the user progress

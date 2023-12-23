@@ -20,6 +20,7 @@ export async function setUserData(userData) {
 }
 
 export async function updateUserScore(missionId, score) {
+    console.log(missionId, score)
     await getUserData().then(userData => {
         if (userData.missions[missionId].score < score) {
             userData.missions[missionId].score = score
