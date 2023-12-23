@@ -7,10 +7,10 @@ import { Dialog } from "primereact/dialog";
 import Link from "next/link"
 
 export default function ExerciseView({ exerciseExplanation, resource, Exercise, exerciseArguments }) {
-	const ExercisePoints = 50; // TODO: retrieve it from the database
-
 	const [correctness, setCorrectness] = useState(0);
 	const [visible_dialog, setVisibleDialog] = useState(false);
+
+	const ExercisePoints = exerciseArguments.points;
 
 	/* Handle the score computing from D&DExercise.js */
 	const handleCorrectnessComputed = (computedCorrectness) => {

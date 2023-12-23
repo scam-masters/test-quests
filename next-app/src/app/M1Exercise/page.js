@@ -6,7 +6,7 @@ import ExerciseView from "@/components/exerciseView/view"
 
 /* Firestore Data Retrivial */
 import { db } from "../../firebase/index";
-import { collection, getDocs } from "firebase/firestore"; 
+import { collection, getDocs } from "firebase/firestore";
 
 
 async function M1Exercise() {
@@ -33,7 +33,8 @@ async function M1Exercise() {
 				explanation: filteredDocs[0].data().explanation,
 				blocks: filteredDocs[0].data().blocks,
 				solution: filteredDocs[0].data().solution,
-				options: filteredDocs[0].data().solution.sort(() => Math.random() - 0.5) // shuffle to obtain options
+				options: filteredDocs[0].data().solution.sort(() => Math.random() - 0.5), // shuffle to obtain options
+				points: filteredDocs[0].data().points
 			};
 		} else {
 			console.error("Document not found or multiple documents found.");
@@ -46,7 +47,7 @@ async function M1Exercise() {
 
 	/* Placeholder content for exercise explanation */
 	const exerciseExplanation = (
-		<div className="p-4 text-white" dangerouslySetInnerHTML={{__html: exercisesData.explanation}}>
+		<div className="p-4 text-white" dangerouslySetInnerHTML={{ __html: exercisesData.explanation }}>
 		</div>
 	);
 
@@ -58,7 +59,8 @@ async function M1Exercise() {
 			exerciseArguments={{
 				input: exercisesData.blocks,
 				data: exercisesData.options,
-				solution: exercisesData.solution
+				solution: exercisesData.solution,
+				points: exercisesData.points
 			}}
 		/>
 	)
