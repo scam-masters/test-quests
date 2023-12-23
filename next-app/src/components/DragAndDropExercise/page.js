@@ -5,15 +5,15 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import Answer from '@/components/dnd/answer'
 
-export default function DndExercise({ onScoreComputed: onCorrectnessComputed, input, data, solution }) {
-	// buld an array of nulls of size data.size
-	let nulls = Array(data.length).fill(null)
+export default function DndExercise({ onScoreComputed: onCorrectnessComputed, blocks, options, solution, points }) {
+	// buld an array of nulls of size options.size
+	let nulls = Array(options.length).fill(null)
 
-	// blanks + data to be filled
-	data = nulls.concat(data)
+	// blanks + options to be filled
+	options = nulls.concat(options)
 
-	// initialize answers with data
-	const [answers, setAnswers] = useState(data)
+	// initialize answers with options
+	const [answers, setAnswers] = useState(options)
 
 	// function to swap two elements in the answers array
 	function swap(x, y) {
@@ -53,15 +53,15 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, in
 	}, [answers])
 
 	// function to parse the input and replace the blanks with the draggable answers
-	function parseInput(input) {
-		let res = Array(input.length).fill(null);
+	function parseInput(blocks) {
+		let res = Array(blocks.length).fill(null);
 
-		for (let i = 0, blank = 0; i < input.length; i++) {
-			if (input[i] === "") {
+		for (let i = 0, blank = 0; i < blocks.length; i++) {
+			if (blocks[i] === "") {
 				res[i] = draggableAnswers[blank++];
 			}
 			else {
-				res[i] = input[i];
+				res[i] = blocks[i];
 			}
 		}
 
@@ -73,7 +73,7 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, in
 			<p>Complete the exercise:</p>
 			<br />
 			<p>
-				{parseInput(input)}
+				{parseInput(blocks)}
 			</p>
 			<p className='mt-5'>Compose it starting from these blocks:</p>
 			<div className="min-w-max grid grid-cols-4 gap-1">
