@@ -12,12 +12,12 @@ export async function getExerciseData(exerciseName) {
 }
 
 // Retrieve the list of missions from the database to initialize the user progress
-async function getMissionList() {
+export async function getMissionList() {
 	let missionList = []
 	try {
 		const querySnapshot = await getDocs(collection(db, "exercises"));
 		querySnapshot.forEach((doc) => {
-			missionList.push(doc.id)
+			missionList.push({ id: doc.id, data: doc.data() });
 		});
 	} catch (error) {
 		console.log("Error getting missions: ", error);
@@ -51,22 +51,11 @@ export async function registerUser(email, password, username) {
 			password
 		);
 
-		// Retrieve the list of missions from the database to initialize the user progress
-		let userMissions = {}
-		await getMissionList().then((missions) => {
-			missions.forEach((mission) => {
-				if (mission === "mission_1")
-					userMissions[mission] = { id: mission, score: 0 }
-				else
-					userMissions[mission] = { id: mission, score: -1 }
-			})
-		})
-
 		// Create user document in Firestore database
 		setDoc(doc(db, "users", email), {
 			username: username,
 			score: 0,
-			missions: userMissions
+			missions: { mission_1: { id: "mission_1", score: 0 } }
 		});
 
 	} catch (error) {

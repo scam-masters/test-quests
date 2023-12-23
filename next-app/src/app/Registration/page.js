@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 
 import { registerUser } from "@/app/actions"
+import { useRouter }  from "next/navigation";
 
 
 function Registration() {
+	const router = useRouter()
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [username, setUsername] = useState("");
@@ -14,9 +16,14 @@ function Registration() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		const error = registerUser(email, password, username);
+		const error = await registerUser(email, password, username);
+		
 		if (error)
 			setError(error)
+		else {
+			// if the registration was successful, redirect to the login page
+			router.push("/Login")
+		}
 	};
 
 	return (
@@ -31,7 +38,7 @@ function Registration() {
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
 							className="border rounded px-2 py-1 text-black"
-						//required
+							required
 						/>
 					</label>
 					<label className="flex flex-col text white">
@@ -41,7 +48,7 @@ function Registration() {
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 							className="border rounded px-2 py-1 text-black"
-						//required
+							required
 						/>
 					</label>
 					<label className="flex flex-col text-white">
@@ -51,7 +58,7 @@ function Registration() {
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							className="border rounded px-2 py-1 text-black"
-							//required
+							required
 							minLength="6"
 						/>
 					</label>

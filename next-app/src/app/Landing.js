@@ -4,11 +4,10 @@ import { Dialog } from 'primereact/dialog';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getAuth } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 
-import { getExerciseData } from '@/app/actions';
+import { getMissionList } from '@/app/actions';
+import { getUserData } from "@/app/user_actions";
 import CircleMission from '@/components/button/circle_mission';
-import { db } from "@/firebase/index";
 
 function Landing() {
     const router = useRouter()
@@ -27,25 +26,19 @@ function Landing() {
         )
     }
 
-    // TODO: probably this function will be useful also somewhere else, put it in a common file
-    async function getUserData() {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        const docRef = doc(db, "users", user.email);
-        const document = await getDoc(docRef);
-        return document.data()
-    }
-
     // ******************* Retrieve missions and user progress ******************* //
     async function retrieveMissions() {
         const userInfo = await getUserData()
-        const missions = userInfo.missions
+        const missions = await getMissionList() //  Retrieve the list of missions from the database
         const result = []
+
+        // For each mission, check if it is included in the user progress
+        // If so, show the mission as unlocked, otherwise show it locked
         for (let m in missions) {
-            if (missions[m].score === -1)
-                result.push(lockedMission(missions[m].id))
+            if (missions[m].id in userInfo.missions)
+                result.push(await unlockedMission(missions[m].id, missions[m].data))
             else
-                result.push(await unlockedMission(missions[m].id))
+                result.push(lockedMission(missions[m].id))
         }
         return result
     }
@@ -58,8 +51,7 @@ function Landing() {
         )
     }
 
-    async function unlockedMission(missionId) {
-        const missionData = await getExerciseData(missionId)
+    async function unlockedMission(missionId, missionData) {
         return (
             <div key={missionId} className='text-center relative align-middle'>
                 <Link href={missionData.learning.learningLink}>
@@ -73,7 +65,7 @@ function Landing() {
 
     useEffect(() => {
         /* when logged in show missions, otherwise go to login page */
-        getAuth().onAuthStateChanged(function(user) {
+        getAuth().onAuthStateChanged(function (user) {
             if (user) {
                 retrieveMissions().then(newMissions => {
                     setMissions(newMissions)
