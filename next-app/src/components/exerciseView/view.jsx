@@ -14,7 +14,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 
 	/* Handle the score computing from D&DExercise.js */
 	const handleCorrectnessComputed = (computedCorrectness) => {
-		setCorrectness(computedCorrectness);
+		setCorrectness(Math.round(computedCorrectness));
 	};
 
 	/* Show the dialog/popup with the score */

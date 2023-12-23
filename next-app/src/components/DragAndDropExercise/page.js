@@ -27,7 +27,7 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, in
 	}
 
 	function ComputeCorrectness(answers) {
-		let correctness, count = 0;
+		let count = 0;
 		let missing = false;
 
 		for (let i = 0; i < solution.length; i++) {
@@ -37,8 +37,7 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, in
 				missing = true;
 		}
 		if (!missing) {
-			correctness = Math.floor(count / solution.length * 100);
-			return correctness;
+			return count / solution.length * 100;
 		}
 		else return -1; // return -1 to recognize wheter the user have not filled yet
 	}
