@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import Button from "@/components/button/button";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { Dialog } from "primereact/dialog";
+import { updateUserScore } from "@/app/user_actions.js"
 
 import Link from "next/link"
 
-export default function ExerciseView({ exerciseExplanation, resource, Exercise, exerciseArguments }) {
+export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, exerciseArguments }) {
 	const [correctness, setCorrectness] = useState(0);
 	const [visible_dialog, setVisibleDialog] = useState(false);
 
@@ -75,6 +76,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 								<br />
 								<br />
 								You have earned {ExercisePoints} points!
+								{updateUserScore(missionId, ExercisePoints)}
 							</p>
 						</div>
 					)}

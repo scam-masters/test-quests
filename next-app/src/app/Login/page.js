@@ -72,10 +72,8 @@ export default function Login() {
 					</button>
 					{error && <div className="text-red-500 mb-4">{error}</div>} {/* Display error message */}
 					<div className="text-center mt-4">
-						Don't have an account?
-						<Link href={"#"} className="text-white-500 hover:underline">
-							Sign up here
-						</Link>
+						Don't have an account?<br />
+						<Link href={"/Registration"} className="text-white-500 hover:underline">Sign up here</Link>
 					</div>
 				</form>
 			</div>
