@@ -15,7 +15,3 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEST_QUESTS_A3712 }}'
           projectId: test-quests-a3712
-<<<<<<< HEAD
-=======
-
->>>>>>> f751317ef38308fd4a81d7064d1a5afa75d1e4c9
