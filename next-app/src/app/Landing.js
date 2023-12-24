@@ -45,7 +45,7 @@ function Landing() {
 
     function lockedMission(missionId) {
         return (
-            <div key={missionId} className='text-center mt-5 mb-2.5 align-middle' onClick={MissionLocked}>
+            <div key={missionId} className='text-center m-5 align-middle' onClick={MissionLocked}>
                 <CircleMission type="locked">Mission Locked</CircleMission>
             </div>
         )
@@ -54,7 +54,7 @@ function Landing() {
     async function unlockedMission(missionId, missionData) {
         const userScore = await getUserScoreForMission(missionId);
         return (
-            <div key={missionId} className='text-center relative align-middle'>
+            <div key={missionId} className='text-center m-5 align-middle'>
                 <Link href={missionData.learning.learningLink}>
                     <CircleMission type="gradient" userScore={userScore} maxPoints={missionData.points}>
                         {missionData.name}

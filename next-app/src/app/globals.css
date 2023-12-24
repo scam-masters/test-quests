@@ -27,7 +27,7 @@ button {
 }
 
 .circle-base {
-	@apply text-tq-black font-bold py-20 px-10 rounded-full transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md
+	@apply text-tq-black font-bold p-10 w-[25%] min-h-[10rem] text-lg transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md
 }
 
 .circle-mission-locked {
