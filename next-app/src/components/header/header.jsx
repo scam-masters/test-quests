@@ -1,5 +1,6 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from "next/link"
 import Points from './points';
 
@@ -14,10 +15,11 @@ import { getUserData } from "@/app/user_actions";
 export const auth = getAuth(app);
 
 function Header() {
+	const pathname = usePathname();
 	const router = useRouter()
 	const [currentUser, setCurrentUser] = useState(null);
 	const [username, setUsername] = useState("");
-    const [points, setPoints] = useState(0);
+	const [points, setPoints] = useState(0);
 	
 	// ******************* Retrieve points ******************* //
 	async function retrievePoints() {
@@ -51,8 +53,12 @@ function Header() {
 				retrieveUsername().then(newUsername => {
 					setUsername(newUsername);
 				})
-			} else
-				router.push("/Login")
+			} else {
+				console.log("current url: "+pathname);
+				if (pathname !== "/Login" && pathname !== "/Registration") {
+					router.push("/Login")
+				}
+			}
 		});
 
 	}, []);
@@ -66,11 +72,11 @@ function Header() {
 
 			<div className="mr-5">
 				{currentUser ? (
-          			<Points username={username} points={points} />
-		  		) : (
+					<Points username={username} points={points} />
+				) : (
 					<Points points="-"/>
 				)}
-      		</div>
+			</div>
 
 			<div className="mr-5">
 				{currentUser ? (
