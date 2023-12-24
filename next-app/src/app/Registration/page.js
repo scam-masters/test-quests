@@ -31,8 +31,8 @@ function Registration() {
 			<div className="bg-black bg-opacity-80 text-white w-96 p-8 rounded-lg shadow-md mt-[-150px]">
 				<h1 className="mb-2 text-3xl text-center font-bold">Registration</h1>
 				<form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-					<label className="flex flex-col text white">
-						<span className="mb-1">Username:</span>
+					<div className="flex flex-col text white">
+						<label className="mb-1">Username </label>
 						<input
 							type="text"
 							value={username}
@@ -40,9 +40,9 @@ function Registration() {
 							className="border rounded px-2 py-1 text-black"
 							required
 						/>
-					</label>
-					<label className="flex flex-col text white">
-						<span className="mb-1">Email:</span>
+					</div>
+					<div className="flex flex-col text white">
+						<label className="mb-1">Email </label>
 						<input
 							type="email"
 							value={email}
@@ -50,18 +50,20 @@ function Registration() {
 							className="border rounded px-2 py-1 text-black"
 							required
 						/>
-					</label>
-					<label className="flex flex-col text-white">
-						<span className="mb-1">Password:</span>
+					</div>
+					<div className="flex flex-col text-white">
+						<label className="mb-1">Password </label>
 						<input
 							type="password"
+							id="new-password"
+							autoComplete="new-password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							className="border rounded px-2 py-1 text-black"
 							required
 							minLength="6"
 						/>
-					</label>
+					</div>
 					<button
 						type="submit"
 						className="bg-tq-primary hover:bg-tq-accent text-white font-bold py-2 px-4 rounded"

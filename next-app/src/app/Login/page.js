@@ -48,22 +48,26 @@ export default function Login() {
 			<div className="bg-black bg-opacity-80 text-white w-96 p-8 rounded-lg shadow-md mt-[-150px]">
 				<h1 className="mb-2 text-3xl text-center font-bold">Login</h1>
 				<form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-					<label className="flex flex-col text-white">
-						<span className="mb-1">Email:</span>
+					<div className="flex flex-col text-white">
+						<label className="mb-1">Email </label>
 						<input
-							type="email"
-							name="email"
 							className="border rounded px-2 py-1 text-black"
+							name="email"
+							type="email"
+							id="username"
+							autoComplete="username"
 						/>
-					</label>
-					<label className="flex flex-col text-white">
-						<span className="mb-1">Password:</span>
+					</div>
+					<div className="flex flex-col text-white">
+						<label className="mb-1">Password </label>
 						<input
 							className="border rounded px-2 py-1 text-black"
 							name="password"
 							type="password"
+							id="password"
+							autoComplete="current-password"
 						/>
-					</label>
+					</div>
 					<button
 						type="submit"
 						className="bg-tq-primary hover:bg-tq-accent text-white font-bold py-2 px-4 rounded"
