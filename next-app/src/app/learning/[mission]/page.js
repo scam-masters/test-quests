@@ -10,6 +10,13 @@ export default async function Learning({ params }) {
 	// Get the current mission
 	const missionContent = await getExerciseData(`mission_${params.mission}`);
 
+	/* Placeholder content for learning page explanation */
+	const learningContent = (
+		<div className="p-4 text-white" dangerouslySetInnerHTML={{ __html: missionContent.learning.content }}>
+		</div>
+	);
+	missionContent.learning.contentHTML = learningContent;
+	
 	return (
 		<div>
 			{/* Use the LearningComponent with mission-specific content */}
