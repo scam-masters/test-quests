@@ -16,13 +16,19 @@ export const auth = getAuth(app);
 function Header() {
 	const router = useRouter()
 	const [currentUser, setCurrentUser] = useState(null);
+	const [username, setUsername] = useState("");
     const [points, setPoints] = useState(0);
 	
 	// ******************* Retrieve points ******************* //
 	async function retrievePoints() {
 		const userInfo = await getUserData();
-		console.log(userInfo)
 		return userInfo.score;
+	}
+
+	// ******************* Retrieve username ******************* //
+	async function retrieveUsername() {
+		const userInfo = await getUserData();
+		return userInfo.username;
 	}
 	
 	useEffect(() => {
@@ -40,7 +46,10 @@ function Header() {
 		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
 				retrievePoints().then(newPoints => {
-					setPoints(newPoints)
+					setPoints(newPoints);
+				})
+				retrieveUsername().then(newUsername => {
+					setUsername(newUsername);
 				})
 			} else
 				router.push("/Login")
@@ -57,7 +66,7 @@ function Header() {
 
 			<div className="mr-5">
 				{currentUser ? (
-          			<Points points={points} />
+          			<Points username={username} points={points} />
 		  		) : (
 					<Points points="-"/>
 				)}
