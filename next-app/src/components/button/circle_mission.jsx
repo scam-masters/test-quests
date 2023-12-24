@@ -1,9 +1,13 @@
+"use client";
 import React from 'react';
 
-const CircleMission = ({ children, type }) => {
+function CircleMission({ children, type, userScore, maxPoints }){
+	let currentScore = String(userScore).concat(String('/')).concat(String(maxPoints));
+	currentScore = maxPoints ? currentScore : null;
 	return (
 		<button className={'circle-mission-' + type}>
 			{children}
+			{currentScore && <><br /><span>{currentScore}</span></>}
 		</button>
 	);
 };

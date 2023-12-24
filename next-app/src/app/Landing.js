@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { getAuth } from "firebase/auth";
 
 import { getMissionList } from '@/app/actions';
-import { getUserData } from "@/app/user_actions";
+import { getUserData, getUserScoreForMission } from '@/app/user_actions';
 import CircleMission from '@/components/button/circle_mission';
 
 function Landing() {
@@ -52,10 +52,11 @@ function Landing() {
     }
 
     async function unlockedMission(missionId, missionData) {
+        const userScore = await getUserScoreForMission(missionId);
         return (
             <div key={missionId} className='text-center relative align-middle'>
                 <Link href={missionData.learning.learningLink}>
-                    <CircleMission type="gradient">
+                    <CircleMission type="gradient" userScore={userScore} maxPoints={missionData.points}>
                         {missionData.name}
                     </CircleMission>
                 </Link>

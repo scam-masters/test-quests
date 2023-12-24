@@ -33,3 +33,9 @@ export async function updateUserScore(missionId, score) {
         }
     })
 }
+
+/* returns the score for the mission missionId from the database */
+export async function getUserScoreForMission(missionId) {
+    const userData = await getUserData()
+    return userData.missions[missionId].score
+}
