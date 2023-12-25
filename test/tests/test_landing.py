@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 @pytest.fixture(scope="module")
 def base_url():
-    return os.environ.get("API_URL", "http://localhost:3000")
+    return os.environ.get("API_URL", "http://localhost:3000/Login")
 
 
 @pytest.fixture(scope="module")
@@ -31,21 +31,29 @@ def load_page(base_url, expected_title, driver):
     WebDriverWait(driver, 10).until(EC.title_contains(expected_title))
 
 
+@pytest.fixture(scope="class", autouse=True)
+def login(driver):
+    driver.find_element(By.XPATH, "//*[@id=\"email\"]").send_keys('tests@gmail.com')
+    driver.find_element(By.XPATH, "//*[@id=\"password\"]").send_keys('testtest')
+    driver.find_element(By.XPATH, "/html/body/div[1]/div/form/button").click()
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div[1]/a/button")))
+
+
 class TestLandingPageSuccess:
     def test_working_page(self, driver, expected_title):
         assert expected_title in driver.title
 
     def test_first_mission(self, driver):
         first_circle_mission = driver.find_element(
-            By.XPATH, "/html/body/div/div/div[2]/div[1]/button"
+            By.XPATH, "/html/body/div[1]/div[1]/a/button"
         )
-        assert first_circle_mission.text == "Path Traversal"
+        assert "Path Traversal" in first_circle_mission.text
 
         """ Check for accessing to the first learning page """
         first_circle_mission.click()
         assert (
             driver.find_element(
-                By.XPATH, '//*[@id="root"]/div/div[2]/div/div[2]/button[1]'
+                By.XPATH, '/html/body/div[1]/div/div[2]/a[1]/button'
             ).text
             == "Go back to main page"
         )
@@ -54,7 +62,7 @@ class TestLandingPageSuccess:
 class TestLandingPageUnsuccess:
     def test_mission_locked(self, driver):
         locked_circle_mission = driver.find_element(
-            By.XPATH, "/html/body/div/div/div[2]/div[2]/button"
+            By.XPATH, "/html/body/div[1]/div[2]/button"
         )
         assert locked_circle_mission.text == "Mission Locked"
 
@@ -62,7 +70,7 @@ class TestLandingPageUnsuccess:
         locked_circle_mission.click()
 
         popup_element = driver.find_element(
-            By.XPATH, "/html/body/div[2]/div/div[1]/div[1]"
+            By.XPATH, "//*[@id=\"pr_id_27_header\"]"
         )
         WebDriverWait(driver, 10).until(EC.visibility_of(popup_element))
         assert popup_element.text == "Mission Locked"
