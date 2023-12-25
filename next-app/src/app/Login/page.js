@@ -54,8 +54,8 @@ export default function Login() {
 							className="border rounded px-2 py-1 text-black"
 							name="email"
 							type="email"
-							id="username"
-							autoComplete="username"
+							id="email"
+							autoComplete="email"
 						/>
 					</div>
 					<div className="flex flex-col text-white">
