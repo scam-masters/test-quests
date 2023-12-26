@@ -45,7 +45,7 @@ function Header() {
 
 	useEffect(() => {
 		/* when logged in show points, otherwise go to login page */
-		getAuth().onAuthStateChanged(function (user) {
+		getAuth().onAuthStateChanged(function(user) {
 			if (user) {
 				retrievePoints().then(newPoints => {
 					setPoints(newPoints);
@@ -64,31 +64,32 @@ function Header() {
 	}, []);
 
 	return (
-		<header className="w-full flex items-center bg-tq-primary z-50 justify-between">
+		<header className="w-full grid grid-cols-3 items-center bg-tq-primary z-50 justify-between">
+			<div>
+			</div>
+
 			<Link href="/" className="mx-auto">
 				<img alt="logo" src="/assets/logo-transparent.svg" className="h-24" />
 				<h1 className='font-logo text-tq-white h-0 -translate-y-11 '>TEST QUESTS</h1>
 			</Link>
 
-			<div className="mr-5">
+			<div className="flex flex-row justify-end">
 				{currentUser ? (
 					<Points username={username} points={points} />
 				) : (
 					<Points />
 				)}
-			</div>
 
-			<div className="mr-5">
 				{currentUser ? (
 					<button onClick={() => {
 						auth.signOut()
 						router.push("/Login")
 					}}>Logout</button>
 				) : (
-					<div>
+					<>
 						<Link href="/Login"><button>Login</button></Link>
 						<Link href="/Registration"><button>Register</button></Link>
-					</div>
+					</>
 				)}
 			</div>
 		</header >
