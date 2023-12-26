@@ -125,22 +125,22 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				</div>
 			</Dialog>
 
-			<div className="flex justify-between mx-auto ml-4 mr-4">
+			<div className="grid grid-cols-3 justify-between  mx-auto ml-4 mr-4">
 				<Link href="/">
-					<Button type="blue">
+					<Button type='blue'>
 						Go back to main page
 					</Button>
-				</Link>
-				<Button
-					href={resource}
-					type="green"
-					external
-				>
-					Learn More
-				</Button>
-				<Button type="red" onClick={handleSubmit} form='exercise-form'>
-					Submit
-				</Button>
+				</Link >
+				<div className="flex justify-center">
+					<Button href={resource} type='green' external>
+						Learn More
+					</Button>
+				</div>
+				<div className="flex justify-end">
+					<Button type="red" onClick={handleSubmit} form='exercise-form'>
+						Submit
+					</Button>
+				</div>
 			</div>
 		</>
 	);
