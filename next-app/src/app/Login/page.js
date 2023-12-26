@@ -74,7 +74,7 @@ export default function Login() {
 					>
 						Submit
 					</button>
-					{error && <div className="text-red-500 mb-4">{error}</div>} {/* Display error message */}
+					{error && <div className="text-red-500 mb-4" id="error_msg">{error}</div>} {/* Display error message */}
 					<div className="text-center mt-4">
 						Don't have an account?<br />
 						<Link href={"/Registration"} className="text-white-500 hover:underline">Sign up here</Link>
