@@ -19,8 +19,16 @@ export async function setUserData(userData) {
     await setDoc(docRef, userData, { merge: true });
 }
 
+export async function updateInitialScore() {
+    await getUserData().then(userData => {
+        if (userData.score == -1) {
+            userData.score = 0
+            setUserData(userData)
+        }
+    })
+}
+
 export async function updateUserScore(missionId, score) {
-    console.log(missionId, score)
     await getUserData().then(userData => {
         if (userData.missions[missionId].score < score) {
             userData.missions[missionId].score = score

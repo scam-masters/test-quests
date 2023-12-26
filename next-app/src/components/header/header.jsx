@@ -20,7 +20,7 @@ function Header() {
 	const [currentUser, setCurrentUser] = useState(null);
 	const [username, setUsername] = useState("");
 	const [points, setPoints] = useState(0);
-	
+
 	// ******************* Retrieve points ******************* //
 	async function retrievePoints() {
 		const userInfo = await getUserData();
@@ -32,9 +32,9 @@ function Header() {
 		const userInfo = await getUserData();
 		return userInfo.username;
 	}
-	
+
 	useEffect(() => {
-		auth.onAuthStateChanged(function(user) {
+		auth.onAuthStateChanged(function (user) {
 			if (user) {
 				setCurrentUser(auth.currentUser);
 			} else {
@@ -54,7 +54,7 @@ function Header() {
 					setUsername(newUsername);
 				})
 			} else {
-				console.log("current url: "+pathname);
+				console.log("current url: " + pathname);
 				if (pathname !== "/Login" && pathname !== "/Registration") {
 					router.push("/Login")
 				}
@@ -74,7 +74,7 @@ function Header() {
 				{currentUser ? (
 					<Points username={username} points={points} />
 				) : (
-					<Points points="-"/>
+					<Points />
 				)}
 			</div>
 

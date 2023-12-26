@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button from "@/components/button/button";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { Dialog } from "primereact/dialog";
-import { updateUserScore } from "@/app/user_actions.js"
+import { updateUserScore, updateInitialScore } from "@/app/user_actions.js"
 
 import Link from "next/link"
 
@@ -20,6 +20,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 
 	/* Show the dialog/popup with the score */
 	const handleSubmit = () => {
+		updateInitialScore();
 		setVisibleDialog(true);
 	};
 

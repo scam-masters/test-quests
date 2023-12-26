@@ -57,7 +57,7 @@ export async function registerUser(email, password, username) {
 		// Create user document in Firestore database
 		setDoc(doc(db, "users", email), {
 			username: username,
-			score: 0,
+			score: -1,
 			missions: { mission_1: { id: "mission_1", score: 0 } }
 		});
 

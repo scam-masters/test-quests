@@ -1,8 +1,15 @@
 "use client"
 import React from 'react';
-import { FaStar } from 'react-icons/fa'; 
+import { FaStar } from 'react-icons/fa';
 
 const Points = ({ points, username }) => {
+    if (!username) {
+        return (<div>  </div>);
+    }
+
+    if (points === -1) {
+        points = "-";
+    }
 
     return (
         <div className={`flex items-center mr-2`}>
