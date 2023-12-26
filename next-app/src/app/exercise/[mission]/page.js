@@ -2,7 +2,7 @@
 import React from 'react';
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 
-import ExerciseView from '@/components/ExerciseView/view'
+import ExerciseView from '@/components/exerciseView/view'
 import DropdownExercise from '@/components/DropdownExercise/exercise'
 import DragAndDropExercise from '@/components/DragAndDropExercise/page'
 
