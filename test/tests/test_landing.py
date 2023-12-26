@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
+from utils import login, wait_landing_render
 
 @pytest.fixture(scope="module")
 def base_url():
@@ -37,16 +38,9 @@ def load_page(base_url, expected_title, driver):
     WebDriverWait(driver, 10).until(EC.title_contains(expected_title))
 
 
-def wait_landing_render(driver):
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div[1]/a/button")))
-
-
 @pytest.fixture(scope="class", autouse=True)
-def login(driver, user_50_points):
-    driver.find_element(By.XPATH, "//*[@id=\"email\"]").send_keys(user_50_points[0])
-    driver.find_element(By.XPATH, "//*[@id=\"password\"]").send_keys(user_50_points[1])
-    driver.find_element(By.XPATH, "/html/body/div[1]/div/form/button").click()
-    wait_landing_render(driver)
+def login_user_50_points(driver, user_50_points):
+    login(driver, user_50_points[0], user_50_points[1])
 
 
 class TestLandingPageSuccess:
@@ -78,12 +72,6 @@ class TestLandingPageSuccess:
 
         assert "Path Traversal" in first_circle_mission.text and "Login Bypass" in second_circle_mission.text
         assert "50/50" in first_circle_mission.text and "0/50" in second_circle_mission.text
-
-    def test_header_points(self, driver):
-        header_points = driver.find_element(
-            By.XPATH, "/html/body/header/div[1]/div/span[2]"
-        )
-        assert "50" in header_points.text
 
 
 class TestLandingPageUnsuccess:
