@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({ children, type, onClick, href, external, clickable, form = '' }) => {
+const Button = ({ children, type, onClick, href, external, clickable, id, form = ''}) => {
 
 	var custom_classes = '';
 	switch (type) {
@@ -25,7 +25,7 @@ const Button = ({ children, type, onClick, href, external, clickable, form = '' 
 		if (external) {
 			return (
 				<a href={href} target="_blank" rel="noopener noreferrer">
-					<button className={custom_classes} >
+					<button className={custom_classes} id={id}  >
 						{children}
 					</button>
 				</a>
@@ -33,20 +33,20 @@ const Button = ({ children, type, onClick, href, external, clickable, form = '' 
 		} else {
 			return (
 				<a href={href}>
-					<button className={custom_classes} >
+					<button className={custom_classes} id={id}  >
 						{children}
 					</button>
 				</a>
 			);
 		}
 	} else if (clickable) {
-		<button className={custom_classes} form={form}>
+		<button className={custom_classes} id={id}  form={form}>
 			{children}
 		</button>
 	}
 	else {
 		return (
-			<button className={custom_classes} onClick={onClick} form={form}>
+			<button className={custom_classes} id={id}  onClick={onClick} form={form}>
 				{children}
 			</button>
 		);

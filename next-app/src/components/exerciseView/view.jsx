@@ -54,6 +54,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 
 			{/* Dialog to display the correctness when the user fill all the blanks */}
 			<Dialog
+				id = "popup"
 				header="Submit Results"
 				visible={visible_dialog}
 				className=" w-auto rounded-sm min-w-1/3"
@@ -137,7 +138,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 					</Button>
 				</div>
 				<div className="flex justify-end">
-					<Button type="red" onClick={handleSubmit} form='exercise-form'>
+					<Button type="red" onClick={handleSubmit} id="submit_button" form='exercise-form'>
 						Submit
 					</Button>
 				</div>
