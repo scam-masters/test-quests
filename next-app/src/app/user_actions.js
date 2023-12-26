@@ -32,7 +32,7 @@ export async function updateUserScore(missionId, score) {
     await getUserData().then(userData => {
         if (userData.missions[missionId].score < score) {
             userData.missions[missionId].score = score
-            userData.score += score
+            userData.score = Math.max(userData.score, 0) + score
 
             const missionNumber = missionId.split("_")[1]
             const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
