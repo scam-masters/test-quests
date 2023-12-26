@@ -12,7 +12,6 @@ import { getExerciseData } from "@/app/actions"
 export default async function Exercise({ params }) {
 	// Get the current mission
 	const missionContent = await getExerciseData(`mission_${params.mission}`);
-	console.log(missionContent)
 
 	let exercise;
 	let exerciseArgs;
