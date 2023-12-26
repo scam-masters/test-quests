@@ -36,7 +36,7 @@ export async function updateUserScore(missionId, score) {
 
             const missionNumber = missionId.split("_")[1]
             const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
-            userData.missions[nextMissionId] = { id: nextMissionId, score: 0 }
+            userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
             setUserData(userData)
         }
     })
