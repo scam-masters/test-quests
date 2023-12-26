@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from utils import login
+from utils import login, assert_to_be_on_landing
 
 @pytest.fixture(scope="module")
 def base_url():
@@ -44,11 +44,7 @@ def user_non_existent():
 class TestLoginSuccessful:
     def test_login_success(self, driver, user_50_points):
         login(driver, user_50_points[0], user_50_points[1])
-        first_circle_mission = driver.find_element(
-            By.XPATH, "/html/body/div[1]/div[1]/a/button"
-        )
-        assert "Path Traversal" in first_circle_mission.text
-
+        assert_to_be_on_landing(driver)
 
 class TestLoginUnsuccessful:
     def test_login_invalid(self, driver, user_non_existent):
