@@ -1,5 +1,8 @@
 "use client"
 
+// https://react.dev/reference/react/Fragment
+import { Fragment } from "react"
+
 export default function DropdownExercise({ text, dropdowns, onScoreComputed: onCorrectnessComputed }) {
 	// the text has {} for each dropdown. Dropdowns is an object of arrays,
 	// the object has stringified numbers as keys that indicate the position in the text
@@ -37,7 +40,8 @@ export default function DropdownExercise({ text, dropdowns, onScoreComputed: onC
 			<p>
 				{
 					text.split("{}").map((t, i) => {
-						return <>{t} {t && makeSelect(i, dropdowns['' + i])} </>
+						// Fragment is like <></> but can use key property
+						return <Fragment key={i}>{t} {t && makeSelect(i, dropdowns['' + i])} </Fragment>
 					})
 				}
 			</p>
