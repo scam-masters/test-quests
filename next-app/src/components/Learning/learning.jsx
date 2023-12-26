@@ -14,17 +14,17 @@ export default function LearningComponent({
 			</div>
 			<div className="grid grid-cols-3 justify-between w-4/5 mx-auto mb-8">
 				<Link href="/">
-					<Button type='blue'>
+					<Button type='blue' id="back_to_main">
 						Go back to main page
 					</Button>
 				</Link >
 				<div className="flex justify-center">
-					<Button href={resourceLink} type='green' external>
+					<Button href={resourceLink} type='green' id="learn_more" external>
 						Learn More
 					</Button>
 				</div>
 				<div className="flex justify-end">
-					<Button href={exerciseLink} type='red'>
+					<Button href={exerciseLink} type='red' id="start_exercise">
 						Start Exercise
 					</Button>
 				</div>
