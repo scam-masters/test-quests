@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 
 @pytest.fixture(scope="module")
@@ -51,12 +52,13 @@ class TestLandingPageSuccess:
 
         """ Check for accessing to the first learning page """
         first_circle_mission.click()
-        assert (
-            driver.find_element(
-                By.XPATH, '/html/body/div[1]/div/div[2]/a[1]/button'
-            ).text
-            == "Go back to main page"
+
+        go_back_button_xpath = '/html/body/div[1]/div/div[2]/a[1]/button'
+        WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, go_back_button_xpath))
         )
+
+        assert driver.find_element(By.XPATH, go_back_button_xpath).text == "Go back to main page"
 
 
 class TestLandingPageUnsuccess:
@@ -69,8 +71,13 @@ class TestLandingPageUnsuccess:
         """ Check for accessing to the first learning page """
         locked_circle_mission.click()
 
-        popup_element = driver.find_element(
-            By.XPATH, "//*[@id=\"pr_id_27_header\"]"
-        )
-        WebDriverWait(driver, 10).until(EC.visibility_of(popup_element))
+        popup_element_xpath = '/html/body/div[3]/div/div[1]/div[1]'
+        try:
+            WebDriverWait(driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, popup_element_xpath))
+            )
+        except TimeoutException:
+            raise NoSuchElementException(f"Element with XPath {popup_element_xpath} not found after waiting.")
+
+        popup_element = driver.find_element(By.XPATH, popup_element_xpath)
         assert popup_element.text == "Mission Locked"
