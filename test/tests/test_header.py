@@ -3,6 +3,7 @@ import pytest
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -37,7 +38,7 @@ def user_50_points():
 
 @pytest.fixture(scope="class")
 def driver():
-    _driver = webdriver.Chrome(ChromeDriverManager().install())
+    _driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     yield _driver
     _driver.quit()
 
