@@ -33,6 +33,7 @@ function Header() {
 		return userInfo.username;
 	}
 
+
 	useEffect(() => {
 		auth.onAuthStateChanged(function (user) {
 			if (user) {
@@ -41,9 +42,6 @@ function Header() {
 				setCurrentUser(null);
 			}
 		});
-	}, []);
-
-	useEffect(() => {
 		/* when logged in show points, otherwise go to login page */
 		getAuth().onAuthStateChanged(function(user) {
 			if (user) {

@@ -116,11 +116,11 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 							</Button>
 						)}
 						{correctness === 100 && (
-							<Link href='/'>
+							<a href='/'>
 								<Button type="blue">
 									Continue
 								</Button>
-							</Link>
+							</a>
 						)}
 					</div>
 				</div>
