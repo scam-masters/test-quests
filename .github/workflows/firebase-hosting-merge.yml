@@ -14,10 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: pwd && cd next-app && npm ci && npm run build
+      - run: npm ci && npm run build && pwd
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEST_QUESTS_A3712 }}'
           channelId: live
           projectId: test-quests-a3712
+          # Needs an entrypoint https://github.com/FirebaseExtended/action-hosting-deploy/pull/16
+          entryPoint: "./next-app" 
