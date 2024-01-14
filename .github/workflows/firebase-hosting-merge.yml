@@ -2,13 +2,10 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
-
-on:
+'on':
   push:
     branches:
       - main
-  workflow_dispatch: # run if triggered manually
-
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -21,7 +18,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEST_QUESTS_A3712 }}'
           channelId: live
           projectId: test-quests-a3712
-          # Needs an entrypoint https://github.com/FirebaseExtended/action-hosting-deploy/pull/16
-          entryPoint: "./next-app"
-        env:
-          FIREBASE_CLI_EXPERIMENTS: webframeworks
