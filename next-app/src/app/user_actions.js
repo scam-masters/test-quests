@@ -28,12 +28,19 @@ export async function updateInitialScore() {
     })
 }
 
-export async function updateUserScore(missionId, score) {
+/* updates the user's data when the solution a mission is successfully submitted */
+export async function updateUserScore(missionId, missionScore) {
     await getUserData().then(userData => {
-        if (userData.missions[missionId].score < score) {
-            userData.missions[missionId].score = score
-            userData.score = Math.max(userData.score, 0) + score
+        // every submission that scores strictly more that the previous one, updates the timestamp.
+        if (missionScore > userData.missions[missionId].score) {
+            // update mission data (relative to the user)
+            userData.missions[missionId].score = missionScore
+            userData.missions[missionId].timestamp = Date.now()
 
+            // update user general score
+            userData.score = Math.max(userData.score, 0) + missionScore
+
+            // unlock the next mission
             const missionNumber = missionId.split("_")[1]
             const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
             userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
