@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import argparse
 from collections import defaultdict
 
-parser = argparse.ArgumentParser(description='Build a Burndown Chart from a Notion Database')
 load_dotenv()
 PAGE_SIZE = 100
 
@@ -145,8 +144,10 @@ def create_burndown(tasks, chosen_sprint):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Build a Burndown Chart from a Notion Database')
+    parser.add_argument("--sprint_num", type=int, help="Sprint Number")
+    args = parser.parse_args()
 
-
-    sprint = f"sprint 2"
+    sprint = f"sprint {args.sprint_num}"
     tasks = get_tasks()
     create_burndown(tasks, sprint)
