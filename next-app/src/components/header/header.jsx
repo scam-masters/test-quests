@@ -43,7 +43,7 @@ function Header() {
 			}
 		});
 		/* when logged in show points, otherwise go to login page */
-		getAuth().onAuthStateChanged(function(user) {
+		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
 				retrievePoints().then(newPoints => {
 					setPoints(newPoints);
@@ -78,10 +78,12 @@ function Header() {
 					<Points />
 				)}
 
+				<Link href="/scoreboard"><button>Scoreboard</button></Link>
+
 				{currentUser ? (
 					<button onClick={() => {
 						auth.signOut()
-						router.push("/Login")
+						router.push("/Login")		// TODO: check if this is necessary
 					}}>Logout</button>
 				) : (
 					<>
