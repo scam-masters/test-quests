@@ -15,7 +15,6 @@ export default function ScoreboardComponent({ scoreboardData }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* For each couple "entry" in scoreboard data, generate a tr with 2 tds: (entry[0] is username and entry[1] is score) */}
                         {
                             scoreboardData.map((entry, index) => (
                                 <tr key={index}>
