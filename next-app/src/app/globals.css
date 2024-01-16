@@ -37,3 +37,19 @@ button {
 .circle-mission-gradient {
 	@apply circle-base bg-gradient-to-r from-tq-yellow to-tq-green hover:from-tq-yellow hover:to-tq-red
 }
+
+.scoreboard {
+	@apply min-w-full leading-normal
+}
+
+.scoreboard tr {
+	@apply grid grid-cols-3
+}
+
+.scoreboard thead th {
+	@apply px-5 py-3 text-left text-xl font-semibold uppercase text-center tracking-wider
+}
+
+.scoreboard td {
+	@apply px-5 py-2
+}

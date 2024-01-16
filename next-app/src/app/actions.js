@@ -76,22 +76,43 @@ export async function registerUser(email, password, username) {
 
 // Retrieve scoreboard data (mock for testing)
 export async function getScoreboardData() {
-	// Mock data for testing purposes
-	const mockData = [
-	  { user: 'User1', score: "100" },
-	  { user: 'User2', score: "85" },
-	  { user: 'User3', score: "70" },
-	  { user: 'User4', score: "50" },
-	  { user: 'User5', score: "30" },
-	];
-  
-	// Simulate asynchronous behavior with a delay (you can remove this in a real implementation)
-	await new Promise(resolve => setTimeout(resolve, 1000));
-  
-	return mockData;
-  }
-  
-  // Example usage:
-  // const scoreboardData = await getScoreboardData();
-  // console.log(scoreboardData);
-  
+	const usersRef = collection(db, "users")
+
+	const docs = await getDocs(query(usersRef, where("score", ">=", 0)))
+
+	const data = []
+
+	// maybe we can get clever with firebase and have it sort and compute last timestamp in the db
+	docs.forEach(doc => {
+		let timestamp = 0
+		let completedCount = 0
+		for (let key in doc.data().missions) {
+			let missionData = doc.data().missions[key]
+			if (missionData.timestamp) {
+				timestamp = Math.max(doc.data().missions[key].timestamp, timestamp)
+				completedCount += 1
+			}
+		}
+
+		data.push({
+			user: doc.data().username,
+			score: doc.data().score,
+			timestamp: timestamp,
+			completedCount
+		})
+	})
+
+	data.sort((a,b) => {
+		if (a.score == b.score && a.timestamp == b.timestamp)
+			return 0
+		if (a.score > b.score || (a.score == b.score && a.timestamp < b.timestamp)) 
+			return -1
+		return 1
+	})
+	return data
+}
+
+// Example usage:
+// const scoreboardData = await getScoreboardData();
+// console.log(scoreboardData);
+
