@@ -1,6 +1,6 @@
 import os
 import pytest
-
+import time
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -56,8 +56,13 @@ class TestFirstMission:
         return [driver.find_element(By.XPATH, base_xpath.format(i)) for i in range(1, 8)]
 
     def get_elements(self, driver):
-        base_xpath = '//*[@id="pane2_1"]/div/div/span[{}]'
-        return [driver.find_element(By.XPATH, base_xpath.format(i)) for i in range(1, 8)]
+        solution = ['files.php', '?', 'file=', '../', '../', 'server/', 'flag.txt']
+        base_xpath = '//*[@id="pane2_1"]/div/div/span[text()="{}"]'
+        elements = [driver.find_element(By.XPATH, base_xpath.format(i)) for i in solution]
+        # to take the second ../ instead of the first one again
+        elements[4] = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/div/span[text()="../"][2]')
+
+        return elements
 
     def test_drag_and_drop(self, driver):
         element = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/div/span[1]')
@@ -69,22 +74,44 @@ class TestFirstMission:
         assert target.text == expected_text
 
     ''' TOFIX: is not working properly '''
-    def test_score_fail(self, driver):
+    def test_score_correct(self, driver):
+        driver.get("http://localhost:3000/exercise/1")
         elements = self.get_elements(driver)
         targets = self.get_targets(driver)
         submit_button = get_exercise_submit_button(driver)
 
         action_chains = ActionChains(driver)
-        action_chains.drag_and_drop(elements[0], targets[3]).perform()
+        action_chains.drag_and_drop(elements[0], targets[0]).perform()
         action_chains.drag_and_drop(elements[1], targets[1]).perform()
         action_chains.drag_and_drop(elements[2], targets[2]).perform()
-        action_chains.drag_and_drop(elements[3], targets[6]).perform()
-        action_chains.drag_and_drop(elements[4], targets[0]).perform()
+        action_chains.drag_and_drop(elements[3], targets[3]).perform()
+        action_chains.drag_and_drop(elements[4], targets[4]).perform()
         action_chains.drag_and_drop(elements[5], targets[5]).perform()
-        action_chains.drag_and_drop(elements[6], targets[4]).perform()
+        action_chains.drag_and_drop(elements[6], targets[6]).perform()
 
         submit_button.click()
         popup = get_exercise_popup(driver)
 
-        assert "100%" not in popup.text
+        assert "You have earned 50 points!" in popup.text
+
+
+    def test_score_fail(self, driver):
+        driver.get("http://localhost:3000/exercise/1")
+        elements = self.get_elements(driver)
+        targets = self.get_targets(driver)
+        submit_button = get_exercise_submit_button(driver)
+
+        action_chains = ActionChains(driver)
+        action_chains.drag_and_drop(elements[0], targets[6]).perform()
+        action_chains.drag_and_drop(elements[1], targets[5]).perform()
+        action_chains.drag_and_drop(elements[2], targets[4]).perform()
+        action_chains.drag_and_drop(elements[3], targets[3]).perform()
+        action_chains.drag_and_drop(elements[4], targets[2]).perform()
+        action_chains.drag_and_drop(elements[5], targets[1]).perform()
+        action_chains.drag_and_drop(elements[6], targets[0]).perform()
+
+        submit_button.click()
+        popup = get_exercise_popup(driver)
+
+        assert "You need more effort!" in popup.text
 
