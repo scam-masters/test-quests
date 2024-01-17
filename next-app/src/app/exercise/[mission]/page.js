@@ -5,6 +5,8 @@ import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import ExerciseView from '@/components/exerciseView/view'
 import DropdownExercise from '@/components/DropdownExercise/exercise'
 import DragAndDropExercise from '@/components/DragAndDropExercise/page'
+import DragAndDropMmExercise from '@/components/DragAndDropMultipleMatching/page'
+import OpenCloseExercise from '@/components/OpenCloseExercise/page'
 
 import { getExerciseData } from "@/app/actions"
 
@@ -24,7 +26,6 @@ export default async function Exercise({ params }) {
                 blocks: missionContent.blocks,
                 solution: missionContent.solution,
                 options: missionContent.solution.toSorted(() => Math.random() - 0.5), // shuffle to obtain options
-                points: missionContent.points
             }
             break;
         case 'sd':
@@ -33,10 +34,23 @@ export default async function Exercise({ params }) {
                 dropdowns: missionContent.dropdowns,
                 explanation: missionContent.explanation,
                 name: missionContent.name,
-                points: missionContent.points,
                 text: missionContent.text,
             }
             break;
+        case 'mm':
+            exercise = DragAndDropMmExercise
+            exerciseArgs = {
+                options: missionContent.solution.toSorted(() => Math.random() - 0.5), // shuffle to obtain options
+                solution: missionContent.solution,
+                blocks: missionContent.blocks,
+            }
+            break;
+        case 'oc':
+            exercise = OpenCloseExercise
+            exerciseArgs = {
+                blocks: missionContent.blocks,
+                solution: missionContent.solution
+            }
     }
 
     /* Placeholder content for exercise explanation */
@@ -54,6 +68,7 @@ export default async function Exercise({ params }) {
                 resource={missionContent.resourceLink}
                 Exercise={exercise}
                 exerciseArguments={exerciseArgs}
+                exercisePoints={missionContent.points}
             />
         </div>
     );

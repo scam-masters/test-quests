@@ -53,7 +53,7 @@ function Header() {
 				})
 			} else {
 				console.log("current url: " + pathname);
-				if (pathname !== "/Login" && pathname !== "/Registration") {
+				if (pathname !== "/Login" && pathname !== "/Registration" && pathname !== "/scoreboard") {
 					router.push("/Login")
 				}
 			}

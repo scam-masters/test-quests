@@ -5,13 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import Answer from '@/components/dnd/answer'
 
-export default function DndExercise({ onScoreComputed: onCorrectnessComputed, blocks, options, solution }) {
-	// buld an array of nulls of size options.size
-	let nulls = Array(options.length).fill(null)
-
-	// blanks + options to be filled
-	options = nulls.concat(options)
-
+export default function DndMmExercise({ onScoreComputed: onCorrectnessComputed, options, blocks, solution}) {
 	// initialize answers with options
 	const [answers, setAnswers] = useState(options)
 
@@ -26,20 +20,15 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, bl
 		})
 	}
 
-	function ComputeCorrectness(answers) {
+	const computeCorrectness = (answers) => {
 		let count = 0;
-		let missing = false;
 
 		for (let i = 0; i < solution.length; i++) {
 			if (solution[i] === answers[i])
 				count++;
-			if (answers[i] === null)
-				missing = true;
 		}
-		if (!missing) {
-			return count / solution.length * 100;
-		}
-		else return -1; // return -1 to recognize wheter the user have not filled yet
+
+		return count / solution.length * 100;
 	}
 
 	// build the draggable answers
@@ -49,20 +38,18 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, bl
 
 	// update the correctness when the answers change
 	useEffect(() => {
-		onCorrectnessComputed && onCorrectnessComputed(ComputeCorrectness(answers));
+		onCorrectnessComputed && onCorrectnessComputed(computeCorrectness(answers));
 	}, [answers])
 
 	// function to parse the input and replace the blanks with the draggable answers
-	function parseInput(blocks) {
-		let res = Array(blocks.length).fill(null);
-
-		for (let i = 0, blank = 0; i < blocks.length; i++) {
-			if (blocks[i] === "") {
-				res[i] = draggableAnswers[blank++];
-			}
-			else {
-				res[i] = blocks[i];
-			}
+	function parseInput(draggableAnswers, blocks) {
+		let res = [];
+		for (let i = 0; i < blocks.length; i++) {
+			res[i] = (
+				<tr>
+					<td>{draggableAnswers[i]}</td>
+					<td>{blocks[i]}</td>
+				</tr>);
 		}
 
 		return res;
@@ -72,11 +59,13 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, bl
 		<DndProvider backend={HTML5Backend}>
 			<p>Complete the exercise:</p>
 			<br />
-			<p>
-				{parseInput(blocks)}
-			</p>
+			<table>
+				<tbody>
+					{parseInput(draggableAnswers, blocks)}
+				</tbody>
+			</table>
 			<p className='mt-5'>Compose it starting from these blocks:</p>
-			<div className="min-w-max grid grid-cols-4 gap-1">
+			<div className="min-w-max grid grid-cols-1 gap-1">
 				{draggableAnswers.slice(solution.length)}
 			</div>
 
