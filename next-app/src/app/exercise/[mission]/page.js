@@ -5,11 +5,27 @@ import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import ExerciseView from '@/components/exerciseView/view'
 import DropdownExercise from '@/components/DropdownExercise/exercise'
 import DragAndDropExercise from '@/components/DragAndDropExercise/page'
+import DragAndDropMmExercise from '@/components/DragAndDropMultipleMatching/page'
 
 import { getExerciseData } from "@/app/actions"
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 export default async function Exercise({ params }) {
+    // if(params.mission == 5){
+    //     return (
+    //         <div>
+    //             {/* Use the LearningComponent with mission-specific content */}
+    //             <ExerciseView
+    //                 missionId={5}
+    //                 exerciseExplanation={"ziopera explained"}
+    //                 resource={"ziopera resourced"}
+    //                 Exercise={DragAndDropMmExercise}
+    //                 exerciseArguments={{solution: ["1", "2", "3", "4", "5"], blocks: ["1", "2", "3", "4", "5"], points: 5}}
+    //             />
+    //         </div>
+    //     );
+    // }
+    
     // Get the current mission
     const missionContent = await getExerciseData(`mission_${params.mission}`);
 
@@ -35,6 +51,15 @@ export default async function Exercise({ params }) {
                 name: missionContent.name,
                 points: missionContent.points,
                 text: missionContent.text,
+            }
+            break;
+        case 'mm':
+            exercise = DragAndDropMmExercise
+            exerciseArgs = {
+                options: missionContent.solution.toSorted(() => Math.random() - 0.5), // shuffle to obtain options
+                solution: missionContent.solution, 
+                blocks: missionContent.blocks,
+                points: missionContent.points
             }
             break;
     }
