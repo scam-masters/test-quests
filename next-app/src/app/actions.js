@@ -28,6 +28,27 @@ export async function getMissionList() {
 	return missionList;
 }
 
+// Retrieve the list of missions for a certain chapter (so for the difficulty level)
+export async function getMissionsByDifficulty(difficultyLevel) {
+    let missionList = [];
+    try {
+        // Create a query to filter documents based on difficulty
+        const q = query(collection(db, 'exercises'), where('difficulty', '==', difficultyLevel));
+
+        // Execute the query
+        const querySnapshot = await getDocs(q);
+
+        // Iterate through the results and add them to the missionList
+        querySnapshot.forEach((doc) => {
+            missionList.push({ id: doc.id, data: doc.data() });
+        });
+    } catch (error) {
+        console.log('Error getting missions: ', error);
+    }
+    return missionList;
+}
+
+
 // Register a new user
 export async function registerUser(email, password, username) {
 	const auth = getAuth(app);

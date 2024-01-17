@@ -12,9 +12,9 @@ import CircleMission from '@/components/button/circle_mission';
 function Landing() {
     const router = useRouter()
     const [visible_dialog, setVisibleDialog] = useState(false);
-    const [missions, setMissions] = useState([])
+    const [chapters, setChapters] = useState([])
 
-    function MissionLocked() {
+    function ChapterLocked() {
         return (
             setVisibleDialog(true)
         )
@@ -26,50 +26,69 @@ function Landing() {
         )
     }
 
-    // ******************* Retrieve missions and user progress ******************* //
-    async function retrieveMissions() {
+    // ******************* Retrieve chapters and user progress ******************* //
+    async function retrieveChapters() {
+        // retrieve all the list to check the progress of the user in the mission
+        // to display correclty chapters (watch line 43 for possible improvement)
         const userInfo = await getUserData()
         const missions = await getMissionList() //  Retrieve the list of missions from the database
         const result = []
 
         // For each mission, check if it is included in the user progress
-        // If so, show the mission as unlocked, otherwise show it locked
-        for (let m in missions) {
-            if (missions[m].id in userInfo.missions)
-                result.push(await unlockedMission(missions[m].id, missions[m].data))
-            else
-                result.push(lockedMission(missions[m].id))
+        // If so, let's extract the difficulty of the mission performed 
+        // by the user in order to understand which chapter display
+        let counter = 0;
+
+        for (let m in missions) { 
+            // TODO: change this checking only the difficulty of the last mission 
+            // performed by the user to avoid checking all the missions
+            if (missions[m].id in userInfo.missions) {
+                // check for the difficulty
+                if (missions[m].data.difficulty == "easy") counter = 1;
+                else if (missions[m].data.difficulty == "medium") counter = 2;
+                else if (missions[m].data.difficulty == "hard") counter = 3;
+            }
         }
-        return result
+        return DisplayChapters(counter);
     }
 
-    function lockedMission(missionId) {
+    function DisplayChapters(counter) {
+        // Assuming chapters is an array of chapter objects
+        const chapters = [
+            { id: 1, title: "Chapter 1", chapterLink: "/chapter/easy" },
+            { id: 2, title: "Chapter 2", chapterLink: "/chapter/medium" },
+            { id: 3, title: "Chapter 3", chapterLink: "/chapter/hard" },
+        ];
+    
         return (
-            <div key={missionId} className='text-center m-5 align-middle' onClick={MissionLocked}>
-                <CircleMission type="locked">Mission Locked</CircleMission>
+            <div>
+                {chapters.map((chapter, index) => (
+                    <div key={chapter.id} className='text-center m-5 align-middle'>
+                        {index < counter ? (
+                            <Link href={chapter.chapterLink}>
+                                <CircleMission type="gradient">
+                                    {chapter.title}
+                                </CircleMission>
+                            </Link>
+                        ) : (
+                            <div onClick={ChapterLocked}>
+                                <CircleMission type="locked">
+                                    {chapter.title}
+                                </CircleMission>
+                            </div>
+                        )}
+                    </div>
+                ))}
             </div>
-        )
-    }
-
-    async function unlockedMission(missionId, missionData) {
-        const userScore = await getUserScoreForMission(missionId);
-        return (
-            <div key={missionId} className='text-center m-5 align-middle'>
-                <Link href={missionData.learning.learningLink}>
-                    <CircleMission type="gradient" userScore={userScore} maxPoints={missionData.points}>
-                        {missionData.name}
-                    </CircleMission>
-                </Link>
-            </div>
-        )
+        );
     }
 
     useEffect(() => {
         /* when logged in show missions, otherwise go to login page */
         getAuth().onAuthStateChanged(function (user) {
             if (user) {
-                retrieveMissions().then(newMissions => {
-                    setMissions(newMissions)
+                retrieveChapters().then(newChapters => {
+                    setChapters(newChapters)
                 })
             } else
                 router.push("/Login")
@@ -83,11 +102,11 @@ function Landing() {
 
             <Dialog
                 className='bg-tq-black text-tq-white w-1/2 h-auto'
-                header="Mission Locked"
+                header="Chapter Locked"
                 visible={visible_dialog}
                 onHide={handleCloseDialog}
             >
-                <p>Please complete previous missions to access this one</p>
+                <p>Please complete previous chapter's missions to access this chapter</p>
             </Dialog>
         </div>
     );
