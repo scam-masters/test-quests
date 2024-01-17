@@ -98,7 +98,7 @@ function Landing() {
     return (
         <div className='p-10'>
 
-            {missions}
+            {chapters}
 
             <Dialog
                 className='bg-tq-black text-tq-white w-1/2 h-auto'
