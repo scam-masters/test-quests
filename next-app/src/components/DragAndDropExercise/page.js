@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import Answer from '@/components/dnd/answer'
 
-export default function DndExercise({ onScoreComputed: onCorrectnessComputed, blocks, options, solution, points }) {
+export default function DndExercise({ onScoreComputed: onCorrectnessComputed, blocks, options, solution }) {
 	// buld an array of nulls of size options.size
 	let nulls = Array(options.length).fill(null)
 

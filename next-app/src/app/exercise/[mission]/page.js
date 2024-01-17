@@ -11,21 +11,6 @@ import { getExerciseData } from "@/app/actions"
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 export default async function Exercise({ params }) {
-    // if(params.mission == 5){
-    //     return (
-    //         <div>
-    //             {/* Use the LearningComponent with mission-specific content */}
-    //             <ExerciseView
-    //                 missionId={5}
-    //                 exerciseExplanation={"ziopera explained"}
-    //                 resource={"ziopera resourced"}
-    //                 Exercise={DragAndDropMmExercise}
-    //                 exerciseArguments={{solution: ["1", "2", "3", "4", "5"], blocks: ["1", "2", "3", "4", "5"], points: 5}}
-    //             />
-    //         </div>
-    //     );
-    // }
-    
     // Get the current mission
     const missionContent = await getExerciseData(`mission_${params.mission}`);
 
@@ -40,7 +25,6 @@ export default async function Exercise({ params }) {
                 blocks: missionContent.blocks,
                 solution: missionContent.solution,
                 options: missionContent.solution.toSorted(() => Math.random() - 0.5), // shuffle to obtain options
-                points: missionContent.points
             }
             break;
         case 'sd':
@@ -49,7 +33,6 @@ export default async function Exercise({ params }) {
                 dropdowns: missionContent.dropdowns,
                 explanation: missionContent.explanation,
                 name: missionContent.name,
-                points: missionContent.points,
                 text: missionContent.text,
             }
             break;
@@ -57,9 +40,8 @@ export default async function Exercise({ params }) {
             exercise = DragAndDropMmExercise
             exerciseArgs = {
                 options: missionContent.solution.toSorted(() => Math.random() - 0.5), // shuffle to obtain options
-                solution: missionContent.solution, 
+                solution: missionContent.solution,
                 blocks: missionContent.blocks,
-                points: missionContent.points
             }
             break;
     }
@@ -79,6 +61,7 @@ export default async function Exercise({ params }) {
                 resource={missionContent.resourceLink}
                 Exercise={exercise}
                 exerciseArguments={exerciseArgs}
+                exercisePoints={missionContent.points}
             />
         </div>
     );

@@ -7,11 +7,9 @@ import { updateUserScore, updateInitialScore } from "@/app/user_actions.js"
 
 import Link from "next/link"
 
-export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, exerciseArguments }) {
+export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, exercisePoints, exerciseArguments }) {
 	const [correctness, setCorrectness] = useState(0);
 	const [visible_dialog, setVisibleDialog] = useState(false);
-
-	const ExercisePoints = exerciseArguments.points;
 
 	/* Handle the score computing from D&DExercise.js */
 	const handleCorrectnessComputed = (computedCorrectness) => {
@@ -77,8 +75,8 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 								Congratulations!
 								<br />
 								<br />
-								You have earned {ExercisePoints} points!
-								{updateUserScore(missionId, ExercisePoints)}
+								You have earned {exercisePoints} points!
+								{updateUserScore(missionId, exercisePoints)}
 							</p>
 						</div>
 					)}
