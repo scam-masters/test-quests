@@ -6,6 +6,7 @@ import ExerciseView from '@/components/exerciseView/view'
 import DropdownExercise from '@/components/DropdownExercise/exercise'
 import DragAndDropExercise from '@/components/DragAndDropExercise/page'
 import DragAndDropMmExercise from '@/components/DragAndDropMultipleMatching/page'
+import OpenCloseExercise from '@/components/OpenCloseExercise/page'
 
 import { getExerciseData } from "@/app/actions"
 
@@ -44,6 +45,12 @@ export default async function Exercise({ params }) {
                 blocks: missionContent.blocks,
             }
             break;
+        case 'oc':
+            exercise = OpenCloseExercise
+            exerciseArgs = {
+                blocks: missionContent.blocks,
+                solution: missionContent.solution
+            }
     }
 
     /* Placeholder content for exercise explanation */
