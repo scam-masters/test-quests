@@ -27,8 +27,8 @@ export default function DndMmExercise({ onScoreComputed: onCorrectnessComputed, 
 			if (solution[i] === answers[i])
 				count++;
 		}
-		
-        return count / solution.length * 100;
+
+		return count / solution.length * 100;
 	}
 
 	// build the draggable answers
@@ -43,13 +43,13 @@ export default function DndMmExercise({ onScoreComputed: onCorrectnessComputed, 
 
 	// function to parse the input and replace the blanks with the draggable answers
 	function parseInput(draggableAnswers, blocks) {
-        let res = [];
+		let res = [];
 		for (let i = 0; i < blocks.length; i++) {
-				res[i] = (
-                        <tr> 
-                            <td>{draggableAnswers[i]}</td>
-                            <td>{blocks[i]}</td>
-                        </tr>);
+			res[i] = (
+				<tr>
+					<td>{draggableAnswers[i]}</td>
+					<td>{blocks[i]}</td>
+				</tr>);
 		}
 
 		return res;
@@ -60,7 +60,9 @@ export default function DndMmExercise({ onScoreComputed: onCorrectnessComputed, 
 			<p>Complete the exercise:</p>
 			<br />
 			<table>
-				{parseInput(draggableAnswers, blocks)}
+				<tbody>
+					{parseInput(draggableAnswers, blocks)}
+				</tbody>
 			</table>
 			<p className='mt-5'>Compose it starting from these blocks:</p>
 			<div className="min-w-max grid grid-cols-1 gap-1">
