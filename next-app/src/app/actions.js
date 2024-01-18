@@ -30,24 +30,30 @@ export async function getMissionList() {
 
 // Retrieve the list of missions for a certain chapter (so for the difficulty level)
 export async function getMissionsByDifficulty(difficultyLevel) {
-    let missionList = [];
-    try {
-        // Create a query to filter documents based on difficulty
-        const q = query(collection(db, 'exercises'), where('difficulty', '==', difficultyLevel));
+	let missionList = [];
+	try {
+		// Create a query to filter documents based on difficulty
+		const q = query(collection(db, 'exercises'), where('difficulty', '==', difficultyLevel));
 
-        // Execute the query
-        const querySnapshot = await getDocs(q);
+		// Execute the query
+		const querySnapshot = await getDocs(q);
 
-        // Iterate through the results and add them to the missionList
-        querySnapshot.forEach((doc) => {
-            missionList.push({ id: doc.id, data: doc.data() });
-        });
-    } catch (error) {
-        console.log('Error getting missions: ', error);
-    }
-    return missionList;
+		// Iterate through the results and add them to the missionList
+		querySnapshot.forEach((doc) => {
+			missionList.push({ id: doc.id, data: doc.data() });
+		});
+	} catch (error) {
+		console.log('Error getting missions: ', error);
+	}
+	return missionList;
 }
 
+// Validate email address
+const validateEmail = (email) => {
+	return email.match(
+		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+	);
+};
 
 // Register a new user
 export async function registerUser(email, password, username) {
@@ -56,6 +62,10 @@ export async function registerUser(email, password, username) {
 	// Server-side validation
 	if (!email || !password || !username)
 		return 'Please fill all the fields.'
+
+	if (!validateEmail(email)) {
+		return 'Please enter a valid email address.'
+	}
 
 	if (password.length < 6)
 		return 'Password is too short. It must contain at least 6 characters.'
@@ -123,10 +133,10 @@ export async function getScoreboardData() {
 		})
 	})
 
-	data.sort((a,b) => {
+	data.sort((a, b) => {
 		if (a.score == b.score && a.timestamp == b.timestamp)
 			return 0
-		if (a.score > b.score || (a.score == b.score && a.timestamp < b.timestamp)) 
+		if (a.score > b.score || (a.score == b.score && a.timestamp < b.timestamp))
 			return -1
 		return 1
 	})
