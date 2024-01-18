@@ -7,9 +7,53 @@ import { updateUserScore, updateInitialScore } from "@/app/user_actions.js"
 
 import Link from "next/link"
 
+function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints }) {
+	let title = `${correctness}%`
+	let resultMsg
+	let button = <Button className="m-auto" type="green" onClick={handleCloseDialog}>Let's try again!</Button>
+
+	if (correctness == 100) {
+		resultMsg = <>
+			Congratulations!
+			<br />
+			You have earned {exercisePoints} points!
+		</>
+		button = <Button type="blue" href="/">Continue</Button>
+	} else if (correctness < 100 && correctness >= 80) {
+		resultMsg = "You are almost there!"
+	} else if (correctness < 80 && correctness >= 20) {
+		resultMsg = "Give it another chance!"
+	} else if (correctness < 20 && correctness >= 0) {
+		resultMsg = "You need more effort!"
+	} else if (correctness === -1) {
+		title = "CHEATER!"
+		resultMsg = "You need to fill all the blanks!"
+	}
+
+	return (
+		<Dialog
+			id="popup"
+			header="Submit Results"
+			visible={visible}
+			className=" w-auto rounded-sm min-w-1/3"
+			onHide={handleCloseDialog}
+		>
+			<div>
+				<div>
+					<p className="text-center mb-4 text-4xl">{title}</p>
+					<p className="text-center mb-4 text-xl">{resultMsg}</p>
+				</div>
+				<div className="flex justify-center mt-4">
+					{button}
+				</div>
+			</div>
+		</Dialog>
+	)
+}
+
 export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, exercisePoints, exerciseArguments }) {
 	const [correctness, setCorrectness] = useState(0);
-	const [visible_dialog, setVisibleDialog] = useState(false);
+	const [isDialogVisible, setVisibleDialog] = useState(false);
 
 	/* Handle the score computing from D&DExercise.js */
 	const handleCorrectnessComputed = (computedCorrectness) => {
@@ -18,13 +62,18 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 
 	/* Show the dialog/popup with the score */
 	const handleSubmit = () => {
-		updateInitialScore();
 		setVisibleDialog(true);
+		// update the score when pressing submit, not every time the page changes :))))
+		if (correctness == 100)
+			updateUserScore(missionId, exercisePoints)
+		else
+			updateInitialScore();
 	};
 
 	const handleCloseDialog = () => {
 		setVisibleDialog(false);
 	};
+
 	return (
 		<>
 			<Splitter className="h-3/4 border-4 m-2" gutterSize={10}>
@@ -51,78 +100,12 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 			</Splitter>
 
 			{/* Dialog to display the correctness when the user fill all the blanks */}
-			<Dialog
-				id = "popup"
-				header="Submit Results"
-				visible={visible_dialog}
-				className=" w-auto rounded-sm min-w-1/3"
-				onHide={handleCloseDialog}
-			>
-				<div>
-					{correctness === -1 && (
-						<div>
-							<p className="text-center mb-4 text-4xl">CHEATER!</p>
-							<p className="text-center mb-4 text-xl">
-								You need to fill all the blanks!
-							</p>
-						</div>
-					)}
-					{correctness === 100 && (
-						<div className="flex justify-center ">
-							<p className="text-center mb-8 text-4xl">
-								{correctness}%
-								<br />
-								Congratulations!
-								<br />
-								<br />
-								You have earned {exercisePoints} points!
-								{updateUserScore(missionId, exercisePoints)}
-							</p>
-						</div>
-					)}
-					{correctness < 100 && correctness >= 80 && (
-						<div className="flex justify-center ">
-							<p className="text-center mb-8 text-4xl">
-								{correctness}%
-								<br />
-								You are almost there!
-							</p>
-						</div>
-					)}
-					{correctness < 80 && correctness >= 20 && (
-						<div className="flex justify-center ">
-							<p className="text-center mb-8 text-4xl">
-								{correctness}%
-								<br />
-								Give it another chance!
-							</p>
-						</div>
-					)}
-					{correctness < 20 && correctness >= 0 && (
-						<div className="flex justify-center ">
-							<p className="text-center mb-8 text-4xl">
-								{correctness}%
-								<br />
-								You need more effort!
-							</p>
-						</div>
-					)}
-					<div className="flex justify-center mt-4">
-						{correctness < 100 && (
-							<Button type="green" onClick={handleCloseDialog}>
-								Let&apos;s try again!
-							</Button>
-						)}
-						{correctness === 100 && (
-							<a href='/'>
-								<Button type="blue">
-									Continue
-								</Button>
-							</a>
-						)}
-					</div>
-				</div>
-			</Dialog>
+			<ExerciseDialog
+				correctness={correctness}
+				handleCloseDialog={handleCloseDialog}
+				exercisePoints={exercisePoints}
+				visible={isDialogVisible}
+			/>
 
 			<div className="grid grid-cols-3 justify-between  mx-auto ml-4 mr-4">
 				<Link href="/">
