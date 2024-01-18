@@ -41,7 +41,10 @@ export default function DropdownExercise({ text, dropdowns, onScoreComputed: onC
 				{
 					text.split("{}").map((t, i) => {
 						// Fragment is like <></> but can use key property
-						return <Fragment key={i}>{t} {t && makeSelect(i, dropdowns['' + i])} </Fragment>
+						return <Fragment key={i}>
+							<span key={'span_' + i} dangerouslySetInnerHTML={{ __html: t }} />
+							{t && makeSelect(i, dropdowns['' + i])}
+						</Fragment>
 					})
 				}
 			</p>
