@@ -13,7 +13,7 @@ from utils import login, wait_landing_render
 
 @pytest.fixture(scope="module")
 def base_url():
-    return os.environ.get("API_URL", "http://localhost:3000/Login")
+    return os.environ.get("API_URL", "http://localhost:3000")
 
 
 @pytest.fixture(scope="module")
@@ -35,7 +35,7 @@ def driver():
 
 @pytest.fixture(scope="class", autouse=True)
 def load_page(base_url, expected_title, driver):
-    driver.get(base_url)
+    driver.get(base_url + "/Login")
     WebDriverWait(driver, 10).until(EC.title_contains(expected_title))
 
 
@@ -43,8 +43,13 @@ def load_page(base_url, expected_title, driver):
 def login_user_50_points(driver, user_50_points):
     login(driver, user_50_points[0], user_50_points[1])
 
+# before each method we need to navigate to the correct page!!!!
+@pytest.fixture(scope="function", autouse=True)
+def navigate_to_easy_chapter(driver, base_url):
+    driver.get(base_url + "/chapter/easy")
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//button[contains(., 'Path Traversal')]")))
 
-class TestLandingPageSuccess:
+class TestChapterPageSuccess:
     def test_first_mission_unlocked(self, driver):
         first_circle_mission = driver.find_element(
             By.XPATH, "/html/body/div[1]/div[1]/a/button"
@@ -75,7 +80,7 @@ class TestLandingPageSuccess:
         assert "50/50" in first_circle_mission.text and "0/50" in second_circle_mission.text
 
 
-class TestLandingPageUnsuccess:
+class TestChapterPageUnsuccess:
     def test_mission_locked(self, driver):
         locked_circle_mission = driver.find_element(
             By.XPATH, "/html/body/div[1]/div[3]/button"
