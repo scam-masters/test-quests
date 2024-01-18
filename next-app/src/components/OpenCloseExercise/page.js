@@ -27,7 +27,7 @@ export default function OpenCloseExercise({ onScoreComputed, blocks, solution })
 		onScoreComputed(correctness * 100 / solution.length)
 	}
 
-	// function to parse the input and replace the blanks with the draggable answers
+	// function to parse the input and replace the blanks with open answers
 	function parseInput(blocks) {
 		let res = [];
 
