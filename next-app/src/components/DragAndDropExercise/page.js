@@ -61,7 +61,7 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, bl
 				res[i] = draggableAnswers[blank++];
 			}
 			else {
-				res[i] = blocks[i];
+				res[i] = <span key={i} dangerouslySetInnerHTML={{ __html: blocks[i] }}></span >
 			}
 		}
 
