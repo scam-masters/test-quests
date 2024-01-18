@@ -34,14 +34,16 @@ export default function OpenCloseExercise({ onScoreComputed, blocks, solution })
 		for (let i = 0, answerId = 0; i < blocks.length; i++) {
 			if (blocks[i] === "") {
 				res[i] = (<input
+					style={{ width: "40%", margin: "3px 5px" }}
 					key={answerId}
 					name={answerId}
 					type="text"
 				/>)
 				answerId++
 			}
-			else
-				res[i] = blocks[i];
+			else {
+				res[i] = <span key={i} dangerouslySetInnerHTML={{ __html: blocks[i] }}></span >
+			}
 		}
 
 		return res;
@@ -49,9 +51,9 @@ export default function OpenCloseExercise({ onScoreComputed, blocks, solution })
 
 	return (
 		<>
-			<p>Complete the exercise by writing in the boxes:</p>
+			<p>Complete the blanks by inserting the following values:</p>
 			<br />
-			<form id='exercise-form' onSubmit={handleSubmit}>
+			<form id='exercise-form' autoComplete="none" onSubmit={handleSubmit}>
 				{parseInput(blocks)}
 			</form >
 		</>
