@@ -1,4 +1,4 @@
-'use client'; // compute the function on server side (as the function is async)
+'use client';
 import React, { useState } from "react";
 import Button from "@/components/button/button";
 import { Splitter, SplitterPanel } from "primereact/splitter";
@@ -35,7 +35,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 			id="popup"
 			header="Submit Results"
 			visible={visible}
-			className=" w-auto rounded-sm min-w-1/3"
+			className="w-auto rounded-sm min-w-1/3"
 			onHide={handleCloseDialog}
 		>
 			<div>
