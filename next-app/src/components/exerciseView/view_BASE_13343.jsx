@@ -3,14 +3,13 @@ import React, { useState } from "react";
 import Button from "@/components/button/button";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { Dialog } from "primereact/dialog";
-import { updateUserScore, updateInitialScore, updateChapterUnlocking } from "@/app/user_actions.js"
+import { updateUserScore, updateInitialScore } from "@/app/user_actions.js"
 
 import Link from "next/link"
 
-function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock }) {
+function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints }) {
 	let title = `${correctness}%`
 	let resultMsg
-	let chapterMsg = ""
 	let button = <Button className="m-auto" type="green" onClick={handleCloseDialog}>Let's try again!</Button>
 
 	if (correctness == 100) {
@@ -19,9 +18,6 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 			<br />
 			You have earned {exercisePoints} points!
 		</>
-		if(newChapterUnlock){
-			chapterMsg = "You have unlocked the next Chapter!"
-		}
 		button = <Button type="blue" href="/">Continue</Button>
 	} else if (correctness < 100 && correctness >= 80) {
 		resultMsg = "You are almost there!"
@@ -46,7 +42,6 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 				<div>
 					<p className="text-center mb-4 text-4xl">{title}</p>
 					<p className="text-center mb-4 text-xl">{resultMsg}</p>
-					<p className="text-center mb-4 text-xl">{chapterMsg}</p>
 				</div>
 				<div className="flex justify-center mt-4">
 					{button}
@@ -59,21 +54,20 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, exercisePoints, exerciseArguments }) {
 	const [correctness, setCorrectness] = useState(0);
 	const [isDialogVisible, setVisibleDialog] = useState(false);
-	const [isUnlockingNewChapter, setUnlockNewChapter] = useState(false);
 
-	// This will be called once by the exercise when the player finishes
-	const handleCorrectnessComputed = async (computedCorrectness) => {
-		const correctness = Math.round(computedCorrectness)
-		const unlock = await updateChapterUnlocking(missionId)
+	/* Handle the score computing from D&DExercise.js */
+	const handleCorrectnessComputed = (computedCorrectness) => {
+		setCorrectness(Math.round(computedCorrectness));
+	};
 
-		if (correctness == 100)
-			await updateUserScore(missionId, exercisePoints)
-		else
-			await updateInitialScore();
-
-		setCorrectness(correctness);
-		setUnlockNewChapter(unlock)
+	/* Show the dialog/popup with the score */
+	const handleSubmit = () => {
 		setVisibleDialog(true);
+		// update the score when pressing submit, not every time the page changes :))))
+		if (correctness == 100)
+			updateUserScore(missionId, exercisePoints)
+		else
+			updateInitialScore();
 	};
 
 	const handleCloseDialog = () => {
@@ -111,7 +105,6 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				handleCloseDialog={handleCloseDialog}
 				exercisePoints={exercisePoints}
 				visible={isDialogVisible}
-				newChapterUnlock={isUnlockingNewChapter}
 			/>
 
 			<div className="grid grid-cols-3 justify-between  mx-auto ml-4 mr-4">
@@ -126,7 +119,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 					</Button>
 				</div>
 				<div className="flex justify-end">
-					<Button type="red" id="submit_button" form='exercise-form'>
+					<Button type="red" onClick={handleSubmit} id="submit_button" form='exercise-form'>
 						Submit
 					</Button>
 				</div>

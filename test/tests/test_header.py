@@ -11,6 +11,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 from test_login import login
 
+
 @pytest.fixture(scope="module")
 def base_url():
     return os.environ.get("API_URL", "http://localhost:3000/Login")
@@ -38,7 +39,13 @@ def user_50_points():
 
 @pytest.fixture(scope="class")
 def driver():
-    _driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    _options = webdriver.ChromeOptions()
+    _options.add_argument("--no-sandbox")
+    _options.add_argument("--disable-dev-shm-usage")
+    _options.add_argument("--headless")
+    _driver = webdriver.Chrome(
+        options=_options, service=ChromeService(ChromeDriverManager().install())
+    )
     yield _driver
     _driver.quit()
 

@@ -11,6 +11,7 @@ from selenium.webdriver import ActionChains
 
 from utils import login, get_exercise_popup, get_exercise_submit_button
 
+
 @pytest.fixture(scope="module")
 def base_url():
     return os.environ.get("API_URL", "http://localhost:3000/Login")
@@ -33,7 +34,13 @@ def user_tests():
 
 @pytest.fixture(scope="class")
 def driver():
-    _driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    _options = webdriver.ChromeOptions()
+    _options.add_argument("--no-sandbox")
+    _options.add_argument("--disable-dev-shm-usage")
+    _options.add_argument("--headless")
+    _driver = webdriver.Chrome(
+        options=_options, service=ChromeService(ChromeDriverManager().install())
+    )
     yield _driver
     _driver.quit()
 
@@ -50,17 +57,24 @@ def login_user_tests(driver, user_tests, exercise_url):
     login(driver, user_tests[0], user_tests[1])
     driver.get(exercise_url)
 
+
 class TestFirstMission:
     def get_targets(self, driver):
         base_xpath = '//*[@id="pane2_1"]/div/p[2]/span[{}]'
-        return [driver.find_element(By.XPATH, base_xpath.format(i)) for i in range(1, 8)]
+        return [
+            driver.find_element(By.XPATH, base_xpath.format(i)) for i in range(1, 8)
+        ]
 
     def get_elements(self, driver):
-        solution = ['files.php', '?', 'file=', '../', '../', 'server/', 'flag.txt']
+        solution = ["files.php", "?", "file=", "../", "../", "server/", "flag.txt"]
         base_xpath = '//*[@id="pane2_1"]/div/div/span[text()="{}"]'
-        elements = [driver.find_element(By.XPATH, base_xpath.format(i)) for i in solution]
+        elements = [
+            driver.find_element(By.XPATH, base_xpath.format(i)) for i in solution
+        ]
         # to take the second ../ instead of the first one again
-        elements[4] = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/div/span[text()="../"][2]')
+        elements[4] = driver.find_element(
+            By.XPATH, '//*[@id="pane2_1"]/div/div/span[text()="../"][2]'
+        )
 
         return elements
 
@@ -73,7 +87,8 @@ class TestFirstMission:
         action_chains.drag_and_drop(element, target).perform()
         assert target.text == expected_text
 
-    ''' TOFIX: is not working properly '''
+    """ TOFIX: is not working properly """
+
     def test_score_correct(self, driver):
         driver.get("http://localhost:3000/exercise/1")
         elements = self.get_elements(driver)
@@ -94,7 +109,6 @@ class TestFirstMission:
 
         assert "You have earned 50 points!" in popup.text
 
-
     def test_score_fail(self, driver):
         driver.get("http://localhost:3000/exercise/1")
         elements = self.get_elements(driver)
@@ -114,4 +128,3 @@ class TestFirstMission:
         popup = get_exercise_popup(driver)
 
         assert "You need more effort!" in popup.text
-

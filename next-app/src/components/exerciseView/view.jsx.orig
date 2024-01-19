@@ -62,18 +62,39 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 	const [isUnlockingNewChapter, setUnlockNewChapter] = useState(false);
 
 	// This will be called once by the exercise when the player finishes
-	const handleCorrectnessComputed = async (computedCorrectness) => {
+	const handleCorrectnessComputed = (computedCorrectness) => {
 		const correctness = Math.round(computedCorrectness)
-		const unlock = await updateChapterUnlocking(missionId)
 
+<<<<<<< HEAD
+		// update the score when pressing submit, not every time the page changes
+		console.log(`submitting correctness ${correctness}`)
+||||||| a015f41
+	/* Show the dialog/popup with the score */
+	const handleSubmit = () => {
+		setVisibleDialog(true);
+		// update the score when pressing submit, not every time the page changes :))))
+=======
+	/* Show the dialog/popup with the score */
+	const handleSubmit = async () => {
+		setVisibleDialog(true);
+		
+		const unlock = await updateChapterUnlocking(missionId)
+		setUnlockNewChapter(unlock)
+
+>>>>>>> 7f6a4c47d0cbfa56541d4cea0f4b29ba00e609b6
 		if (correctness == 100)
 			await updateUserScore(missionId, exercisePoints)
 		else
-			await updateInitialScore();
+<<<<<<< HEAD
+			updateInitialScore();
 
 		setCorrectness(correctness);
-		setUnlockNewChapter(unlock)
 		setVisibleDialog(true);
+||||||| a015f41
+			updateInitialScore();
+=======
+			await updateInitialScore();
+>>>>>>> 7f6a4c47d0cbfa56541d4cea0f4b29ba00e609b6
 	};
 
 	const handleCloseDialog = () => {

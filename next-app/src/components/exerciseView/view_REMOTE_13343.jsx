@@ -61,19 +61,22 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 	const [isDialogVisible, setVisibleDialog] = useState(false);
 	const [isUnlockingNewChapter, setUnlockNewChapter] = useState(false);
 
-	// This will be called once by the exercise when the player finishes
-	const handleCorrectnessComputed = async (computedCorrectness) => {
-		const correctness = Math.round(computedCorrectness)
+	/* Handle the score computing from D&DExercise.js */
+	const handleCorrectnessComputed = (computedCorrectness) => {
+		setCorrectness(Math.round(computedCorrectness));
+	};
+
+	/* Show the dialog/popup with the score */
+	const handleSubmit = async () => {
+		setVisibleDialog(true);
+		
 		const unlock = await updateChapterUnlocking(missionId)
+		setUnlockNewChapter(unlock)
 
 		if (correctness == 100)
 			await updateUserScore(missionId, exercisePoints)
 		else
 			await updateInitialScore();
-
-		setCorrectness(correctness);
-		setUnlockNewChapter(unlock)
-		setVisibleDialog(true);
 	};
 
 	const handleCloseDialog = () => {
@@ -126,7 +129,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 					</Button>
 				</div>
 				<div className="flex justify-end">
-					<Button type="red" id="submit_button" form='exercise-form'>
+					<Button type="red" onClick={handleSubmit} id="submit_button" form='exercise-form'>
 						Submit
 					</Button>
 				</div>

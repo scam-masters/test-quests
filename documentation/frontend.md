@@ -10,11 +10,26 @@ npm run dev
 
 # Landing Page
 
-For landing page, we defined a new circle component and used it for different missions.
-For instance, we have first mission actived named as "Path Traversal" while other buttons are not clickable.
-Clicking on "Path Traversal" button will navigate to the next page.
+For landing page, we defined a new circle component and used it for different chapters.
+
+## Assumptions
+
+We assume that the missions are ordered and increase the level of difficulty. Up to now, the chapters are organized in 3 distinct level of difficulty:
+- *easy*: all the missions that belongs to the "easy" difficulty level are organized and displayed inside the chapter 1
+- *medium*: all the missions that belongs to the "medium" difficulty level are organized and displayed inside the chapter 2
+- *hard*: all the missions that belongs to the "hard" difficulty level are organized and displayed inside the chapter 3
+
+Clicking on "Chapter 1" button will navigate to the next page in which missions included in the chapter 1 will be shown.
 
 # Mission
+
+## Landing Page
+
+Inside the Chapters you can find all the missions relevant to it, as expressed in the assumptions above, chapters are organized by difficulty so inside the chapter 1 the user will found all the missions that belongs to the difficulty level "easy", inside the chapter 2 the user will find missions about the difficulty level "medium" and so on.
+Only when the user completes all the missions in a chapter will unlock further missions of next chapters and the landing page will updates automatically.
+
+Inside the first chapter, for instance, we have first mission actived named as "Path Traversal" while other buttons are not clickable.
+Clicking on "Path Traversal" button will navigate to the next page.
 
 ## Learning Page
 

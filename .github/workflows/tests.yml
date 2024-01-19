@@ -1,0 +1,44 @@
+name: Run tests
+
+on:
+    pull_request:
+        branches:
+            - deployment
+            - production
+    workflow_dispatch:
+    push:
+        branches:
+            - deployment
+            - production
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@v1
+    
+    - name: Check Chrome version
+      run: chrome --version
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.12
+
+    - name: Install Node.js and run project
+      run: cd next-app && npm i && npm run dev &
+
+    - name: Install dependencies
+      run: |
+        cd test
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Tests
+      run: |
+        cd test/tests
+        pytest
