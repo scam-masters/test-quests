@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import Answer from '@/components/dnd/answer'
 
-export default function DndExercise({ onScoreComputed: onCorrectnessComputed, blocks, options, solution }) {
+export default function DndExercise({ onScoreComputed, blocks, options, solution }) {
 	// buld an array of nulls of size options.size
 	let nulls = Array(options.length).fill(null)
 
@@ -26,7 +26,7 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, bl
 		})
 	}
 
-	function ComputeCorrectness(answers) {
+	function computeCorrectness(answers) {
 		let count = 0;
 		let missing = false;
 
@@ -42,15 +42,16 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, bl
 		else return -1; // return -1 to recognize wheter the user have not filled yet
 	}
 
+	// the score is now computed *only* when the user submit the form
+	function onSubmit(e) {
+		e.preventDefault()
+		onScoreComputed(computeCorrectness(answers));
+	}
+
 	// build the draggable answers
 	let draggableAnswers = answers.map((x, i) => {
 		return (<Answer key={i} id={i} text={x} swap={swap} />)
 	})
-
-	// update the correctness when the answers change
-	useEffect(() => {
-		onCorrectnessComputed && onCorrectnessComputed(ComputeCorrectness(answers));
-	}, [answers])
 
 	// function to parse the input and replace the blanks with the draggable answers
 	function parseInput(blocks) {
@@ -61,15 +62,18 @@ export default function DndExercise({ onScoreComputed: onCorrectnessComputed, bl
 				res[i] = draggableAnswers[blank++];
 			}
 			else {
-				res[i] = <span key={i} dangerouslySetInnerHTML={{ __html: blocks[i] }}></span >
+				res[i] = <span key={'block_' + i} dangerouslySetInnerHTML={{ __html: blocks[i] }}></span >
 			}
 		}
 
 		return res;
 	}
 
+	// HACK: other exercises use forms to manage the user inputs and here we do the same in order to know when the user presses the button.
+	// In particular when the submit event fires we should compute the new score. Alternatives are likely possible but more convoluted
 	return (
 		<DndProvider backend={HTML5Backend}>
+			<form id="exercise-form" onSubmit={onSubmit} />
 			<p>Complete the exercise:</p>
 			<br />
 			<p>

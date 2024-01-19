@@ -55,19 +55,19 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 	const [correctness, setCorrectness] = useState(0);
 	const [isDialogVisible, setVisibleDialog] = useState(false);
 
-	/* Handle the score computing from D&DExercise.js */
+	// This will be called once by the exercise when the player finishes
 	const handleCorrectnessComputed = (computedCorrectness) => {
-		setCorrectness(Math.round(computedCorrectness));
-	};
+		const correctness = Math.round(computedCorrectness)
 
-	/* Show the dialog/popup with the score */
-	const handleSubmit = () => {
-		setVisibleDialog(true);
-		// update the score when pressing submit, not every time the page changes :))))
+		// update the score when pressing submit, not every time the page changes
+		console.log(`submitting correctness ${correctness}`)
 		if (correctness == 100)
 			updateUserScore(missionId, exercisePoints)
 		else
 			updateInitialScore();
+
+		setCorrectness(correctness);
+		setVisibleDialog(true);
 	};
 
 	const handleCloseDialog = () => {
@@ -119,7 +119,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 					</Button>
 				</div>
 				<div className="flex justify-end">
-					<Button type="red" onClick={handleSubmit} id="submit_button" form='exercise-form'>
+					<Button type="red" id="submit_button" form='exercise-form'>
 						Submit
 					</Button>
 				</div>

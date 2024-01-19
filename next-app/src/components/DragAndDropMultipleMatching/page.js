@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import Answer from '@/components/dnd/answer'
 
-export default function DndMmExercise({ onScoreComputed: onCorrectnessComputed, options, blocks, solution}) {
+export default function DndMmExercise({ onScoreComputed, options, blocks, solution}) {
 	// initialize answers with options
 	const [answers, setAnswers] = useState(options)
 
@@ -31,15 +31,15 @@ export default function DndMmExercise({ onScoreComputed: onCorrectnessComputed, 
 		return count / solution.length * 100;
 	}
 
+	function onSubmit(e) {
+		e.preventDefault()
+		onScoreComputed(computeCorrectness(answers));
+	}
+
 	// build the draggable answers
 	let draggableAnswers = answers.map((x, i) => {
 		return (<Answer key={i} id={i} text={x} swap={swap} />)
 	})
-
-	// update the correctness when the answers change
-	useEffect(() => {
-		onCorrectnessComputed && onCorrectnessComputed(computeCorrectness(answers));
-	}, [answers])
 
 	// function to parse the input and replace the blanks with the draggable answers
 	function parseInput(draggableAnswers, blocks) {
@@ -55,8 +55,10 @@ export default function DndMmExercise({ onScoreComputed: onCorrectnessComputed, 
 		return res;
 	}
 
+	// HACK: same hack as DnD.
 	return (
 		<DndProvider backend={HTML5Backend}>
+			<form id="exercise-form" onSubmit={onSubmit} />
 			<p>Complete the exercise:</p>
 			<br />
 			<table>
