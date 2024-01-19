@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from utils import login, assert_to_be_on_landing, assert_to_be_on_exercise
 
+
 @pytest.fixture(scope="module")
 def base_url():
     return os.environ.get("API_URL", "http://localhost:3000/Login")
@@ -27,7 +28,13 @@ def user_tests():
 
 @pytest.fixture(scope="class")
 def driver():
-    _driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    _options = webdriver.ChromeOptions()
+    _options.addArguments("--no-sandbox")
+    _options.addArguments("--disable-dev-shm-usage")
+    _options.addArguments("--headless")
+    _driver = webdriver.Chrome(
+        options=_options, service=ChromeService(ChromeDriverManager().install())
+    )
     yield _driver
     _driver.quit()
 
@@ -46,14 +53,19 @@ def login_user_tests(driver, user_tests):
 
 class TestLearningPages:
     def get_buttons(self, driver):
-        return [driver.find_element(By.ID, id) for id in ["back_to_main", "learn_more", "start_exercise"]]
+        return [
+            driver.find_element(By.ID, id)
+            for id in ["back_to_main", "learn_more", "start_exercise"]
+        ]
 
-    @pytest.mark.parametrize("learning_url", [f"http://localhost:3000/learning/{i}" for i in range(1, 3)])
+    @pytest.mark.parametrize(
+        "learning_url", [f"http://localhost:3000/learning/{i}" for i in range(1, 3)]
+    )
     def test_learning_pages(self, driver, learning_url):
         driver.get(learning_url)
         self.get_buttons(driver)[0].click()
         assert_to_be_on_landing(driver)
-        
+
         driver.get(learning_url)
         self.get_buttons(driver)[2].click()
         assert_to_be_on_exercise(driver)

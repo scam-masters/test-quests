@@ -15,6 +15,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@v1
+    
+    - name: Check Chrome version
+      run: chrome --version
+
     - name: Checkout repository
       uses: actions/checkout@v3
 

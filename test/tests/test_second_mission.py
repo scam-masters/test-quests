@@ -11,6 +11,7 @@ from selenium.webdriver.support.ui import Select
 
 from utils import login, get_exercise_submit_button, get_exercise_popup
 
+
 @pytest.fixture(scope="module")
 def base_url():
     return os.environ.get("API_URL", "http://localhost:3000/Login")
@@ -33,7 +34,13 @@ def user_tests():
 
 @pytest.fixture(scope="class")
 def driver():
-    _driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    _options = webdriver.ChromeOptions()
+    _options.addArguments("--no-sandbox")
+    _options.addArguments("--disable-dev-shm-usage")
+    _options.addArguments("--headless")
+    _driver = webdriver.Chrome(
+        options=_options, service=ChromeService(ChromeDriverManager().install())
+    )
     yield _driver
     _driver.quit()
 
@@ -53,12 +60,17 @@ def login_user_tests(driver, user_tests, exercise_url):
 
 class TestFirstMission:
     def get_dropdowns(self, driver):
-        return [Select(driver.find_element(By.XPATH, f'//*[@id="exercise-form"]/p/select[{i}]')) for i in range(1,4)]
+        return [
+            Select(
+                driver.find_element(By.XPATH, f'//*[@id="exercise-form"]/p/select[{i}]')
+            )
+            for i in range(1, 4)
+        ]
 
     def test_dropdown_selection(self, driver):
         dropdowns = self.get_dropdowns(driver)
         dropdowns[0].select_by_index(3)
-        assert dropdowns[0].first_selected_option.text == "' OR 1=1 --" 
+        assert dropdowns[0].first_selected_option.text == "' OR 1=1 --"
 
     def test_wrong_answer(self, driver):
         submit_button = get_exercise_submit_button(driver)
@@ -71,7 +83,9 @@ class TestFirstMission:
         submit_button.click()
         popup = get_exercise_popup(driver)
         assert "33%" in popup.text
-        driver.find_element(By.XPATH, '//*[@id="popup_content"]/div/div[2]/button').click()
+        driver.find_element(
+            By.XPATH, '//*[@id="popup_content"]/div/div[2]/button'
+        ).click()
 
     def test_all_correct_answers(self, driver):
         submit_button = get_exercise_submit_button(driver)
