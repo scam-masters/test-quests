@@ -3,12 +3,10 @@ name: Run tests
 on:
     pull_request:
         branches:
-            - deployment
             - production
     workflow_dispatch:
     push:
         branches:
-            - deployment
             - production
 jobs:
   test:
