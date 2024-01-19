@@ -32,6 +32,10 @@ jobs:
     - name: Install Node.js and run project
       run: cd next-app && npm i && npm run dev &
 
+    - name: Wait for project to start
+      run: |
+        while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:3000)" != "200" ]]; do sleep 5; done
+
     - name: Install dependencies
       run: |
         cd test
