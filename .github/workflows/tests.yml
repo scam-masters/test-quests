@@ -30,7 +30,7 @@ jobs:
         python-version: 3.12
 
     - name: Install Node.js and run project
-      run: cd next-app && npm i && npm run build
+      run: cd next-app && npm i && npm run dev
 
     - name: Install dependencies
       run: |
