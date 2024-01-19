@@ -29,6 +29,9 @@ jobs:
       with:
         python-version: 3.12
 
+    - name: Install Node.js and run project
+      run: cd next-app && npm i && npm run build
+
     - name: Install dependencies
       run: |
         cd test
