@@ -30,9 +30,9 @@ def user_50_points():
 @pytest.fixture(scope="class")
 def driver():
     _options = webdriver.ChromeOptions()
-    _options.addArguments("--no-sandbox")
-    _options.addArguments("--disable-dev-shm-usage")
-    _options.addArguments("--headless")
+    _options.add_argument("--no-sandbox")
+    _options.add_argument("--disable-dev-shm-usage")
+    _options.add_argument("--headless")
     _driver = webdriver.Chrome(
         options=_options, service=ChromeService(ChromeDriverManager().install())
     )
