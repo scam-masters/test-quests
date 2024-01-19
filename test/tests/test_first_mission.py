@@ -1,61 +1,19 @@
-import os
 import pytest
-import time
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 
 from utils import login, get_exercise_popup, get_exercise_submit_button
 
 
-@pytest.fixture(scope="module")
-def base_url():
-    return os.environ.get("API_URL", "http://localhost:3000/Login")
-
-
-@pytest.fixture(scope="module")
-def exercise_url():
-    return os.environ.get("API_URL", "http://localhost:3000/exercise/1")
-
-
-@pytest.fixture(scope="module")
-def expected_title():
-    return "test quests"
-
-
-@pytest.fixture(scope="class")
-def user_tests():
-    return ("tests@gmail.com", "testtest")
-
-
-@pytest.fixture(scope="class")
-def driver():
-    _options = webdriver.ChromeOptions()
-    _options.add_argument("--no-sandbox")
-    _options.add_argument("--disable-dev-shm-usage")
-    _options.add_argument("--headless")
-    _driver = webdriver.Chrome(
-        options=_options, service=ChromeService(ChromeDriverManager().install())
-    )
-    yield _driver
-    _driver.quit()
-
-
 @pytest.fixture(scope="class", autouse=True)
-def load_page(base_url, expected_title, driver):
-    driver.get(base_url)
-    WebDriverWait(driver, 10).until(EC.title_contains(expected_title))
-
-
-@pytest.fixture(scope="class", autouse=True)
-def login_user_tests(driver, user_tests, exercise_url):
-    driver.implicitly_wait(10)
+def login_user_tests(driver, user_tests):
     login(driver, user_tests[0], user_tests[1])
-    driver.get(exercise_url)
+
+
+# before each method we need to navigate to the correct page!!!!
+@pytest.fixture(scope="function", autouse=True)
+def navigate_to_first_mission(driver, base_url):
+    driver.get(base_url + "/exercise/1")
 
 
 class TestFirstMission:

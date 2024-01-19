@@ -1,49 +1,8 @@
-import os
 import pytest
-
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+
 
 from utils import login, wait_landing_render
-
-
-@pytest.fixture(scope="module")
-def base_url():
-    return os.environ.get("API_URL", "http://localhost:3000")
-
-
-@pytest.fixture(scope="module")
-def expected_title():
-    return "test quests"
-
-
-@pytest.fixture(scope="class")
-def user_50_points():
-    return ("test_50_points_user@gmail.com", "test_50_points_user")
-
-
-@pytest.fixture(scope="class")
-def driver():
-    _options = webdriver.ChromeOptions()
-    _options.add_argument("--no-sandbox")
-    _options.add_argument("--disable-dev-shm-usage")
-    _options.add_argument("--headless")
-    _driver = webdriver.Chrome(
-        options=_options, service=ChromeService(ChromeDriverManager().install())
-    )
-    yield _driver
-    _driver.quit()
-
-
-@pytest.fixture(scope="class", autouse=True)
-def load_page(base_url, expected_title, driver):
-    driver.get(base_url + "/Login")
-    WebDriverWait(driver, 10).until(EC.title_contains(expected_title))
 
 
 @pytest.fixture(scope="class", autouse=True)
@@ -55,11 +14,7 @@ def login_user_50_points(driver, user_50_points):
 @pytest.fixture(scope="function", autouse=True)
 def navigate_to_easy_chapter(driver, base_url):
     driver.get(base_url + "/chapter/easy")
-    WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located(
-            (By.XPATH, "//button[contains(., 'Path Traversal')]")
-        )
-    )
+    driver.find_element(By.XPATH, "//button[contains(., 'Path Traversal')]")
 
 
 class TestChapterPageSuccess:
@@ -71,16 +26,12 @@ class TestChapterPageSuccess:
         """ Check for accessing to the first learning page """
         first_circle_mission.click()
 
-        go_back_button_xpath = "/html/body/div[1]/div/div[2]/a[1]/button"
-        WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, go_back_button_xpath))
+        go_back_button_xpath = driver.find_element(
+            By.XPATH, "/html/body/div[1]/div/div[2]/a[1]/button"
         )
 
-        assert (
-            driver.find_element(By.XPATH, go_back_button_xpath).text
-            == "Go back to main page"
-        )
-        driver.find_element(By.XPATH, go_back_button_xpath).click()
+        assert go_back_button_xpath.text == "Go back to main page"
+        go_back_button_xpath.click()
         wait_landing_render(driver)
 
     def test_mission_points(self, driver):
@@ -111,16 +62,7 @@ class TestChapterPageUnsuccess:
 
         """ Check for accessing to the first learning page """
         locked_circle_mission.click()
-
-        popup_element_xpath = "/html/body/div[3]/div/div[1]/div[1]"
-        try:
-            WebDriverWait(driver, 10).until(
-                EC.visibility_of_element_located((By.XPATH, popup_element_xpath))
-            )
-        except TimeoutException:
-            raise NoSuchElementException(
-                f"Element with XPath {popup_element_xpath} not found after waiting."
-            )
-
-        popup_element = driver.find_element(By.XPATH, popup_element_xpath)
+        popup_element = driver.find_element(
+            By.XPATH, "/html/body/div[3]/div/div[1]/div[1]"
+        )
         assert popup_element.text == "Mission Locked"
