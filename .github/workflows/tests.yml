@@ -16,19 +16,20 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: 3.12
 
     - name: Install dependencies
       run: |
+        cd test
         python -m pip install --upgrade pip
-        pip install -r /test/requirements.txt  # Adjust this based on your project's setup
+        pip install -r requirements.txt
 
     - name: Run Tests
       run: |
-        pytest /test/tests # Adjust the path to your test directory
-
+        cd tests
+        pytest
