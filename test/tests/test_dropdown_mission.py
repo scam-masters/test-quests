@@ -4,7 +4,6 @@ from selenium.webdriver.support.ui import Select
 
 from utils import login, get_exercise_submit_button, get_exercise_popup
 
-
 @pytest.fixture(scope="class", autouse=True)
 def login_user_tests(driver, user_tests):
     login(driver, user_tests[0], user_tests[1])

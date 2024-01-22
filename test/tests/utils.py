@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+import selenium.webdriver.support.expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 """Landing"""
 
@@ -39,7 +41,10 @@ def get_exercise_submit_button(driver):
 
 
 def get_exercise_popup(driver):
-    popup = driver.find_element(By.ID, "popup")
+    # here we use explicit wait because with the implicit one the element is found 
+    # but not yet visible, making tests fail
+    popup = driver.find_element(By.ID, 'popup')
+    WebDriverWait(driver, 10).until(EC.visibility_of(popup))
     return popup
 
 
