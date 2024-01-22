@@ -30,12 +30,12 @@ def expected_title():
 
 
 # ----------------------- USERS -----------------------
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def user_new():
     return ("test_new_user@gmail.com", "test_new_user")
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def user_0_points():
     return ("test_0_points_user@gmail.com", "test_0_points_user")
 
@@ -50,7 +50,7 @@ def user_tests():
     return ("tests@gmail.com", "testtest")
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="session")
 def user_non_existent():
     return ("non_existent@gmail.com", "non_existent")
 
