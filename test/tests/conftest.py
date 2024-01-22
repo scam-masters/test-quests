@@ -10,7 +10,7 @@ def driver():
     _options = webdriver.ChromeOptions()
     _options.add_argument("--no-sandbox")
     _options.add_argument("--disable-dev-shm-usage")
-    # _options.add_argument("--headless")
+    _options.add_argument("--headless")
     _driver = webdriver.Chrome(
         options=_options, service=ChromeService(ChromeDriverManager().install())
     )

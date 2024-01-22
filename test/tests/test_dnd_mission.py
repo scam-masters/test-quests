@@ -4,6 +4,8 @@ from selenium.webdriver import ActionChains
 
 from utils import login, get_exercise_popup, get_exercise_submit_button
 
+from time import sleep
+
 
 @pytest.fixture(scope="class", autouse=True)
 def login_user_tests(driver, user_tests):
@@ -17,17 +19,21 @@ def navigate_to_first_mission(driver, base_url):
 
 
 class TestFirstMission:
+    def empty_block_xpath(self, i):
+        return f'//*[@id="pane2_1"]/div/p[2]/span[text() = "___"][{i}]'
+
+    def answer_block_xpath(self, i):
+        return f'//*[@id="pane2_1"]/div/div/span[text()="{i}"]'
+
     def get_targets(self, driver):
-        base_xpath = '//*[@id="pane2_1"]/div/p[2]/span[{}]'
         return [
-            driver.find_element(By.XPATH, base_xpath.format(i)) for i in range(1, 8)
+            driver.find_element(By.XPATH, self.empty_block_xpath(i)) for i in range(1, 8)
         ]
 
     def get_elements(self, driver):
         solution = ["files.php", "?", "file=", "../", "../", "server/", "flag.txt"]
-        base_xpath = '//*[@id="pane2_1"]/div/div/span[text()="{}"]'
         elements = [
-            driver.find_element(By.XPATH, base_xpath.format(i)) for i in solution
+            driver.find_element(By.XPATH, self.answer_block_xpath(i)) for i in solution
         ]
         # to take the second ../ instead of the first one again
         elements[4] = driver.find_element(
@@ -37,15 +43,13 @@ class TestFirstMission:
         return elements
 
     def test_drag_and_drop(self, driver):
-        element = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/div/span[1]')
-        target = driver.find_element(By.XPATH, '//*[@id="pane2_1"]/div/p[2]/span[1]')
+        element = driver.find_element(By.XPATH, "//*[@id='pane2_1']/div/div/span")
+        target = driver.find_element(By.XPATH, self.empty_block_xpath(1))
         expected_text = element.text
 
         action_chains = ActionChains(driver)
         action_chains.drag_and_drop(element, target).perform()
         assert target.text == expected_text
-
-    """ TOFIX: is not working properly """
 
     def test_score_correct(self, driver):
         driver.get("http://localhost:3000/exercise/1")
