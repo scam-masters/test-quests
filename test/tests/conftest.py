@@ -2,6 +2,7 @@ import pytest
 import os
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
 
 
@@ -28,6 +29,10 @@ def base_url():
 def expected_title():
     return "test quests"
 
+@pytest.fixture(scope="function")
+def submit_exercise_button(driver):
+    return driver.find_element(By.ID, "submit_button")
+
 
 # ----------------------- USERS -----------------------
 @pytest.fixture(scope="session")
@@ -53,6 +58,11 @@ def user_tests():
 @pytest.fixture(scope="session")
 def user_non_existent():
     return ("non_existent@gmail.com", "non_existent")
+
+
+@pytest.fixture(scope="session")
+def user_all_unlocked():
+    return ("test_all_unlocked@gmail.com", "test_all_unlocked")
 
 
 @pytest.fixture(scope="class", autouse=True)
