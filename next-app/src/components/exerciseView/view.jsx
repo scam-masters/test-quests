@@ -67,9 +67,11 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		const unlock = await updateChapterUnlocking(missionId)
 
 		if (correctness == 100)
-			await updateUserScore(missionId, exercisePoints)
-		else
+			await updateUserScore(missionId, exercisePoints, correctness)
+		else {
 			await updateInitialScore();
+			await updateUserScore(missionId, 0, correctness)
+		}
 
 		setCorrectness(correctness);
 		setUnlockNewChapter(unlock)

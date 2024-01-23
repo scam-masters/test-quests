@@ -29,7 +29,7 @@ export async function updateInitialScore() {
 }
 
 /* updates the user's data when the solution a mission is successfully submitted */
-export async function updateUserScore(missionId, missionScore) {
+export async function updateUserScore(missionId, missionScore, correctness) {
     await getUserData().then(userData => {
         // every submission that scores strictly more that the previous one, updates the timestamp.
         if (missionScore > userData.missions[missionId].score) {
@@ -40,10 +40,12 @@ export async function updateUserScore(missionId, missionScore) {
             // update user general score
             userData.score = Math.max(userData.score, 0) + missionScore
 
-            // unlock the next mission
-            const missionNumber = missionId.split("_")[1]
-            const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
-            userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
+            // unlock the next mission only when we get max score
+            if (correctness == 100) {
+                const missionNumber = missionId.split("_")[1]
+                const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
+                userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
+            }
             setUserData(userData)
         }
     })
@@ -57,33 +59,33 @@ export async function getUserScoreForMission(missionId) {
 
 /* returns a boolean indicating if we need display a different popup message for the last mission of a chapter completion */
 export async function updateChapterUnlocking(missionId) {
-	// retrieve the mission id of the current and the next one
-	const missionNumber = missionId.split("_")[1]
-	const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
-	try {
-		// retrieve the mission performed and the next one
-		const missionRef = doc(db,'exercises', missionId)
-		/*** TODO: 
-		 * 			add logic for when the user have finished the last mission in the storyline
-		 *          because you can't retrieve the next missions (there aren't) 
-		 * ***/
-		const nextMissionRef = doc(db,'exercises', nextMissionId)
+    // retrieve the mission id of the current and the next one
+    const missionNumber = missionId.split("_")[1]
+    const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
+    try {
+        // retrieve the mission performed and the next one
+        const missionRef = doc(db, 'exercises', missionId)
+        /*** TODO: 
+         * 			add logic for when the user have finished the last mission in the storyline
+         *          because you can't retrieve the next missions (there aren't) 
+         * ***/
+        const nextMissionRef = doc(db, 'exercises', nextMissionId)
 
-		const missionDoc = await getDoc(missionRef)
-		const nextMissionDoc = await getDoc(nextMissionRef)
+        const missionDoc = await getDoc(missionRef)
+        const nextMissionDoc = await getDoc(nextMissionRef)
 
-		// Check if the documents exist and have the 'difficulty' field
-		if (missionDoc && nextMissionDoc && missionDoc.data().difficulty == nextMissionDoc.data().difficulty) {
-			// The difficulties are the same
-			console.log('Difficulties are the same:', missionDoc.data().difficulty)
-			return false
-		} else {
-			// The difficulties are different or one of the documents does not exist
-			console.log('Difficulties are different or one of the documents does not exist')
-			return true
-		}
-	} catch (error) {
-		console.log('Error getting missions: ', error);
-	}
-	return false
+        // Check if the documents exist and have the 'difficulty' field
+        if (missionDoc && nextMissionDoc && missionDoc.data().difficulty == nextMissionDoc.data().difficulty) {
+            // The difficulties are the same
+            console.log('Difficulties are the same:', missionDoc.data().difficulty)
+            return false
+        } else {
+            // The difficulties are different or one of the documents does not exist
+            console.log('Difficulties are different or one of the documents does not exist')
+            return true
+        }
+    } catch (error) {
+        console.log('Error getting missions: ', error);
+    }
+    return false
 }
