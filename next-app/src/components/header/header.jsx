@@ -71,7 +71,7 @@ function Header() {
 				<h1 className='font-logo text-tq-white h-0 -translate-y-11 '>TEST QUESTS</h1>
 			</Link>
 
-			<div className="flex flex-row justify-end">
+			<div className="flex flex-row justify-end overflow-hidden">
 				{currentUser ? (
 					<Points username={username} points={points} />
 				) : (

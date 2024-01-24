@@ -47,8 +47,8 @@ export default function DndMmExercise({ onScoreComputed, options, blocks, soluti
 		for (let i = 0; i < blocks.length; i++) {
 			res[i] = (
 				<tr>
-					<td>{draggableAnswers[i]}</td>
-					<td>{blocks[i]}</td>
+					<td className="p-3">{blocks[i]}</td>
+					<td className="p-3">{draggableAnswers[i]}</td>
 				</tr>);
 		}
 
@@ -66,7 +66,6 @@ export default function DndMmExercise({ onScoreComputed, options, blocks, soluti
 					{parseInput(draggableAnswers, blocks)}
 				</tbody>
 			</table>
-			<p className='mt-5'>Compose it starting from these blocks:</p>
 			<div className="min-w-max grid grid-cols-1 gap-1">
 				{draggableAnswers.slice(solution.length)}
 			</div>
