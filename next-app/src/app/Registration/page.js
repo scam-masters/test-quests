@@ -3,6 +3,8 @@ import React, { useState } from "react";
 
 import { registerUser } from "@/app/actions"
 import { useRouter }  from "next/navigation";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "@/firebase/index";
 
 
 function Registration() {
@@ -21,8 +23,9 @@ function Registration() {
 		if (error)
 			setError(error)
 		else {
-			// if the registration was successful, redirect to the login page
-			router.push("/Login")
+			// if the registration was successful, login and redirect to the home page
+			await signInWithEmailAndPassword(getAuth(app), email, password)
+			router.push("/")
 		}
 	};
 
