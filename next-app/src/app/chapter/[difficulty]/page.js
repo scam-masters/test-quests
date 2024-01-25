@@ -49,20 +49,43 @@ export default function Chapter({ params }) {
         return result
     }
 
+    function getTranslation(missionNum) {
+        const alignNum = missionNum % 8
+        let alignment = ""
+        if (alignNum == 1 || alignNum == 5) {
+            // do nothing
+        } else if (alignNum == 2 || alignNum == 4) {
+            alignment = "translate-x-[110%]"
+        } else if (alignNum == 3) {
+            alignment = "translate-x-[150%]"
+        } else if (alignNum == 6 || alignNum == 8) {
+            alignment = "-translate-x-[110%]"
+        } else if (alignNum == 7) {
+            alignment = "-translate-x-[150%]"
+        }
+        return alignment
+    }
+
     function lockedMission(missionId) {
+        const missionNum = missionId.split("_")[1]
+        const translation = getTranslation(missionNum)
+
         return (
             <div key={missionId} className='text-center m-5 align-middle' onClick={MissionLocked}>
-                <CircleMission type="locked">Mission Locked</CircleMission>
+                <CircleMission className={translation} type="locked">Mission Locked</CircleMission>
             </div>
         )
     }
 
     async function unlockedMission(missionId, missionData) {
         const userScore = await getUserScoreForMission(missionId);
+        const missionNum = missionId.split("_")[1]
+        const translation = getTranslation(missionNum)
+
         return (
             <div key={missionId} className='text-center m-5 align-middle'>
                 <Link href={missionData.learning.learningLink}>
-                    <CircleMission type="gradient" userScore={userScore} maxPoints={missionData.points}>
+                    <CircleMission className={translation} type={"gradient-"+(missionNum%3 || 1)} userScore={userScore} maxPoints={missionData.points}>
                         {missionData.name}
                     </CircleMission>
                 </Link>
@@ -97,7 +120,7 @@ export default function Chapter({ params }) {
             </Dialog>
 
             {/* "Go back to main page" button */}
-            <div className="fixed bottom-0 left-0 p-5 mb-5">
+            <div className="fixed bottom-0 p-5 left-0 mb-5 z-50">
                 <Link href="/">
                     <Button type='blue' id="back_to_main">
                         Go back to main page
