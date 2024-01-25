@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from "next/link"
 import Points from './points';
@@ -32,7 +32,19 @@ function Header() {
 		const userInfo = await getUserData();
 		return userInfo.username;
 	}
-
+	
+	// ******************* Retrieve if the user can access the exercise ******************* //
+	async function getUserAccess() {
+		const userInfo = await getUserData();
+		if (pathname.includes("exercise") || pathname.includes("learning")) {
+			// get the mission number
+			const missionNumber = pathname.split("/").at(-1);
+			// compare the number of missions completed retrieved from the db with the mission number
+			return Object.getOwnPropertyNames(userInfo.missions).length >= missionNumber;
+			
+		}
+		return true;
+	}
 
 	useEffect(() => {
 		auth.onAuthStateChanged(function (user) {
@@ -45,6 +57,12 @@ function Header() {
 		/* when logged in show points, otherwise go to login page */
 		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
+				// check if the user can access the exercise
+				getUserAccess().then(access => {
+					if (!access) {
+						router.push("/")
+					}
+				})
 				retrievePoints().then(newPoints => {
 					setPoints(newPoints);
 				})
