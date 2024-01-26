@@ -6,7 +6,7 @@ import Points from './points';
 
 // Firebase authentication
 import { getAuth } from "firebase/auth";
-import { app } from "../../firebase/index"
+// import { auth } from "../../firebase/index"
 import { useRouter } from "next/navigation"
 
 import { getUserData } from "@/app/user_actions";
@@ -20,7 +20,7 @@ connectFunctionsEmulator(functions, "127.0.0.1", 5002);
 */
 
 // export to obtain authentication inside the header and use this istance in pages
-export const auth = getAuth(app);
+// export const auth = getAuth(app);
 
 function Header() {
 	const pathname = usePathname();
@@ -43,7 +43,7 @@ function Header() {
 
 
 	useEffect(() => {
-		auth.onAuthStateChanged(function (user) {
+		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
 				setCurrentUser(auth.currentUser);
 			} else {
