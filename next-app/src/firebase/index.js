@@ -18,4 +18,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const auth = getAuth(app.auth());
+// const db = firebaseApp.firestore();
+
+// ADD THESE LINES
+if (location.hostname === "127.0.0.1") {
+  console.log("127.0.0.1 detected!");
+  auth.useEmulator("http://127.0.0.1:9099");
+  db.useEmulator("127.0.0.1", 8080);
+}
+
+
 export {app,db};

@@ -13,5 +13,36 @@
     "frameworksBackend": {
       "region": "europe-west1"
     }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ],
+  "emulators": {
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true,
+      "port": 5001
+    },
+    "singleProjectMode": true,
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5002
+    }
   }
 }

@@ -67,3 +67,42 @@ if (docSnap.exists()) {
 
 Ensure to customize the data retrieval based on your specific document structure.
 For more detailed information on Firestore queries, refer to the [official Firebase documentation on querying data](https://firebase.google.com/docs/firestore/query-data/queries?hl=en).
+
+# Emulators
+
+To avoid deploying in hosting every time we have used the emulators to have the deploy in local hosted directly by firebase, with total access to the functions deployed on cloud functions side.
+
+```bash
+firebase init emulators
+```
+Initialized those emulators:
+- auth
+- functions
+- firestore
+- hosting
+
+```bash
+firebase emulators:start
+```
+## URLS of emulated env
+
+The emulators UI ease the access to all the emulators:
+
+```shell
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app │
+│ i  View Emulator UI at http://127.0.0.1:5001/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ 127.0.0.1:9099 │ http://127.0.0.1:5001/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ 127.0.0.1:5002 │ http://127.0.0.1:5001/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ 127.0.0.1:8080 │ http://127.0.0.1:5001/firestore │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Hosting        │ 127.0.0.1:5000 │ n/a                             │
+└────────────────┴────────────────┴─────────────────────────────────┘
+```

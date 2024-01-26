@@ -11,6 +11,14 @@ import { useRouter } from "next/navigation"
 
 import { getUserData } from "@/app/user_actions";
 
+/*
+import { getApp } from "firebase/app";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+
+const functions = getFunctions(getApp());
+connectFunctionsEmulator(functions, "127.0.0.1", 5002);
+*/
+
 // export to obtain authentication inside the header and use this istance in pages
 export const auth = getAuth(app);
 
@@ -64,6 +72,7 @@ function Header() {
 	return (
 		<header className="w-full grid grid-cols-3 items-center bg-tq-primary z-50 justify-between">
 			<div>
+				
 			</div>
 
 			<Link href="/" className="mx-auto">
