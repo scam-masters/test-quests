@@ -1,6 +1,6 @@
 "use server"
 
-import { db, app } from "../firebase/index";
+import { db, app, auth } from "@/firebase";
 import { doc, getDoc, getDocs, setDoc, query, collection, where, or } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -58,6 +58,7 @@ const validateEmail = (email) => {
 // Register a new user
 export async function registerUser(email, password, username) {
 	const auth = getAuth(app);
+	console.log("Inside the registerUser function --> ", auth);
 
 	// Server-side validation
 	if (!email || !password || !username)

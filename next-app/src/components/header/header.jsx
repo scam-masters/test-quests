@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from "next/link"
 import Points from './points';
+import { useRouter } from "next/navigation"
 
 // Firebase authentication
 import { getAuth } from "firebase/auth";
-// import { auth } from "../../firebase/index"
-import { useRouter } from "next/navigation"
-
+import { auth,app } from '@/firebase';
+// utils
 import { getUserData } from "@/app/user_actions";
+
 
 /*
 import { getApp } from "firebase/app";
@@ -41,18 +42,10 @@ function Header() {
 		return userInfo.username;
 	}
 
-
 	useEffect(() => {
-		getAuth().onAuthStateChanged(function (user) {
+		getAuth(app).onAuthStateChanged(async function (user) {
 			if (user) {
-				setCurrentUser(auth.currentUser);
-			} else {
-				setCurrentUser(null);
-			}
-		});
-		/* when logged in show points, otherwise go to login page */
-		getAuth().onAuthStateChanged(function (user) {
-			if (user) {
+				setCurrentUser(getAuth(app).currentUser);
 				retrievePoints().then(newPoints => {
 					setPoints(newPoints);
 				})
@@ -60,13 +53,13 @@ function Header() {
 					setUsername(newUsername);
 				})
 			} else {
+				setCurrentUser(null);
 				console.log("current url: " + pathname);
 				if (pathname !== "/Login" && pathname !== "/Registration" && pathname !== "/scoreboard") {
 					router.push("/Login")
 				}
 			}
 		});
-
 	}, []);
 
 	return (

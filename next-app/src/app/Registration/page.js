@@ -18,14 +18,15 @@ function Registration() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
+		// add the auth to recognize the emulator
 		const error = await registerUser(email, password, username);
 		
 		if (error)
-			setError(error)
+			setError(error);
 		else {
 			// if the registration was successful, login and redirect to the home page
-			await signInWithEmailAndPassword(getAuth(app), email, password)
-			router.push("/")
+			await signInWithEmailAndPassword(getAuth(app), email, password);
+			router.push("/");
 		}
 	};
 
