@@ -19,6 +19,16 @@ export default function Chapter({ params }) {
     const router = useRouter()
     const [visible_dialog, setVisibleDialog] = useState(false);
     const [missions, setMissions] = useState([])
+    const difficulty = params.difficulty.charAt(0).toUpperCase() + params.difficulty.slice(1)
+    const chapterName = getChapterName(difficulty)
+
+    function getChapterName(difficulty) {
+        const number =
+            difficulty == "Easy" ? 1 :
+                difficulty == "Medium" ? 2 :
+                    difficulty == "Hard" ? 3 : 0
+        return `Chapter ${number}`
+    }
 
     function MissionLocked() {
         return (
@@ -35,7 +45,7 @@ export default function Chapter({ params }) {
     // ******************* Retrieve missions and user progress ******************* //
     async function retrieveMissions(difficultyLevel) {
         const userInfo = await getUserData()
-        const missions =  await getMissionsByDifficulty(difficultyLevel) //  Retrieve the list of missions by difficulty level from the database
+        const missions = await getMissionsByDifficulty(difficultyLevel) //  Retrieve the list of missions by difficulty level from the database
         const result = []
 
         // For each mission, check if it is included in the user progress
@@ -85,7 +95,7 @@ export default function Chapter({ params }) {
         return (
             <div key={missionId} className='text-center m-5 align-middle'>
                 <Link href={missionData.learning.learningLink}>
-                    <CircleMission className={translation} type={"gradient-"+(missionNum%3 || 1)} userScore={userScore} maxPoints={missionData.points}>
+                    <CircleMission className={translation} type={"gradient-" + (missionNum % 3 || 1)} userScore={userScore} maxPoints={missionData.points}>
                         {missionData.name}
                     </CircleMission>
                 </Link>
@@ -108,6 +118,9 @@ export default function Chapter({ params }) {
     return (
         <div className='p-10'>
 
+            <h1 className='text-center text-4xl font-bold text-tq-blue mb-2'>{chapterName}</h1>
+            <h3 className='text-center text-2xl font-bold text-tq-blue mb-10'>Difficulty: {difficulty}</h3>
+
             {missions}
 
             <Dialog
@@ -129,5 +142,5 @@ export default function Chapter({ params }) {
             </div>
         </div>
     );
-    
+
 }
