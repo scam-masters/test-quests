@@ -30,7 +30,7 @@ class TestChapterPageSuccess:
             By.XPATH, "/html/body/div[1]/div/div[2]/a[1]/button"
         )
 
-        assert go_back_button_xpath.text == "Go back to main page"
+        assert go_back_button_xpath.text == "Go back to chapter page"
         go_back_button_xpath.click()
         wait_landing_render(driver)
 
