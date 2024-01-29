@@ -20,14 +20,19 @@ jobs:
       run: chrome --version
 
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: 3.12
 
-    - name: Install Node.js and run project
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+          node-version: 20
+      
+    - name: Install dependencies and run project  
       run: cd next-app && npm i && npm run dev &
 
     - name: Wait for project to start
