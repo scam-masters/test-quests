@@ -7,7 +7,7 @@ import { updateUserScore, updateInitialScore, updateChapterUnlocking } from "@/a
 
 import Link from "next/link"
 
-function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock }) {
+function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, missionChapter }) {
 	let title = `${correctness}%`
 	let resultMsg
 	let chapterMsg = ""
@@ -19,10 +19,13 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 			<br />
 			You have earned {exercisePoints} points!
 		</>
-		if(newChapterUnlock){
+		if(newChapterUnlock) {
 			chapterMsg = "You have unlocked the next Chapter!"
+			button = <Button type="blue" href="/">Continue</Button>
 		}
-		button = <Button type="blue" href="/">Continue</Button>
+		else {
+			button = <Button type="blue" href={missionChapter}>Continue</Button>
+		}
 	} else if (correctness < 100 && correctness >= 80) {
 		resultMsg = "You are almost there!"
 	} else if (correctness < 80 && correctness >= 20) {
@@ -56,7 +59,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 	)
 }
 
-export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, exercisePoints, exerciseArguments }) {
+export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, missionChapter, exercisePoints, exerciseArguments }) {
 	const [correctness, setCorrectness] = useState(0);
 	const [isDialogVisible, setVisibleDialog] = useState(false);
 	const [isUnlockingNewChapter, setUnlockNewChapter] = useState(false);
@@ -114,12 +117,13 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				exercisePoints={exercisePoints}
 				visible={isDialogVisible}
 				newChapterUnlock={isUnlockingNewChapter}
+				missionChapter={missionChapter}
 			/>
 
 			<div className="grid grid-cols-3 justify-between  mx-auto ml-4 mr-4">
-				<Link href="/">
+				<Link href={missionChapter}>
 					<Button type='blue'>
-						Go back to main page
+						Go back to chapter page
 					</Button>
 				</Link >
 				<div className="flex justify-center">

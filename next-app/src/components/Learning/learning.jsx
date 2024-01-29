@@ -1,10 +1,10 @@
 import Link from "next/link"
-import ReactMarkdown from 'react-markdown';
 import Button from '@/components/button/button';
 
 export default function LearningComponent({
 	resourceLink,
 	exerciseLink,
+	chapterLink,
 	contentHTML,
 }) {
 	return (
@@ -13,9 +13,9 @@ export default function LearningComponent({
 				{contentHTML}
 			</div>
 			<div className="grid grid-cols-3 justify-between w-4/5 mx-auto mb-8">
-				<Link href="/">
+				<Link href={chapterLink}>
 					<Button type='blue' id="back_to_main">
-						Go back to main page
+						Go back to chapter page
 					</Button>
 				</Link >
 				<div className="flex justify-center">

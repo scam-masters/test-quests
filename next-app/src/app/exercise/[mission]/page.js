@@ -59,11 +59,15 @@ export default async function Exercise({ params }) {
         </div>
     );
 
+    /* Placeholder content for exercise link to its chapter page */
+    const missionChapter = "/chapter/" + missionContent.difficulty;
+    
     return (
         <div>
             {/* Use the LearningComponent with mission-specific content */}
             <ExerciseView
                 missionId={missionContent.id}
+                missionChapter={missionChapter}
                 exerciseExplanation={exerciseExplanation}
                 resource={missionContent.resourceLink}
                 Exercise={exercise}
