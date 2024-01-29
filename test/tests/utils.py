@@ -6,15 +6,18 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 def get_first_circle_chapter(driver):
-    return driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/a/button")
+    # check the presence of the first circle mission in the landing page
+    # by searching an element with the text "Chapter 1"
+    return driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 1')]")
 
 
 """ Login """
 
 
 def wait_landing_render(driver):
-    driver.find_element(By.XPATH, "//button[contains(.,  'Chapter 1')]")
-
+    # same as before check the presence of the first circle mission in the 
+    # landing page by searching an element with the text "Chapter 1"
+    driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 1')]")
 
 def login(driver, email, password, wait_for_landing=True):
     e = driver.find_element(By.ID, "email")
