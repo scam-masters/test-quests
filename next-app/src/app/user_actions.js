@@ -1,13 +1,13 @@
 "use client"
-
-import { db, app } from "@/firebase/index";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { db as firestore, app, auth as firebaseAuth } from "@/firebase/index";
+import { doc, getDoc, setDoc, getDocs, connectFirestoreEmulator } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, connectAuthEmulator } from "firebase/auth";
 
 export async function getUserData() {
-    const auth = getAuth(app);
+    const auth = getAuth();
     const user = auth.currentUser;
-    const docRef = doc(db, "users", user.email);
+    //console.log(auth.currentUser);
+    const docRef = doc(firestore, "users", user.email);
     const document = await getDoc(docRef);
     return document.data()
 }
@@ -15,7 +15,7 @@ export async function getUserData() {
 export async function setUserData(userData) {
     const auth = getAuth();
     const user = auth.currentUser;
-    const docRef = doc(db, "users", user.email);
+    const docRef = doc(firestore, "users", user.email);
     await setDoc(docRef, userData, { merge: true });
 }
 
@@ -64,12 +64,12 @@ export async function updateChapterUnlocking(missionId) {
     const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
     try {
         // retrieve the mission performed and the next one
-        const missionRef = doc(db, 'exercises', missionId)
+        const missionRef = doc(firestore, 'exercises', missionId)
         /*** TODO: 
          * 			add logic for when the user have finished the last mission in the storyline
          *          because you can't retrieve the next missions (there aren't) 
          * ***/
-        const nextMissionRef = doc(db, 'exercises', nextMissionId)
+        const nextMissionRef = doc(firestore, 'exercises', nextMissionId)
 
         const missionDoc = await getDoc(missionRef)
         const nextMissionDoc = await getDoc(nextMissionRef)

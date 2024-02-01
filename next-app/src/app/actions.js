@@ -1,11 +1,12 @@
 "use server"
 
-import { db, app, auth } from "@/firebase";
-import { doc, getDoc, getDocs, setDoc, query, collection, where, or } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { db as firestore, app, auth as firebaseAuth} from "@/firebase";
+import { doc, getDoc, getDocs, setDoc, query, collection, where, or, connectFirestoreEmulator } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, connectAuthEmulator } from "firebase/auth";
 
+// Retrieve the exercise related to a specific name
 export async function getExerciseData(exerciseName) {
-	const docRef = doc(db, "exercises", exerciseName)
+	const docRef = doc(firestore, "exercises", exerciseName)
 	const document = await getDoc(docRef)
 
 	const result = document.data()
@@ -18,7 +19,7 @@ export async function getExerciseData(exerciseName) {
 export async function getMissionList() {
 	let missionList = []
 	try {
-		const querySnapshot = await getDocs(collection(db, "exercises"));
+		const querySnapshot = await getDocs(collection(firestore, "exercises"));
 		querySnapshot.forEach((doc) => {
 			missionList.push({ id: doc.id, data: doc.data() });
 		});
@@ -33,7 +34,7 @@ export async function getMissionsByDifficulty(difficultyLevel) {
 	let missionList = [];
 	try {
 		// Create a query to filter documents based on difficulty
-		const q = query(collection(db, 'exercises'), where('difficulty', '==', difficultyLevel));
+		const q = query(collection(firestore, 'exercises'), where('difficulty', '==', difficultyLevel));
 
 		// Execute the query
 		const querySnapshot = await getDocs(q);
@@ -57,9 +58,8 @@ const validateEmail = (email) => {
 
 // Register a new user
 export async function registerUser(email, password, username) {
-	const auth = getAuth(app);
-	console.log("Inside the registerUser function --> ", auth);
 
+	console.log("Inside the registerUser function --> ", firebaseAuth);
 	// Server-side validation
 	if (!email || !password || !username)
 		return 'Please fill all the fields.'
@@ -73,7 +73,7 @@ export async function registerUser(email, password, username) {
 
 	try {
 		// Check if username is already taken. If so, throw an error
-		const querySnapshot = await getDocs(query(collection(db, "users"), where("username", "==", username)))
+		const querySnapshot = await getDocs(query(collection(firestore, "users"), where("username", "==", username)))
 		if (!querySnapshot.empty) {
 			throw new Error("Username already taken")
 		}
@@ -81,13 +81,13 @@ export async function registerUser(email, password, username) {
 		// If username is not taken, create the user account in Firebase Authentication
 		// Throws an error if the email is already used
 		await createUserWithEmailAndPassword(
-			auth,
+			firebaseAuth,
 			email,
 			password
 		);
 
 		// Create user document in Firestore database
-		setDoc(doc(db, "users", email), {
+		setDoc(doc(firestore, "users", email), {
 			username: username,
 			score: -1,
 			missions: { mission_1: { id: "mission_1", score: 0 } }
@@ -108,13 +108,13 @@ export async function registerUser(email, password, username) {
 
 // Retrieve scoreboard data (mock for testing)
 export async function getScoreboardData() {
-	const usersRef = collection(db, "users")
+	const usersRef = collection(firestore, "users")
 
 	const docs = await getDocs(query(usersRef, where("score", ">=", 0)))
 
 	const data = []
 
-	// maybe we can get clever with firebase and have it sort and compute last timestamp in the db
+	// maybe we can get clever with firebase and have it sort and compute last timestamp in the firestore
 	docs.forEach(doc => {
 		let timestamp = 0
 		let completedCount = 0

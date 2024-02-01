@@ -8,11 +8,14 @@ import { getAuth } from "firebase/auth";
 import { getMissionList } from '@/app/actions';
 import { getUserData, getUserScoreForMission } from '@/app/user_actions';
 import CircleMission from '@/components/button/circle_mission';
+import Hotjar from '@hotjar/browser';
 
 function Landing() {
     const router = useRouter()
     const [visible_dialog, setVisibleDialog] = useState(false);
     const [chapters, setChapters] = useState([])
+    const siteId = 3847955;
+    const hotjarVersion = 6;
 
     function ChapterLocked() {
         return (
@@ -84,7 +87,9 @@ function Landing() {
     }
 
     useEffect(() => {
+        Hotjar.init(siteId, hotjarVersion);  // check this https://insights.hotjar.com/sites/3847955/setup?step=npm
         /* when logged in show missions, otherwise go to login page */
+        console.log(Hotjar.isReady())
         getAuth().onAuthStateChanged(function (user) {
             if (user) {
                 retrieveChapters().then(newChapters => {

@@ -41,11 +41,37 @@ function Header() {
 		const userInfo = await getUserData();
 		return userInfo.username;
 	}
+	
+	// ******************* Retrieve if the user can access the exercise ******************* //
+	async function getUserAccess() {
+		const userInfo = await getUserData();
+		if (pathname.includes("exercise") || pathname.includes("learning")) {
+			// get the mission number
+			const missionNumber = pathname.split("/").at(-1);
+			// compare the number of missions completed retrieved from the db with the mission number
+			return Object.getOwnPropertyNames(userInfo.missions).length >= missionNumber;
+			
+		}
+		return true;
+	}
 
 	useEffect(() => {
-		getAuth(app).onAuthStateChanged(async function (user) {
+		auth.onAuthStateChanged(function (user) {
 			if (user) {
-				setCurrentUser(getAuth(app).currentUser);
+				setCurrentUser(auth.currentUser);
+			} else {
+				setCurrentUser(null);
+			}
+		});
+		/* when logged in show points, otherwise go to login page */
+		getAuth().onAuthStateChanged(function (user) {
+			if (user) {
+				// check if the user can access the exercise
+				getUserAccess().then(access => {
+					if (!access) {
+						router.push("/")
+					}
+				})
 				retrievePoints().then(newPoints => {
 					setPoints(newPoints);
 				})
@@ -53,13 +79,13 @@ function Header() {
 					setUsername(newUsername);
 				})
 			} else {
-				setCurrentUser(null);
 				console.log("current url: " + pathname);
 				if (pathname !== "/Login" && pathname !== "/Registration" && pathname !== "/scoreboard") {
 					router.push("/Login")
 				}
 			}
 		});
+
 	}, []);
 
 	return (

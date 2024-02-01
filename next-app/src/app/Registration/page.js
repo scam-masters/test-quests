@@ -1,31 +1,28 @@
 "use client";
 import React, { useState } from "react";
 
-import { registerUser } from "@/app/actions"
+import { registerUser } from "@/app/actions";
 import { useRouter }  from "next/navigation";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { app } from "@/firebase/index";
-
+import { app,auth,emulated } from "@/firebase/index";
 
 function Registration() {
-	const router = useRouter()
+	const router = useRouter();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [username, setUsername] = useState("");
 	const [error, setError] = useState(null); // State for managing error messages
 
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		// add the auth to recognize the emulator
 		const error = await registerUser(email, password, username);
 		
 		if (error)
 			setError(error);
 		else {
 			// if the registration was successful, login and redirect to the home page
-			await signInWithEmailAndPassword(getAuth(app), email, password);
+			await signInWithEmailAndPassword(auth, email, password);
 			router.push("/");
 		}
 	};

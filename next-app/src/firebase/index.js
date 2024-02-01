@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { initializeAuth, connectAuthEmulator } from "firebase/auth";
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { initializeAuth, connectAuthEmulator, getAuth } from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator, initializeFirestore } from "firebase/firestore";
 
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
@@ -17,19 +17,16 @@ const firebaseConfig = {
 
 // Initialize Firebase: https://firebase.google.com/docs/firestore/quickstart
 const app = initializeApp(firebaseConfig);
-const auth = initializeAuth(app);
+const auth = getAuth(app);
 const db = getFirestore(app);
-// const db = firebaseApp.firestore();
 
 // check if we are on the development to use the correct emulators
-//if (location.hostname === "127.0.0.1") { //location is not recognized
-if(typeof window !== 'undefined' && window.location.hostname === "127.0.0.1"){
-  console.log("127.0.0.1 detected! --> ", window.location.hostname  );
-  connectAuthEmulator(auth, "http://127.0.0.1:9099");
-  connectFirestoreEmulator(db, "http://127.0.0.1:8080");
+if (process.env.NODE_ENV === "development") {
+	connectAuthEmulator(auth, "http://127.0.0.1:9099");
+	connectFirestoreEmulator(db, "127.0.0.1", 8080);
 }
 
-console.log("You are using the current auth", auth);
-console.log("You are using the current db", db);
+// console.log("You are using the current auth", auth);
+// console.log("You are using the current db", db);
 
 export {app,db,auth};
