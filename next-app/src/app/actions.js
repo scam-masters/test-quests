@@ -4,6 +4,23 @@ import { db, app } from "../firebase/index";
 import { doc, getDoc, getDocs, setDoc, query, collection, where, or } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
+export async function getProfileData(username) {
+	const usersRef = collection(db, "users")
+	const docs = await getDocs(query(usersRef, where("username", "==", username)))
+
+	if (docs.empty) {
+		return null
+	}
+	let document = docs.docs[0] // username is unique
+
+	const result = document.data()
+	result.email = document.id
+
+	console.log(document.id)
+
+	return result
+}
+
 export async function getExerciseData(exerciseName) {
 	const docRef = doc(db, "exercises", exerciseName)
 	const document = await getDoc(docRef)
