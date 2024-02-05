@@ -29,26 +29,29 @@ export async function updateInitialScore() {
 }
 
 /* updates the user's data when the solution a mission is successfully submitted */
-export async function updateUserScore(missionId, missionScore, correctness) {
-    await getUserData().then(userData => {
-        // every submission that scores strictly more that the previous one, updates the timestamp.
-        if (missionScore > userData.missions[missionId].score) {
-            // update mission data (relative to the user)
-            userData.missions[missionId].score = missionScore
-            userData.missions[missionId].timestamp = Date.now()
+export async function updateUserScore(missionId, newMissionScore, correctness, threshold) {
+    if (correctness < threshold) {
+        await updateInitialScore() // TODO: check if needed
+    }
 
-            // update user general score
-            userData.score = Math.max(userData.score, 0) + missionScore
+    const userData = await getUserData()
+    // every submission that scores strictly more that the previous one, updates the timestamp.
+    if (newMissionScore > userData.missions[missionId].score) {
+        // update user general score, substract the old mission score
+        userData.score = Math.max(userData.score, 0) + newMissionScore - userData.missions[missionId].score
 
-            // unlock the next mission only when we get max score
-            if (correctness == 100) {
-                const missionNumber = missionId.split("_")[1]
-                const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
-                userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
-            }
-            setUserData(userData)
+        // update mission data (relative to the user)
+        userData.missions[missionId].score = newMissionScore
+        userData.missions[missionId].timestamp = Date.now()
+
+        // unlock the next mission only when we get max score
+        if (correctness >= threshold) {
+            const missionNumber = missionId.split("_")[1]
+            const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
+            userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
         }
-    })
+        setUserData(userData)
+    }
 }
 
 /* returns the score for the mission missionId from the database */
