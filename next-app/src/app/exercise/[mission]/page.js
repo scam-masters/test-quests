@@ -7,6 +7,7 @@ import DropdownExercise from '@/components/DropdownExercise/exercise'
 import DragAndDropExercise from '@/components/DragAndDropExercise/page'
 import DragAndDropMmExercise from '@/components/DragAndDropMultipleMatching/page'
 import OpenCloseExercise from '@/components/OpenCloseExercise/page'
+import DebugExercise from '@/components/DebugExercise/page';
 
 import { getExerciseData } from "@/app/actions"
 
@@ -51,6 +52,16 @@ export default async function Exercise({ params }) {
                 blocks: missionContent.blocks,
                 solution: missionContent.solution
             }
+            break;
+        case 'debug':
+            exercise = DebugExercise
+            exerciseArgs = {
+                text: missionContent.text,
+                selectables: missionContent.selectables.map(selectable => {
+                    return selectable.split("-").map(s => parseInt(s))
+                }),
+                solution: missionContent.solution
+            }
     }
 
     /* Placeholder content for exercise explanation */
@@ -61,7 +72,7 @@ export default async function Exercise({ params }) {
 
     /* Placeholder content for exercise link to its chapter page */
     const missionChapter = "/chapter/" + missionContent.difficulty;
-    
+
     return (
         <div>
             {/* Use the LearningComponent with mission-specific content */}
