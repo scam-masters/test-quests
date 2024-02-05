@@ -19,6 +19,15 @@ export async function setUserData(userData) {
     await setDoc(docRef, userData, { merge: true });
 }
 
+export async function setNewUsername(auth, newUsername) {
+    const user = auth.currentUser;
+    const docRef = doc(db, "users", user.email);
+    const document = await getDoc(docRef);
+    const userData = document.data()
+    userData.username = newUsername
+    await setDoc(docRef, userData, { merge: true });
+}
+
 export async function updateInitialScore() {
     await getUserData().then(userData => {
         if (userData.score == -1) {

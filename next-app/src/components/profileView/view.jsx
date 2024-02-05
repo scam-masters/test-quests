@@ -25,14 +25,14 @@ export default function ProfileView({ email, avatar, badges, username, score }) 
             <div className="flex flex-col items-center justify-center">
                 <img src={`/avatars/${avatar}.png`} alt={`avatar${avatar}`} className="rounded-full p-6" />
 
-                {isOwner && <Button type='blue'>Change Avatar</Button>}
+                {isOwner && <Button type='blue' href="/changeAvatar">Change Avatar</Button>}
             </div>
 
             <div className="ml-5 mt-auto mb-auto">
                 <div className="flex flex-row items-center">
 
                     <h1 className="text-5xl font-bold mr-8">{username}</h1>
-                    {isOwner && <Button type='blue'>Change Username</Button>}
+                    {isOwner && <Button type='blue' href="/changeUsername">Change Username</Button>}
                 
                 </div>
                 {isOwner && <p className="text-xl mt-4">Email: {email}</p>}
