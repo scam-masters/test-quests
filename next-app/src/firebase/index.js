@@ -17,8 +17,8 @@ const firebaseConfig = {
 
 // Initialize Firebase: https://firebase.google.com/docs/firestore/quickstart
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const auth = getAuth(app); // check if this reobtain the previous auth 
+const db = getFirestore(app); // and the db without initializate it again
 
 // check if we are on the development to use the correct emulators
 if (process.env.NODE_ENV === "development") {

@@ -46,7 +46,7 @@ const Button = ({ children, type, onClick, href, external, clickable, id, form =
 	}
 	else {
 		return (
-			<button className={custom_classes} id={id}  onClick={onClick} form={form}>
+			<button className={custom_classes} id={id} onClick={onClick} form={form}>
 				{children}
 			</button>
 		);
