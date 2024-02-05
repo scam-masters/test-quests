@@ -82,6 +82,18 @@ function Header() {
 	return (
 		<header className="w-full grid grid-cols-3 items-center bg-tq-primary z-50 justify-between">
 			<div>
+				<Link href="/scoreboard"><button>Scoreboard</button></Link>
+				{currentUser ? (
+					<button onClick={() => {
+						auth.signOut()
+						router.push("/Login")		// TODO: check if this is necessary
+					}}>Logout</button>
+				) : (
+					<>
+						<Link href="/Login"><button>Login</button></Link>
+						<Link href="/Registration"><button>Register</button></Link>
+					</>
+				)}
 			</div>
 
 			<Link href="/" className="mx-auto">
@@ -94,20 +106,6 @@ function Header() {
 					<Points username={username} points={points} />
 				) : (
 					<Points />
-				)}
-
-				<Link href="/scoreboard"><button>Scoreboard</button></Link>
-
-				{currentUser ? (
-					<button onClick={() => {
-						auth.signOut()
-						router.push("/Login")		// TODO: check if this is necessary
-					}}>Logout</button>
-				) : (
-					<>
-						<Link href="/Login"><button>Login</button></Link>
-						<Link href="/Registration"><button>Register</button></Link>
-					</>
 				)}
 			</div>
 		</header >
