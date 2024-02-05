@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "@/firebase/index";
 import Link from "next/link";
-import { useRouter }  from "next/navigation";
+import { useRouter } from "next/navigation";
 
 /* apparently you can put the api key in the client as long as you enforce what a user can read
  * and write with https://console.firebase.google.com/u/0/project/test-quests-a3712/firestore/rules .
@@ -48,20 +48,20 @@ export default function Login() {
 			<div className="bg-black bg-opacity-80 text-white w-96 p-8 rounded-lg shadow-md mt-[-150px]">
 				<h1 className="mb-2 text-3xl text-center font-bold">Login</h1>
 				<form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-					<div className="flex flex-col text-white">
+					<div className="flex flex-col">
 						<label className="mb-1">Email </label>
 						<input
-							className="border rounded px-2 py-1 text-black"
+							className="border rounded px-2 py-1 bg-white text-black"
 							name="email"
 							type="email"
 							id="email"
 							autoComplete="email"
 						/>
 					</div>
-					<div className="flex flex-col text-white">
+					<div className="flex flex-col">
 						<label className="mb-1">Password </label>
 						<input
-							className="border rounded px-2 py-1 text-black"
+							className="border rounded px-2 py-1 bg-white text-black"
 							name="password"
 							type="password"
 							id="password"
@@ -70,7 +70,7 @@ export default function Login() {
 					</div>
 					<button
 						type="submit"
-						className="bg-tq-primary hover:bg-tq-accent text-white font-bold py-2 px-4 rounded"
+						className="bg-tq-primary hover:bg-tq-accentfont-bold py-2 px-4 rounded"
 					>
 						Submit
 					</button>

@@ -15,8 +15,9 @@ export default async function Learning({ params }) {
 		<div className="p-4 text-white" dangerouslySetInnerHTML={{ __html: missionContent.learning.content }}>
 		</div>
 	);
+	missionContent.learning.chapterLink = "/chapter/" + missionContent.difficulty;
 	missionContent.learning.contentHTML = learningContent;
-	
+
 	return (
 		<div>
 			{/* Use the LearningComponent with mission-specific content */}

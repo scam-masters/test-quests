@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import Answer from '@/components/dnd/answer'
 
-export default function DndMmExercise({ onScoreComputed, options, blocks, solution}) {
+export default function DndMmExercise({ onScoreComputed, options, blocks, solution }) {
 	// initialize answers with options
 	const [answers, setAnswers] = useState(options)
 
@@ -46,7 +46,7 @@ export default function DndMmExercise({ onScoreComputed, options, blocks, soluti
 		let res = [];
 		for (let i = 0; i < blocks.length; i++) {
 			res[i] = (
-				<tr>
+				<tr key={i}>
 					<td className="p-3">{blocks[i]}</td>
 					<td className="p-3">{draggableAnswers[i]}</td>
 				</tr>);

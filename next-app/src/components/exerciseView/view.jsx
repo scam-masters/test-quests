@@ -7,27 +7,41 @@ import { updateUserScore, updateInitialScore, updateChapterUnlocking } from "@/a
 
 import Link from "next/link"
 
-function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock }) {
+function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, missionChapter, threshold }) {
 	let title = `${correctness}%`
 	let resultMsg
 	let chapterMsg = ""
-	let button = <Button className="m-auto" type="green" onClick={handleCloseDialog}>Let's try again!</Button>
+	let button = <Button type="green" onClick={handleCloseDialog}>Let's try again!</Button>
 
-	if (correctness == 100) {
+	console.log(threshold, exercisePoints)
+
+	if (correctness >= threshold) {
 		resultMsg = <>
 			Congratulations!
 			<br />
 			You have earned {exercisePoints} points!
 		</>
-		if(newChapterUnlock){
+		let continueButton
+		if (newChapterUnlock) {
 			chapterMsg = "You have unlocked the next Chapter!"
+			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>
 		}
-		button = <Button type="blue" href="/">Continue</Button>
-	} else if (correctness < 100 && correctness >= 80) {
+		else {
+			continueButton = <Button classNames="mt-2" type="blue" href={missionChapter}>Continue</Button>
+		}
+		if (correctness < 100) {
+			button = <>
+				{button}
+				{continueButton}
+			</>
+		} else {
+			button = continueButton
+		}
+	} else if (correctness >= 80) {
 		resultMsg = "You are almost there!"
-	} else if (correctness < 80 && correctness >= 20) {
+	} else if (correctness >= 20) {
 		resultMsg = "Give it another chance!"
-	} else if (correctness < 20 && correctness >= 0) {
+	} else if (correctness >= 0) {
 		resultMsg = "You need more effort!"
 	} else if (correctness === -1) {
 		title = "CHEATER!"
@@ -48,7 +62,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 					<p className="text-center mb-4 text-xl">{resultMsg}</p>
 					<p className="text-center mb-4 text-xl">{chapterMsg}</p>
 				</div>
-				<div className="flex justify-center mt-4">
+				<div className="flex flex-col w-full justify-center mt-4">
 					{button}
 				</div>
 			</div>
@@ -56,25 +70,23 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 	)
 }
 
-export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, exercisePoints, exerciseArguments }) {
+export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, missionChapter, exercisePoints, exerciseArguments, exerciseThreshold }) {
 	const [correctness, setCorrectness] = useState(0);
 	const [isDialogVisible, setVisibleDialog] = useState(false);
 	const [isUnlockingNewChapter, setUnlockNewChapter] = useState(false);
+	const [missionScore, setMissionScore] = useState(false);
 
 	// This will be called once by the exercise when the player finishes
 	const handleCorrectnessComputed = async (computedCorrectness) => {
 		const correctness = Math.round(computedCorrectness)
 		const unlock = await updateChapterUnlocking(missionId)
+		const missionScore = Math.round(exercisePoints * correctness / 100)
 
-		if (correctness == 100)
-			await updateUserScore(missionId, exercisePoints, correctness)
-		else {
-			await updateInitialScore();
-			await updateUserScore(missionId, 0, correctness)
-		}
+		await updateUserScore(missionId, missionScore, correctness, exerciseThreshold)
 
 		setCorrectness(correctness);
 		setUnlockNewChapter(unlock)
+		setMissionScore(missionScore)
 		setVisibleDialog(true);
 	};
 
@@ -111,15 +123,17 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 			<ExerciseDialog
 				correctness={correctness}
 				handleCloseDialog={handleCloseDialog}
-				exercisePoints={exercisePoints}
+				exercisePoints={missionScore}
 				visible={isDialogVisible}
 				newChapterUnlock={isUnlockingNewChapter}
+				missionChapter={missionChapter}
+				threshold={exerciseThreshold}
 			/>
 
 			<div className="grid grid-cols-3 justify-between  mx-auto ml-4 mr-4">
-				<Link href="/">
+				<Link href={missionChapter}>
 					<Button type='blue'>
-						Go back to main page
+						Go back to chapter page
 					</Button>
 				</Link >
 				<div className="flex justify-center">

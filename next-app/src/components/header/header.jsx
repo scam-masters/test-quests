@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from "next/link"
 import Points from './points';
@@ -7,8 +7,7 @@ import { useRouter } from "next/navigation"
 
 // Firebase authentication
 import { getAuth } from "firebase/auth";
-import { auth,app } from '@/firebase';
-// utils
+import { app } from '@/firebase';
 import { getUserData } from "@/app/user_actions";
 
 
@@ -21,7 +20,7 @@ connectFunctionsEmulator(functions, "127.0.0.1", 5002);
 */
 
 // export to obtain authentication inside the header and use this istance in pages
-// export const auth = getAuth(app);
+export const auth = getAuth(app);
 
 function Header() {
 	const pathname = usePathname();
@@ -41,7 +40,7 @@ function Header() {
 		const userInfo = await getUserData();
 		return userInfo.username;
 	}
-	
+
 	// ******************* Retrieve if the user can access the exercise ******************* //
 	async function getUserAccess() {
 		const userInfo = await getUserData();
@@ -50,13 +49,13 @@ function Header() {
 			const missionNumber = pathname.split("/").at(-1);
 			// compare the number of missions completed retrieved from the db with the mission number
 			return Object.getOwnPropertyNames(userInfo.missions).length >= missionNumber;
-			
+
 		}
 		return true;
 	}
 
 	useEffect(() => {
-		auth.onAuthStateChanged(function (user) {
+		auth.onAuthStateChanged(function(user) {
 			if (user) {
 				setCurrentUser(auth.currentUser);
 			} else {
@@ -64,7 +63,7 @@ function Header() {
 			}
 		});
 		/* when logged in show points, otherwise go to login page */
-		getAuth().onAuthStateChanged(function (user) {
+		getAuth().onAuthStateChanged(function(user) {
 			if (user) {
 				// check if the user can access the exercise
 				getUserAccess().then(access => {
@@ -80,7 +79,7 @@ function Header() {
 				})
 			} else {
 				console.log("current url: " + pathname);
-				if (pathname !== "/Login" && pathname !== "/Registration" && pathname !== "/scoreboard") {
+				if (pathname !== "/Login" && pathname !== "/Registration" && pathname !== "/scoreboard" && !pathname.includes("/profile")) {
 					router.push("/Login")
 				}
 			}
@@ -91,7 +90,18 @@ function Header() {
 	return (
 		<header className="w-full grid grid-cols-3 items-center bg-tq-primary z-50 justify-between">
 			<div>
-				
+				<Link href="/scoreboard"><button>Scoreboard</button></Link>
+				{currentUser ? (
+					<button onClick={() => {
+						auth.signOut()
+						router.push("/Login")		// TODO: check if this is necessary
+					}}>Logout</button>
+				) : (
+					<>
+						<Link href="/Login"><button>Login</button></Link>
+						<Link href="/Registration"><button>Register</button></Link>
+					</>
+				)}
 			</div>
 
 			<Link href="/" className="mx-auto">
@@ -104,20 +114,6 @@ function Header() {
 					<Points username={username} points={points} />
 				) : (
 					<Points />
-				)}
-
-				<Link href="/scoreboard"><button>Scoreboard</button></Link>
-
-				{currentUser ? (
-					<button onClick={() => {
-						auth.signOut()
-						router.push("/Login")		// TODO: check if this is necessary
-					}}>Logout</button>
-				) : (
-					<>
-						<Link href="/Login"><button>Login</button></Link>
-						<Link href="/Registration"><button>Register</button></Link>
-					</>
 				)}
 			</div>
 		</header >

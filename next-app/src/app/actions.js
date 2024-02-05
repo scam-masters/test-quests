@@ -1,8 +1,25 @@
 "use server"
 
-import { db as firestore, app, auth as firebaseAuth} from "@/firebase";
+import { db, app, auth as firebaseAuth} from "@/firebase";
 import { doc, getDoc, getDocs, setDoc, query, collection, where, or, connectFirestoreEmulator } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, connectAuthEmulator } from "firebase/auth";
+
+export async function getProfileData(username) {
+	const usersRef = collection(db, "users")
+	const docs = await getDocs(query(usersRef, where("username", "==", username)))
+
+	if (docs.empty) {
+		return null
+	}
+	let document = docs.docs[0] // username is unique
+
+	const result = document.data()
+	result.email = document.id
+
+	console.log(document.id)
+
+	return result
+}
 
 // Retrieve the exercise related to a specific name
 export async function getExerciseData(exerciseName) {
@@ -19,7 +36,7 @@ export async function getExerciseData(exerciseName) {
 export async function getMissionList() {
 	let missionList = []
 	try {
-		const querySnapshot = await getDocs(collection(firestore, "exercises"));
+		const querySnapshot = await getDocs(collection(db, "exercises"));
 		querySnapshot.forEach((doc) => {
 			missionList.push({ id: doc.id, data: doc.data() });
 		});
@@ -34,7 +51,7 @@ export async function getMissionsByDifficulty(difficultyLevel) {
 	let missionList = [];
 	try {
 		// Create a query to filter documents based on difficulty
-		const q = query(collection(firestore, 'exercises'), where('difficulty', '==', difficultyLevel));
+		const q = query(collection(db, 'exercises'), where('difficulty', '==', difficultyLevel));
 
 		// Execute the query
 		const querySnapshot = await getDocs(q);
@@ -73,7 +90,7 @@ export async function registerUser(email, password, username) {
 
 	try {
 		// Check if username is already taken. If so, throw an error
-		const querySnapshot = await getDocs(query(collection(firestore, "users"), where("username", "==", username)))
+		const querySnapshot = await getDocs(query(collection(db, "users"), where("username", "==", username)))
 		if (!querySnapshot.empty) {
 			throw new Error("Username already taken")
 		}
@@ -87,7 +104,7 @@ export async function registerUser(email, password, username) {
 		);
 
 		// Create user document in Firestore database
-		setDoc(doc(firestore, "users", email), {
+		setDoc(doc(db, "users", email), {
 			username: username,
 			score: -1,
 			missions: { mission_1: { id: "mission_1", score: 0 } }
@@ -108,13 +125,13 @@ export async function registerUser(email, password, username) {
 
 // Retrieve scoreboard data (mock for testing)
 export async function getScoreboardData() {
-	const usersRef = collection(firestore, "users")
+	const usersRef = collection(db, "users")
 
 	const docs = await getDocs(query(usersRef, where("score", ">=", 0)))
 
 	const data = []
 
-	// maybe we can get clever with firebase and have it sort and compute last timestamp in the firestore
+	// maybe we can get clever with firebase and have it sort and compute last timestamp in the db
 	docs.forEach(doc => {
 		let timestamp = 0
 		let completedCount = 0

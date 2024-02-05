@@ -27,15 +27,23 @@ button {
 }
 
 .circle-base {
-	@apply text-tq-black font-bold p-10 w-[25%] min-h-[10rem] text-lg transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md
-}
-
-.circle-mission-locked {
-	@apply circle-base bg-gradient-to-r from-tq-red to-tq-gray cursor-not-allowed
+	@apply font-bold p-5 aspect-square text-lg transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md
 }
 
 .circle-mission-gradient {
-	@apply circle-base bg-gradient-to-r from-tq-yellow to-tq-green hover:from-tq-yellow hover:to-tq-red
+  @apply circle-base bg-gradient-to-br from-orange-400 to-orange-800
+}
+.circle-mission-gradient-1 {
+  @apply circle-base bg-gradient-to-br from-indigo-400 to-orange-950 hover:shadow-2xl hover:shadow-indigo-800
+}
+.circle-mission-gradient-2 {
+  @apply circle-base bg-gradient-to-br from-green-400 to-purple-950 hover:shadow-2xl hover:shadow-green-800
+}
+.circle-mission-gradient-3 {
+  @apply circle-base bg-gradient-to-br from-blue-300 to-indigo-600 hover:shadow-2xl hover:shadow-blue-800
+}
+.circle-mission-locked {
+  @apply circle-base bg-gradient-to-tr from-gray-700 to-gray-600 cursor-not-allowed hover:scale-100 text-white
 }
 
 .scoreboard {

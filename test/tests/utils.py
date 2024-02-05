@@ -5,16 +5,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 """Landing"""
 
 
-def get_first_circle_mission(driver):
-    return driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/a/button")
+def get_first_circle_chapter(driver):
+    # check the presence of the first circle mission in the landing page
+    # by searching an element with the text "Chapter 1"
+    return driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 1')]")
 
 
 """ Login """
 
 
 def wait_landing_render(driver):
-    driver.find_element(By.XPATH, "//button[contains(.,  'Chapter 1')]")
-
+    # same as before check the presence of the first circle mission in the 
+    # landing page by searching an element with the text "Chapter 1"
+    driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 1')]")
 
 def login(driver, email, password, wait_for_landing=True):
     e = driver.find_element(By.ID, "email")
@@ -52,8 +55,8 @@ def get_exercise_popup(driver):
 
 
 def assert_to_be_on_landing(driver):
-    first_circle_mission = get_first_circle_mission(driver)
-    assert "Path Traversal" in first_circle_mission.text
+    first_circle_mission = get_first_circle_chapter(driver)
+    assert "Chapter 1" in first_circle_mission.text
 
 
 def assert_to_be_on_exercise(driver):
