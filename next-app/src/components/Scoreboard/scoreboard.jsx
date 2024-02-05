@@ -19,7 +19,7 @@ export default function ScoreboardComponent({ scoreboardData }) {
                         {
                             scoreboardData.map((entry, index) => (
                                 <tr key={index}>
-                                    <td>{entry.user}</td>
+                                    <td><a href={`/profile/${entry.user}`}>{entry.user}</a></td>
                                     <td>{entry.score}</td>
                                     <td>{entry.completedCount}</td>
                                 </tr>
