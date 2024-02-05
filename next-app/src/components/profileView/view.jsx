@@ -1,21 +1,36 @@
 'use client';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@/components/button/button";
-// import { Dialog } from "primereact/dialog";
+import { getAuth } from "firebase/auth";
+
 // import { updateAvatar, updateUsername } from "@/app/user_actions.js"
-export default function ProfileView({ owner, email, avatar, badges, username, score}) {
+// import { Dialog } from "primereact/dialog";
+
+export default function ProfileView({ email, avatar, badges, username, score}) {
+
+	const [isOwner, setIsOwner] = useState(false);
+
+    useEffect(() => {
+        getAuth().onAuthStateChanged(function (user) {
+			if (user) {
+				setIsOwner(user.email === email);
+			} else {
+				setIsOwner(false);
+			}
+		});
+	}, []);
 
     return (
         <>
             <div className="flex flex-row items-center">
                 <img src={`/avatars/${avatar}.png`} alt={`avatar${avatar}`} className="w-20 h-20 rounded-full m-4" />
-                {owner ? <Button text="Change avatar"/> : ""}
+                {isOwner ? <Button text="Change avatar"/> : ""}
 
                 <div className="ml-4">
                     <h1 className="text-3xl font-bold text-blue-700">{username}</h1>
-                    {owner ? <Button text="Change username"/> : ""}
+                    {isOwner ? <Button text="Change username"/> : ""}
 
-                    {owner ? <p className="text-xl text-gray-600">{email}</p>: ""}
+                    {isOwner ? <p className="text-xl text-gray-600">{email}</p>: ""}
 
                     <p className="text-xl text-gray-600">{score}</p>
 
