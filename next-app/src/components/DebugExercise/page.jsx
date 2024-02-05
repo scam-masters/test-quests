@@ -1,7 +1,5 @@
 "use client"
 
-// https://react.dev/reference/react/Fragment
-import { Fragment } from "react"
 import { useState } from "react"
 
 export default function DebugExercise({ text, selectables, solution, onScoreComputed }) {
@@ -9,13 +7,14 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
 
     function click(i) {
         setAnswers(prev => {
-            let arr = new Array(prev);
+            let arr = Array.from(prev);
             arr[i] = !arr[i];
             return arr;
         })
     }
 
-    function handleSubmit() {
+    function handleSubmit(e) {
+        e.preventDefault()
         let count = 0
         for (let i = 0; i < answers.length; i++) {
             if (answers[i] == solution[i]) {
@@ -29,20 +28,26 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
     let exercise = [];
     for (const [index, item] of selectables.entries()) {
         let unselectable = text.substring(i, item[0] - 1).replace(/\n/g, "<br>");
-        console.log("item", item);
-        console.log("i", i);
-        let selectable = <button className="selectable" onClick={click.bind(null, index)}>{text.substring(item[0], item[1])}</button>
+        let selectable = <button key={"selectable_" + index}
+            className={answers[index] ? "bug-selected" : "bug-selectable"}
+            onClick={click.bind(null, index)}>
+            {text.substring(item[0], item[1])}
+        </button>
 
         i = item[1];
         exercise.push(unselectable);
         exercise.push(selectable);
     }
+    exercise.push(text.substring(i).replace(/\n/g, "<br>"));
+
 
     return (
-        <form id='exercise-form' onSubmit={handleSubmit}>
+        <>
+            <form id='exercise-form' onSubmit={handleSubmit}>
+            </form>
             {
                 exercise
             }
-        </form>
+        </>
     )
 }

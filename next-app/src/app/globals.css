@@ -69,3 +69,12 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+
+/* TODO: improve thos styles */
+.bug-selected {
+	@apply border-2 bg-white text-tq-primary
+}
+
+.bug-selectable {
+	@apply border-2
+}
