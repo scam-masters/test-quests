@@ -7,7 +7,7 @@ import Answer from '@/components/dnd/answer'
 
 export default function DndExercise({ onScoreComputed, blocks, options, solution }) {
 	// buld an array of nulls of size options.size
-	let nulls = Array(options.length).fill(null)
+	let nulls = Array(solution.length).fill(null)
 
 	// blanks + options to be filled
 	options = nulls.concat(options)

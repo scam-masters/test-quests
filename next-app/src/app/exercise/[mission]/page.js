@@ -26,7 +26,7 @@ export default async function Exercise({ params }) {
                 explanation: missionContent.explanation,
                 blocks: missionContent.blocks,
                 solution: missionContent.solution,
-                options: missionContent.solution.toSorted(() => Math.random() - 0.5), // shuffle to obtain options
+                options: (missionContent.options || missionContent.solution).toSorted(() => Math.random() - 0.5), // shuffle to obtain options
             }
             break;
         case 'sd':
