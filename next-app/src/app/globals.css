@@ -78,3 +78,11 @@ body::-webkit-scrollbar {
 .bug-selectable {
 	@apply border-2
 }
+
+#timer {
+	@apply border-2 mx-auto my-2 p-2 bg-tq-primary;
+	width: 5em;
+	text-align: center;
+	font-size: 2em;
+	border-radius: 4px;
+}

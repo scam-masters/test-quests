@@ -85,6 +85,7 @@ export default async function Exercise({ params }) {
                 exerciseArguments={exerciseArgs}
                 exercisePoints={missionContent.points}
                 exerciseThreshold={missionContent.threshold}
+                time={missionContent.time}
             />
         </div>
     );

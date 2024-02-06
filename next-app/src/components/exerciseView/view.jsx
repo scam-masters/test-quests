@@ -1,11 +1,15 @@
 'use client';
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Button from "@/components/button/button";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { Dialog } from "primereact/dialog";
 import { updateUserScore, updateInitialScore, updateChapterUnlocking } from "@/app/user_actions.js"
 
 import Link from "next/link"
+
+export function Timer({ time }) {
+	return (<div id="timer">{Math.floor(time / 60).toString().padStart(2, "00")}:{(time % 60).toString().padStart(2, "00")}</div>)
+}
 
 function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, missionChapter, threshold }) {
 	let title = `${correctness}%`
@@ -68,14 +72,52 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 	)
 }
 
-export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, missionChapter, exercisePoints, exerciseArguments, exerciseThreshold }) {
+export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, missionChapter, exercisePoints, exerciseArguments, exerciseThreshold, time }) {
 	const [correctness, setCorrectness] = useState(0);
 	const [isDialogVisible, setVisibleDialog] = useState(false);
 	const [isUnlockingNewChapter, setUnlockNewChapter] = useState(false);
 	const [missionScore, setMissionScore] = useState(false);
 
+	const timeout = useRef(null)
+	const interval = useRef(null)
+	const [remainingTime, setRemainingTime] = useState(time)
+
+	function startTimer() {
+		if (time) {
+			setRemainingTime(time)
+			console.log("started timer")
+			timeout.current = setTimeout(() => {
+				console.log("time is up")
+				document.getElementById("submit_button").click()
+			}, time * 1000)
+
+			interval.current = setInterval(() => {
+				setRemainingTime(x => Math.max(x - 1, 0))
+			}, 1000)
+		}
+	}
+
+	function stopTimer() {
+		if (time) {
+			console.log("stopped timer")
+			setRemainingTime(0)
+			clearTimeout(timeout.current)
+			clearInterval(interval.current)
+		}
+	}
+
+	// use effect will be called twice on debug build 🤡 
+	useEffect(() => {
+		console.log("loaded")
+		startTimer()
+		return stopTimer
+	}, []);
+
 	// This will be called once by the exercise when the player finishes
 	const handleCorrectnessComputed = async (computedCorrectness) => {
+		console.log("submitted")
+		stopTimer()
+
 		const correctness = Math.round(computedCorrectness)
 		const unlock = await updateChapterUnlocking(missionId)
 		const missionScore = Math.round(exercisePoints * correctness / 100)
@@ -90,10 +132,12 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 
 	const handleCloseDialog = () => {
 		setVisibleDialog(false);
+		startTimer()
 	};
 
 	return (
 		<>
+			{time && Timer({ time: remainingTime })}
 			<Splitter className="h-3/4 border-4 m-2" gutterSize={10}>
 				{/* Column for the exercise description */}
 				<SplitterPanel
