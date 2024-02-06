@@ -8,8 +8,8 @@ import Points from './points';
 import { getAuth } from "firebase/auth";
 import { app } from "../../firebase/index"
 import { useRouter } from "next/navigation"
-
 import { getUserData } from "@/app/user_actions";
+import { usernameStore } from '@/stores/store';
 
 // export to obtain authentication inside the header and use this istance in pages
 export const auth = getAuth(app);
@@ -18,8 +18,10 @@ function Header() {
 	const pathname = usePathname();
 	const router = useRouter()
 	const [currentUser, setCurrentUser] = useState(null);
-	const [username, setUsername] = useState("");
 	const [points, setPoints] = useState(0);
+
+	const username = usernameStore((state) => state.username)
+	const setUsername = usernameStore((state) => state.setUsername)
 
 	// ******************* Retrieve points ******************* //
 	async function retrievePoints() {

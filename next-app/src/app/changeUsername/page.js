@@ -5,10 +5,13 @@ import { getAuth } from "firebase/auth";
 import { app } from "@/firebase/index";
 import { useRouter } from "next/navigation";
 import { setNewUsername } from "@/app/user_actions";
+import { usernameStore } from '@/stores/store';
 
 export default function changeUsername() {
 	const router = useRouter()
-	const [error, setError] = useState(null); // State for managing error messages
+	const [error, setError] = useState(null);
+
+	const setUsername = usernameStore((state) => state.setUsername)
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -24,6 +27,7 @@ export default function changeUsername() {
 
 		try {
 			await setNewUsername(getAuth(app), newUsername)
+			setUsername(newUsername)
             router.push("/");
         } catch (error) {
             setError(error.message)
