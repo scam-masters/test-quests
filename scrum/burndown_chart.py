@@ -139,8 +139,12 @@ def create_burndown(tasks, chosen_sprint):
     plt.tight_layout()
 
     cwd = os.path.dirname(os.path.realpath(__file__))
-    date = datetime.today().strftime('%Y-%m-%d')    
-    plt.savefig(f"{cwd}/{chosen_sprint}/bd-{date}.png")
+    date = datetime.today().strftime('%Y-%m-%d')  
+      
+    directory = f"{cwd}/{chosen_sprint}"
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    plt.savefig(f"{directory}/bd-{date}.png")
 
 
 if __name__ == "__main__":

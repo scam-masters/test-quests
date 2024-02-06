@@ -4,3 +4,4 @@
 **/.firebase
 **/__pycache__
 **firebase-debug.log
+**/.pytest_cache
