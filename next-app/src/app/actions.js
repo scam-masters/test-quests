@@ -106,7 +106,9 @@ export async function registerUser(email, password, username) {
 		setDoc(doc(db, "users", email), {
 			username: username,
 			score: -1,
-			missions: { mission_1: { id: "mission_1", score: 0 } }
+			missions: { mission_1: { id: "mission_1", score: 0 } },
+			avatar: 0,
+			badges: []
 		});
 
 	} catch (error) {
