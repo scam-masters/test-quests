@@ -11,6 +11,7 @@ export default function changeUsername() {
 	const router = useRouter()
 	const [error, setError] = useState(null);
 
+	const username = usernameStore((state) => state.username)
 	const setUsername = usernameStore((state) => state.setUsername)
 
 	const handleSubmit = async (event) => {
@@ -28,7 +29,7 @@ export default function changeUsername() {
 		try {
 			await setNewUsername(getAuth(app), newUsername)
 			setUsername(newUsername)
-            router.push("/");
+			router.push(`/profile/${newUsername}`)
         } catch (error) {
             setError(error.message)
 		}

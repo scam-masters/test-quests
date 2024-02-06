@@ -12,6 +12,12 @@ export async function getUserData() {
     return document.data()
 }
 
+// export async function getAvatar(username) {
+//     getUserData().then(userData => {
+//         return userData.avatar
+//     })
+// }
+
 export async function setUserData(userData) {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -25,6 +31,16 @@ export async function setNewUsername(auth, newUsername) {
     const document = await getDoc(docRef);
     const userData = document.data()
     userData.username = newUsername
+    await setDoc(docRef, userData, { merge: true });
+}
+
+
+export async function setNewAvatar(auth, newAvatarIndex) {
+    const user = auth.currentUser;
+    const docRef = doc(db, "users", user.email);
+    const document = await getDoc(docRef);
+    const userData = document.data()
+    userData.avatar = newAvatarIndex
     await setDoc(docRef, userData, { merge: true });
 }
 

@@ -1,80 +1,80 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { app } from "@/firebase/index";
 import { useRouter } from "next/navigation";
-// import { setNewAvatar } from "@/app/user_actions";
+import { setNewAvatar } from "@/app/user_actions";
+import { getUserData } from "@/app/user_actions";
+import { usernameStore } from "@/stores/store";
 
-
-function ImageDropdown({ images }) {
-    const [selectedImage, setSelectedImage] = useState(images[0]);
-  
-    return (
-      <div className="relative inline-block text-left">
-        <div>
-          <button type="button" className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="options-menu" aria-haspopup="true" aria-expanded="true">
-            <img src={selectedImage.src} alt={selectedImage.alt} className="h-6 w-6 rounded-full" />
-          </button>
-        </div>
-  
-        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-            {images.map((image, index) => (
-              <button key={index} onClick={() => setSelectedImage(image)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                <img src={image.src} alt={image.alt} className="h-6 w-6 rounded-full" />
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-}
-
-
-export default function changeUsername() {
+export default function changeAvatar() {
     const allAvatars = [
+        { src: '/avatars/0.png', alt: 'Avatar 0' },
         { src: '/avatars/1.png', alt: 'Avatar 1' },
         { src: '/avatars/2.png', alt: 'Avatar 2' },
-        { src: '/avatars/3.png', alt: 'Avatar 3' },
       ];
 
+	const username = usernameStore((state) => state.username);
+
 	const router = useRouter()
-	const [error, setError] = useState(null); // State for managing error messages
+	const [error, setError] = useState(null);
+    const [currentAvatarIndex, setCurrentAvatarIndex] = useState(0);
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
+	useEffect(() => {
+		getAuth().onAuthStateChanged(function (user) {
+			if (user) {
+				getUserData().then(user => {
+					setCurrentAvatarIndex(user.avatar);
+				})
+			} else {
+				router.push("/Login")
+			}
+		});
+	}, []);
+
+
+	const handleSubmit = async () => {
 		setError(null)
-
-		const formData = new FormData(event.target)
-		const newAvatar = formData.get("avatar")
-
+		const newAvatarIndex = currentAvatarIndex;
 		try {
-			// await setNewAvatar(getAuth(app), newAvatar)
-			router.push("/") // TODO: redirect to your profile instead
+			await setNewAvatar(getAuth(app), newAvatarIndex)
+			router.push(`/profile/${username}`)
 		} catch (error) {
             setError(error.message)
 		}
 	};
 
-	return (
-		<div className="bg-cover bg-center flex justify-center items-center min-h-screen">
-			<div className="bg-black bg-opacity-80 text-white w-96 p-8 rounded-lg shadow-md mt-[-150px]">
-				<h1 className="mb-2 text-3xl text-center font-bold">Login</h1>
-				<form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-					<div className="flex flex-col">
-						<label className="mb-1">New Username</label>
-                        <ImageDropdown images={allAvatars} />
+    const handleNextAvatar = () => {
+        setCurrentAvatarIndex((currentAvatarIndex + 1) % allAvatars.length);
+    };
+
+    const handlePreviousAvatar = () => {
+        setCurrentAvatarIndex((currentAvatarIndex - 1 + allAvatars.length) % allAvatars.length);
+    };
+
+    return (
+		<div className="flex mt-20 items-center">
+			<div className="wrap w-full text-center">
+				<div className="profile mx-auto w-11/12 max-w-md bg-gray-200 rounded-lg p-6 relative shadow-md">
+					<h1 className="text-3xl font-bold">Change Avatar</h1>
+
+					<div className="mt-10 avatar w-40 h-40 rounded-full border-2 border-white mx-auto relative overflow-hidden">
+						<img src={allAvatars[currentAvatarIndex].src} id="avatar-image" className="avatar_img w-full h-auto" alt="Avatar Image"></img>
 					</div>
-					<button
-						type="submit"
-						className="bg-tq-primary hover:bg-tq-accentfont-bold py-2 px-4 rounded"
-					>
-						Submit
-					</button>
-					{error && <div className="text-red-500 mb-4" id="error_msg">{error}</div>} {/* Display error message */}
-				</form>
+					<div className="mt-10 flex justify-between w-5/6 mx-auto pb-4 text-gray-600">
+						<button onClick={handlePreviousAvatar} className="bg-tq-primary hover:bg-tq-accentfont-bold rounded">
+							&larr;
+						</button>
+						<button onClick={handleSubmit} className="bg-tq-primary hover:bg-tq-accentfont-bold rounded">
+							Submit
+						</button>
+						<button onClick={handleNextAvatar} className="bg-tq-primary hover:bg-tq-accentfont-bold rounded">
+							&rarr;
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
-	);
+    );
 }
