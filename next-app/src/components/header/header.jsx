@@ -72,7 +72,6 @@ function Header() {
 					setUsername(newUsername);
 				})
 			} else {
-				console.log("current url: " + pathname);
 				if (pathname !== "/Login" && pathname !== "/Registration" && pathname !== "/scoreboard" && !pathname.includes("/profile")) {
 					router.push("/Login")
 				}

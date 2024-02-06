@@ -13,8 +13,6 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 	let chapterMsg = ""
 	let button = <Button type="green" onClick={handleCloseDialog}>Let's try again!</Button>
 
-	console.log(threshold, exercisePoints)
-
 	if (correctness >= threshold) {
 		resultMsg = <>
 			Congratulations!

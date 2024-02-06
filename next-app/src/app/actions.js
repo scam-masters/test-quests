@@ -16,8 +16,6 @@ export async function getProfileData(username) {
 	const result = document.data()
 	result.email = document.id
 
-	console.log(document.id)
-
 	return result
 }
 

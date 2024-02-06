@@ -11,7 +11,6 @@ export default function ProfileView({ email, avatar, badges, username, score }) 
     const [isOwner, setIsOwner] = useState(false);
 
     useEffect(() => {
-        console.log(avatar)
         getAuth().onAuthStateChanged(function (user) {
             if (user) {
                 setIsOwner(user.email === email);

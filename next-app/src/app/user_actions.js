@@ -26,6 +26,7 @@ export async function setUserData(userData) {
 }
 
 export async function setNewUsername(auth, newUsername) {
+    // TODO: check the username is not already taken
     const user = auth.currentUser;
     const docRef = doc(db, "users", user.email);
     const document = await getDoc(docRef);
