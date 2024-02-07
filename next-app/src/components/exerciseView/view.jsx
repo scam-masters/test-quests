@@ -11,11 +11,12 @@ export function Timer({ time }) {
 	return (<div id="timer">{Math.floor(time / 60).toString().padStart(2, "00")}:{(time % 60).toString().padStart(2, "00")}</div>)
 }
 
-function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, missionChapter, threshold }) {
+function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, missionChapter, threshold, missionId }) {
 	let title = `${correctness}%`
 	let resultMsg
 	let chapterMsg = ""
-	let button = <Button type="green" onClick={handleCloseDialog}>Let's try again!</Button>
+	let missionNumber = missionId.split('_')[1]
+	let button = <Button type="green" href={`/learning/${missionNumber}`}>Let's try again!</Button>
 
 	if (correctness >= threshold) {
 		resultMsg = <>
@@ -170,6 +171,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				newChapterUnlock={isUnlockingNewChapter}
 				missionChapter={missionChapter}
 				threshold={exerciseThreshold}
+				missionId={missionId}
 			/>
 
 			<div className="grid grid-cols-3 justify-between  mx-auto ml-4 mr-4">
