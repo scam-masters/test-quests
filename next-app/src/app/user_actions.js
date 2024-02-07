@@ -1,7 +1,7 @@
 "use client"
 
 import { db, app } from "@/firebase/index";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, setDoc, query, collection, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 export async function getUserData() {
@@ -12,12 +12,6 @@ export async function getUserData() {
     return document.data()
 }
 
-// export async function getAvatar(username) {
-//     getUserData().then(userData => {
-//         return userData.avatar
-//     })
-// }
-
 export async function setUserData(userData) {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -26,7 +20,12 @@ export async function setUserData(userData) {
 }
 
 export async function setNewUsername(auth, newUsername) {
-    // TODO: check the username is not already taken
+    // check the username is not already taken
+    const usersRef = collection(db, "users")
+	const docs = await getDocs(query(usersRef, where("username", "==", newUsername)))
+    if (!docs.empty) {
+        throw new Error("Username already taken")
+    }
     const user = auth.currentUser;
     const docRef = doc(db, "users", user.email);
     const document = await getDoc(docRef);
