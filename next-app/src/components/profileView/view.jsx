@@ -4,7 +4,6 @@ import Button from "@/components/button/button";
 import { getAuth } from "firebase/auth";
 
 // import { updateAvatar, updateUsername } from "@/app/user_actions.js"
-// import { Dialog } from "primereact/dialog";
 
 export default function ProfileView({ email, avatar, badges, username, score }) {
 
