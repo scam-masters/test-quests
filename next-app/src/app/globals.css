@@ -86,3 +86,7 @@ body::-webkit-scrollbar {
 	font-size: 2em;
 	border-radius: 4px;
 }
+
+code {
+	white-space: pre-wrap;
+}
