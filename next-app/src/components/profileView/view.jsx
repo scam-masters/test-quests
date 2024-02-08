@@ -22,7 +22,7 @@ export default function ProfileView({ email, avatar, badges, username, score }) 
     return (
         <div className="flex flex-row tems-center justify-center m-auto p-4">
             <div className="flex flex-col items-center justify-center">
-                <img src={`/avatars/${avatar}.png`} alt={`avatar${avatar}`} className="rounded-full p-6" />
+                <img src={`/avatars/${avatar}.png`} alt={`avatar${avatar}`} className="rounded-full m-3 w-40 h-40 border-2 border-white" />
 
                 {isOwner && <Button type='blue' href="/changeAvatar">Change Avatar</Button>}
             </div>
