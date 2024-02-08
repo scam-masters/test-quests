@@ -32,7 +32,7 @@ export default async function Profile({ params }) {
                 avatar={profileArgs.avatar}
                 badges={profileArgs.badges}
                 username={profileArgs.username}
-                score={profileArgs.score}
+                score={profileArgs.score==-1 ? 0 : profileArgs.score } // if the score is -1, display 0
             />
         </div>
     );
