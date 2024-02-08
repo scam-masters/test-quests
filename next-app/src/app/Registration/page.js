@@ -38,6 +38,7 @@ function Registration() {
 						<label className="mb-1">Username </label>
 						<input
 							type="text"
+							id="username"
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
 							className="border rounded px-2 py-1 bg-white text-black"
@@ -48,6 +49,7 @@ function Registration() {
 						<label className="mb-1">Email </label>
 						<input
 							type="email"
+							id="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 							className="border rounded px-2 py-1 bg-white text-black"
