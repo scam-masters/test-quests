@@ -80,10 +80,16 @@ export default function DndExercise({
   return (
     <DndProvider backend={HTML5Backend}>
       <form id="exercise-form" onSubmit={onSubmit} />
-      <p>Complete the exercise by draging the bloks into the blanks:</p>
+      <p>
+        <strong>
+          Complete the exercise by draging the blocks into the blanks:
+        </strong>
+      </p>
       <br />
       <p>{parseInput(blocks)}</p>
-      <p className="mt-5">Compose it starting from these blocks:</p>
+      <h1 className="mt-5">
+        <strong>Drag the following blocks into the Blanks:</strong>
+      </h1>
       <div className="min-w-max grid grid-cols-4 gap-1">
         {draggableAnswers.slice(solution.length)}
       </div>
