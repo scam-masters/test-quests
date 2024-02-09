@@ -1,0 +1,342 @@
+{
+	"exercises": {
+		"mission_1": {
+			"difficulty": "easy",
+			"solution": [
+				"Test Case",
+				"Assertion",
+				"Test Suite",
+				"Test Runner",
+				"Test Fixture"
+			],
+			"kind": "unit testing",
+			"blocks": [
+				"A. A single scenario to test a specific function of the website.",
+				"B. Checking if the output matches the expected result.",
+				"C. A collection of several test cases.",
+				"D. A tool used to execute test cases.",
+				"F. Setting up a simulated user environment before running each test."
+			],
+			"options": [
+				"1",
+				"2",
+				"3",
+				"4",
+				"5"
+			],
+			"name": "Unit Test: Mastering Basics",
+			"threshold": 100,
+			"learning": {
+				"exerciseLink": "/exercise/1",
+				"learningLink": "/learning/1",
+				"resourceLink": "https://it.wikipedia.org/wiki/Unit_testing",
+				"content": "<center><h1 className=\"p-4 text-center\"><strong>Welcome to Mission Number 5 <br/> Master the Basics of Unit Testing</strong></h1> </center> <br /> <h2 className=\"mb-4 text-center\"><strong>Introduction to Unit Testing</strong></h2> <p><strong>What is Unit Testing?</strong></p> <p> Unit testing is a fundamental practice in software development that involves testing individual units or components     of a program to ensure they function as expected. A \"unit\" is the smallest testable part of an application, such as     a function, method, or class. </p> <br> <p><strong>Why Unit Testing?</strong></p> <ul>     <li><strong>Early Detection of Bugs:</strong> Unit testing helps identify and fix bugs early in the development         process, preventing issues from escalating to higher levels.</li>     <li><strong>Code Stability:</strong> It ensures that changes made to the codebase do not negatively impact existing         functionality.</li>     <li><strong>Documentation:</strong> Unit tests serve as living documentation, providing insights into the expected         behavior of components.</li> </ul> <br> <h2 className=\"mb-4 text-center\"><strong>Key Concepts in Unit Testing</strong></h2> <p><strong>Test Case</strong></p> <p> A test case is a set of conditions or variables under which a tester will determine whether a system under test     satisfies requirements or works correctly. It represents a single scenario to test a specific function. </p>  <br> <h2 className=\"mb-4\"><strong>Putting Concepts into Practice</strong></h2> <p> Now, let's apply these concepts to real-world scenarios related to a basic website. In the upcoming exercise, you'll     have the opportunity to match these fundamental unit testing concepts with scenarios specific to testing a website's     functionality. </p> <br> <h3 className=\"mb-2\"><strong>Exercise Overview:</strong></h3> <ul>     <li><strong>Scenario 1:</strong> Match each basic unit testing concept with the correct scenario for a simple         website.</li>     <li><strong>Scenario 2:</strong> Drag and drop each concept to its corresponding match in the context of a basic         website.</li> </ul> <br> <h3 className=\"mb-2\"><strong>Matches:</strong></h3> <ul>     <li><strong>Concept 1 - Test Case:</strong> Match with <strong>Scenario C - A single scenario to test a specific             function.</strong></li>  </ul> <br> <h2 className=\"mb-4\"><strong>Get Ready to Dive In!</strong></h2> <p> Now that you have a solid understanding of the basics of unit testing, it's time to put your knowledge into action.     Dive into the exercise, have fun, and master the art of unit testing! </p>"
+			},
+			"text": "",
+			"type": "mm",
+			"explanation": "    <h2><strong>Overview:</strong></h2><br>     <p>In this beginner-level exercise, students will match fundamental unit testing concepts with simple scenarios related to a basic website. The goal is to introduce the core ideas of unit testing in a very easy-to-understand format.</p>      <br><br><h2><strong>Instructions:</strong></h2> <br>    <p>Match each basic unit testing concept in the left column with the correct scenario for a simple website in the right column. Drag and drop each concept to its corresponding match.</p>",
+			"points": 50
+		},
+		"mission_2": {
+			"dropdowns": {
+				"0": [
+					" OR '1'='1';",
+					"' AND 1=1 --",
+					"' OR 1=1 --",
+					" AND '1'='1'; --"
+				],
+				"1": [
+					"SELECT * FROM users WHERE username='admin' AND password='’ OR 1=1 --';",
+					"SELECT * FROM users WHERE username='admin' AND password=' OR '1'='1'; --';",
+					"SELECT * FROM users WHERE username='admin' AND password=' AND '1'='1'; --';",
+					"SELECT * FROM users WHERE username='admin' AND password='’ AND 1=1 --';"
+				],
+				"2": [
+					"arthur",
+					"admin",
+					"giacomo"
+				],
+				"solutions": [
+					2,
+					0,
+					1
+				]
+			},
+			"points": 50,
+			"type": "sd",
+			"name": "Login Bypass",
+			"explanation": "    <h2 style=\"font-weight: bold;\">Website Description:</h2>     <br>     <p>Imagine a simple login system where users can log in with their username and password: the login functionality is implemented using SQL queries to check user credentials against a database.</p>     <br>     <h2 style=\"font-weight: bold;\">Target:</h2>     <br>     <p>The goal is to bypass the login mechanism and gain unauthorized access by exploiting SQL injection vulnerabilities.</p>     <br>     <h2 style=\"font-weight: bold;\">Website Structure:</h2>     <br>     <ul>         <li><strong>Login Page:</strong> <code>http://example.com/login.php</code></li>         <li><strong>Database Connection:</strong> The login system connects to a MySQL database with a table named <code>users</code> containing columns <code>username</code> and <code>password</code>.</li>     </ul>     <br>     <h2 style=\"font-weight: bold;\">Attack Description:</h2>     <br>     <p>The login system is vulnerable to SQL injection, and the injection point is the user input fields for username and password.</p>     <br>     <p>The login query is something like:</p>     <br>     <pre>         <code>SELECT * FROM users WHERE username='$username' AND password='$password';</code>     </pre>     <br>     <p>The website does not properly validate and sanitize user inputs, allowing an attacker to manipulate the SQL query.</p>     <br>     <h2 style=\"font-weight: bold;\">Craft a SQL Injection Attack:</h2>     <br>     <p>Assume that you already know a valid username (e.g., <code>admin, arthur, giacomo</code>) but you need to bypass the password check: your goal is to bypass the login and gain unauthorized access.</p>     <br>",
+			"difficulty": "easy",
+			"kind": "SQL injection",
+			"text": "The exercise is to craft the post request payload for the password field: SELECT * FROM users WHERE username='$username' AND password='$password';<br/> Username: `admin`  Password: {}<br /> The login query processed if the attack is correct is: {}<br /> As a result, the query returns True and the user logs in as {}",
+			"threshold": 100,
+			"learning": {
+				"exerciseLink": "/exercise/2",
+				"resourceLink": "https://owasp.org/www-community/attacks/SQL_Injection",
+				"learningLink": "/learning/2",
+				"content": " <center><p><strong>Welcome to Mission Number 2</strong></p> <p>It's time to dive into SQL injection; prepare for the challenge...</p></center> <br>  <p><strong>Understanding SQL Injection (Login Bypass)</strong></p> <p>SQL Injection is a malicious technique that attackers use to exploit vulnerabilities in a web application's database layer. In the context of login forms, it allows unauthorized access by manipulating SQL queries.</p> <p>Attackers inject specially crafted SQL code into user inputs, taking advantage of improper validation and sanitization. This can lead to unauthorized access to sensitive information and compromise the security of the application.</p> <br>  <p><strong>Risks and Impact</strong></p> <p>- <strong>Login Bypass:</strong> Exploiting SQL injection vulnerabilities can bypass authentication mechanisms, allowing unauthorized access to protected areas.</p> <p>- <strong>Data Exposure:</strong> Attackers can retrieve, modify, or delete sensitive data stored in the database, compromising data integrity and confidentiality.</p> <p>- <strong>Code Execution:</strong> In severe cases, SQL injection can lead to arbitrary code execution, giving attackers control over the application and potentially the entire server.</p> <p>- <strong>Reputation Damage:</strong> Successful SQL injection attacks can damage the reputation of the affected organization, leading to loss of trust among users and customers.</p> <br>  <p><strong>Common SQL Injection Techniques</strong></p> <p>1. <strong>Union-Based SQL Injection:</strong> Exploiting the UNION SQL operator to combine the results of the original query with those of a second query.</p> <p>2. <strong>Time-Based Blind SQL Injection:</strong> Manipulating the query to introduce delays, revealing information based on the time it takes for the application to respond.</p> <p>3. <strong>Boolean-Based Blind SQL Injection:</strong> Exploiting boolean conditions in the query to infer information about the database.</p> <br>  <p><strong>Hands-On Exercise</strong></p> <p>Get ready for a simulated login bypass exercise to understand SQL injection. Your task is to manipulate the login form to gain unauthorized access. The score of the mission will be based on the correctness of your actions, so engage your mind and proceed with caution.</p>"
+			}
+		},
+		"mission_3": {
+			"difficulty": "easy",
+			"type": "oc",
+			"kind": "E2E",
+			"points": 50,
+			"text": "",
+			"solution": [
+				"email",
+				"border rounded px-2 py-1 text-black",
+				"/html/body/form/button"
+			],
+			"explanation": "<h2 style=\"font-weight: bold;\">Website Description:</h2><br> <p>Consider the following simple login form with two fields, email and password, and a submit button.</p> <br>  <iframe srcdoc='     <html lang=\"en\">     <head>         <meta charset=\"UTF-8\">         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">         <style>             .border { border: 1px solid #000; }             .rounded { border-radius: 5px; }         </style>     </head>     <body>         <form onSubmit=\"\" class=\"flex flex-col space-y-4\">             <div class=\"flex flex-col text-white\">                 Email: <br>                 <input class=\"border rounded px-2 py-1 text-black\" name=\"email\" type=\"email\" id=\"email\" />             </div>             <div class=\"flex flex-col text-white\">                 Password: <br>                 <input class=\"border rounded px-2 py-1 text-black\" name=\"password\" type=\"password\" id=\"password\" />             </div><br>             <button type=\"submit\" class=\"bg-tq-primary hover:bg-tq-accent text-white font-bold py-2 px-4 rounded\">                 Submit             </button>         </form>     </body>     </html> ' width=\"300\" height=\"150\"></iframe> <br><br>  <h2 style=\"font-weight: bold;\">Form Structure:</h2><br> Each element of the form: <ul style=\"list-style: circle; margin-left:3%;\">     <li>Can be identified by an <code>id</code></li>     <li>It is characterized by a <code>class</code></li>     <li>It is located in the DOM tree by an <code>XPath</code></li> </ul><br>  <p>The values of these attributes can be found with the <b>browser's developer console</b>, using the inspect function     to access the elements of this page. This function allows one to explore the HTML and CSS of a web page, finding and     modifying specific elements.</p> <br>  <h2 style=\"font-weight: bold;\">Exercise Description:</h2> <br> <p>The exercise consists of completing blanks by typing in the right solution for each of the three form elements. The     solution is a string that can be found by inspecting this page. </p> <br>",
+			"blocks": [
+				"<code>id</code> of the email field:   ",
+				"",
+				"<br><code>class</code> of the password field:   ",
+				"",
+				"<br><code>XPath</code> of the submit button:   ",
+				""
+			],
+			"name": "HTML selectors",
+			"threshold": 100,
+			"learning": {
+				"exerciseLink": "/exercise/3",
+				"resourceLink": "https://ghostinspector.com/blog/css-selector-strategies-automated-browser-testing/",
+				"learningLink": "/learning/3",
+				"content": "<center><p><strong>Welcome to Mission Number 3</strong></p> <p>It's time to learn about E2E testing, are you ready?</p></center> <br> <p><strong>Understanding end-to-end testing (E2E testing)</strong></p> <p>End-to-end testing is a comprehensive software testing approach that evaluates the entire system's functionality from     start to finish. The goal of this testing method is to simulate real-world user scenarios and ensure seamless     integration among various components of a software application.</p> <p>This type of testing helps identify potential issues related to data flow, communication between components, and     overall system performance, ensuring that the software meets specified requirements and functions as intended in a     real-world environment.</p> <br> <p><strong>Locate Elements</strong></p> <p>Since E2E testing “simulates” the journey of a real user, your introduction to E2E testing starts here with the     easiest concept but the most powerful: writing code to correctly locate elements and interact with them.</p> <br> <p>Generally, you can locate web elements in a few different ways:</p> <p>- <strong>id selector:</strong> if an element has a unique id, the testing framework can directly target such id.</p> <p>- <strong>XPath</strong> the elements are targeted using their position inside the DOM tree of the website.</p> <p>- <strong>CSS selector:</strong> elements can be selected using CSS classes attributed to them.</p><br> <p><strong>Hands-On Exercise</strong></p> <p>On the next page, you will be presented with three buttons. For each one of them, you will need to correctly identify     the id, XPath, and CSS selector and input this information in the corresponding form. The score of the mission will     be based on the correctness of your actions, so     engage your mind and proceed with caution. </p>"
+			}
+		},
+		"mission_4": {
+			"difficulty": "easy",
+			"type": "dnd",
+			"kind": "unit testing",
+			"points": 50,
+			"text": "",
+			"explanation": "<h2 style=\"font-weight: bold;\">Project Description:</h2><br> <p>Let's suppose we have a simple python project with structure:</p> <br>  <code>     project <br>     ├── main.py <br>     ├── requirements.txt <br>     ├── README.md <br>     └── tests <br>     &nbsp;├── test_ex1.py <br>     &nbsp;├── test_ex2.py <br>     &nbsp;├── test_ex3.py <br>     &nbsp;└── test_ex4.py <br>     </code><br>  <h2 style=\"font-weight: bold;\">Files to test:</h2><br> Let's suppose we want to write unit tests for these functions: <br><br>  <code>     # calculator.py <br><br>     class Calculator: <br>     &nbsp;def add(self, a: float, b: float) -> float:b <br>     &nbsp;return a + b <br><br>          def multiply(self, a: float, b: float) -> float: <br>     &nbsp;return a * b <br><br>          def subtract(self, a: float, b: float) -> float: <br>     &nbsp;return a - b <br><br>          def divide(self, a: float, b: float) -> float: <br>     &nbsp;if b == 0: <br>     &nbsp;&nbsp;return 0 <br>     &nbsp;return a / b     </code><br><br>  <h2 style=\"font-weight: bold;\">Exercise Description:</h2> <br> <p>Let's suppose we're building our test suite using PyTest. The exercise consists in drag and dropping the blocks in     the right position to produce a functional test suite. </p> <br>",
+			"name": "PyTest Calculator",
+			"blocks": [
+				"<code> from calculator import Calculator <br><br>      class TestCalculatorMultiplication: <br> &nbsp;def test_multiplication_with_positive_numbers(self): <br> &nbsp;&nbsp;calculator = </code>",
+				"",
+				"<br><code>&nbsp;&nbsp;output = calculator.multiply(2, 5) <br> &nbsp;&nbsp;assert output == 10 <br><br>  &nbsp;def test_multiplication_with_negative_numbers(self): <br> &nbsp;&nbsp;calculator = Calculator() <br> &nbsp;&nbsp;output =</code>",
+				"",
+				"<br><code>&nbsp;&nbsp;assert output ==</code>",
+				"",
+				"<br><br><code>&nbsp;def test_multiplication_with_negative_and_positive_number(self): <br> &nbsp;&nbsp;calculator = Calculator()  <br> &nbsp;&nbsp;output =</code>",
+				"",
+				"<br><code>&nbsp;&nbsp;assert output ==</code>",
+				"",
+				"<br><br><code>class TestCalculatorDivision: <br> &nbsp;def test_division_with_positive_numbers(self): <br> &nbsp;&nbsp;calculator = Calculator() <br> &nbsp;&nbsp;output = calculator.divide(10, 2) <br> &nbsp;&nbsp;assert output == 5 <br><br>  &nbsp;def test_division_with_negative_numbers(self): <br> &nbsp;&nbsp;calculator = Calculator() <br> &nbsp;&nbsp;output =</code>",
+				"",
+				"<br><code> &nbsp;&nbsp;assert output == </code>",
+				"",
+				"<br><br><code> &nbsp;def test_division_with_negative_and_positive_number(self): <br> &nbsp;&nbsp;calculator = Calculator() <br> &nbsp;&nbsp;output = calculator.divide(24, -6) <br> &nbsp;&nbsp;assert output == -4 <br> </code>"
+			],
+			"solution": [
+				"Calculator()",
+				"calculator.multiply(-3, -5)",
+				"15",
+				"calculator.multiply(4, -6)",
+				"-24",
+				"calculator.divide(-15, -3)",
+				"5"
+			],
+			"threshold": 100,
+			"learning": {
+				"resourceLink": "https://docs.pytest.org/en/6.2.x/index.html",
+				"learningLink": "/learning/4",
+				"exerciseLink": "/exercise/4",
+				"content": "<center><p><strong>Welcome to Mission Number 4</strong></p> <p>Get ready to dive into the world of Pytest unit testing and build robust tests for a simple calculator app!</p> </center><br> <p><strong>Understanding Pytest Unit Testing</strong></p> <p>Unit testing involves testing individual units or components of a software application in isolation to verify that     they work as intended. Pytest provides a simple and scalable way to write and execute these tests, making it an     excellent choice for testing Python code.</p> <p>Pytest is a powerful testing framework for Python that makes it easy to write simple unit tests. In this mission,     we will explore how to use Pytest to ensure the accuracy and reliability of a simple calculator application.</p> <p>Pytest follows a convention-over-configuration approach, allowing you to focus on writing test cases without the     need for extensive configuration. Its modular design and rich ecosystem make it a versatile tool for various testing     scenarios, from unit tests to functional tests.</p> <p>One of the key features of Pytest is its ability to automatically discover and run tests in your project. By adhering     to naming conventions, Pytest effortlessly identifies test files and functions, providing a seamless testing experience.</p><br> <p><strong>Writing Test Cases</strong></p> <p>Now that you understand the basics of Pytest, let's move on to writing test cases for our simple calculator app.     Test cases are scenarios or conditions that ensure the proper functioning of specific features or functionalities.</p><br> <p>Here are some key concepts in writing Pytest test cases:</p> <p>- <strong>Assertions:</strong> Verify that specific conditions are met during the test execution.</p> <p>- <strong>Test Functions:</strong> Define individual tests using Python functions marked with the `def test_` prefix.</p><br> <p><strong>Hands-On Exercise</strong></p> <p>On the next page, you'll be provided with the code for a simple calculator app. Your task is to write Pytest test     cases to ensure that each operation (addition, subtraction, multiplication, division) works correctly. Pay     attention to edge cases and handle exceptions gracefully. Your mission score will be based on the accuracy and     coverage of your test cases, so put your testing skills to the test!</p>"
+			}
+		},
+		"mission_5": {
+			"difficulty": "easy",
+			"solution": [
+				"files.php",
+				"?",
+				"file=",
+				"../",
+				"../",
+				"server/",
+				"flag.txt"
+			],
+			"blocks": [
+				"example.com/",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"secrets/",
+				""
+			],
+			"kind": "path traversal",
+			"name": "Path Traversal",
+			"threshold": 100,
+			"learning": {
+				"exerciseLink": "/exercise/5",
+				"learningLink": "/learning/5",
+				"resourceLink": "https://owasp.org/www-community/attacks/Path_Traversal",
+				"content": "<center><p><strong>Welcome to Mission Number 1</strong></p> <p>It's time to learn, the rocket is starting...</p> </center><br>  <p><strong>Understanding Path Traversal</strong></p> <p>Path Traversal, also known as Directory Traversal, is a security vulnerability that allows an attacker to access files and directories that are outside the web root directory. This vulnerability occurs when user input is not properly sanitized and validated.</p> <br>  <p><strong>Risks and Impact</strong></p> <ul>     <li><strong>Unauthorized Access:</strong> Exploiting path traversal vulnerabilities can lead to unauthorized access to sensitive files, including configuration files, user data, or even system files.</li>     <li><strong>Data Leakage:</strong> Attackers can read and potentially modify files they shouldn’t have access to, compromising data integrity and confidentiality.</li>     <li><strong>System Compromise:</strong> In severe cases, path traversal can lead to full system compromise, enabling attackers to execute arbitrary code.</li> </ul> <br>  <p><strong>Preventing Path Traversal</strong></p> <p>To mitigate path traversal vulnerabilities, developers should:</p> <ul>     <li>- <strong>Input Validation:</strong> Validate and sanitize user input to ensure that it adheres to expected formats and does not contain malicious characters.</li>     <li>- <strong>Use Whitelists:</strong> Employ whitelists to specify valid file and directory names, limiting the scope of allowed inputs.</li>     <li>- <strong>Implement Access Controls:</strong> Enforce proper access controls to restrict users' access to only the necessary files and directories.</li> </ul> <br> <p><strong>What you need to do?</strong></p> <p>You will complete a drag and drop exercise to play with Path Traversal. The score of the mission will be evaluated checking the correctness of the drags and drop that you will perform so play with your brain.</p>"
+			},
+			"explanation": "<p><strong>Website Structure:</strong></p> <p>Suppose we have a simple website structure with the following directories:</p> <br> <ul>   <li><strong>/home/</strong> (contains user home directories)</li>   <li><strong>/public/</strong> (publicly accessible files)</li>   <li><strong>/server/</strong> (server-related files)</li>   <li><strong>/admin/</strong> (admin-related files)</li> </ul> <br> <code> <p> /<br> |-- home/<br> |&nbsp;&nbsp;|-- user1/<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- public/<br> |&nbsp;&nbsp;|-- index.html<br> |&nbsp;&nbsp;|-- about.html<br> |&nbsp;&nbsp;|-- user_uploaded_file.txt<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- server/<br> |&nbsp;&nbsp;|-- secrets/<br> |&nbsp;&nbsp;&nbsp;&nbsp;|-- flag.txt<br> |<br> |-- index.html<br> |-- about.html<br> |-- contact.html<br> |-- files.php<br> </p> </code> <br> <p><strong>Target File:</strong></p> <p>The sensitive file we want to access is located at: <strong>/server/secrets/flag.txt</strong></p> <br> <p><strong>Website Description:</strong></p> <p>The website allows users to access certain public files.</p> <p>The website employs a simple mechanism to serve files based on user requests. The URL structure might look like this: <strong>http://example.com/files.php?file=user_uploaded_file.txt</strong></p>",
+			"type": "dnd",
+			"points": 50
+		},
+		"mission_6": {
+			"difficulty": "medium",
+			"kind": "SQL Injection",
+			"name": "SQL Injection UNION Attacks",
+			"points": 100,
+			"threshold": "75",
+			"type": "oc",
+			"blocks": [
+				"Question 1",
+				"",
+				"<br>Question 2",
+				"",
+				"<br>Question 3",
+				""
+			],
+			"solution": [
+				"5",
+				"2",
+				"' UNION ALL SELECT *, 3, 4, 5, 6 FROM real_data -- -"
+			],
+			"text": "<br><br> The     executed query is:<br>     <code>SELECT * FROM dummy_data WHERE id='' UNION ALL SELECT *, 3, 4, 5, 6 FROM real_data -- -'</code><br><br> And it     returns:<br> <code>1, TQTS{YAY!!}, 3, 4, 5, 6</code> ",
+			"explanation": "<h2 style=\"font-weight: bold;\"> Exercise Description</h2> The database consists of a table named <code     style=\"color: brown;\"> real_data</code> and we want to know what’s inside it. <br><br><strong> First Step</strong> <aside style=\"background-color: #0e0d0d; border: 1px solid #c77777; padding: 10px; margin: 20px;\"> You have a     vulnerable query<br>     <code><strong>SELECT</strong> * <strong>FROM</strong> dummy_data <strong>WHERE</strong> <strong>id</strong>='<user_input>'</code><br><br>     If you input <code>1</code> it gets back: <code>1, dummy value1, 3, another_value1, lollo, 4</code><br><br> So you     know it has <code>&lt;Question 1&gt;</code> columns.<br><br> </aside> <strong>Second Step</strong> <aside style=\"background-color: #0e0d0d; border: 1px solid #c77777; padding: 10px; margin: 20px;\"> You can retrieve the     <code>TABLE_NAME</code> from <code>information_schema</code> by injecting:<br>     <code>' UNION ALL SELECT TABLE_NAME, TABLE_NAME, TABLE_NAME, TABLE_NAME, TABLE_NAME, TABLE_SCHEMA FROM information_schema.tables -- -</code><br><br>     Which returns:<br> <code>real_data, real_data, real_data, real_data, real_data, uniondb</code><br><br> You can now     retrieve the number of columns in <code>real_data</code> by injecting:<br>     <code>SELECT * FROM dummy_data WHERE id='' UNION ALL SELECT COUNT(*), 2, 3, 4, 5, 6 FROM INFORMATION_SCHEMA.COLUMNS WHERE  table_name = 'real_data'-- -'</code><br><br>     Which runs the query:<br>     <code>SELECT * FROM dummy_data WHERE id='' UNION ALL SELECT COUNT(*), 2, 3, 4, 5, 6 FROM INFORMATION_SCHEMA.COLUMNS WHERE  table_name = 'real_data'-- -'</code><br><br>     And returns: <code>2, 2, 3, 4, 5, 6</code><br><br> <code>real_data</code> has <code>&lt;Question 2&gt;</code>     columns.<br><br> </aside> <strong>Third Step</strong> <aside style=\"background-color: #0e0d0d; border: 1px solid #c77777; padding: 10px; margin: 20px;\"> I can mockup the     remaining four to retrieve the information inside the table. Here’s the payload to inject:     <code>&lt;Question 3</Question>&gt;</code></aside>",
+			"learning": {
+				"exerciseLink": "/exercise/6",
+				"resourceLink": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+				"learningLink": "/learning/6",
+				"content": "<center><h1 className=\"p-4 text-center\"><strong>Welcome to Mission Number 6</strong></h1>  intricate world of SQL injection UNION attacks </center><br/> <p>In this thrilling mission, you are about to embark on a journey into the intricate world of SQL injection UNION attacks.      These attacks are a notorious technique employed by cunning hackers to manipulate and extract sensitive data from a database.</p> <br> <p>Get ready to dive deep into the realm of cybersecurity as you unravel the nuances of SQL injection. The stakes are high, and your mission is to understand the intricacies of UNION attacks – a maneuver that involves injecting a SELECT statement to cunningly combine results from multiple queries.</p>  <br> <p>As you navigate through this mission, be prepared to encounter real-world scenarios where SQL injection poses a significant threat. Your objective? To not only comprehend how these attacks work but to equip yourself with the knowledge needed to thwart them. Learn the art of implementing robust input validation and master the use of parameterized queries in your applications.</p>    <br>  <p><strong>Note:</strong> A word of caution – these exercises should only be conducted in controlled environments or with explicit permission. Unauthorized SQL injection attempts on real-world websites are not only illegal but also highly unethical.</p>  <p>Prepare for an immersive experience, where the lines between attacker and defender blur, and your skills as a cybersecurity enthusiast are put to the test.</p>   <br><strong><h2>Exploring SQL Injection</h2>  </strong> <p>Before delving into UNION attacks, let's take a moment to understand the broader concept of SQL injection. It occurs when an attacker exploits vulnerabilities by injecting malicious SQL code into a query. This nefarious practice can lead to unauthorized access, data disclosure, and potential havoc.</p> <br>   <p>The key to defending against SQL injection lies in your ability to comprehend the intricacies of database interactions and fortify your applications with robust security measures.</p>  <br> <strong> <h2>The Art of Prevention</h2> </strong>  <p>Equipped with knowledge and armed with preventative measures, you will learn how to safeguard your applications against SQL injection threats. Explore the world of input validation, where every piece of data is scrutinized and validated before reaching the database.</p>   <br> <p>Parameterized queries will become your go-to weapon, allowing you to execute queries safely and securely. With these tools in your arsenal, you can confidently face the challenges posed by SQL injection and emerge victorious.</p>  <br><strong> <h3>Challenge Yourself</h3>  </strong> <p>Ready for a challenge? Test your newfound skills by navigating through simulated scenarios that mimic real-world threats.      Only by immersing yourself in these challenges can you truly master the art of defending against SQL injection.</p>   <br> <p>Stay vigilant, stay secure, and may your journey through Mission 5 be both enlightening and empowering!</p>"
+			}
+		},
+		"mission_7": {
+			"text": "\"\"",
+			"difficulty": "medium",
+			"type": "dnd",
+			"points": 100,
+			"kind": "E2E",
+			"threshold": "75",
+			"name": "E2E Testing Exercise",
+			"blocks": [
+				"<br> <code> # Task 1: Navigate to Registration Page <br> driver.get(\"http://example.com/register\") <br><br><br># Task 2: Fill in Registration Form <br><br>driver.find_element_by_id</code>",
+				"",
+				"<br><br><code>driver.find_element_by_id(\"password\").send_keys(</code>",
+				"",
+				"<code>)<br><br>driver.find_element_by_id</code>",
+				"",
+				"<br><br><br><code># Task 3: Assert that the user is redirected to the login page</code><br><br>",
+				""
+			],
+			"explanation": "<strong>Web Application Overview:</strong><br><br><strong>Testing Objective:</strong> <p><br>The objective of this exercise is to perform end-to-end testing using Selenium with Python to ensure         the proper functioning of the web application.<br><br> The test scenarios will cover user registration, login,         and profile management functionalities.</p><br><strong>Exercise Tasks:</strong><br> <ul>     <li>1. Navigate to the registration page <code>http://example.com/register</code></li><br>     <li>2. Fill in the registration form with valid information: unique username considering in the database there’s         already the username <code>pippo</code></li><br>     <li>3. Submit the form</li><br>     <li>4. Verify that the user is redirected to the login page: check if in the title of the page, now there’s         <code>\"Login\"</code></li><br> </ul>",
+			"solution": [
+				"(\"username\").send_keys(\"pippo\")",
+				"-SecurePassword99",
+				"(\"submit_button\").click()",
+				"\"Login\" in driver.title"
+			],
+			"options": [
+				"(\"submit_button\").click()",
+				"(\"username\").send_keys(\"pippo\")",
+				"(\"username\").send_keys(\"pluto\")",
+				"-SecurePassword99",
+				"securepassword",
+				"\"Login\" in driver.title",
+				"driver.title == \"Login\""
+			],
+			"time": 60,
+			"learning": {
+				"learningLink": "/learning/7",
+				"exerciseLink": "/exercise/7",
+				"resourceLink": "https://www.selenium.dev/documentation/",
+				"content": "    <center><strong>Welcome to Mission 7<h2 > End-to-End Testing with Selenium and Python</h2> </center><br/><p style=\"margin-bottom: 15px;\">In this exercise, we'll be utilizing Selenium with Python to conduct end-to-end testing on a web application. Our main objective is to ensure that the web application functions correctly, specifically focusing on user registration, login, and profile management functionalities.</p>          <p style=\"margin-bottom: 15px;\">To begin, let's outline the steps required to complete the exercise:</p>          <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Navigate to the registration page: We'll use Selenium to instruct the web browser to open the registration page of the web application.</p>        <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Fill in the registration form: We need to provide valid information in the registration form. It's important to note that the username we choose must be unique, considering that the database already contains the username \"pippo\".</p>            <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Submit the form: After filling in the registration form, we'll submit it using Selenium.</p>            <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. Verify redirection to the login page: Once the form is submitted, we'll verify that the user is redirected to the login page. This can be done by checking if the title of the page changes to \"Login\".</p>              <p style=\"margin-bottom: 15px;\">Now, let's translate these steps into code using Selenium with Python:</p>      <pre style=\"background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto;\"> <code style=\"color: #c7254e; background-color: #f9f2f4; padding: 2px 4px; border-radius: 4px; font-size: 90%; white-space: pre-wrap;\"> # Task 1: Navigate to Registration Page<br> driver.get(\"http://example.com/register\")<br> <br> # Task 2: Fill in Registration Form<br> driver.find_element_by_id(\"username\").send_keys(\"unique_username\")<br> driver.find_element_by_id(\"password\").send_keys(\"your_password\")<br> driver.find_element_by_id(\"confirm_password\").send_keys(\"your_password\")<br> <br> # Task 3: Submit the form<br> driver.find_element_by_id(\"submit_button\").click()<br> <br> # Task 4: Verify redirection to Login Page<br> login_page_title = driver.title<br> assert login_page_title == \"Login\", \"User was not redirected to the login page\"<br> </code> </pre>"
+			}
+		},
+		"mission_8": {
+			"difficulty": "medium",
+			"name": "Semantic and Syntax Errors",
+			"learning": {
+				"exerciseLink": "/exercise/8",
+				"learningLink": "/learning/8",
+				"content": "<center><strong>Welcome to Mission Number 8 </strong><br/> Understanding Semantic and Syntax Bugs.</center><br> <p>     Semantic and Syntax bugs are common issues encountered during software development. It's crucial to distinguish between them to effectively debug and maintain code. </p> <br><strong>Semantic Bugs</strong> <p>     Semantic bugs occur when the logic of the program is flawed, leading to unexpected behavior. These bugs may not result in syntax errors but can cause incorrect program output or undesired outcomes. Semantic bugs are often harder to detect than syntax bugs because they involve understanding the intended functionality of the code. Examples of semantic bugs include miscalculations, incorrect conditional statements, and improper data handling. </p> <br><strong>Syntax Bugs</strong> <p>     Syntax bugs, on the other hand, are errors in the structure or grammar of the code. These bugs violate the rules of the programming language, causing the interpreter or compiler to raise errors. Syntax bugs are usually easier to identify and fix compared to semantic bugs because they are detected by the compiler or interpreter during the code compilation or execution process. Common syntax bugs include missing semicolons, mismatched parentheses, and misspelled keywords. </p> <br><strong>Risks and Impact</strong> <p>     Semantic bugs can have significant consequences, such as incorrect computation results, security vulnerabilities, or system crashes. These bugs can lead to data corruption, loss of user trust, and financial losses for organizations. Syntax bugs typically prevent the code from executing altogether, resulting in immediate errors during compilation or runtime. While less severe than semantic bugs, syntax bugs can still disrupt development workflow and delay project timelines. </p> <br><strong>Preventing and Resolving Bugs</strong> <p>     To prevent semantic bugs, developers should thoroughly understand the requirements and specifications of the software and conduct rigorous testing. Code reviews, unit testing, and integration testing are essential for identifying and addressing semantic bugs early in the development lifecycle. Debugging semantic bugs involves analyzing the program's behavior, identifying discrepancies between expected and actual outcomes, and implementing corrective measures. </p> <p>     Syntax bugs can be avoided by adhering to the syntax rules of the programming language, using linting tools, and paying attention to compiler or interpreter error messages. Code editors with syntax highlighting and auto-completion features can also help prevent syntax errors during development. Debugging syntax bugs involves analyzing the code for syntax errors indicated by error messages and correcting them accordingly using code editors or integrated development environments (IDEs). </p> <br><strong>What you need to do?</strong> <p>     You will complete an exercise to spot semantic and syntax bugs in a given code snippet. Pay close attention to the logic and structure of the code to identify and correct the bugs effectively. Your ability to distinguish between semantic and syntax bugs will be crucial for successful debugging and improving your programming skills. </p>",
+				"resouceLink": "https://www.honeybadger.io/blog/beginners-guide-to-software-testing-in-python/"
+			},
+			"threshold": 75,
+			"text": "\nclass Student:\n    def __init__(self, name, exam_marks):\n       self.name = name\n       self.exam_marks = exam_marks\n       self.calc = Calculater()\n\n\n    def calculate_average_score(self))\n       total_score = 0\n       idx = 0\n       for idx, mark in enumerate(exam_marks):\n           total_score += marks\n       average_score = self.calc.divide(total_score, idx)\n       return average_score\n\n       \nexam_scores = [25, 30, 30, 22]\nstudent1 = Student(\"Alice\", exam_scores)\naverage_score = student1.calculate_average_score()\n\nprint(f\"{student1.name}'s average score is: {average_score}\")",
+			"type": "debug",
+			"explanation": "    <h1>You have a class of functions from a calculator:</h1><br><pre><code>class Calculator:<br>     def __init__(self):<br>         self.result = None<br> <br>     def add(self, a, b):<br>         self.result = a + b<br>         return self.result<br> <br>     def subtract(self, a, b):<br>         self.result = a - b<br>         return self.result<br> <br>     def multiply(self, a, b):<br>         self.result = a * b<br>         return self.result<br> <br>     def divide(self, a, b):<br>         if b == 0:<br>             raise ValueError(\"Division by zero is not allowed.\")<br>         self.result = a / b<br>         return self.result<br>         </code>     </pre><p>Consider the class <code>Student</code> on the right, which is importing and using the <code>Calculator</code> class to compute the average of the marks of exams of a student.  Your goal is to spot bugs in the code.</p>",
+			"points": 100,
+			"selectables": [
+				"20-57",
+				"89-117",
+				"125-150",
+				"156-190",
+				"263-273",
+				"287-298",
+				"302-307",
+				"315-328",
+				"341-347",
+				"361-364"
+			],
+			"solution": [
+				false,
+				false,
+				true,
+				true,
+				true,
+				false,
+				true,
+				false,
+				false,
+				true
+			]
+		},
+		"mission_9": {
+			"difficulty": "medium",
+			"name": "Calculator with Parametrized Unit Testing",
+			"options": [
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8"
+			],
+			"solution": [
+				"@pytest.fixture",
+				"before_module",
+				"@pytest.fixture",
+				"before_all",
+				"after_class",
+				"autouse",
+				"after_all",
+				"scope"
+			],
+			"threshold": "75",
+			"type": "mm",
+			"kind": "Unit Testing",
+			"points": "100",
+			"explanation": " <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;\"><strong>Instructions:</strong><br> Match each PyTest fixture with its corresponding behavior in the test setup and teardown process.</p>  <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;\">Consider the following code:</p>  <pre style=\"font-family: Arial, monospace; background-color: #0e0d0d; padding: 10px; border-radius: 5px; overflow-x: auto; margin-bottom: 20px;\"> <code> import pytest <br> class Calculator:<br>     def __init__(self):<br>         self.result = None<br>         <br>     def add(self, a, b):<br>         self.result = a + b<br>         return self.result<br>         <br>     def subtract(self, a, b):<br>         self.result = a - b<br>         return self.result<br>         <br>     def multiply(self, a, b):<br>         self.result = a * b<br>         return self.result<br>         <br>     def divide(self, a, b):<br>         if b == 0:<br>             raise ValueError(\"Division by zero is not allowed.\")<br>         self.result = a / b<br>         return self.result<br>         <br> @pytest.fixture(scope=\"session\", autouse=True)<br> def before_all():<br>     print(\"\\nBefore all tests (session scope)\")<br>     <br> @pytest.fixture(scope=\"module\")<br> def before_module():<br>     print(\"\\nBefore each module\")<br> <br> @pytest.fixture(scope=\"class\")<br> def before_class():<br>     print(\"Before each class\")<br>     <br> @pytest.fixture(scope=\"function\")<br> def before_each():<br>     print(\"Before each test\")<br>     <br> @pytest.fixture(scope=\"function\")<br> def after_each():<br>     print(\"After each test\")<br>     <br> @pytest.fixture(scope=\"class\")<br> def after_class():<br>     print(\"After each class\")<br>     <br> @pytest.fixture(scope=\"module\")<br> def after_module():<br>     print(\"\\nAfter each module\")<br>     <br> @pytest.fixture(scope=\"session\", autouse=True)<br> def after_all():<br>     print(\"\\nAfter all tests (session scope)\")<br>     <br> @pytest.mark.parametrize(\"a, b, expected\", [<br>     (2, 3, 5),   # Addition<br>     (5, 3, 2),   # Subtraction<br>     (4, 6, 24),  # Multiplication<br>     (8, 2, 4),   # Division<br> ])<br> def test_calculator_operations(a, b, expected, before_module, before_class, before_each, after_each):<br>     calculator = Calculator()<br>     result = calculator.add(a, b) if a + b == expected else \\<br>              calculator.subtract(a, b) if a - b == expected else \\<br>              calculator.multiply(a, b) if a * b == expected else \\<br>              calculator.divide(a, b) if a / b == expected else None<br>     assert result == expected, f\"Expected result {expected}, but got {result}\"<br> </code> </pre>",
+			"blocks": [
+				"A. We define it with different scopes (function, class,…) to perform setup and teardown actions.",
+				"B. Runs once before all test functions in the test module.",
+				"C. Used as a decorator to create a parameterized test with multiple test cases for various arithmetic operations.",
+				"D. Runs once before every test function in the test module.",
+				"E. Runs after every test class in the test module.",
+				"F. When it is true then the fixture will be invoked automatically before each test that depends on it.",
+				"G. Runs once after all test functions in the test module.",
+				"H. it determines the area in which the fixture is executed, controlling the fixture setup and teardown actions are performed"
+			],
+			"learning": {
+				"exerciseLink": "/exercise/9",
+				"learningLink": "/learning/9",
+				"resourceLink": "https://reflectoring.io/tutorial-junit5-parameterized-tests/",
+				"content": "<center><h2><strong> Welcome to Mission 9</strong></h2>Learn parameterize testing </center><br/> <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 15px;\"><strong>Parameterized Tests:</strong></p> <ul style=\"margin-bottom: 15px;\">   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parameterized tests allow you to run the same test function with different sets of parameters.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- They are created using <code>@pytest.mark.parametrize</code> decorator, which defines multiple test cases for various operations.</li> </ul>  <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 15px;\"><strong>PyTest Fixtures:</strong></p> <ul style=\"margin-bottom: 15px;\">      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fixtures are functions that provide data, setup, or other resources to tests.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fixtures are functions that provide data, setup, or other resources to tests.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- They can be applied with different scopes (<code>function</code>, <code>class</code>, <code>module</code>, <code>session</code>) to control when they are executed.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- They can be applied with different scopes (<code>function</code>, <code>class</code>, <code>module</code>, <code>session</code>) to control when they are executed.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fixtures are defined using <code>@pytest.fixture</code> decorator.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fixtures are defined using <code>@pytest.fixture</code> decorator.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- The <code>autouse</code> parameter in fixtures determines whether the fixture will be automatically used by all tests without explicit usage.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- The <code>autouse</code> parameter in fixtures determines whether the fixture will be automatically used by all tests without explicit usage.</li> </ul> </ul>  <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 15px;\"><strong>Fixture Behaviors:</strong></p> <ul style=\"margin-bottom: 15px;\">   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before_module:</strong> Runs once before every test module, setting up the module-level environment.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- after_class:</strong> Runs after every test class in the module, performing cleanup actions.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before_all:</strong> Runs once before all test functions in the module, setting up global environment.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- after_all:</strong> Runs once after all test functions in the module, cleaning up global environment.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- @pytest.fixture:</strong> Defines fixtures with different scopes for setup and teardown actions.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- @pytest.mark.parametrize:</strong> Defines parameterized tests with multiple test cases for various operations.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- autouse:</strong> Automatically invokes the fixture before each test that depends on it.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- scope:</strong> Determines the area in which the fixture is executed, controlling fixture setup and teardown actions.</li> </ul>"
+			}
+		}
+	}
+}

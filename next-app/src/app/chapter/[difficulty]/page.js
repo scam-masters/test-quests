@@ -1,7 +1,6 @@
 "use client"
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import React, { useState, useEffect } from 'react';
-import { Dialog } from 'primereact/dialog';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getAuth } from "firebase/auth";
@@ -103,6 +102,21 @@ export default function Chapter({ params }) {
         )
     }
 
+    function Dialog(props) {
+        return ( props.visible ?
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50" onClick={handleCloseDialog}>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto rounded-xl min-w-1/3 bg-tq-primary p-10">
+                    <button className="absolute top-0 right-0 p-5 text-red-500 ml-4" onClick={handleCloseDialog}>X</button>
+                    <div>
+                        <p className="text-center mb-4 text-4xl">Mission Locked</p>
+                        <p className="text-center mb-4 text-xl">Please complete previous missions to access this one</p>
+                    </div>
+                </div>
+            </div>
+            : null
+        )
+    }
+
     useEffect(() => {
         /* when logged in show missions, otherwise go to login page */
         getAuth().onAuthStateChanged(function (user) {
@@ -123,14 +137,18 @@ export default function Chapter({ params }) {
 
             {missions}
 
-            <Dialog
+            {/* <Dialog
                 className='bg-tq-black text-tq-white w-1/2 h-auto'
                 header="Mission Locked"
                 visible={visible_dialog}
                 onHide={handleCloseDialog}
             >
                 <p>Please complete previous missions to access this one</p>
-            </Dialog>
+            </Dialog> */}
+            <Dialog
+                visible={visible_dialog}
+                onHide={handleCloseDialog}
+            />
 
             {/* "Go back to main page" button */}
             <div className="fixed bottom-0 p-5 left-0 mb-5 z-50">
@@ -142,5 +160,4 @@ export default function Chapter({ params }) {
             </div>
         </div>
     );
-
 }

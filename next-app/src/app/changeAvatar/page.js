@@ -60,7 +60,7 @@ export default function changeAvatar() {
 					<h1 className="text-3xl font-bold">Change Avatar</h1>
 
 					<div className="mt-10 avatar w-40 h-40 rounded-full border-2 border-white mx-auto relative overflow-hidden">
-						<img src={allAvatars[currentAvatarIndex].src} id="avatar-image" className="avatar_img w-full h-auto" alt="Avatar Image"></img>
+						<img src={allAvatars[currentAvatarIndex].src} id="avatar-image" className=" w-full h-auto" alt="Avatar Image"></img>
 					</div>
 					<div className="mt-10 flex justify-between w-5/6 mx-auto pb-4 text-gray-600">
 						<button onClick={handlePreviousAvatar} className="bg-tq-primary hover:bg-tq-accentfont-bold rounded">
