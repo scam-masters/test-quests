@@ -64,16 +64,27 @@ export async function updateUserScore(missionId, newMissionScore, correctness, t
     if (newMissionScore > userData.missions[missionId].score) {
         // update user general score, substract the old mission score
         userData.score = Math.max(userData.score, 0) + newMissionScore - userData.missions[missionId].score
-
+        
         // update mission data (relative to the user)
         userData.missions[missionId].score = newMissionScore
         userData.missions[missionId].timestamp = Date.now()
-
+        
         // unlock the next mission only when we get max score
         if (correctness >= threshold) {
             const missionNumber = missionId.split("_")[1]
             const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
             userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
+        }
+        console.log("correctness: ", correctness)
+        if (correctness == 100) {
+            // query the db to check if a user already achieved 100% on this mission
+            const usersRef = collection(db, "users")
+            const docs = await getDocs(query(usersRef, where("missions." + missionId + ".score", "==", newMissionScore)))
+            console.log("missionId: ", missionId)
+            console.log("docs: ", docs)
+            if (docs.empty) {
+                userData.badges.push("first_blood")
+            }
         }
         setUserData(userData)
     }
