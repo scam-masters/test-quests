@@ -15,7 +15,7 @@ const Points = ({ points, username }) => {
         <div className={`flex items-center mr-2`}>
             <a className="text-white font-bold mr-10" href={`/profile/${username}`}>{username}</a>
             <FaStar className="text-white mr-2" />
-            <span className="text-white font-bold">{points}</span>
+            <span className="text-white font-bold mr-5">{points}</span>
         </div>
     );
 };
