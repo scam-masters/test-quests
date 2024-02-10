@@ -36,7 +36,7 @@ class TestChapterPageSuccess:
 
     def test_mission_points(self, driver):
         first_circle_mission = driver.find_element(
-            By.CSS_SELECTOR, "/html/body/div[1]/div[1]/a/button"
+            By.XPATH, "//button[contains(@class,'circle-mission-gradient-1')]"
         )
 
         second_circle_mission = driver.find_element(
@@ -56,15 +56,16 @@ class TestChapterPageSuccess:
 class TestChapterPageUnsuccess:
     def test_mission_locked(self, driver):
         locked_circle_mission = driver.find_element(
-            By.CLASS_NAME, #"/html[1]/body[1]/div[1]/div[2]/a[1]/button[1]" # for firefox
+            By.XPATH, #"/html[1]/body[1]/div[1]/div[2]/a[1]/button[1]" # for firefox
             #"/html/body/div[1]/div[3]/button" # previous for Chrome
-            "circle-mission-locked translate-x-[110%]"
+            #"circle-mission-locked translate-x-[110%]"
+            "/html/body/div[1]/div[2]/button"
         )
         assert locked_circle_mission.text == "Mission Locked"
 
         """ Check for accessing to the first learning page """
         locked_circle_mission.click()
         popup_element = driver.find_element(
-            By.XPATH, "/html/body/div[3]/div/div[1]/div[1]"
+            By.ID, "mission_locked_popup"
         )
         assert popup_element.text == "Mission Locked"

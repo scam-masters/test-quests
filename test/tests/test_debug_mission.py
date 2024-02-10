@@ -2,88 +2,57 @@ import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
+from time import sleep
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from utils import login, get_exercise_submit_button, get_exercise_popup
 
-from time import sleep
-
 
 @pytest.fixture(scope="class", autouse=True)
-def login_user_tests(driver, user_tests):
-    login(driver, user_tests[0], user_tests[1])
+def login_user_tests(driver, user_all_unlocked):
+    login(driver, user_all_unlocked[0], user_all_unlocked[1])
 
 
 # before each method we need to navigate to the correct page!!!!
 @pytest.fixture(scope="function", autouse=True)
-def navigate_to_first_mission(driver, base_url):
+def navigate_to_debug_exercise(driver, base_url):
     driver.get(base_url + "/exercise/8")
 
 
+def get_choices(driver):
+    return [
+        driver.find_element(By.XPATH, f"/html[1]/body[1]/div[1]/div[1]/div[3]/div/div/code/button[{i}]")
+        for i in range(1, 11)
+    ]
+
 class TestDebug:
     def test_all_correct_answers(self, driver):
-        choices = [3, 4]
+        choices = get_choices(driver)
 
-        for choice in choices:
-            button = driver.find_element(
-                By.XPATH,
-                # f"/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/div[1]/code[1]/button[{choice}]",
-                f"/html/body/div[1]/div[1]/div[3]/div/div/code/button[{choice}]",
-            )
-            button.click()
+        correct_answers = [2, 3, 4, 6, 10]  # Update the correct_answers list with valid indices
+        for i in correct_answers:
+            choices[i].click()  # Subtract 1 from the index to match the list index
 
-        submit_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "submit_button"))
-        )
-        # submit_button = get_exercise_submit_button(driver)
+        submit_button = get_exercise_submit_button(driver)
         submit_button.click()
         popup = get_exercise_popup(driver)
         assert "100%" in popup.text
 
+    def test_half_correct_answers(self, driver):
+        choices = get_choices(driver)
 
-# class TestDebug:
-#     def get_clickable_buttons(self, driver):
-#         return [
-#             driver.find_element(
-#                 By.XPATH,
-#                 f"/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/div[1]/code[1]/button[{i}]",
-#             )
-#             for i in choice
-#         ]
+        for i in range(1, 6):
+            choices[i].click()
 
-#     def test_buttons_selection(self, driver):
-#         buttons = self.get_clickable_buttons(driver)
-#         buttons[0].click()
+        submit_button = get_exercise_submit_button(driver)
+        submit_button.click()
 
-#     def test_all_correct_answers(self, driver):
-#         submit_button = get_exercise_submit_button(driver)
-#         # buttons = self.get_buttons(driver)
-#         choices = [3, 4, 5, 7, 10]
+        popup = get_exercise_popup(driver)
+        assert "60%" in popup.text
 
-#         for choice in choices:
-#             button = driver.find_element(
-#                 By.XPATH,
-#                 f"/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/div[1]/code[1]/button[{choice}]",
-#             )
-#             button.click()
-
-#         # for i, choice in enumerate(choices):
-#         #     buttons[i].select_by_index(choice)
-
-#         submit_button.click()
-#         popup = get_exercise_popup(driver)
-#         assert "100%" in popup.text
-
-# def test_wrong_answer(self, driver):
-#     submit_button = get_exercise_submit_button(driver)
-#     buttons = self.get_buttons(driver)
-#     choices = [1, 1, 1]
-
-#     for i, choice in enumerate(choices):
-#         buttons[i].select_by_index(choice)
-
-#     submit_button.click()
-#     popup = get_exercise_popup(driver)
-#     assert "33%" in popup.text
-#     driver.find_element(
-#         By.XPATH, '//*[@id="popup_content"]/div/div[2]/button'
-#     ).click()
+    def test_zero_correct_answers(self, driver):
+        submit_button = get_exercise_submit_button(driver)
+        submit_button.click()
+        popup = get_exercise_popup(driver)
+        assert "50%" in popup.text

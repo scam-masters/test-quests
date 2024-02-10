@@ -3,10 +3,11 @@ from selenium.webdriver.common.by import By
 
 
 from utils import login, wait_landing_render
+from utils import wait_chapter2_landing_render
 
 
 @pytest.fixture(scope="class", autouse=True)
-def login_user_50_points(driver, user_all_unlocked2):
+def login_user_all_unlocked2(driver, user_all_unlocked2):
     login(driver, user_all_unlocked2[0], user_all_unlocked2[1])
 
 
@@ -32,7 +33,7 @@ class TestChapterPageSuccess:
 
         assert go_back_button_xpath.text == "Go back to chapter page"
         go_back_button_xpath.click()
-        wait_landing_render(driver)
+        wait_chapter2_landing_render(driver)
 
     def test_mission_points(self, driver):
         first_circle_mission = driver.find_element(
@@ -63,6 +64,6 @@ class TestChapterPageUnsuccess:
         """ Check for accessing to the first learning page """
         locked_circle_mission.click()
         popup_element = driver.find_element(
-            By.XPATH, "/html/body/div[3]/div/div[1]/div[1]"
+            By.ID, "mission_locked_popup"
         )
         assert popup_element.text == "Mission Locked"

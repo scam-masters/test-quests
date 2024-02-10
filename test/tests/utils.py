@@ -20,6 +20,11 @@ def wait_landing_render(driver):
     # same as before check the presence of the first circle mission in the 
     # landing page by searching an element with the text "Chapter 1"
     driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 1')]")
+    
+def wait_chapter2_landing_render(driver):
+    # same as before check the presence of the first circle mission in the 
+    # landing page by searching an element with the text "Chapter 1"
+    driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 2')]")
 
 def login(driver, email, password, wait_for_landing=True):
 
