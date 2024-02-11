@@ -4,7 +4,7 @@ from test_login import login
 
 def retrieve_the_header_points_text(driver):
         header_points = driver.find_element(
-            By.XPATH, "//span[@class='text-white font-bold']" # this is the xpath of the points in the header in Firefox
+            By.XPATH, "//span[@class='text-white font-bold mr-5']" # this is the xpath of the points in the header in Firefox
             # /html[1]/body[1]/header[1]/div[2]/div[1]/span[1] # this is the xpath of the points in the header in Firefox
         )
         return header_points.text

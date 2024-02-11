@@ -22,7 +22,7 @@ def navigate_to_debug_exercise(driver, base_url):
 
 def get_choices(driver):
     return [
-        driver.find_element(By.XPATH, f"/html[1]/body[1]/div[1]/div[1]/div[3]/div/div/code/button[{i}]")
+        driver.find_element(By.XPATH, f"/html/body/div[1]/div[1]/div[3]/div/div/code/button[{i}]")
         for i in range(1, 11)
     ]
 
@@ -30,7 +30,7 @@ class TestDebug:
     def test_all_correct_answers(self, driver):
         choices = get_choices(driver)
 
-        correct_answers = [2, 3, 4, 6, 10]  # Update the correct_answers list with valid indices
+        correct_answers = [2, 3, 4, 6, 9]  # Update the correct_answers list with valid indices
         for i in correct_answers:
             choices[i].click()  # Subtract 1 from the index to match the list index
 

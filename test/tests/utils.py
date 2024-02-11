@@ -19,7 +19,7 @@ def get_first_circle_chapter(driver):
 def wait_landing_render(driver):
     # same as before check the presence of the first circle mission in the 
     # landing page by searching an element with the text "Chapter 1"
-    driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 1')]")
+    driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/a/button")
     
 def wait_chapter2_landing_render(driver):
     # same as before check the presence of the first circle mission in the 
