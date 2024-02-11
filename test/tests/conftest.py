@@ -1,19 +1,19 @@
 import pytest
 import os
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 
 
 @pytest.fixture(scope="session")
 def driver():
-    _options = webdriver.ChromeOptions()
+    _options = webdriver.FirefoxOptions()
     _options.add_argument("--no-sandbox")
     _options.add_argument("--disable-dev-shm-usage")
     _options.add_argument("--headless")
-    _driver = webdriver.Chrome(
-        options=_options, service=ChromeService(ChromeDriverManager().install())
+    _driver = webdriver.Firefox(
+        options=_options, service=FirefoxService(GeckoDriverManager().install())
     )
     _driver.implicitly_wait(5)
     yield _driver
@@ -63,6 +63,10 @@ def user_non_existent():
 @pytest.fixture(scope="session")
 def user_all_unlocked():
     return ("test_all_unlocked@gmail.com", "test_all_unlocked")
+
+@pytest.fixture(scope="session")
+def user_all_unlocked2():
+    return ("test_all_unlocked2@gmail.com", "test_all_unlocked2")
 
 
 @pytest.fixture(scope="class", autouse=True)

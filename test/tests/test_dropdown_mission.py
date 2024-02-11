@@ -41,7 +41,7 @@ class TestFirstMission:
         popup = get_exercise_popup(driver)
         assert "33%" in popup.text
         driver.find_element(
-            By.XPATH, '//*[@id="popup_content"]/div/div[2]/button'
+            By.XPATH, "//button[contains(@class,'bg-tq-green hover:bg-tq-green-500 w-full')]"
         ).click()
 
     def test_all_correct_answers(self, driver):

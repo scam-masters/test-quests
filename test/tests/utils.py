@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 import selenium.webdriver.support.expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 """Landing"""
 
@@ -17,10 +19,22 @@ def get_first_circle_chapter(driver):
 def wait_landing_render(driver):
     # same as before check the presence of the first circle mission in the 
     # landing page by searching an element with the text "Chapter 1"
-    driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 1')]")
+    driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/a/button")
+    
+def wait_chapter2_landing_render(driver):
+    # same as before check the presence of the first circle mission in the 
+    # landing page by searching an element with the text "Chapter 1"
+    driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 2')]")
 
 def login(driver, email, password, wait_for_landing=True):
-    e = driver.find_element(By.ID, "email")
+
+    def wait_for_email_element(driver): 
+        # added because in some tests doesn't render the email element
+        wait = WebDriverWait(driver, 10)
+        email_element = wait.until(EC.presence_of_element_located((By.ID, "email")))
+        return email_element
+        
+    e = wait_for_email_element(driver)
     p = driver.find_element(By.ID, "password")
     s = driver.find_element(By.XPATH, "//button[@type='submit']")
 

@@ -15,7 +15,7 @@ def login_user_tests(driver, user_tests):
 # before each method we need to navigate to the correct page!!!!
 @pytest.fixture(scope="function", autouse=True)
 def navigate_to_first_mission(driver, base_url):
-    driver.get(base_url + "/exercise/1")
+    driver.get(base_url + "/exercise/5")
 
 
 class TestFirstMission:
@@ -52,7 +52,7 @@ class TestFirstMission:
         assert target.text == expected_text
 
     def test_score_correct(self, driver):
-        driver.get("http://localhost:3000/exercise/1")
+        # driver.get("http://localhost:3000/exercise/5")
         elements = self.get_elements(driver)
         targets = self.get_targets(driver)
         submit_button = get_exercise_submit_button(driver)
@@ -72,7 +72,7 @@ class TestFirstMission:
         assert "You have earned 50 points!" in popup.text
 
     def test_score_fail(self, driver):
-        driver.get("http://localhost:3000/exercise/1")
+        # driver.get("http://localhost:3000/exercise/1")
         elements = self.get_elements(driver)
         targets = self.get_targets(driver)
         submit_button = get_exercise_submit_button(driver)

@@ -82,7 +82,7 @@ function Header() {
 
 	return (
 		<header className="w-full grid grid-cols-3 items-center bg-tq-primary z-50 justify-between">
-			<div>
+			<div className="text-white font-bold mr-30">
 				<Link href="/scoreboard"><button>Scoreboard</button></Link>
 				{currentUser ? (
 					<button onClick={() => {

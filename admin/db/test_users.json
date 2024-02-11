@@ -1,0 +1,133 @@
+{
+	"users": {
+		"test_0_points_user@gmail.com": {
+			"score": 0,
+			"missions": {
+				"mission_1": {
+					"score": 0,
+					"id": "mission_1"
+				}
+			},
+			"username": "test_0_points_user",
+			"badges": [],
+			"avatar": 0
+		},
+		"test_50_points_user@gmail.com": {
+			"username": "test_50_points_user",
+			"score": 50,
+			"missions": {
+				"mission_1": {
+					"id": "mission_1",
+					"score": 50,
+					"timestamp": 1705323229565
+				},
+				"mission_2": {
+					"id": "mission_2",
+					"score": 0
+				}
+			},
+			"avatar": 0,
+			"badges": []
+		},
+		"test_all_unlocked@gmail.com": {
+			"avatar": 0,
+			"badges": [],
+			"score": 200,
+			"missions": {
+				"mission_1": {
+					"id": "mission_1",
+					"score": 50,
+					"timestamp": 1706028339890
+				},
+				"mission_2": {
+					"id": "mission_2",
+					"score": 50,
+					"timestamp": 1706028355335
+				},
+				"mission_3": {
+					"id": "mission_3",
+					"score": 50,
+					"timestamp": 1706028355335
+				},
+				"mission_4": {
+					"score": 50,
+					"timestamp": 1706028355335,
+					"id": "mission_4"
+				},
+				"mission_5": {
+					"score": 50,
+					"id": "mission_5",
+					"timestamp": 1706028355335
+				},
+				"mission_7": {
+					"id": "mission_7",
+					"score": 100,
+					"timestamp": 1707235879668
+				},
+				"mission_6": {
+					"score": 100,
+					"id": "mission_6",
+					"timestamp": 1707235879668
+				},
+				"mission_8": {
+					"id": "mission_8",
+					"timestamp": 1707158779446,
+					"score": 100
+				},
+				"mission_9": {
+					"id": "mission_9",
+					"score": 100
+				}
+			},
+			"username": "test_all_unlocked"
+		},
+		"test_new_user@gmail.com": {
+			"score": -1,
+			"missions": {
+				"mission_1": {
+					"score": 0,
+					"id": "mission_1"
+				}
+			},
+			"username": "test_new_user",
+			"avatar": 0,
+			"badges": []
+		},
+		"tests@gmail.com": {
+			"score": 100,
+			"badges": [
+				"first_completed_mission",
+				"chapter_completion_1",
+				"first_blood",
+				"5_security_testing",
+				"10_security_testing"
+			],
+			"username": "tests",
+			"avatar": 1,
+			"missions": {
+				"mission_1": {
+					"id": "mission_1",
+					"score": 50,
+					"timestamp": 1705323295423
+				},
+				"mission_2": {
+					"id": "mission_2",
+					"score": 50,
+					"timestamp": 1705323306896
+				},
+				"mission_3": {
+					"id": "mission_3",
+					"score": 100
+				},
+				"mission_7": {
+					"score": 100,
+					"id": "mission_7"
+				},
+				"mission_8": {
+					"id": "mission_8",
+					"score": 100
+				}
+			}
+		}
+	}
+}
