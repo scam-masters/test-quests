@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@rive-app/react-canvas": "^4.8.1",
     "firebase": "^10.7.1",
     "firebase-functions": "^4.5.0",
     "formik": "^2.4.5",
