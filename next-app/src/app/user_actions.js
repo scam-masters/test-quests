@@ -63,7 +63,7 @@ export async function updateUserScore(missionId, newMissionScore, correctness, t
     // every submission that scores strictly more that the previous one, updates the timestamp.
     if (newMissionScore > userData.missions[missionId].score) {
         // update user general score, substract the old mission score
-        userData.score = Math.max(userData.score, 0) + newMissionScore - userData.missions[missionId].score
+        userData.score = Math.max(userData.score, 0) + newMissionScore - Math.max(userData.missions[missionId].score, 0)
         
         // update mission data (relative to the user)
         userData.missions[missionId].score = newMissionScore
