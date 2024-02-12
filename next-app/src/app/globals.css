@@ -33,14 +33,14 @@ button {
 .circle-mission-gradient {
   @apply circle-base bg-gradient-to-br from-orange-400 to-orange-800
 }
-.circle-mission-gradient-1 {
+.circle-mission-gradient-0 {
   @apply circle-base bg-gradient-to-br from-indigo-400 to-orange-950 hover:shadow-2xl hover:shadow-indigo-800
 }
-.circle-mission-gradient-2 {
+.circle-mission-gradient-1 {
   @apply circle-base bg-gradient-to-br from-green-400 to-purple-950 hover:shadow-2xl hover:shadow-green-800
 }
-.circle-mission-gradient-3 {
-  @apply circle-base bg-gradient-to-br from-blue-300 to-indigo-600 hover:shadow-2xl hover:shadow-blue-800
+.circle-mission-gradient-2 {
+  @apply circle-base bg-gradient-to-br from-orange-300 to-indigo-600 hover:shadow-2xl hover:shadow-blue-800
 }
 .circle-mission-locked {
   @apply circle-base bg-gradient-to-tr from-gray-700 to-gray-600 cursor-not-allowed hover:scale-100 text-white
