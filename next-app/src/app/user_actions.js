@@ -74,6 +74,16 @@ export async function updateUserScore(missionId, newMissionScore, correctness, t
             const missionNumber = missionId.split("_")[1]
             const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
             userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
+
+            const exerciseDoc = await getDoc(doc(db, "exercises", missionId));
+            const exerciseData = await exerciseDoc.data(); 
+
+            const usersRef = collection(db, "users")
+            const docsKind = await getDocs(query(usersRef, where("kind", "==", exerciseData.kind)))
+            
+            if (docsKind.length === 5 || docsKind.length === 10) {
+                userData.badges.push(`${docsKind.length}_${userData.missions[missionId].kind}`)
+            }
         }
         console.log("correctness: ", correctness)
         if (correctness == 100) {
@@ -120,7 +130,9 @@ export async function updateChapterUnlocking(missionId) {
             return false
         } else {
             // The difficulties are different or one of the documents does not exist
-            console.log('Difficulties are different or one of the documents does not exist')
+            const userData = await getUserData()
+            userData.badges.push(`chapter_completion_${missionDoc.data().difficulty}`)
+            setUserData(userData)
             return true
         }
     } catch (error) {
