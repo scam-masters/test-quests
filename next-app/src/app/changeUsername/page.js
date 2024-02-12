@@ -24,6 +24,9 @@ export default function changeUsername() {
 		if (!newUsername) {
 			setError("Please fill all the fields.")
 			return
+		} else if (newUsername.includes(' ')) {
+			setError("Usernames can't contain spaces.")
+			return
 		}
 
 		try {
