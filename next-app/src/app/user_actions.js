@@ -143,22 +143,38 @@ export async function updateChapterUnlocking(missionId) {
 
 export async function addFriendRequest(receiverUsername) {
     const sender = await getUserData()
+    console.log("Friends requests from: ", sender.username, " to: ", receiverUsername);
 
-    const receiverRef = doc(db, "users", receiverUsername);
-    const receiverSnapshot = await getDoc(receiverRef);
+    const usersRef = collection(db, "users")
+    const receiverSnapshot = await getDocs(query(usersRef, where("username", "==", receiverUsername)))
 
-    if (receiverSnapshot.exists()) {
-        const receiver = receiverSnapshot.data();
+    if (!receiverSnapshot.empty) {
+        const receiverRef = receiverSnapshot.docs[0].ref;
+        const receiver = receiverSnapshot.docs[0].data();
+
+        if (receiver.friends.includes(sender.username)) {
+            throw new Error("Already friends");
+        }
 
         if (receiver.friend_requests.includes(sender.username)) {
             throw new Error("Friend request already sent");
         }
-        else {
-            receiver.friend_requests.push(sender.username);
-        }
-        console.log("Friends requests from: ", sender.username, " to: ", receiver.username);
+
+        receiver.friend_requests.push(sender.username);
         await setDoc(receiverRef, receiver, { merge: true });
     } else {
         throw new Error("User not found");
     }
 }
+
+// export async function getAvatar(username) {
+//     const usersRef = collection(db, "users")
+//     const userSnapshot = await getDocs(query(usersRef, where("username", "==", username)))
+
+//     if (!userSnapshot.empty) {
+//         const user = userSnapshot.docs[0].data(); 
+//         return user.avatar;
+//     } else {
+//         throw new Error("User not found");
+//     }
+// }

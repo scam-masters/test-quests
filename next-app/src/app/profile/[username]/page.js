@@ -12,10 +12,9 @@ export default async function Profile({ params }) {
 
     const profileContent = await getProfileData(params.username);
    
-    // TODO: properly handle if profile is not found
-    // if (!profileContent) {
-    //     return <div>Profile not found</div>;
-    // }
+    if (!profileContent) {
+        return <div>Profile not found</div>;
+    }
     
     let profileArgs = {
         email: profileContent.email,
@@ -24,7 +23,7 @@ export default async function Profile({ params }) {
         username: profileContent.username,
         score: profileContent.score,
         friends: profileContent.friends,
-        friendRequests: profileContent.friendRequests
+        friendRequests: profileContent.friend_requests
     }
 
     return (
