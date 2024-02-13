@@ -11,13 +11,23 @@ function Registration() {
 	const router = useRouter()
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [confirm_password, setConfirmPassword] = useState("");
 	const [username, setUsername] = useState("");
 	const [error, setError] = useState(null); // State for managing error messages
 
+	// Function to compare password and confirm password
+	function validatePassword() {
+		return password === confirm_password
+	}
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
+		// if the passwords do not match, display an error message and return
+		if (!validatePassword()) {
+			setError("Passwords do not match")
+			return;
+		}
+		
 		const error = await registerUser(email, password, username);
 
 		if (error)
@@ -69,9 +79,22 @@ function Registration() {
 							minLength="6"
 						/>
 					</div>
+					<div className="flex flex-col">
+						<label className="mb-1">Confirm password </label>
+						<input
+							type="password"
+							id="confirm-password"
+							value={confirm_password}
+							onChange={(e) => setConfirmPassword(e.target.value)}	
+							className="border rounded px-2 py-1 bg-white text-black"
+							required
+							minLength="6"
+						/>
+					</div>
 					<button
 						type="submit"
 						className="bg-tq-primary hover:bg-tq-accent font-bold py-2 px-4 rounded"
+
 					>
 						Submit
 					</button>
