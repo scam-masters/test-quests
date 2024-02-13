@@ -140,17 +140,20 @@
                     "score": 100,
                     "timestamp": 1707730921036
                 },
+                "mission_10": {
+                    "id": "mission_10",
+                    "score": 150,
+                    "timestamp": 1707730921037
+                },
                 "mission_11": {
                     "id": "mission_11",
-                    "score": -1
+                    "score": 150,
+                    "timestamp": 1707730921038
                 },
                 "mission_12": {
                     "id": "mission_12",
-                    "score": -1
-                },
-                "mission_10": {
-                    "id": "mission_10",
-                    "score": -1
+                    "score": 150,
+                    "timestamp": 1707730921039
                 }
             },
             "friends": [],
