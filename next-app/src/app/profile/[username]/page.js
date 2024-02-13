@@ -22,7 +22,9 @@ export default async function Profile({ params }) {
         avatar: profileContent.avatar,
         badges: profileContent.badges,
         username: profileContent.username,
-        score: profileContent.score
+        score: profileContent.score,
+        friends: profileContent.friends,
+        friendRequests: profileContent.friendRequests
     }
 
     return (
@@ -32,6 +34,8 @@ export default async function Profile({ params }) {
                 avatar={profileArgs.avatar}
                 badges={profileArgs.badges}
                 username={profileArgs.username}
+                friends={profileArgs.friends}
+                friendRequests={profileArgs.friendRequests}
                 score={profileArgs.score==-1 ? 0 : profileArgs.score } // if the score is -1, display 0
             />
         </div>

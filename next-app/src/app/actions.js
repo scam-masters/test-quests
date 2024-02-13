@@ -106,7 +106,9 @@ export async function registerUser(email, password, username) {
 			score: -1,
 			missions: { mission_1: { id: "mission_1", score: 0 } },
 			avatar: 0,
-			badges: []
+			badges: [],
+			friends: [],
+			friend_requests: []
 		});
 
 	} catch (error) {

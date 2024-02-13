@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import Button from "@/components/button/button";
 import { getAuth } from "firebase/auth";
+import { addFriendRequest } from "@/app/user_actions.js"
 
-// import { updateAvatar, updateUsername } from "@/app/user_actions.js"
-
-export default function ProfileView({ email, avatar, badges, username, score }) {
+export default function ProfileView({ email, avatar, badges, username, friends, friendRequests, score }) {
 
     const [isOwner, setIsOwner] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     useEffect(() => {
         getAuth().onAuthStateChanged(function (user) {
@@ -19,6 +19,13 @@ export default function ProfileView({ email, avatar, badges, username, score }) 
         });
     }, []);
 
+    const handleAddFriend = () => {
+        addFriendRequest(username)
+            .catch(error => {
+                setErrorMessage(error.message);
+            });
+    };
+    
     return (
         <div className="flex flex-row tems-center justify-center m-auto p-4">
             <div className="flex flex-col items-center justify-center">
@@ -43,6 +50,31 @@ export default function ProfileView({ email, avatar, badges, username, score }) 
                         <img title={badge.replace("_", " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
                     ))}
                 </div>
+            </div>
+
+            <div className="ml-5 mt-auto mb-auto">
+                <h2 className="text-3xl font-bold">Friends</h2>
+                <ul>
+                    {friends.map((friend, index) => (
+                        <li key={index}>{friend}</li>
+                    ))}
+                </ul>
+                {isOwner ? 
+                    (<>  
+                        <h2 className="text-3xl font-bold">Friend Requests</h2>
+                        <ul>
+                            {friendRequests.map((friend, index) => (
+                                <li key={index}>{friend}</li>
+                            ))}
+                        </ul>
+                    </>):
+                    (
+                        <>
+                            <Button type='blue' onClick={handleAddFriend} id="add_friend">Add Friend</Button>
+                            {errorMessage && <div className="error-message">{errorMessage}</div>}
+                        </>
+                    )
+                }
             </div>
         </div>
     );

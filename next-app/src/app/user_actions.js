@@ -140,3 +140,25 @@ export async function updateChapterUnlocking(missionId) {
     }
     return false
 }
+
+export async function addFriendRequest(receiverUsername) {
+    const sender = await getUserData()
+
+    const receiverRef = doc(db, "users", receiverUsername);
+    const receiverSnapshot = await getDoc(receiverRef);
+
+    if (receiverSnapshot.exists()) {
+        const receiver = receiverSnapshot.data();
+
+        if (receiver.friend_requests.includes(sender.username)) {
+            throw new Error("Friend request already sent");
+        }
+        else {
+            receiver.friend_requests.push(sender.username);
+        }
+        console.log("Friends requests from: ", sender.username, " to: ", receiver.username);
+        await setDoc(receiverRef, receiver, { merge: true });
+    } else {
+        throw new Error("User not found");
+    }
+}
