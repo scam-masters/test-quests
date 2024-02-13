@@ -8,6 +8,7 @@ import DragAndDropExercise from "@/components/DragAndDropExercise/page";
 import DragAndDropMmExercise from "@/components/DragAndDropMultipleMatching/page";
 import OpenCloseExercise from "@/components/OpenCloseExercise/page";
 import DebugExercise from "@/components/DebugExercise/page";
+import MultipleSelection from "@/components/MultipleSelection";
 
 import { getExerciseData } from "@/app/actions";
 
@@ -64,6 +65,9 @@ export default async function Exercise({ params }) {
         }),
         solution: missionContent.solution,
       };
+    case "ms":
+      exercise = MultipleSelection;
+      exerciseArgs = missionContent;
   }
 
   /* Placeholder content for exercise explanation */
