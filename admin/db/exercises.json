@@ -26,16 +26,91 @@
             ],
             "name": "Unit Test: Mastering Basics",
             "threshold": 100,
+            "text": "",
+            "type": "mm",
+            "explanation": "    <h2><strong>Overview:</strong></h2><br>     <p>In this beginner-level exercise, students will match fundamental unit testing concepts with simple scenarios related to a basic website. The goal is to introduce the core ideas of unit testing in a very easy-to-understand format.</p>      <br><br><h2><strong>Instructions:</strong></h2> <br>    <p>Match each basic unit testing concept in the left column with the correct scenario for a simple website in the right column. Drag and drop each concept to its corresponding match.</p>",
+            "points": 50,
             "learning": {
                 "exerciseLink": "/exercise/1",
                 "learningLink": "/learning/1",
                 "resourceLink": "https://it.wikipedia.org/wiki/Unit_testing",
-                "content": "<center><h1 className=\"p-4 text-center\"><strong>Welcome to Mission Number 5 <br/> Master the Basics of Unit Testing</strong></h1> </center> <br /> <h2 className=\"mb-4 text-center\"><strong>Introduction to Unit Testing</strong></h2> <p><strong>What is Unit Testing?</strong></p> <p> Unit testing is a fundamental practice in software development that involves testing individual units or components     of a program to ensure they function as expected. A \"unit\" is the smallest testable part of an application, such as     a function, method, or class. </p> <br> <p><strong>Why Unit Testing?</strong></p> <ul>     <li><strong>Early Detection of Bugs:</strong> Unit testing helps identify and fix bugs early in the development         process, preventing issues from escalating to higher levels.</li>     <li><strong>Code Stability:</strong> It ensures that changes made to the codebase do not negatively impact existing         functionality.</li>     <li><strong>Documentation:</strong> Unit tests serve as living documentation, providing insights into the expected         behavior of components.</li> </ul> <br> <h2 className=\"mb-4 text-center\"><strong>Key Concepts in Unit Testing</strong></h2> <p><strong>Test Case</strong></p> <p> A test case is a set of conditions or variables under which a tester will determine whether a system under test     satisfies requirements or works correctly. It represents a single scenario to test a specific function. </p>  <br> <h2 className=\"mb-4\"><strong>Putting Concepts into Practice</strong></h2> <p> Now, let's apply these concepts to real-world scenarios related to a basic website. In the upcoming exercise, you'll     have the opportunity to match these fundamental unit testing concepts with scenarios specific to testing a website's     functionality. </p> <br> <h3 className=\"mb-2\"><strong>Exercise Overview:</strong></h3> <ul>     <li><strong>Scenario 1:</strong> Match each basic unit testing concept with the correct scenario for a simple         website.</li>     <li><strong>Scenario 2:</strong> Drag and drop each concept to its corresponding match in the context of a basic         website.</li> </ul> <br> <h3 className=\"mb-2\"><strong>Matches:</strong></h3> <ul>     <li><strong>Concept 1 - Test Case:</strong> Match with <strong>Scenario C - A single scenario to test a specific             function.</strong></li>  </ul> <br> <h2 className=\"mb-4\"><strong>Get Ready to Dive In!</strong></h2> <p> Now that you have a solid understanding of the basics of unit testing, it's time to put your knowledge into action.     Dive into the exercise, have fun, and master the art of unit testing! </p>"
+                "content": "<center><h1 className=\"p-4 text-center\"><strong>Welcome to Mission Number 1 <br/> Master the Basics of Unit Testing</strong></h1> </center> <br /> <h2 className=\"mb-4 text-center\"><strong>Introduction to Unit Testing</strong></h2> <p><strong>What is Unit Testing?</strong></p> <p> Unit testing is a fundamental practice in software development that involves testing individual units or components     of a program to ensure they function as expected. A \"unit\" is the smallest testable part of an application, such as     a function, method, or class. </p> <br> <p><strong>Why Unit Testing?</strong></p> <ul>     <li><strong>Early Detection of Bugs:</strong> Unit testing helps identify and fix bugs early in the development         process, preventing issues from escalating to higher levels.</li>     <li><strong>Code Stability:</strong> It ensures that changes made to the codebase do not negatively impact existing         functionality.</li>     <li><strong>Documentation:</strong> Unit tests serve as living documentation, providing insights into the expected         behavior of components.</li> </ul> <br> <h2 className=\"mb-4 text-center\"><strong>Key Concepts in Unit Testing</strong></h2> <p><strong>Test Case</strong></p> <p> A test case is a set of conditions or variables under which a tester will determine whether a system under test     satisfies requirements or works correctly. It represents a single scenario to test a specific function. </p>  <br> <h2 className=\"mb-4\"><strong>Putting Concepts into Practice</strong></h2> <p> Now, let's apply these concepts to real-world scenarios related to a basic website. In the upcoming exercise, you'll     have the opportunity to match these fundamental unit testing concepts with scenarios specific to testing a website's     functionality. </p> <br> <h3 className=\"mb-2\"><strong>Exercise Overview:</strong></h3> <ul>     <li><strong>Scenario 1:</strong> Match each basic unit testing concept with the correct scenario for a simple         website.</li>     <li><strong>Scenario 2:</strong> Drag and drop each concept to its corresponding match in the context of a basic         website.</li> </ul> <br> <h3 className=\"mb-2\"><strong>Matches:</strong></h3> <ul>     <li><strong>Concept 1 - Test Case:</strong> Match with <strong>Scenario C - A single scenario to test a specific             function.</strong></li>  </ul> <br> <h2 className=\"mb-4\"><strong>Get Ready to Dive In!</strong></h2> <p> Now that you have a solid understanding of the basics of unit testing, it's time to put your knowledge into action.     Dive into the exercise, have fun, and master the art of unit testing! </p>"
+            }
+        },
+        "mission_10": {
+            "difficulty": "hard",
+            "solution": [
+                "ciao",
+                "lax"
+            ],
+            "blocks": [
+                "",
+                ""
+            ],
+            "kind": "unit",
+            "name": "WebDriver Manager",
+            "threshold": 75,
+            "explanation": "",
+            "type": "dnd",
+            "points": 150,
+            "learning": {
+                "exerciseLink": "/exercise/10",
+                "learningLink": "/learning/10",
+                "resourceLink": "https://pypi.org/project/webdriver-manager/",
+                "content": ""
+            }
+        },
+        "mission_11": {
+            "difficulty": "hard",
+            "solution": [
+                false,
+                false
+            ],
+            "selectables": [
+                "20-57",
+                "89-117"
+            ],
+            "name": "Semantic and Syntax Errors on pytest",
+            "learning": {
+                "exerciseLink": "/exercise/11",
+                "learningLink": "/learning/11",
+                "content": "",
+                "resouceLink": "https://www.honeybadger.io/blog/beginners-guide-to-software-testing-in-python/"
             },
+            "threshold": 90,
             "text": "",
-            "type": "mm",
-            "explanation": "    <h2><strong>Overview:</strong></h2><br>     <p>In this beginner-level exercise, students will match fundamental unit testing concepts with simple scenarios related to a basic website. The goal is to introduce the core ideas of unit testing in a very easy-to-understand format.</p>      <br><br><h2><strong>Instructions:</strong></h2> <br>    <p>Match each basic unit testing concept in the left column with the correct scenario for a simple website in the right column. Drag and drop each concept to its corresponding match.</p>",
-            "points": 50
+            "type": "debug",
+            "explanation": "",
+            "points": 150
+        },
+        "mission_12": {
+            "difficulty": "hard",
+            "kind": "e2e",
+            "questions": {
+                "Implement the test for the addition...": {
+                    "answer2 ....": false,
+                    "answer3 ....": false,
+                    "answer1 ....": true,
+                    "answer4 ....": false
+                },
+                "Implement the test for the subtraction...": {
+                    "answer2 ....": true,
+                    "answer3 ....": false,
+                    "answer1 ....": false,
+                    "answer4 ....": false
+                }
+            },
+            "name": "Slow Calculator",
+            "threshold": "80",
+            "learning": {
+                "exerciseLink": "/exercise/12",
+                "learningLink": "/learning/12",
+                "resourceLink": "",
+                "content": ""
+            },
+            "type": "ms",
+            "explanation": "",
+            "points": "150"
         },
         "mission_2": {
             "difficulty": "easy",
@@ -173,15 +248,15 @@
             "kind": "security",
             "name": "Path Traversal",
             "threshold": 100,
+            "explanation": "<p><strong>Website Structure:</strong></p> <p>Suppose we have a simple website structure with the following directories:</p> <br> <ul>   <li><strong>/home/</strong> (contains user home directories)</li>   <li><strong>/public/</strong> (publicly accessible files)</li>   <li><strong>/server/</strong> (server-related files)</li>   <li><strong>/admin/</strong> (admin-related files)</li> </ul> <br> <code> <p> /<br> |-- home/<br> |&nbsp;&nbsp;|-- user1/<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- public/<br> |&nbsp;&nbsp;|-- index.html<br> |&nbsp;&nbsp;|-- about.html<br> |&nbsp;&nbsp;|-- user_uploaded_file.txt<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- server/<br> |&nbsp;&nbsp;|-- secrets/<br> |&nbsp;&nbsp;&nbsp;&nbsp;|-- flag.txt<br> |<br> |-- index.html<br> |-- about.html<br> |-- contact.html<br> |-- files.php<br> </p> </code> <br> <p><strong>Target File:</strong></p> <p>The sensitive file we want to access is located at: <strong>/server/secrets/flag.txt</strong></p> <br> <p><strong>Website Description:</strong></p> <p>The website allows users to access certain public files.</p> <p>The website employs a simple mechanism to serve files based on user requests. The URL structure might look like this: <strong>http://example.com/files.php?file=user_uploaded_file.txt</strong></p>",
+            "type": "dnd",
+            "points": 50,
             "learning": {
                 "exerciseLink": "/exercise/5",
                 "learningLink": "/learning/5",
                 "resourceLink": "https://owasp.org/www-community/attacks/Path_Traversal",
-                "content": "<center><p><strong>Welcome to Mission Number 1</strong></p> <p>It's time to learn, the rocket is starting...</p> </center><br>  <p><strong>Understanding Path Traversal</strong></p> <p>Path Traversal, also known as Directory Traversal, is a security vulnerability that allows an attacker to access files and directories that are outside the web root directory. This vulnerability occurs when user input is not properly sanitized and validated.</p> <br>  <p><strong>Risks and Impact</strong></p> <ul>     <li><strong>Unauthorized Access:</strong> Exploiting path traversal vulnerabilities can lead to unauthorized access to sensitive files, including configuration files, user data, or even system files.</li>     <li><strong>Data Leakage:</strong> Attackers can read and potentially modify files they shouldn’t have access to, compromising data integrity and confidentiality.</li>     <li><strong>System Compromise:</strong> In severe cases, path traversal can lead to full system compromise, enabling attackers to execute arbitrary code.</li> </ul> <br>  <p><strong>Preventing Path Traversal</strong></p> <p>To mitigate path traversal vulnerabilities, developers should:</p> <ul>     <li>- <strong>Input Validation:</strong> Validate and sanitize user input to ensure that it adheres to expected formats and does not contain malicious characters.</li>     <li>- <strong>Use Whitelists:</strong> Employ whitelists to specify valid file and directory names, limiting the scope of allowed inputs.</li>     <li>- <strong>Implement Access Controls:</strong> Enforce proper access controls to restrict users' access to only the necessary files and directories.</li> </ul> <br> <p><strong>What you need to do?</strong></p> <p>You will complete a drag and drop exercise to play with Path Traversal. The score of the mission will be evaluated checking the correctness of the drags and drop that you will perform so play with your brain.</p>"
-            },
-            "explanation": "<p><strong>Website Structure:</strong></p> <p>Suppose we have a simple website structure with the following directories:</p> <br> <ul>   <li><strong>/home/</strong> (contains user home directories)</li>   <li><strong>/public/</strong> (publicly accessible files)</li>   <li><strong>/server/</strong> (server-related files)</li>   <li><strong>/admin/</strong> (admin-related files)</li> </ul> <br> <code> <p> /<br> |-- home/<br> |&nbsp;&nbsp;|-- user1/<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- public/<br> |&nbsp;&nbsp;|-- index.html<br> |&nbsp;&nbsp;|-- about.html<br> |&nbsp;&nbsp;|-- user_uploaded_file.txt<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- server/<br> |&nbsp;&nbsp;|-- secrets/<br> |&nbsp;&nbsp;&nbsp;&nbsp;|-- flag.txt<br> |<br> |-- index.html<br> |-- about.html<br> |-- contact.html<br> |-- files.php<br> </p> </code> <br> <p><strong>Target File:</strong></p> <p>The sensitive file we want to access is located at: <strong>/server/secrets/flag.txt</strong></p> <br> <p><strong>Website Description:</strong></p> <p>The website allows users to access certain public files.</p> <p>The website employs a simple mechanism to serve files based on user requests. The URL structure might look like this: <strong>http://example.com/files.php?file=user_uploaded_file.txt</strong></p>",
-            "type": "dnd",
-            "points": 50
+                "content": "<center><p><strong>Welcome to Mission Number 5</strong></p> <p>It's time to learn, the rocket is starting...</p> </center><br>  <p><strong>Understanding Path Traversal</strong></p> <p>Path Traversal, also known as Directory Traversal, is a security vulnerability that allows an attacker to access files and directories that are outside the web root directory. This vulnerability occurs when user input is not properly sanitized and validated.</p> <br>  <p><strong>Risks and Impact</strong></p> <ul>     <li><strong>Unauthorized Access:</strong> Exploiting path traversal vulnerabilities can lead to unauthorized access to sensitive files, including configuration files, user data, or even system files.</li>     <li><strong>Data Leakage:</strong> Attackers can read and potentially modify files they shouldn’t have access to, compromising data integrity and confidentiality.</li>     <li><strong>System Compromise:</strong> In severe cases, path traversal can lead to full system compromise, enabling attackers to execute arbitrary code.</li> </ul> <br>  <p><strong>Preventing Path Traversal</strong></p> <p>To mitigate path traversal vulnerabilities, developers should:</p> <ul>     <li>- <strong>Input Validation:</strong> Validate and sanitize user input to ensure that it adheres to expected formats and does not contain malicious characters.</li>     <li>- <strong>Use Whitelists:</strong> Employ whitelists to specify valid file and directory names, limiting the scope of allowed inputs.</li>     <li>- <strong>Implement Access Controls:</strong> Enforce proper access controls to restrict users' access to only the necessary files and directories.</li> </ul> <br> <p><strong>What you need to do?</strong></p> <p>You will complete a drag and drop exercise to play with Path Traversal. The score of the mission will be evaluated checking the correctness of the drags and drop that you will perform so play with your brain.</p>"
+            }
         },
         "mission_6": {
             "difficulty": "medium",
@@ -213,13 +288,7 @@
             "points": 100
         },
         "mission_7": {
-            "text": "\"\"",
-            "difficulty": "medium",
-            "type": "dnd",
-            "points": 100,
             "kind": "e2e",
-            "threshold": "75",
-            "name": "E2E Testing Exercise",
             "blocks": [
                 "<br> <code> # Task 1: Navigate to Registration Page <br> driver.get(\"http://example.com/register\") <br><br><br># Task 2: Fill in Registration Form <br><br>driver.find_element_by_id</code>",
                 "",
@@ -230,13 +299,24 @@
                 "<br><br><br><code># Task 3: Assert that the user is redirected to the login page</code><br><br>",
                 ""
             ],
+            "threshold": "75",
+            "learning": {
+                "exerciseLink": "/exercise/7",
+                "learningLink": "/learning/7",
+                "resourceLink": "https://www.selenium.dev/documentation/",
+                "content": "    <center><strong>Welcome to Mission 7<h2 > End-to-End Testing with Selenium and Python</h2> </center><br/><p style=\"margin-bottom: 15px;\">In this exercise, we'll be utilizing Selenium with Python to conduct end-to-end testing on a web application. Our main objective is to ensure that the web application functions correctly, specifically focusing on user registration, login, and profile management functionalities.</p>          <p style=\"margin-bottom: 15px;\">To begin, let's outline the steps required to complete the exercise:</p>          <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Navigate to the registration page: We'll use Selenium to instruct the web browser to open the registration page of the web application.</p>        <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Fill in the registration form: We need to provide valid information in the registration form. It's important to note that the username we choose must be unique, considering that the database already contains the username \"pippo\".</p>            <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Submit the form: After filling in the registration form, we'll submit it using Selenium.</p>            <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. Verify redirection to the login page: Once the form is submitted, we'll verify that the user is redirected to the login page. This can be done by checking if the title of the page changes to \"Login\".</p>              <p style=\"margin-bottom: 15px;\">Now, let's translate these steps into code using Selenium with Python:</p>      <pre style=\"background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto;\"> <code style=\"color: #c7254e; background-color: #f9f2f4; padding: 2px 4px; border-radius: 4px; font-size: 90%; white-space: pre-wrap;\"> # Task 1: Navigate to Registration Page<br> driver.get(\"http://example.com/register\")<br> <br> # Task 2: Fill in Registration Form<br> driver.find_element_by_id(\"username\").send_keys(\"unique_username\")<br> driver.find_element_by_id(\"password\").send_keys(\"your_password\")<br> driver.find_element_by_id(\"confirm_password\").send_keys(\"your_password\")<br> <br> # Task 3: Submit the form<br> driver.find_element_by_id(\"submit_button\").click()<br> <br> # Task 4: Verify redirection to Login Page<br> login_page_title = driver.title<br> assert login_page_title == \"Login\", \"User was not redirected to the login page\"<br> </code> </pre>"
+            },
+            "type": "dnd",
             "explanation": "<strong>Web Application Overview:</strong><br><br><strong>Testing Objective:</strong> <p><br>The objective of this exercise is to perform end-to-end testing using Selenium with Python to ensure         the proper functioning of the web application.<br><br> The test scenarios will cover user registration, login,         and profile management functionalities.</p><br><strong>Exercise Tasks:</strong><br> <ul>     <li>1. Navigate to the registration page <code>http://example.com/register</code></li><br>     <li>2. Fill in the registration form with valid information: unique username considering in the database there’s         already the username <code>pippo</code></li><br>     <li>3. Submit the form</li><br>     <li>4. Verify that the user is redirected to the login page: check if in the title of the page, now there’s         <code>\"Login\"</code></li><br> </ul>",
+            "points": 100,
+            "difficulty": "medium",
             "solution": [
                 "(\"username\").send_keys(\"pippo\")",
                 "-SecurePassword99",
                 "(\"submit_button\").click()",
                 "\"Login\" in driver.title"
             ],
+            "name": "E2E Testing Exercise",
             "options": [
                 "(\"submit_button\").click()",
                 "(\"username\").send_keys(\"pippo\")",
@@ -246,13 +326,8 @@
                 "\"Login\" in driver.title",
                 "driver.title == \"Login\""
             ],
-            "time": 60,
-            "learning": {
-                "learningLink": "/learning/7",
-                "exerciseLink": "/exercise/7",
-                "resourceLink": "https://www.selenium.dev/documentation/",
-                "content": "    <center><strong>Welcome to Mission 7<h2 > End-to-End Testing with Selenium and Python</h2> </center><br/><p style=\"margin-bottom: 15px;\">In this exercise, we'll be utilizing Selenium with Python to conduct end-to-end testing on a web application. Our main objective is to ensure that the web application functions correctly, specifically focusing on user registration, login, and profile management functionalities.</p>          <p style=\"margin-bottom: 15px;\">To begin, let's outline the steps required to complete the exercise:</p>          <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Navigate to the registration page: We'll use Selenium to instruct the web browser to open the registration page of the web application.</p>        <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Fill in the registration form: We need to provide valid information in the registration form. It's important to note that the username we choose must be unique, considering that the database already contains the username \"pippo\".</p>            <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Submit the form: After filling in the registration form, we'll submit it using Selenium.</p>            <p style=\"margin-bottom: 15px;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. Verify redirection to the login page: Once the form is submitted, we'll verify that the user is redirected to the login page. This can be done by checking if the title of the page changes to \"Login\".</p>              <p style=\"margin-bottom: 15px;\">Now, let's translate these steps into code using Selenium with Python:</p>      <pre style=\"background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto;\"> <code style=\"color: #c7254e; background-color: #f9f2f4; padding: 2px 4px; border-radius: 4px; font-size: 90%; white-space: pre-wrap;\"> # Task 1: Navigate to Registration Page<br> driver.get(\"http://example.com/register\")<br> <br> # Task 2: Fill in Registration Form<br> driver.find_element_by_id(\"username\").send_keys(\"unique_username\")<br> driver.find_element_by_id(\"password\").send_keys(\"your_password\")<br> driver.find_element_by_id(\"confirm_password\").send_keys(\"your_password\")<br> <br> # Task 3: Submit the form<br> driver.find_element_by_id(\"submit_button\").click()<br> <br> # Task 4: Verify redirection to Login Page<br> login_page_title = driver.title<br> assert login_page_title == \"Login\", \"User was not redirected to the login page\"<br> </code> </pre>"
-            }
+            "text": "\"\"",
+            "time": 60
         },
         "mission_8": {
             "difficulty": "medium",
@@ -295,6 +370,17 @@
         },
         "mission_9": {
             "difficulty": "medium",
+            "kind": "unit",
+            "blocks": [
+                "A. We define it with different scopes (function, class,…) to perform setup and teardown actions.",
+                "B. Runs once before all test functions in the test module.",
+                "C. Used as a decorator to create a parameterized test with multiple test cases for various arithmetic operations.",
+                "D. Runs once before every test function in the test module.",
+                "E. Runs after every test class in the test module.",
+                "F. When it is true then the fixture will be invoked automatically before each test that depends on it.",
+                "G. Runs once after all test functions in the test module.",
+                "H. it determines the area in which the fixture is executed, controlling the fixture setup and teardown actions are performed"
+            ],
             "name": "Calculator with Parametrized Unit Testing",
             "options": [
                 "1",
@@ -306,37 +392,26 @@
                 "7",
                 "8"
             ],
-            "solution": [
-                "@pytest.fixture",
-                "before_module",
-                "@pytest.fixture",
-                "before_all",
-                "after_class",
-                "autouse",
-                "after_all",
-                "scope"
-            ],
             "threshold": "75",
-            "type": "mm",
-            "kind": "unit",
-            "points": "100",
-            "explanation": " <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;\"><strong>Instructions:</strong><br> Match each PyTest fixture with its corresponding behavior in the test setup and teardown process.</p>  <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;\">Consider the following code:</p>  <pre style=\"font-family: Arial, monospace; background-color: #0e0d0d; padding: 10px; border-radius: 5px; overflow-x: auto; margin-bottom: 20px;\"> <code> import pytest <br> class Calculator:<br>     def __init__(self):<br>         self.result = None<br>         <br>     def add(self, a, b):<br>         self.result = a + b<br>         return self.result<br>         <br>     def subtract(self, a, b):<br>         self.result = a - b<br>         return self.result<br>         <br>     def multiply(self, a, b):<br>         self.result = a * b<br>         return self.result<br>         <br>     def divide(self, a, b):<br>         if b == 0:<br>             raise ValueError(\"Division by zero is not allowed.\")<br>         self.result = a / b<br>         return self.result<br>         <br> @pytest.fixture(scope=\"session\", autouse=True)<br> def before_all():<br>     print(\"\\nBefore all tests (session scope)\")<br>     <br> @pytest.fixture(scope=\"module\")<br> def before_module():<br>     print(\"\\nBefore each module\")<br> <br> @pytest.fixture(scope=\"class\")<br> def before_class():<br>     print(\"Before each class\")<br>     <br> @pytest.fixture(scope=\"function\")<br> def before_each():<br>     print(\"Before each test\")<br>     <br> @pytest.fixture(scope=\"function\")<br> def after_each():<br>     print(\"After each test\")<br>     <br> @pytest.fixture(scope=\"class\")<br> def after_class():<br>     print(\"After each class\")<br>     <br> @pytest.fixture(scope=\"module\")<br> def after_module():<br>     print(\"\\nAfter each module\")<br>     <br> @pytest.fixture(scope=\"session\", autouse=True)<br> def after_all():<br>     print(\"\\nAfter all tests (session scope)\")<br>     <br> @pytest.mark.parametrize(\"a, b, expected\", [<br>     (2, 3, 5),   # Addition<br>     (5, 3, 2),   # Subtraction<br>     (4, 6, 24),  # Multiplication<br>     (8, 2, 4),   # Division<br> ])<br> def test_calculator_operations(a, b, expected, before_module, before_class, before_each, after_each):<br>     calculator = Calculator()<br>     result = calculator.add(a, b) if a + b == expected else \\<br>              calculator.subtract(a, b) if a - b == expected else \\<br>              calculator.multiply(a, b) if a * b == expected else \\<br>              calculator.divide(a, b) if a / b == expected else None<br>     assert result == expected, f\"Expected result {expected}, but got {result}\"<br> </code> </pre>",
-            "blocks": [
-                "A. We define it with different scopes (function, class,…) to perform setup and teardown actions.",
-                "B. Runs once before all test functions in the test module.",
-                "C. Used as a decorator to create a parameterized test with multiple test cases for various arithmetic operations.",
-                "D. Runs once before every test function in the test module.",
-                "E. Runs after every test class in the test module.",
-                "F. When it is true then the fixture will be invoked automatically before each test that depends on it.",
-                "G. Runs once after all test functions in the test module.",
-                "H. it determines the area in which the fixture is executed, controlling the fixture setup and teardown actions are performed"
-            ],
             "learning": {
                 "exerciseLink": "/exercise/9",
                 "learningLink": "/learning/9",
                 "resourceLink": "https://reflectoring.io/tutorial-junit5-parameterized-tests/",
                 "content": "<center><h2><strong> Welcome to Mission 9</strong></h2>Learn parameterize testing </center><br/> <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 15px;\"><strong>Parameterized Tests:</strong></p> <ul style=\"margin-bottom: 15px;\">   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parameterized tests allow you to run the same test function with different sets of parameters.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- They are created using <code>@pytest.mark.parametrize</code> decorator, which defines multiple test cases for various operations.</li> </ul>  <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 15px;\"><strong>PyTest Fixtures:</strong></p> <ul style=\"margin-bottom: 15px;\">      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fixtures are functions that provide data, setup, or other resources to tests.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fixtures are functions that provide data, setup, or other resources to tests.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- They can be applied with different scopes (<code>function</code>, <code>class</code>, <code>module</code>, <code>session</code>) to control when they are executed.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- They can be applied with different scopes (<code>function</code>, <code>class</code>, <code>module</code>, <code>session</code>) to control when they are executed.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fixtures are defined using <code>@pytest.fixture</code> decorator.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fixtures are defined using <code>@pytest.fixture</code> decorator.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- The <code>autouse</code> parameter in fixtures determines whether the fixture will be automatically used by all tests without explicit usage.</li>      <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- The <code>autouse</code> parameter in fixtures determines whether the fixture will be automatically used by all tests without explicit usage.</li> </ul> </ul>  <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 15px;\"><strong>Fixture Behaviors:</strong></p> <ul style=\"margin-bottom: 15px;\">   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before_module:</strong> Runs once before every test module, setting up the module-level environment.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- after_class:</strong> Runs after every test class in the module, performing cleanup actions.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before_all:</strong> Runs once before all test functions in the module, setting up global environment.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- after_all:</strong> Runs once after all test functions in the module, cleaning up global environment.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- @pytest.fixture:</strong> Defines fixtures with different scopes for setup and teardown actions.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- @pytest.mark.parametrize:</strong> Defines parameterized tests with multiple test cases for various operations.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- autouse:</strong> Automatically invokes the fixture before each test that depends on it.</li>   <li style=\"font-family: Arial, sans-serif; line-height: 1.6;\"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- scope:</strong> Determines the area in which the fixture is executed, controlling fixture setup and teardown actions.</li> </ul>"
-            }
+            },
+            "type": "mm",
+            "explanation": " <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;\"><strong>Instructions:</strong><br> Match each PyTest fixture with its corresponding behavior in the test setup and teardown process.</p>  <p style=\"font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;\">Consider the following code:</p>  <pre style=\"font-family: Arial, monospace; background-color: #0e0d0d; padding: 10px; border-radius: 5px; overflow-x: auto; margin-bottom: 20px;\"> <code> import pytest <br> class Calculator:<br>     def __init__(self):<br>         self.result = None<br>         <br>     def add(self, a, b):<br>         self.result = a + b<br>         return self.result<br>         <br>     def subtract(self, a, b):<br>         self.result = a - b<br>         return self.result<br>         <br>     def multiply(self, a, b):<br>         self.result = a * b<br>         return self.result<br>         <br>     def divide(self, a, b):<br>         if b == 0:<br>             raise ValueError(\"Division by zero is not allowed.\")<br>         self.result = a / b<br>         return self.result<br>         <br> @pytest.fixture(scope=\"session\", autouse=True)<br> def before_all():<br>     print(\"\\nBefore all tests (session scope)\")<br>     <br> @pytest.fixture(scope=\"module\")<br> def before_module():<br>     print(\"\\nBefore each module\")<br> <br> @pytest.fixture(scope=\"class\")<br> def before_class():<br>     print(\"Before each class\")<br>     <br> @pytest.fixture(scope=\"function\")<br> def before_each():<br>     print(\"Before each test\")<br>     <br> @pytest.fixture(scope=\"function\")<br> def after_each():<br>     print(\"After each test\")<br>     <br> @pytest.fixture(scope=\"class\")<br> def after_class():<br>     print(\"After each class\")<br>     <br> @pytest.fixture(scope=\"module\")<br> def after_module():<br>     print(\"\\nAfter each module\")<br>     <br> @pytest.fixture(scope=\"session\", autouse=True)<br> def after_all():<br>     print(\"\\nAfter all tests (session scope)\")<br>     <br> @pytest.mark.parametrize(\"a, b, expected\", [<br>     (2, 3, 5),   # Addition<br>     (5, 3, 2),   # Subtraction<br>     (4, 6, 24),  # Multiplication<br>     (8, 2, 4),   # Division<br> ])<br> def test_calculator_operations(a, b, expected, before_module, before_class, before_each, after_each):<br>     calculator = Calculator()<br>     result = calculator.add(a, b) if a + b == expected else \\<br>              calculator.subtract(a, b) if a - b == expected else \\<br>              calculator.multiply(a, b) if a * b == expected else \\<br>              calculator.divide(a, b) if a / b == expected else None<br>     assert result == expected, f\"Expected result {expected}, but got {result}\"<br> </code> </pre>",
+            "points": "100",
+            "solution": [
+                "@pytest.fixture",
+                "before_module",
+                "@pytest.mark.parametrize",
+                "before_all",
+                "after_class",
+                "autouse",
+                "after_all",
+                "scope"
+            ]
         }
     }
 }
