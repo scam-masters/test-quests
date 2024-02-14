@@ -30,7 +30,7 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
 		console.log(index, item)
 		let unselectable = text.substring(i, item[0]);
 		let selectable = <button key="selectable_${index}"
-			class={answers[index] ? 'bug-selected' : 'bug-selectable'}
+			className={answers[index] ? 'bug-selected' : 'bug-selectable'}
 			onClick={click.bind(null, index)}>
 			{text.substring(item[0], item[1])}
 		</button>

@@ -46,7 +46,7 @@ export default function DebugExercise({ questions, onScoreComputed }) {
 		const selectables = []
 		for (const answer in questions[question]) {
 			selectables.push(<div><button key={"selectable_" + answer}
-				class={answers[question][answer] ? 'bug-selected' : 'bug-selectable'}
+				className={answers[question][answer] ? 'bug-selected' : 'bug-selectable'}
 				onClick={() => handleClick(question, answer)}>
 				{answer}
 			</button></div>)
