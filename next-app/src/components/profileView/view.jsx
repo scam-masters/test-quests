@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@/components/button/button";
 import { getAuth } from "firebase/auth";
-import { addFriendRequest, acceptFriendRequest, declineFriendRequest, getUserData } from "@/app/user_actions.js"
+import { addFriendRequest, acceptFriendRequest, declineFriendRequest, getUserData, getAvatarByUsername } from "@/app/user_actions.js"
 
 export default function ProfileView({ email, avatar, badges, username, friends, friendRequests, score }) {
 
@@ -11,6 +11,26 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
     const [friendsList, setFriendsList] = useState(friends);
     const [friendRequestsList, setFriendRequestsList] = useState(friendRequests);
     const [status, setStatus] = useState(''); // friend, request, stranger
+    const [avatars, setAvatars] = useState({})
+
+    const getUsername = async () => {
+        const user = await getUserData();
+        return user.username;
+    };
+
+    const fetchAvatars = async () => {
+        const avatarMap = {};
+        for (const friend of friendsList) {
+            const avatar = await getAvatarByUsername(friend);
+            avatarMap[friend] = avatar;
+        }
+        for (const friend of friendRequestsList) {
+            const avatar = await getAvatarByUsername(friend);
+            avatarMap[friend] = avatar;
+        }
+        setAvatars(avatarMap);
+        console.log('avatars', avatarMap);
+    };
 
     useEffect(() => {
         getAuth().onAuthStateChanged(function (user) {
@@ -32,12 +52,8 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                 setIsOwner(false);
             }
         });
+        fetchAvatars()
     }, []);
-
-    const getUsername = async () => {
-        const user = await getUserData();
-        return user.username;
-    };
 
     const handleAddFriend = () => {
         addFriendRequest(username).then(() => {
@@ -118,9 +134,9 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                             <ul>
                                 {friendsList.map((friend, index) => (
                                     <>
-                                        <a href={`/profile/${friend}`}>
+                                        <a href={`/profile/${friend}`} key={friend}>
                                             <li key={index} className="flex items-center mb-2 ">
-                                                <img src={`/avatars/0.png`} alt={`avatar`} className="rounded-full w-8 h-8 mr-2" />
+                                                {avatars[friend] !== undefined && <img src={`/avatars/${avatars[friend]}.png`} alt={`avatar`} className="rounded-full w-8 h-8 mr-2" />}
                                                 <span className="text-lg">{friend}</span>
                                             </li>
                                         </a>
@@ -143,7 +159,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                                             <>
                                                 <li key={index} className="flex items-center mb-2 ">
                                                     <a href={`/profile/${friend}`}>
-                                                        <img src={`/avatars/0.png`} alt={`avatar`} className="rounded-full w-8 h-8 mr-2" />
+                                                    {avatars[friend] !== undefined && <img src={`/avatars/${avatars[friend]}.png`} alt={`avatar`} className="rounded-full w-8 h-8 mr-2" />}
                                                         <span className="text-lg px-2">{friend}</span>
                                                     </a>
                                                     <Button classNames="mx-2" type='blue' onClick={() => { handleAccept(friend) }}>Accept</Button>
