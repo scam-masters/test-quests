@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@/components/button/button";
 import { getAuth } from "firebase/auth";
-import { addFriendRequest, acceptFriendRequest, declineFriendRequest } from "@/app/user_actions.js"
+import { addFriendRequest, acceptFriendRequest, declineFriendRequest, getUserData } from "@/app/user_actions.js"
 
 export default function ProfileView({ email, avatar, badges, username, friends, friendRequests, score }) {
 
@@ -10,6 +10,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
     const [errorMessage, setErrorMessage] = useState(null);
     const [friendsList, setFriendsList] = useState(friends);
     const [friendRequestsList, setFriendRequestsList] = useState(friendRequests);
+    const [status, setStatus] = useState(''); // friend, request, stranger
 
     useEffect(() => {
         getAuth().onAuthStateChanged(function (user) {
@@ -17,18 +18,33 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                 console.log('email', email);
                 console.log('useremail', user.email);
                 setIsOwner(user.email === email);
+                getUsername().then((username) => {
+                    console.log('username', username);
+                    if (friendsList.includes(username)) {
+                        setStatus('friend');
+                    } else if (friendRequestsList.includes(username)) {
+                        setStatus('request');
+                    } else {
+                        setStatus('stranger');
+                    }
+                });
             } else {
                 setIsOwner(false);
             }
         });
-        console.log(isOwner);
     }, []);
 
+    const getUsername = async () => {
+        const user = await getUserData();
+        return user.username;
+    };
+
     const handleAddFriend = () => {
-        addFriendRequest(username)
-            .catch(error => {
-                setErrorMessage(error.message);
-            });
+        addFriendRequest(username).then(() => {
+            setStatus('request');
+        }).catch(error => {
+            setErrorMessage(error.message);
+        });
     };
 
     function handleAccept(senderUsername) {
@@ -80,7 +96,15 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
             {
                 isOwner ? null : (
                     <div className="flex justify-center p-4 flex-col">
-                        <Button type='blue' onClick={handleAddFriend} id="add_friend">Add Friend</Button>
+                        {
+                            status === 'friend' ? (<Button type='green'>Mutual friends</Button>) : null
+                        }
+                        {
+                            status === 'request' ? (<Button type='green'>Request sent</Button>) : null
+                        }
+                        {
+                            status === 'stranger' ? (<Button type='blue' onClick={handleAddFriend} id="add_friend">Add Friend</Button>) : null
+                        }
                         {errorMessage && <div className="error-message">{errorMessage}</div>}
                     </div>
                 )
