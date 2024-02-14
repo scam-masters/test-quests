@@ -92,13 +92,21 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* TODO: improve thos styles */
+/* TODO: improve those styles */
+pre code {
+	white-space: pre-wrap;
+}
+
 .bug-selected {
-	@apply border-2 bg-white text-tq-primary
+	@apply border-2 bg-white text-tq-primary;
+	display: inline;
+	cursor: pointer;
 }
 
 .bug-selectable {
-	@apply border-2
+	@apply border-2;
+	display: inline;
+	cursor: pointer;
 }
 
 #timer {
@@ -109,6 +117,3 @@ body::-webkit-scrollbar {
 	border-radius: 4px;
 }
 
-code {
-	white-space: pre-wrap;
-}

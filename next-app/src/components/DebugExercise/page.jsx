@@ -45,7 +45,7 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
 	return (
 		<>
 			<form id='exercise-form' onSubmit={handleSubmit}></form>
-			<code>{exercise}</code>
+			<pre><code>{exercise}</code></pre>
 		</>
 	)
 }
