@@ -152,3 +152,43 @@ export async function updateChapterUnlocking(missionId) {
     }
     return false
 }
+
+
+// Retrieve scoreboard data (mock for testing)
+export async function getScoreboardData() {
+	const usersRef = collection(db, "users")
+
+	const docs = await getDocs(query(usersRef, where("score", ">=", 0)))
+
+	const data = []
+
+	// maybe we can get clever with firebase and have it sort and compute last timestamp in the db
+	docs.forEach(doc => {
+		let timestamp = 0
+		let completedCount = 0
+		for (let key in doc.data().missions) {
+			let missionData = doc.data().missions[key]
+			if (missionData.timestamp) {
+				timestamp = Math.max(doc.data().missions[key].timestamp, timestamp)
+				completedCount += 1
+			}
+		}
+
+		data.push({
+			username: doc.data().username,
+			score: doc.data().score,
+			timestamp: timestamp,
+			completedCount
+		})
+	})
+
+	data.sort((a, b) => {
+		if (a.score == b.score && a.timestamp == b.timestamp)
+			return 0
+		if (a.score > b.score || (a.score == b.score && a.timestamp < b.timestamp))
+			return -1
+		return 1
+	})
+	return data
+}
+

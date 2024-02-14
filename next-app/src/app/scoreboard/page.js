@@ -1,10 +1,10 @@
-"use server"
+"use client"
 import React from 'react';
 import ScoreboardComponent from '@/components/Scoreboard/scoreboard'
 
-import { getScoreboardData } from "@/app/actions"
+import { getScoreboardData } from "@/app/user_actions"
 
-export default async function Scoreboard({ params }) {
+export default async function Scoreboard() {
     // scoreboardContent returns an array of couples (name, score)
     const scoreboardContent = await getScoreboardData();
     return (
