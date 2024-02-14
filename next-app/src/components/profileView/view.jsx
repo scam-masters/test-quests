@@ -2,21 +2,26 @@
 import React, { useState, useEffect } from "react";
 import Button from "@/components/button/button";
 import { getAuth } from "firebase/auth";
-import { addFriendRequest } from "@/app/user_actions.js"
+import { addFriendRequest, acceptFriendRequest, declineFriendRequest } from "@/app/user_actions.js"
 
 export default function ProfileView({ email, avatar, badges, username, friends, friendRequests, score }) {
 
     const [isOwner, setIsOwner] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [friendsList, setFriendsList] = useState(friends);
+    const [friendRequestsList, setFriendRequestsList] = useState(friendRequests);
 
     useEffect(() => {
         getAuth().onAuthStateChanged(function (user) {
             if (user) {
+                console.log('email', email);
+                console.log('useremail', user.email);
                 setIsOwner(user.email === email);
             } else {
                 setIsOwner(false);
             }
         });
+        console.log(isOwner);
     }, []);
 
     const handleAddFriend = () => {
@@ -25,6 +30,24 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                 setErrorMessage(error.message);
             });
     };
+
+    function handleAccept(senderUsername) {
+        acceptFriendRequest(senderUsername).then(() => {
+            setFriendRequestsList(friendRequestsList.filter(request => request !== senderUsername));
+            setFriendsList([...friendsList, senderUsername]);
+        }).catch(error => {
+            setErrorMessage(error.message);
+        });
+    };
+
+    function handleDecline(senderUsername) {
+        declineFriendRequest(senderUsername).then(() => {
+            setFriendRequestsList(friendRequestsList.filter(request => request !== senderUsername));
+        }).catch(error => {
+            setErrorMessage(error.message);
+        });
+    };
+
 
     return (
         <div className="flex flex-col items-center justify-center m-auto p-4 w-full ">
@@ -67,9 +90,9 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                 <div className="w-1/2 max-w-1/2 p-3 min-h-[30vh] flex justify-center">
                     <div className="">
                         <h2 className="text-3xl font-bold">Friends</h2>
-                        {friends.length > 0 ? (
+                        {friendsList.length > 0 ? (
                             <ul>
-                                {friends.map((friend, index) => (
+                                {friendsList.map((friend, index) => (
                                     <>
                                         <a href={`/profile/${friend}`}>
                                             <li key={index} className="flex items-center mb-2 ">
@@ -90,10 +113,19 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                         <div className="w-1/2 max-w-1/2 p-3 min-h-[30vh] border-l-2 border-white flex justify-center">
                             <div className="">
                                 <h2 className="text-3xl font-bold">Friend Requests</h2>
-                                {friendRequests.length > 0 ? (
+                                {friendRequestsList.length > 0 ? (
                                     <ul>
-                                        {friendRequests.map((friend, index) => (
-                                            <li key={index}>{friend}</li>
+                                        {friendRequestsList.map((friend, index) => (
+                                            <>
+                                                <li key={index} className="flex items-center mb-2 ">
+                                                    <a href={`/profile/${friend}`}>
+                                                        <img src={`/avatars/0.png`} alt={`avatar`} className="rounded-full w-8 h-8 mr-2" />
+                                                        <span className="text-lg px-2">{friend}</span>
+                                                    </a>
+                                                    <Button classNames="mx-2" type='blue' onClick={() => { handleAccept(friend) }}>Accept</Button>
+                                                    <Button type='red' onClick={() => { handleDecline(friend) }}>Decline</Button>
+                                                </li>
+                                            </>
                                         ))}
                                     </ul>
                                 ) : (

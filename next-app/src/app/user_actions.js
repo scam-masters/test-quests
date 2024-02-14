@@ -167,6 +167,39 @@ export async function addFriendRequest(receiverUsername) {
     }
 }
 
+export async function acceptFriendRequest(senderUsername) {
+    const receiver = await getUserData();
+    console.log("Accept friend request from: ", senderUsername, " to: ", receiver.username);
+
+    const usersRef = collection(db, "users")
+    const senderSnapshot = await getDocs(query(usersRef, where("username", "==", senderUsername)))
+
+    if (!senderSnapshot.empty) {
+        const senderRef = senderSnapshot.docs[0].ref;
+        const sender = senderSnapshot.docs[0].data();
+
+        if (sender.friends.includes(receiver.username) || receiver.friends.includes(sender.username)) {
+            throw new Error("Already friends");
+        }
+
+        receiver.friends.push(sender.username);
+        sender.friends.push(receiver.username);
+        receiver.friend_requests = receiver.friend_requests.filter(request => request !== senderUsername);
+        await setDoc(senderRef, sender, { merge: true });
+        await setUserData(receiver);
+    } else {
+        throw new Error("User not found");
+    }
+}
+
+export async function declineFriendRequest(senderUsername) {
+    const user = await getUserData();
+    console.log("Decline friend request from: ", senderUsername, " to: ", user.username);
+
+    user.friend_requests = user.friend_requests.filter(request => request !== senderUsername);
+    await setUserData(user);
+}
+
 // export async function getAvatar(username) {
 //     const usersRef = collection(db, "users")
 //     const userSnapshot = await getDocs(query(usersRef, where("username", "==", username)))
