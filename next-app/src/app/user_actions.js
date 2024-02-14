@@ -12,6 +12,18 @@ export async function getUserData() {
     return document.data()
 }
 
+export async function searchUsers(searchString) {
+	const usersRef = collection(db, "users")
+	const docs = await getDocs(query(usersRef, where("username", ">=", searchString), where("username", "<=", searchString + "\uf8ff")))
+
+	const result = []
+	docs.forEach(doc => {
+		result.push(doc.data())
+	})
+
+	return result
+}
+
 export async function setUserData(userData) {
     const auth = getAuth();
     const user = auth.currentUser;

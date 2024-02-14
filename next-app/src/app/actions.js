@@ -143,7 +143,7 @@ export async function getScoreboardData() {
 		}
 
 		data.push({
-			user: doc.data().username,
+			username: doc.data().username,
 			score: doc.data().score,
 			timestamp: timestamp,
 			completedCount
