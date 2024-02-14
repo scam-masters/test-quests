@@ -135,7 +135,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
             <div className="flex w-8/12 justify-center">
                 <div className="w-1/2 max-w-1/2 p-3 min-h-[10vh]">
                     <h2 className="text-3xl font-bold m-auto mb-4">
-                        <FontAwesomeIcon icon={faUsers} className="mr-2" />
+                        <FontAwesomeIcon icon={faUsers} className="mr-2 max-w-[50px]" />
                         Friends
                     </h2>
                     <div className="flex justify-center">
@@ -164,7 +164,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                     (<>
                         <div className="w-1/2 max-w-1/2 p-3 min-h-[10vh]">
                             <h2 className="text-3xl font-bold mb-4">
-                                <FontAwesomeIcon icon={faBell} className="mr-2" />
+                                <FontAwesomeIcon icon={faBell} className="mr-2 max-w-[50px]" />
                                 Friend Requests
                             </h2>
                             <div className="flex justify-center">
