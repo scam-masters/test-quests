@@ -4,6 +4,35 @@ import { db, app } from "@/firebase/index";
 import { doc, getDoc, getDocs, setDoc, query, collection, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+
+/* Utility functions */
+
+async function getUserByUsername(username) {
+    const usersRef = collection(db, "users");
+    const userSnapshot = await getDocs(query(usersRef, where("username", "==", username)));
+
+    if (!userSnapshot.empty) {
+        return {
+            ref: userSnapshot.docs[0].ref,
+            data: userSnapshot.docs[0].data()
+        };
+    } else {
+        throw new Error("User not found");
+    }
+}
+
+async function updateUser(userRef, userData) {
+    await setDoc(userRef, userData, { merge: true });
+}
+
+
+/* Exported Functions */
+
+export async function getAvatarByUsername(username) {
+    const user = await getUserByUsername(username);
+    return user.data.avatar;
+}
+
 export async function getUserData() {
     const auth = getAuth(app);
     const user = auth.currentUser;
@@ -16,7 +45,7 @@ export async function setUserData(userData) {
     const auth = getAuth();
     const user = auth.currentUser;
     const docRef = doc(db, "users", user.email);
-    await setDoc(docRef, userData, { merge: true });
+    await updateUser(docRef, userData);
 }
 
 export async function setNewUsername(auth, newUsername) {
@@ -142,54 +171,38 @@ export async function updateChapterUnlocking(missionId) {
 }
 
 export async function addFriendRequest(receiverUsername) {
-    const sender = await getUserData()
+    const sender = await getUserData();
     console.log("Friends requests from: ", sender.username, " to: ", receiverUsername);
 
-    const usersRef = collection(db, "users")
-    const receiverSnapshot = await getDocs(query(usersRef, where("username", "==", receiverUsername)))
-
-    if (!receiverSnapshot.empty) {
-        const receiverRef = receiverSnapshot.docs[0].ref;
-        const receiver = receiverSnapshot.docs[0].data();
-
-        if (receiver.friends.includes(sender.username)) {
-            throw new Error("Already friends");
-        }
-
-        if (receiver.friend_requests.includes(sender.username)) {
-            throw new Error("Friend request already sent");
-        }
-
-        receiver.friend_requests.push(sender.username);
-        await setDoc(receiverRef, receiver, { merge: true });
-    } else {
-        throw new Error("User not found");
+    const { data: receiver, ref: receiverRef } = await getUserByUsername(receiverUsername);
+    
+    if (receiver.friends.includes(sender.username)) {
+        throw new Error("Already friends");
     }
+
+    if (receiver.friend_requests.includes(sender.username)) {
+        throw new Error("Friend request already sent");
+    }
+
+    receiver.friend_requests.push(sender.username);
+    await updateUser(receiverRef, receiver);
 }
 
 export async function acceptFriendRequest(senderUsername) {
     const receiver = await getUserData();
     console.log("Accept friend request from: ", senderUsername, " to: ", receiver.username);
 
-    const usersRef = collection(db, "users")
-    const senderSnapshot = await getDocs(query(usersRef, where("username", "==", senderUsername)))
+    const { data: sender, ref: senderRef } = await getUserByUsername(senderUsername);
 
-    if (!senderSnapshot.empty) {
-        const senderRef = senderSnapshot.docs[0].ref;
-        const sender = senderSnapshot.docs[0].data();
-
-        if (sender.friends.includes(receiver.username) || receiver.friends.includes(sender.username)) {
-            throw new Error("Already friends");
-        }
-
-        receiver.friends.push(sender.username);
-        sender.friends.push(receiver.username);
-        receiver.friend_requests = receiver.friend_requests.filter(request => request !== senderUsername);
-        await setDoc(senderRef, sender, { merge: true });
-        await setUserData(receiver);
-    } else {
-        throw new Error("User not found");
+    if (sender.friends.includes(receiver.username) || receiver.friends.includes(sender.username)) {
+        throw new Error("Already friends");
     }
+
+    receiver.friends.push(sender.username);
+    sender.friends.push(receiver.username);
+    receiver.friend_requests = receiver.friend_requests.filter(request => request !== senderUsername);
+    await updateUser(senderRef, sender);
+    await setUserData(receiver);
 }
 
 export async function declineFriendRequest(senderUsername) {
@@ -199,15 +212,3 @@ export async function declineFriendRequest(senderUsername) {
     user.friend_requests = user.friend_requests.filter(request => request !== senderUsername);
     await setUserData(user);
 }
-
-// export async function getAvatar(username) {
-//     const usersRef = collection(db, "users")
-//     const userSnapshot = await getDocs(query(usersRef, where("username", "==", username)))
-
-//     if (!userSnapshot.empty) {
-//         const user = userSnapshot.docs[0].data(); 
-//         return user.avatar;
-//     } else {
-//         throw new Error("User not found");
-//     }
-// }
