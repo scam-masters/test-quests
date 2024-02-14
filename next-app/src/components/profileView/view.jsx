@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import Button from "@/components/button/button";
 import { getAuth } from "firebase/auth";
 import { addFriendRequest, acceptFriendRequest, declineFriendRequest, getUserData, getAvatarByUsername } from "@/app/user_actions.js"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUsers, faBell } from '@fortawesome/free-solid-svg-icons'
 
 export default function ProfileView({ email, avatar, badges, username, friends, friendRequests, score }) {
 
@@ -82,54 +84,61 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
 
 
     return (
-        <div className="flex flex-col items-center justify-center m-auto p-4 w-full ">
-            <div className="flex flex-row tems-center justify-center p-4">
-                <div className="flex flex-col items-center justify-center">
-                    <img src={`/avatars/${avatar}.png`} alt={`avatar${avatar}`} className="rounded-full m-3 w-40 h-40 border-2 border-white" />
+        <div className="flex flex-col items-center w-full">
+            <div className="flex w-8/12 justify-center">
+                <div className="w-10/12 max-w-10/12 min-h-[30vh] justify-center">
+                    <div className="flex flex-row p-4 justify-center">
+                        <div className="flex flex-col items-center justify-center">
+                            <img src={`/avatars/${avatar}.png`} alt={`avatar${avatar}`} className="rounded-full m-3 w-40 h-40 border-2 border-white" />
 
-                    {isOwner && <Button type='blue' href="/changeAvatar">Change Avatar</Button>}
-                </div>
+                            {isOwner && <Button type='blue' href="/changeAvatar">Change Avatar</Button>}
+                        </div>
 
-                <div className="ml-5 mt-auto mb-auto">
-                    <div className="flex flex-row items-center">
+                        <div className="ml-5 mt-auto mb-auto">
+                            <div className="flex flex-row items-center">
 
-                        <h1 className="text-5xl font-bold mr-8">{username}</h1>
-                        {isOwner && <Button type='blue' href="/changeUsername">Change Username</Button>}
+                                <h1 className="text-5xl font-bold mr-8">{username}</h1>
+                                {isOwner && <Button type='blue' href="/changeUsername">Change Username</Button>}
 
+                            </div>
+                            {isOwner && <p className="text-xl mt-4">Email: {email}</p>}
+
+                            <p className="text-xl mt-4">Score: {score}</p>
+
+                            <div className="flex flex-row ">
+                                {badges.map((badge, index) => (
+                                    <img title={badge.replace("_", " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                    {isOwner && <p className="text-xl mt-4">Email: {email}</p>}
 
-                    <p className="text-xl mt-4">Score: {score}</p>
-
-                    <div className="flex flex-row ">
-                        {badges.map((badge, index) => (
-                            <img title={badge.replace("_", " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
-                        ))}
-                    </div>
-                </div>
+                    {
+                        isOwner ? null : (
+                            <div className="flex justify-center p-4 flex-col">
+                                {
+                                    status === 'friend' ? (<Button type='green'>Mutual friends</Button>) : null
+                                }
+                                {
+                                    status === 'request' ? (<Button type='green'>Request sent</Button>) : null
+                                }
+                                {
+                                    status === 'stranger' ? (<Button type='blue' onClick={handleAddFriend} id="add_friend">Add Friend</Button>) : null
+                                }
+                                {errorMessage && <div className="error-message">{errorMessage}</div>}
+                            </div>
+                        )
+                    }
             </div>
+        </div>
 
-            {
-                isOwner ? null : (
-                    <div className="flex justify-center p-4 flex-col">
-                        {
-                            status === 'friend' ? (<Button type='green'>Mutual friends</Button>) : null
-                        }
-                        {
-                            status === 'request' ? (<Button type='green'>Request sent</Button>) : null
-                        }
-                        {
-                            status === 'stranger' ? (<Button type='blue' onClick={handleAddFriend} id="add_friend">Add Friend</Button>) : null
-                        }
-                        {errorMessage && <div className="error-message">{errorMessage}</div>}
-                    </div>
-                )
-            }
-
-            <div className="flex w-8/12 mx-auto border-2 border-white rounded-xl">
-                <div className="w-1/2 max-w-1/2 p-3 min-h-[30vh] flex justify-center">
-                    <div className="">
-                        <h2 className="text-3xl font-bold">Friends</h2>
+            <div className="flex w-8/12 justify-center">
+                <div className="w-1/2 max-w-1/2 p-3 min-h-[10vh]">
+                    <h2 className="text-3xl font-bold m-auto mb-4">
+                        <FontAwesomeIcon icon={faUsers} className="mr-2" />
+                        Friends
+                    </h2>
+                    <div className="flex justify-center">
                         {friendsList.length > 0 ? (
                             <ul>
                                 {friendsList.map((friend, index) => (
@@ -148,11 +157,17 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                         )}
                     </div>
                 </div>
+            </div>
+
+            <div className="flex w-8/12 justify-center">
                 {isOwner ?
                     (<>
-                        <div className="w-1/2 max-w-1/2 p-3 min-h-[30vh] border-l-2 border-white flex justify-center">
-                            <div className="">
-                                <h2 className="text-3xl font-bold">Friend Requests</h2>
+                        <div className="w-1/2 max-w-1/2 p-3 min-h-[10vh]">
+                            <h2 className="text-3xl font-bold mb-4">
+                                <FontAwesomeIcon icon={faBell} className="mr-2" />
+                                Friend Requests
+                            </h2>
+                            <div className="flex justify-center">
                                 {friendRequestsList.length > 0 ? (
                                     <ul>
                                         {friendRequestsList.map((friend, index) => (
