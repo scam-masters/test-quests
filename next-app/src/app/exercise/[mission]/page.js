@@ -65,6 +65,7 @@ export default async function Exercise({ params }) {
         }),
         solution: missionContent.solution,
       };
+      break
     case "ms":
       exercise = MultipleSelection;
       exerciseArgs = missionContent;

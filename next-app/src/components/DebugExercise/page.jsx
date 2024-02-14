@@ -27,7 +27,6 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
 	let i = 0;
 	let exercise = [];
 	for (const [index, item] of selectables.entries()) {
-		console.log(index, item)
 		let unselectable = text.substring(i, item[0]);
 		let selectable = <button key="selectable_${index}"
 			className={answers[index] ? 'bug-selected' : 'bug-selectable'}
