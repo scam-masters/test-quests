@@ -41,6 +41,18 @@ export async function getUserData() {
     return document.data()
 }
 
+export async function searchUsers(searchString) {
+	const usersRef = collection(db, "users")
+	const docs = await getDocs(query(usersRef, where("username", ">=", searchString), where("username", "<=", searchString + "\uf8ff")))
+
+	const result = []
+	docs.forEach(doc => {
+		result.push(doc.data())
+	})
+
+	return result
+}
+
 export async function setUserData(userData) {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -190,49 +202,42 @@ export async function updateChapterUnlocking(missionId) {
     return false
 }
 
-export async function addFriendRequest(receiverUsername) {
-    const sender = await getUserData();
-    console.log("Friends requests from: ", sender.username, " to: ", receiverUsername);
 
-    const { data: receiver, ref: receiverRef } = await getUserByUsername(receiverUsername);
-    
-    if (receiver.friends.includes(sender.username)) {
-        throw new Error("Already friends");
-    }
+// Retrieve scoreboard data (mock for testing)
+export async function getScoreboardData() {
+	const usersRef = collection(db, "users")
 
-    if (receiver.friend_requests.includes(sender.username)) {
-        throw new Error("Friend request already sent");
-    }
+	const docs = await getDocs(query(usersRef, where("score", ">=", 0)))
 
-    if (sender.friend_requests.includes(receiver.username)) {
-        throw new Error("Pending friend request already received from this user")
-    }
-    
-    receiver.friend_requests.push(sender.username);
-    await updateUser(receiverRef, receiver);
+	const data = []
+
+	// maybe we can get clever with firebase and have it sort and compute last timestamp in the db
+	docs.forEach(doc => {
+		let timestamp = 0
+		let completedCount = 0
+		for (let key in doc.data().missions) {
+			let missionData = doc.data().missions[key]
+			if (missionData.timestamp) {
+				timestamp = Math.max(doc.data().missions[key].timestamp, timestamp)
+				completedCount += 1
+			}
+		}
+
+		data.push({
+			username: doc.data().username,
+			score: doc.data().score,
+			timestamp: timestamp,
+			completedCount
+		})
+	})
+
+	data.sort((a, b) => {
+		if (a.score == b.score && a.timestamp == b.timestamp)
+			return 0
+		if (a.score > b.score || (a.score == b.score && a.timestamp < b.timestamp))
+			return -1
+		return 1
+	})
+	return data
 }
 
-export async function acceptFriendRequest(senderUsername) {
-    const receiver = await getUserData();
-    console.log("Accept friend request from: ", senderUsername, " to: ", receiver.username);
-
-    const { data: sender, ref: senderRef } = await getUserByUsername(senderUsername);
-
-    if (sender.friends.includes(receiver.username) || receiver.friends.includes(sender.username)) {
-        throw new Error("Already friends");
-    }
-
-    receiver.friends.push(sender.username);
-    sender.friends.push(receiver.username);
-    receiver.friend_requests = receiver.friend_requests.filter(request => request !== senderUsername);
-    await updateUser(senderRef, sender);
-    await setUserData(receiver);
-}
-
-export async function declineFriendRequest(senderUsername) {
-    const user = await getUserData();
-    console.log("Decline friend request from: ", senderUsername, " to: ", user.username);
-
-    user.friend_requests = user.friend_requests.filter(request => request !== senderUsername);
-    await setUserData(user);
-}

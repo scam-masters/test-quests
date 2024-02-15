@@ -27,10 +27,9 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
 	let i = 0;
 	let exercise = [];
 	for (const [index, item] of selectables.entries()) {
-		console.log(index, item)
 		let unselectable = text.substring(i, item[0]);
 		let selectable = <button key="selectable_${index}"
-			class={answers[index] ? 'bug-selected' : 'bug-selectable'}
+			className={answers[index] ? 'bug-selected' : 'bug-selectable'}
 			onClick={click.bind(null, index)}>
 			{text.substring(item[0], item[1])}
 		</button>
@@ -46,7 +45,7 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
 	return (
 		<>
 			<form id='exercise-form' onSubmit={handleSubmit}></form>
-			<code>{exercise}</code>
+			<pre><code>{exercise}</code></pre>
 		</>
 	)
 }

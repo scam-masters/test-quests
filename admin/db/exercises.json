@@ -50,15 +50,15 @@
             "kind": "unit",
             "name": "WebDriver Manager",
             "threshold": 75,
-            "explanation": "",
-            "type": "dnd",
-            "points": 150,
             "learning": {
                 "exerciseLink": "/exercise/10",
                 "learningLink": "/learning/10",
                 "resourceLink": "https://pypi.org/project/webdriver-manager/",
                 "content": ""
-            }
+            },
+            "explanation": "",
+            "type": "dnd",
+            "points": 150
         },
         "mission_11": {
             "difficulty": "hard",

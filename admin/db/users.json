@@ -1,334 +1,204 @@
 {
-	"users": {
-		"Abc@xyz.com": {
-			"badges": [],
-			"score": -1,
-			"missions": {
-				"mission_1": {
-					"score": 0,
-					"id": "mission_1"
-				}
-			},
-			"avatar": 0,
-			"username": "ABC"
-		},
-		"ab@gmail.com": {
-			"badges": [],
-			"score": -1,
-			"missions": {
-				"mission_1": {
-					"score": 0,
-					"id": "mission_1"
-				}
-			},
-			"avatar": 0,
-			"username": "ab"
-		},
-		"abc123@gmail.com": {
-			"badges": [],
-			"avatar": 0,
-			"username": "abc123",
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1707393706444
-				},
-				"mission_2": {
-					"score": -1,
-					"id": "mission_2"
-				}
-			}
-		},
-		"ali.haider.iic00@gmail.com": {
-			"badges": [],
-			"avatar": 0,
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1707315204846
-				},
-				"mission_2": {
-					"score": -1,
-					"id": "mission_2"
-				}
-			},
-			"username": "ali"
-		},
-		"davidino@gmail.com": {
-			"badges": [],
-			"avatar": 0,
-			"username": "davidino",
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1707392536962
-				},
-				"mission_2": {
-					"score": -1,
-					"id": "mission_2"
-				}
-			}
-		},
-		"fonta@fonta.dev": {
-			"badges": [],
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1707314652593
-				},
-				"mission_2": {
-					"score": -1,
-					"id": "mission_2"
-				}
-			},
-			"username": "fonta2",
-			"avatar": 2
-		},
-		"jalilhi@gmail.com": {
-			"badges": [],
-			"avatar": 0,
-			"username": "jalilhi",
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1707393158591
-				},
-				"mission_2": {
-					"score": -1,
-					"id": "mission_2"
-				}
-			}
-		},
-		"lf@gmail.com": {
-			"badges": [],
-			"avatar": 0,
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1707315691613
-				},
-				"mission_2": {
-					"score": -1,
-					"id": "mission_2"
-				}
-			},
-			"username": "lucaIlBello"
-		},
-		"miao@gmail.com": {
-			"badges": [],
-			"avatar": 0,
-			"username": "miao",
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1707390648798
-				},
-				"mission_2": {
-					"score": -1,
-					"id": "mission_2"
-				}
-			}
-		},
-		"miaoa@gmail.com": {
-			"badges": [],
-			"score": -1,
-			"missions": {
-				"mission_1": {
-					"score": 0,
-					"id": "mission_1"
-				}
-			},
-			"avatar": 0,
-			"username": "admina"
-		},
-		"musse437@gmail.com": {
-			"badges": [],
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1707317117594
-				},
-				"mission_2": {
-					"score": -1,
-					"id": "mission_2"
-				}
-			},
-			"username": "musseG",
-			"avatar": 1
-		},
-		"pera@gmail.com": {
-			"badges": [],
-			"score": -1,
-			"missions": {
-				"mission_1": {
-					"score": 0,
-					"id": "mission_1"
-				}
-			},
-			"avatar": 0,
-			"username": "zio"
-		},
-		"tes@test.com": {
-			"badges": [],
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1707314934028
-				},
-				"mission_2": {
-					"score": -1,
-					"id": "mission_2"
-				}
-			},
-			"username": "rvale",
-			"avatar": 1
-		},
-		"test_0_points_user@gmail.com": {
-			"score": 0,
-			"missions": {
-				"mission_1": {
-					"score": 0,
-					"id": "mission_1"
-				}
-			},
-			"username": "test_0_points_user",
-			"badges": [],
-			"avatar": 0
-		},
-		"test_50_points_user@gmail.com": {
-			"username": "test_50_points_user",
-			"score": 50,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1705323229565
-				},
-				"mission_2": {
-					"id": "mission_2",
-					"score": 0
-				}
-			},
-			"avatar": 0,
-			"badges": []
-		},
-		"test_all_unlocked@gmail.com": {
-			"avatar": 0,
-			"badges": [],
-			"score": 200,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1706028339890
-				},
-				"mission_2": {
-					"id": "mission_2",
-					"score": 50,
-					"timestamp": 1706028355335
-				},
-				"mission_3": {
-					"id": "mission_3",
-					"score": 50,
-					"timestamp": 1706028355335
-				},
-				"mission_4": {
-					"score": 50,
-					"timestamp": 1706028355335,
-					"id": "mission_4"
-				},
-				"mission_5": {
-					"score": 50,
-					"id": "mission_5",
-					"timestamp": 1706028355335
-				},
-				"mission_7": {
-					"id": "mission_7",
-					"score": 100,
-					"timestamp": 1707235879668
-				},
-				"mission_6": {
-					"score": 100,
-					"id": "mission_6",
-					"timestamp": 1707235879668
-				},
-				"mission_8": {
-					"id": "mission_8",
-					"timestamp": 1707158779446,
-					"score": 100
-				},
-				"mission_9": {
-					"id": "mission_9",
-					"score": 100
-				}
-			},
-			"username": "test_all_unlocked"
-		},
-		"test_new_user@gmail.com": {
-			"score": -1,
-			"missions": {
-				"mission_1": {
-					"score": 0,
-					"id": "mission_1"
-				}
-			},
-			"username": "test_new_user",
-			"avatar": 0,
-			"badges": []
-		},
-		"tests@gmail.com": {
-			"score": 100,
-			"badges": [
-				"first_completed_mission",
-				"chapter_completion_1",
-				"first_blood",
-				"5_security_testing",
-				"10_security_testing"
-			],
-			"username": "tests",
-			"avatar": 1,
-			"missions": {
-				"mission_1": {
-					"id": "mission_1",
-					"score": 50,
-					"timestamp": 1705323295423
-				},
-				"mission_2": {
-					"id": "mission_2",
-					"score": 50,
-					"timestamp": 1705323306896
-				},
-				"mission_3": {
-					"id": "mission_3",
-					"score": 100
-				},
-				"mission_7": {
-					"score": 100,
-					"id": "mission_7"
-				},
-				"mission_8": {
-					"id": "mission_8",
-					"score": 100
-				}
-			}
-		}
-	}
+    "users": {
+        "test_0_points_user@gmail.com": {
+            "score": 0,
+            "missions": {
+                "mission_1": {
+                    "score": 0,
+                    "id": "mission_1"
+                }
+            },
+            "username": "test_0_points_user",
+            "badges": [],
+            "avatar": 0,
+            "friend_requests": [
+                "tests"
+            ],
+            "friends": [
+                "laxlax"
+            ]
+        },
+        "test_50_points_user@gmail.com": {
+            "username": "test_50_points_user",
+            "score": 50,
+            "missions": {
+                "mission_1": {
+                    "id": "mission_1",
+                    "score": 50,
+                    "timestamp": 1705323229565
+                },
+                "mission_2": {
+                    "id": "mission_2",
+                    "score": 0
+                }
+            },
+            "avatar": 0,
+            "badges": [],
+            "friends": [],
+            "friend_requests": []
+        },
+        "test_all_unlocked2@gmail.com": {
+            "avatar": 0,
+            "username": "test_all_unlocked2",
+            "badges": [],
+            "missions": {
+                "mission_3": {
+                    "score": 50,
+                    "id": "mission_3",
+                    "timestamp": 1706028355335
+                },
+                "mission_4": {
+                    "score": 50,
+                    "id": "mission_4",
+                    "timestamp": 1706028355335
+                },
+                "mission_5": {
+                    "score": 50,
+                    "id": "mission_5",
+                    "timestamp": 1706028355335
+                },
+                "mission_1": {
+                    "score": 50,
+                    "id": "mission_1",
+                    "timestamp": 1706028339890
+                },
+                "mission_2": {
+                    "score": 50,
+                    "id": "mission_2",
+                    "timestamp": 1706028355335
+                },
+                "mission_7": {
+                    "id": "mission_7",
+                    "score": "0",
+                    "timestamp": "1706028355349"
+                },
+                "mission_6": {
+                    "id": "mission_6",
+                    "timestamp": "1706028355339",
+                    "score": 100
+                }
+            },
+            "score": 350,
+            "friends": [],
+            "friend_requests": []
+        },
+        "test_all_unlocked@gmail.com": {
+            "username": "test_all_unlocked",
+            "avatar": 2,
+            "score": 650,
+            "badges": [
+                "first_blood",
+                "first_blood",
+                "chapter_completion_medium",
+                "first_blood",
+                "chapter_completion_medium",
+                "chapter_completion_easy"
+            ],
+            "missions": {
+                "mission_1": {
+                    "id": "mission_1",
+                    "score": 50,
+                    "timestamp": 1706028339890
+                },
+                "mission_2": {
+                    "id": "mission_2",
+                    "score": 50,
+                    "timestamp": 1706028355335
+                },
+                "mission_3": {
+                    "id": "mission_3",
+                    "score": 50,
+                    "timestamp": 1706028355335
+                },
+                "mission_4": {
+                    "score": 50,
+                    "timestamp": 1706028355335,
+                    "id": "mission_4"
+                },
+                "mission_5": {
+                    "score": 50,
+                    "id": "mission_5",
+                    "timestamp": 1706028355335
+                },
+                "mission_7": {
+                    "id": "mission_7",
+                    "score": 100,
+                    "timestamp": 1707235879668
+                },
+                "mission_6": {
+                    "score": 100,
+                    "id": "mission_6",
+                    "timestamp": 1707235879668
+                },
+                "mission_8": {
+                    "id": "mission_8",
+                    "timestamp": 1707490945469,
+                    "score": 100
+                },
+                "mission_9": {
+                    "id": "mission_9",
+                    "score": 100,
+                    "timestamp": 1707730921036
+                },
+                "mission_10": {
+                    "id": "mission_10",
+                    "score": 150,
+                    "timestamp": 1707730921037
+                },
+                "mission_11": {
+                    "id": "mission_11",
+                    "score": 150,
+                    "timestamp": 1707730921038
+                },
+                "mission_12": {
+                    "id": "mission_12",
+                    "score": 150,
+                    "timestamp": 1707730921039
+                }
+            },
+            "friends": [],
+            "friend_requests": []
+        },
+        "test_new_user@gmail.com": {
+            "score": -1,
+            "missions": {
+                "mission_1": {
+                    "score": 0,
+                    "id": "mission_1"
+                }
+            },
+            "username": "test_new_user",
+            "avatar": 0,
+            "badges": [],
+            "friends": [],
+            "friend_requests": []
+        },
+        "tests@gmail.com": {
+            "score": 100,
+            "username": "tests",
+            "avatar": 1,
+            "missions": {
+                "mission_1": {
+                    "id": "mission_1",
+                    "score": 50,
+                    "timestamp": 1705323295423
+                },
+                "mission_2": {
+                    "id": "mission_2",
+                    "score": 50,
+                    "timestamp": 1705323306896
+                }
+            },
+            "friends": [
+                "test_0_points_user"
+            ],
+            "badges": [
+                "chapter_completion_easy",
+                "first_blood",
+                "5_security",
+                "10_security"
+            ],
+            "friend_requests": []
+        }
+    }
 }

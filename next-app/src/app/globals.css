@@ -46,6 +46,8 @@ button {
   @apply circle-base bg-gradient-to-tr from-gray-700 to-gray-600 cursor-not-allowed hover:scale-100 text-white
 }
 
+/* ------------ SCOREBOARD ------------ */
+
 .scoreboard {
 	@apply min-w-full leading-normal
 }
@@ -62,6 +64,26 @@ button {
 	@apply px-5 py-2
 }
 
+/* ------------ SEARCH RESULTS ------------ */
+
+.searchResults {
+	@apply min-w-full leading-normal
+}
+
+.searchResults tr {
+	@apply grid grid-cols-2
+}
+
+.searchResults thead th {
+	@apply px-5 py-3 text-left text-xl font-semibold uppercase text-center tracking-wider
+}
+
+.searchResults td {
+	@apply px-5 py-2
+}
+
+/* ------------ GENERAL ------------ */
+
 body {
   scrollbar-width: none;
 }
@@ -70,13 +92,21 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* TODO: improve thos styles */
+/* TODO: improve those styles */
+pre code {
+	white-space: pre-wrap;
+}
+
 .bug-selected {
-	@apply border-2 bg-white text-tq-primary
+	@apply border-2 bg-white text-tq-primary;
+	display: inline;
+	cursor: pointer;
 }
 
 .bug-selectable {
-	@apply border-2
+	@apply border-2;
+	display: inline;
+	cursor: pointer;
 }
 
 #timer {
@@ -87,6 +117,3 @@ body::-webkit-scrollbar {
 	border-radius: 4px;
 }
 
-code {
-	white-space: pre-wrap;
-}

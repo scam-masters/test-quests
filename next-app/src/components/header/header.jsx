@@ -34,7 +34,7 @@ function Header() {
 		const userInfo = await getUserData();
 		return userInfo.username;
 	}
-	
+
 	// ******************* Retrieve if the user can access the exercise ******************* //
 	async function getUserAccess() {
 		const userInfo = await getUserData();
@@ -43,7 +43,7 @@ function Header() {
 			const missionNumber = pathname.split("/").at(-1);
 			// compare the number of missions completed retrieved from the db with the mission number
 			return Object.getOwnPropertyNames(userInfo.missions).length >= missionNumber;
-			
+
 		}
 		return true;
 	}
@@ -82,6 +82,9 @@ function Header() {
 
 	return (
 		<header className="w-full grid grid-cols-3 items-center bg-tq-primary z-50 justify-between">
+			{/* Font Awesome for seach icon */}
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+				
 			<div className="text-white font-bold mr-30">
 				<Link href="/scoreboard"><button>Scoreboard</button></Link>
 				{currentUser ? (
@@ -95,6 +98,8 @@ function Header() {
 						<Link href="/Registration"><button>Register</button></Link>
 					</>
 				)}
+				{/* search icon */}
+				<Link href="/searchPlayers"><button title="Search for players" class="fa fa-search"></button></Link>
 			</div>
 
 			<Link href="/" className="mx-auto">
