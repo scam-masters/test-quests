@@ -4,7 +4,7 @@ import Button from "@/components/button/button";
 import { getAuth } from "firebase/auth";
 import { addFriendRequest, acceptFriendRequest, declineFriendRequest, getUserData, getAvatarByUsername } from "@/app/user_actions.js"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsers, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faBell, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 export default function ProfileView({ email, avatar, badges, username, friends, friendRequests, score }) {
 
@@ -31,17 +31,13 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
             avatarMap[friend] = avatar;
         }
         setAvatars(avatarMap);
-        console.log('avatars', avatarMap);
     };
 
     useEffect(() => {
         getAuth().onAuthStateChanged(function (user) {
             if (user) {
-                console.log('email', email);
-                console.log('useremail', user.email);
                 setIsOwner(user.email === email);
                 getUsername().then((username) => {
-                    console.log('username', username);
                     if (friendsList.includes(username)) {
                         setStatus('friend');
                     } else if (friendRequestsList.includes(username)) {
@@ -132,24 +128,22 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
             </div>
         </div>
 
-            <div className="flex w-8/12 justify-center">
+            <div className="flex w-7/12 justify-center">
                 <div className="w-1/2 max-w-1/2 p-3 min-h-[10vh]">
                     <h2 className="text-3xl font-bold m-auto mb-4">
                         <FontAwesomeIcon icon={faUsers} className="mr-2 max-w-[50px]" />
                         Friends
                     </h2>
-                    <div className="flex justify-center">
+                    <div className="flex">
                         {friendsList.length > 0 ? (
                             <ul>
                                 {friendsList.map((friend, index) => (
-                                    <>
-                                        <a href={`/profile/${friend}`} key={friend}>
-                                            <li key={index} className="flex items-center mb-2 ">
-                                                {avatars[friend] !== undefined && <img src={`/avatars/${avatars[friend]}.png`} alt={`avatar`} className="rounded-full w-8 h-8 mr-2" />}
-                                                <span className="text-lg">{friend}</span>
-                                            </li>
+                                    <li key={`f_${index}_${friend}`} className="flex items-center mb-2 ">
+                                        <a href={`/profile/${friend}`} className="flex items-center hover:text-blue-500 hover:underline">
+                                            {avatars[friend] !== undefined && <img src={`/avatars/${avatars[friend]}.png`} alt={`avatar`} className="rounded-full w-16 h-16 mr-2" />}
+                                            <span className="text-xl px-2">{friend}</span>
                                         </a>
-                                    </>
+                                    </li>
                                 ))}
                             </ul>
                         ) : (
@@ -159,7 +153,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                 </div>
             </div>
 
-            <div className="flex w-8/12 justify-center">
+            <div className="flex w-7/12 justify-center">
                 {isOwner ?
                     (<>
                         <div className="w-1/2 max-w-1/2 p-3 min-h-[10vh]">
@@ -167,20 +161,20 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                                 <FontAwesomeIcon icon={faBell} className="mr-2 max-w-[50px]" />
                                 Friend Requests
                             </h2>
-                            <div className="flex justify-center">
+                            <div className="flex">
                                 {friendRequestsList.length > 0 ? (
                                     <ul>
                                         {friendRequestsList.map((friend, index) => (
-                                            <>
-                                                <li key={index} className="flex items-center mb-2 ">
-                                                    <a href={`/profile/${friend}`}>
-                                                    {avatars[friend] !== undefined && <img src={`/avatars/${avatars[friend]}.png`} alt={`avatar`} className="rounded-full w-8 h-8 mr-2" />}
-                                                        <span className="text-lg px-2">{friend}</span>
-                                                    </a>
-                                                    <Button classNames="mx-2" type='blue' onClick={() => { handleAccept(friend) }}>Accept</Button>
-                                                    <Button type='red' onClick={() => { handleDecline(friend) }}>Decline</Button>
-                                                </li>
-                                            </>
+                                            <li key={`fr_${index}_${friend}`} className="flex items-center justify-between mb-2 ">
+                                                <a href={`/profile/${friend}`} className="flex items-center hover:text-blue-500 hover:underline">
+                                                    {avatars[friend] !== undefined && <img src={`/avatars/${avatars[friend]}.png`} alt={`avatar`} className="rounded-full w-16 h-16 mr-2" />}
+                                                    <span className="text-xl px-2">{friend}</span>
+                                                </a>
+                                                <div className="ml-3">
+                                                    <Button classNames="mx-1" type="green" onClick={() => { handleAccept(friend) }}><FontAwesomeIcon icon={faCheck}/></Button>
+                                                    <Button classNames="mx-1" type="red" onClick={() => { handleDecline(friend) }}><FontAwesomeIcon icon={faTimes}/></Button>
+                                                </div>
+                                            </li>
                                         ))}
                                     </ul>
                                 ) : (
