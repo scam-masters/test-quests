@@ -12,17 +12,18 @@ export default async function Profile({ params }) {
 
     const profileContent = await getProfileData(params.username);
    
-    // TODO: properly handle if profile is not found
-    // if (!profileContent) {
-    //     return <div>Profile not found</div>;
-    // }
+    if (!profileContent) {
+        return <div>Profile not found</div>;
+    }
     
     let profileArgs = {
         email: profileContent.email,
         avatar: profileContent.avatar,
         badges: profileContent.badges,
         username: profileContent.username,
-        score: profileContent.score
+        score: profileContent.score,
+        friends: profileContent.friends,
+        friendRequests: profileContent.friend_requests
     }
 
     return (
@@ -32,6 +33,8 @@ export default async function Profile({ params }) {
                 avatar={profileArgs.avatar}
                 badges={profileArgs.badges}
                 username={profileArgs.username}
+                friends={profileArgs.friends}
+                friendRequests={profileArgs.friendRequests}
                 score={profileArgs.score==-1 ? 0 : profileArgs.score } // if the score is -1, display 0
             />
         </div>
