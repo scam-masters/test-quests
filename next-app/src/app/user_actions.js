@@ -241,3 +241,49 @@ export async function getScoreboardData() {
 	return data
 }
 
+export async function addFriendRequest(receiverUsername) {
+    const sender = await getUserData();
+    console.log("Friends requests from: ", sender.username, " to: ", receiverUsername);
+
+    const { data: receiver, ref: receiverRef } = await getUserByUsername(receiverUsername);
+    
+    if (receiver.friends.includes(sender.username)) {
+        throw new Error("Already friends");
+    }
+
+    if (receiver.friend_requests.includes(sender.username)) {
+        throw new Error("Friend request already sent");
+    }
+
+    if (sender.friend_requests.includes(receiver.username)) {
+        throw new Error("Friend request already received from this user")
+    }
+    
+    receiver.friend_requests.push(sender.username);
+    await updateUser(receiverRef, receiver);
+}
+
+export async function acceptFriendRequest(senderUsername) {
+    const receiver = await getUserData();
+    console.log("Accept friend request from: ", senderUsername, " to: ", receiver.username);
+
+    const { data: sender, ref: senderRef } = await getUserByUsername(senderUsername);
+
+    if (sender.friends.includes(receiver.username) || receiver.friends.includes(sender.username)) {
+        throw new Error("Already friends");
+    }
+
+    receiver.friends.push(sender.username);
+    sender.friends.push(receiver.username);
+    receiver.friend_requests = receiver.friend_requests.filter(request => request !== senderUsername);
+    await updateUser(senderRef, sender);
+    await setUserData(receiver);
+}
+
+export async function declineFriendRequest(senderUsername) {
+    const user = await getUserData();
+    console.log("Decline friend request from: ", senderUsername, " to: ", user.username);
+
+    user.friend_requests = user.friend_requests.filter(request => request !== senderUsername);
+    await setUserData(user);
+}

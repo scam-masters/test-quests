@@ -99,7 +99,7 @@ function Header() {
 					</>
 				)}
 				{/* search icon */}
-				<Link href="/searchPlayers"><button title="Search for players" class="fa fa-search"></button></Link>
+				<Link href="/searchPlayers"><button title="Search for players" className="fa fa-search"></button></Link>
 			</div>
 
 			<Link href="/" className="mx-auto">
