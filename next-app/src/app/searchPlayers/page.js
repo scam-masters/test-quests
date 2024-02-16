@@ -27,15 +27,15 @@ export default function Searchbar({ }) {
     }
 
     return (
-        <div className='text-center mt-6'>
+        <div className='text-center mt-20'>
             <div >
                 <form onSubmit={handleSubmit}>
-                    <input className="border rounded px-2 py-1 bg-white text-black" name="username" type="text" placeholder="Search for a player"/>
+                    <input className="w-80 h-10 border-2 border-tq-primary rounded-full px-2 py-1 bg-white text-black" name="username" type="text" placeholder="Search for a player"/>
                     <button className="ml-3 bg-tq-primary hover:bg-tq-accentfont-bold py-2 px-4 rounded-5" type="submit">Search</button>
                 </form>
             </div>
             { searchResults.length != 0 ? <SearchResultsComponent results={searchResults} /> : <></> }
-            <text className="text-red-400 mt-3"> {error}</text>
+            <text className="text-red-400"> {error}</text>
         </div>
     );
 }
