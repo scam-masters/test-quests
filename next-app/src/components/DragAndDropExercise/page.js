@@ -81,9 +81,6 @@ export default function DndExercise({
     <DndProvider backend={HTML5Backend}>
       <form id="exercise-form" onSubmit={onSubmit} />
       <p>
-        <strong>
-          Complete the exercise by draging the blocks into the blanks:
-        </strong>
       </p>
       <br />
       <p>{parseInput(blocks)}</p>
