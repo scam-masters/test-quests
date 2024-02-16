@@ -1,6 +1,7 @@
 {
     "exercises": {
         "mission_1": {
+            "storyline": "python",
             "difficulty": "easy",
             "solution": [
                 "Test Case",
@@ -38,52 +39,103 @@
             }
         },
         "mission_10": {
+            "storyline": "python",
             "difficulty": "hard",
-            "solution": [
-                "ciao",
-                "lax"
-            ],
-            "blocks": [
-                "",
-                ""
-            ],
             "kind": "unit",
             "name": "WebDriver Manager",
             "threshold": 75,
+            "type": "dnd",
+            "points": 150,
             "learning": {
                 "exerciseLink": "/exercise/10",
                 "learningLink": "/learning/10",
                 "resourceLink": "https://pypi.org/project/webdriver-manager/",
-                "content": ""
+                "content": "   <center><h1><b>Welcome to Mission 10</b> </h1>     <h2>About Webdriver Manager</h2>     </center>     <br><p>         Webdriver Manager is a Python library designed to streamline the management of binary drivers essential for automating web browsers using Selenium. It aims to simplify the often cumbersome process of downloading, installing, and configuring these drivers across different platforms and browser versions.     </p><br>     <p>         The core functionality of Webdriver Manager revolves around providing an easy-to-use interface for developers to handle the setup of browser drivers effortlessly. It supports a variety of popular web browsers such as Chrome, Firefox, Edge, Opera, Brave, and Internet Explorer, ensuring compatibility with Selenium versions 3.x and 4.x.     </p><br>     <p>         Prior to the introduction of Webdriver Manager, developers had to manually download the appropriate driver binaries, extract them to a specific location, and set up environment variables or specify paths within their codebase. This process was not only time-consuming but also prone to errors, especially when managing multiple browser versions or operating systems.     </p><br>     <p>         With Webdriver Manager, developers can now install the manager itself using Python package manager (pip), and then seamlessly integrate it into their Selenium automation scripts. The library takes care of downloading the necessary driver binaries, managing their versions, and ensuring compatibility with the installed browser versions.     </p><br>     <p>         Furthermore, Webdriver Manager offers various configuration options to cater to different use cases and environments. Developers can customize settings such as cache management, SSL verification, browser version specification, and even use custom HTTP clients for more advanced scenarios.     </p><br>     <p>         In summary, Webdriver Manager serves as a vital tool in the toolkit of Python developers engaged in web automation, offering a convenient and reliable solution for managing browser drivers and streamlining the Selenium testing process.     </p>"
             },
-            "explanation": "",
-            "type": "dnd",
-            "points": 150
+            "explanation": "<p>Based on the provided Drag-and-Drop Exercise and its solution, here is an explanation for the exercise:<br> </p> <p>Exercise Explanation:<br> </p> <p>Objective:<br> The objective of this exercise is to implement automated tests using Selenium and PyTest to interact with the Google search page and verify specific functionalities.<br> </p> <p>Test Cases:<br> 1. <strong>Test Search Functionality:</strong><br>    - Open the Google homepage.<br>    - Enter \"Webdriver Manager\" into the search box.<br>    - Press Enter.<br>    - Verify that the search results page title contains \"webdrivermanager\".<br> <br> 2. <strong>Test Images Search:</strong><br>    - Open the Google homepage.<br>    - Click on the \"Images\" link.<br>    - Verify that the page title changes to \"Google Images\".<br> <br> 3. <strong>Test \"I'm Feeling Lucky\" Button:</strong><br>    - Open the Google homepage.<br>    - Click on the \"I'm Feeling Lucky\" button.<br>    - Verify that the page title changes to \"I'm Feeling Lucky\".<br> <br> Provided Code:<br> - The provided code contains a PyTest test class named <code>TestGoogle</code>.<br> - It includes fixtures to set up and tear down the WebDriver session, as well as additional setup to maximize the browser window.<br> - Three test methods are defined to execute the test cases mentioned above: <code>test_search</code>, <code>test_images_search</code>, and <code>test_lucky_button</code>.<br> <br> Missing Parts:<br> - The code provided has certain parts missing, denoted by placeholders such as <code>[---------]</code> and <code>[----------------------]</code>.<br> - These placeholders need to be replaced with appropriate Selenium WebDriver methods or attributes to complete the test automation code.<br> <br> Solution:<br> - The solution code provided fills in the missing parts with the correct WebDriver methods and attributes to interact with the Google search page and perform the desired actions.<br> - It completes the test automation code for the provided test cases, allowing the tests to execute successfully and verify the expected behavior of the Google search page.<br> <br> Execution and Verification:<br> - To execute the test cases, the complete test automation code (including the solution) needs to be run using PyTest.<br> - The tests will open a Chrome browser, navigate to the Google homepage, perform the specified actions, and verify the expected outcomes.<br> - Upon execution, the test results will indicate whether the test cases pass or fail based on the assertions defined in the test methods.<br> <br> Learning Outcome:<br> - By completing this exercise, learners will gain hands-on experience in writing automated tests using Selenium and PyTest to interact with web pages, perform actions, and verify expected outcomes.<br> - Learners will also become familiar with common Selenium WebDriver methods for locating elements and performing actions such as clicking links and entering text into input fields.<br> </p>",
+            "blocks": [
+                "class TestGoogle:<br> <br> &emsp;@classmethod<br> &emsp;@pytest.fixture(scope=\"class\", autouse=True)<br> &emsp;def setup(cls, request):<br> &emsp;&emsp;# Set up WebDriver using Chrome with Webdriver Manager<br><br> &emsp;&emsp;cls.driver = [",
+                "",
+                "].[",
+                "",
+                "]([",
+                "",
+                "]().[",
+                "",
+                "]())<br>",
+                "&emsp;&emsp;yield<br>",
+                "&emsp;&emsp;cls.driver.[",
+                "",
+                "]()<br>",
+                "<br> &emsp;@classmethod<br> &emsp;@pytest.fixture(scope=\"class\")<br> &emsp;def additional_setup(cls, request):<br> &emsp;&emsp;# Maximize the browser window before each test<br> &emsp;&emsp;cls.driver.[",
+                "",
+                "]()<br>",
+                "<br> &emsp;@classmethod<br> &emsp;@pytest.fixture(scope=\"class\")<br> &emsp;def additional_setup(cls, request):<br> &emsp;&emsp;# Maximize the browser window before each test<br> &emsp;&emsp;cls.driver.[",
+                "",
+                "]()<br>",
+                "<br> &emsp;def test_search(self):<br> &emsp;&emsp;self.driver.get(\"https://www.google.com\")<br> &emsp;&emsp;search_box = self.driver.[",
+                "a",
+                "",
+                "](\"q\")<br> &emsp;&emsp;search_box.send_keys(\"Webdriver Manager\")<br> &emsp;&emsp;search_box.send_keys(Keys.RETURN)<br> &emsp;&emsp;assert [",
+                "",
+                "] in self.driver.title<br> <br> &emsp;def test_images_search(self):<br> &emsp;&emsp;self.driver.get(\"https://www.google.com\")<br> &emsp;&emsp;images_link = self.driver.[",
+                "",
+                "](\"Images\")<br> &emsp;&emsp;images_link.click()<br> &emsp;&emsp;assert [",
+                "",
+                "] in self.driver.title<br> <br> &emsp;def test_lucky_button(self):<br> &emsp;&emsp;self.driver.get(\"https://www.google.com\")<br> &emsp;&emsp;lucky_button = self.driver.find_element_by_name(\"btnI\")<br> &emsp;&emsp;lucky_button.click()<br> &emsp;&emsp;assert [",
+                "",
+                "] in self.driver.title<br>"
+            ],
+            "solution": [
+                "webdriver",
+                "Chrome",
+                "ChromeDriverManager()",
+                "install()",
+                "quit()",
+                "maximize_window",
+                "find_element_by_name",
+                "\"webdrivermanager\"",
+                "find_element_by_link_text",
+                "\"Google Images\"",
+                "\"I'm Feeling Lucky\"",
+                "Confusion Statement 1",
+                "Confusion Statement 2",
+                "Confusion Statement 3",
+                "Confusion Statement 4"
+            ]
         },
         "mission_11": {
+            "storyline": "python",
             "difficulty": "hard",
-            "solution": [
-                false,
-                false
-            ],
-            "selectables": [
-                "20-57",
-                "89-117"
-            ],
             "name": "Semantic and Syntax Errors on pytest",
-            "learning": {
-                "exerciseLink": "/exercise/11",
-                "learningLink": "/learning/11",
-                "content": "",
-                "resouceLink": "https://www.honeybadger.io/blog/beginners-guide-to-software-testing-in-python/"
-            },
             "threshold": 90,
             "text": "",
             "type": "debug",
-            "explanation": "",
-            "points": 150
+            "points": 150,
+            "learning": {
+                "exerciseLink": "/exercise/11",
+                "learningLink": "/learning/11",
+                "resouceLink": "https://www.honeybadger.io/blog/beginners-guide-to-software-testing-in-python/",
+                "content": "    <center><h1><b>Welcome to Mission 11</b> </h1>     <h2>About Understanding Semantic and Syntax Bugs using pytest</h2></center>     <p>         Semantic and Syntax bugs are common issues encountered during software development. It's crucial to distinguish between them to effectively debug and maintain code.     </p>     <br>     <p>         Semantic bugs occur when the logic of the program is flawed, leading to unexpected behavior. These bugs may not result in syntax errors but can cause incorrect program output or undesired outcomes. Semantic bugs are often harder to detect than syntax bugs because they involve understanding the intended functionality of the code. Examples of semantic bugs include miscalculations, incorrect conditional statements, and improper data handling.     </p>     <br>     <p>         Syntax bugs, on the other hand, are errors in the structure or grammar of the code. These bugs violate the rules of the programming language, causing the interpreter or compiler to raise errors. Syntax bugs are usually easier to identify and fix compared to semantic bugs because they are detected by the compiler or interpreter during the code compilation or execution process. Common syntax bugs include missing semicolons, mismatched parentheses, and misspelled keywords.     </p>     <br>     <h3>Risks and Impact:</h3>     <p>         Semantic bugs can have significant consequences, such as incorrect computation results, security vulnerabilities, or system crashes. These bugs can lead to data corruption, loss of user trust, and financial losses for organizations. Syntax bugs typically prevent the code from executing altogether, resulting in immediate errors during compilation or runtime. While less severe than semantic bugs, syntax bugs can still disrupt development workflow and delay project timelines.     </p>     <br>     <h3>Preventing and Resolving Bugs:</h3>     <p>         To prevent semantic bugs, developers should thoroughly understand the requirements and specifications of the software and conduct rigorous testing. Code reviews, unit testing, and integration testing are essential for identifying and addressing semantic bugs early in the development lifecycle. Debugging semantic bugs involves analyzing the program's behavior, identifying discrepancies between expected and actual outcomes, and implementing corrective measures.     </p>     <br>     <p>         Syntax bugs can be avoided by adhering to the syntax rules of the programming language, using linting tools, and paying attention to compiler or interpreter error messages. Code editors with syntax highlighting and auto-completion features can also help prevent syntax errors during development. Debugging syntax bugs involves analyzing the code for syntax errors indicated by error messages and correcting them accordingly using code editors or integrated development environments (IDEs).     </p>"
+            },
+            "explanation": "    <h3>Explanation</h3>     <p>You have a class <code>Book</code>:</p>     <p>         class Book:<br>         &emsp;def __init__(self, title, author, pages):<br>         &emsp;&emsp;self.title = title<br>         &emsp;&emsp;self.author = author<br>         &emsp;&emsp;self.pages = pages<br><br>         &emsp;def read_book(self):<br>         &emsp;&emsp;return f\"Reading {self.title} by {self.author}\"<br><br>         &emsp;def flip_pages(self, page_number):<br>         &emsp;&emsp;if page_number > self.pages:<br>         &emsp;&emsp;&emsp;raise ValueError(\"Page number exceeds total pages of the book.\")<br>         &emsp;&emsp;return f\"Flipping to page {page_number} of {self.title}\"<br>     </p>     <p>Consider the pytest class on the right, which is importing and using the <code>Book</code> class to test it.</p>     <p>Your goal is to spot bugs in the code of the tests.</p>",
+            "selectables": [
+                "20-57",
+                "89-117",
+                "12-20",
+                "12-30"
+            ],
+            "solution": [
+                false,
+                false,
+                "true",
+                "true",
+                "true",
+                "False"
+            ]
         },
         "mission_12": {
+            "storyline": "python",
             "difficulty": "hard",
             "kind": "e2e",
             "questions": {
@@ -112,7 +164,26 @@
             "explanation": "",
             "points": "150"
         },
+        "mission_13": {
+            "storyline": "java",
+            "difficulty": "easy",
+            "kind": "unit",
+            "questions": {
+            },
+            "name": "Coming soon...",
+            "threshold": "100",
+            "learning": {
+                "exerciseLink": "",
+                "learningLink": "",
+                "resourceLink": "",
+                "content": ""
+            },
+            "type": "ms",
+            "explanation": "",
+            "points": "50"
+        },
         "mission_2": {
+            "storyline": "python",
             "difficulty": "easy",
             "kind": "security",
             "name": "Login Bypass",
@@ -153,6 +224,7 @@
             "points": 50
         },
         "mission_3": {
+            "storyline": "python",
             "difficulty": "easy",
             "solution": [
                 "email",
@@ -182,6 +254,7 @@
             "points": 50
         },
         "mission_4": {
+            "storyline": "python",
             "difficulty": "easy",
             "solution": [
                 "Calculator()",
@@ -224,6 +297,7 @@
             "points": 50
         },
         "mission_5": {
+            "storyline": "python",
             "difficulty": "easy",
             "solution": [
                 "files.php",
@@ -259,6 +333,7 @@
             }
         },
         "mission_6": {
+            "storyline": "python",
             "difficulty": "medium",
             "solution": [
                 "5",
@@ -288,6 +363,7 @@
             "points": 100
         },
         "mission_7": {
+            "storyline": "python",
             "kind": "e2e",
             "blocks": [
                 "<br> <code> # Task 1: Navigate to Registration Page <br> driver.get(\"http://example.com/register\") <br><br><br># Task 2: Fill in Registration Form <br><br>driver.find_element_by_id</code>",
@@ -326,10 +402,11 @@
                 "\"Login\" in driver.title",
                 "driver.title == \"Login\""
             ],
-            "text": "\"\"",
-            "time": 60
+            "time": 60,
+            "text": ""
         },
         "mission_8": {
+            "storyline": "python",
             "difficulty": "medium",
             "solution": [
                 false,
@@ -369,6 +446,7 @@
             "points": 100
         },
         "mission_9": {
+            "storyline": "python",
             "difficulty": "medium",
             "kind": "unit",
             "blocks": [
