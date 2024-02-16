@@ -67,7 +67,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 	: null )
 }
 
-export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, missionChapter, exercisePoints, exerciseArguments, exerciseThreshold, time }) {
+export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, missionChapter, exercisePoints, exerciseArguments, exerciseThreshold, time, hint }) {
 	const [correctness, setCorrectness] = useState(0);
 	const [isDialogVisible, setVisibleDialog] = useState(false);
 	const [isUnlockingNewChapter, setUnlockNewChapter] = useState(false);
@@ -147,6 +147,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				<SplitterPanel className="border-l-4 overflow-auto" minSize={20} size={60}>
 					<div id="pane2_1" className="h-full">
 						<div className="p-4 text-white">
+							<div className="text-xl mb-4 font-bold">{hint}</div>
 							<Exercise
 								onScoreComputed={handleCorrectnessComputed}
 								{...exerciseArguments}

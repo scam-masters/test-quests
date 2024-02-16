@@ -19,6 +19,7 @@ export default async function Exercise({ params }) {
 
   let exercise;
   let exerciseArgs;
+  let hint;
 
   switch (missionContent.type) {
     case "dnd":
@@ -31,6 +32,7 @@ export default async function Exercise({ params }) {
           () => Math.random() - 0.5
         ), // shuffle to obtain options
       };
+      hint = "Drag and drop the blue blocks to fill all the blanks."
       break;
     case "sd":
       exercise = DropdownExercise;
@@ -40,6 +42,7 @@ export default async function Exercise({ params }) {
         name: missionContent.name,
         text: missionContent.text,
       };
+      hint = "Select the correct option from the dropdowns to fill all the blanks."
       break;
     case "mm":
       exercise = DragAndDropMmExercise;
@@ -48,6 +51,7 @@ export default async function Exercise({ params }) {
         solution: missionContent.solution,
         blocks: missionContent.blocks,
       };
+      hint = "Reorder the blue blocks to match the statements on the left."
       break;
     case "oc":
       exercise = OpenCloseExercise;
@@ -55,6 +59,7 @@ export default async function Exercise({ params }) {
         blocks: missionContent.blocks,
         solution: missionContent.solution,
       };
+      hint = "Write your answers in the empty spaces."
       break;
     case "debug":
       exercise = DebugExercise;
@@ -65,10 +70,12 @@ export default async function Exercise({ params }) {
         }),
         solution: missionContent.solution,
       };
+      hint = "Select the buggy statements to fix the code."
       break
     case "ms":
       exercise = MultipleSelection;
       exerciseArgs = missionContent;
+      hint = "Select all the correct answers among the options."
   }
 
   /* Placeholder content for exercise explanation */
@@ -94,6 +101,7 @@ export default async function Exercise({ params }) {
         exercisePoints={missionContent.points}
         exerciseThreshold={missionContent.threshold}
         time={missionContent.time}
+        hint={hint}
       />
   );
 }
