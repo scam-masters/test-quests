@@ -22,7 +22,7 @@ def navigate_to_debug_exercise(driver, base_url):
 
 def get_choices(driver):
     return [
-        driver.find_element(By.XPATH, f"/html/body/div[1]/div[1]/div[3]/div/div/code/button[{i}]")
+        driver.find_element(By.XPATH, f"//div[@id='pane2_1']//code//button[{i}]")
         for i in range(1, 11)
     ]
 
