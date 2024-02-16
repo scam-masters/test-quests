@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { getAuth } from "firebase/auth";
 import Button from '@/components/button/button';
 
-import { getMissionList } from '@/app/actions';
 import { getUserData, getUserScoreForMission } from '@/app/user_actions';
 import CircleMission from '@/components/button/circle_mission';
 
@@ -18,6 +17,7 @@ export default function Chapter({ params }) {
     const router = useRouter()
     const [visible_dialog, setVisibleDialog] = useState(false);
     const [missions, setMissions] = useState([])
+    const [storyline, setStoryline] = useState("")
     const difficulty = params.difficulty.charAt(0).toUpperCase() + params.difficulty.slice(1)
     const chapterName = getChapterName(difficulty)
 
@@ -44,8 +44,17 @@ export default function Chapter({ params }) {
     // ******************* Retrieve missions and user progress ******************* //
     async function retrieveMissions(difficultyLevel) {
         const userInfo = await getUserData()
+        
+        // TODO: change it by filtering also by the storiline
         const missions = await getMissionsByDifficulty(difficultyLevel) //  Retrieve the list of missions by difficulty level from the database
         const result = []
+
+        // Set the proper storyline for the chapter
+        // TODO: change the way of setting the storyline by
+            // putting chapter inside storyline folder
+            // getting the storyline from the link (params)
+        if (missions.length > 0)
+            setStoryline(missions[0].data.storyline)
 
         // For each mission, check if it is included in the user progress
         // If so, show the mission as unlocked, otherwise show it locked
@@ -152,9 +161,9 @@ export default function Chapter({ params }) {
 
             {/* "Go back to main page" button */}
             <div className="fixed bottom-0 p-5 left-0 mb-5 z-50">
-                <Link href="/">
+                <Link href={`/storyline/${storyline}`}>
                     <Button type='blue' id="back_to_main">
-                        Go back to main page
+                        Go back to storyline
                     </Button>
                 </Link>
             </div>

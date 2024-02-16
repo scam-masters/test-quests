@@ -29,13 +29,29 @@ export async function getExerciseData(exerciseName) {
 	return result
 }
 
+export async function getStorylineList() {
+	let storylineList = []
+	try {
+		const querySnapshot = await getDocs(collection(db, "exercises"));
+		querySnapshot.forEach((doc) => {
+			if (!storylineList.includes(doc.data().storyline)) {
+				storylineList.push(doc.data().storyline)
+			}
+		});
+	} catch (error) {
+		console.log("Error getting storylines: ", error);
+	}
+	return storylineList;
+}
 // Retrieve the list of missions from the database to initialize the user progress
-export async function getMissionList() {
+export async function getMissionList(language) {
 	let missionList = []
 	try {
 		const querySnapshot = await getDocs(collection(db, "exercises"));
 		querySnapshot.forEach((doc) => {
-			missionList.push({ id: doc.id, data: doc.data() });
+			if (doc.data().storyline == language) {
+				missionList.push({ id: doc.id, data: doc.data() });
+			}
 		});
 	} catch (error) {
 		console.log("Error getting missions: ", error);
