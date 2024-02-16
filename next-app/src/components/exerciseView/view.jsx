@@ -133,10 +133,10 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 	return (
 		<>
 			{time && Timer({ time: remainingTime })}
-			<Splitter className="h-3/4 border-4 m-2" gutterSize={10}>
+			<Splitter className="flex-auto h-0 border-4 m-2" gutterSize={10}>
 				{/* Column for the exercise description */}
 				<SplitterPanel
-					className="flex flex-col border-r-4 overflow-y-auto scrollbar-hide"
+					className="flex flex-col border-r-4 overflow-y-scroll"
 					minSize={20}
 					size={40}
 				>
@@ -144,7 +144,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				</SplitterPanel>
 
 				{/* Right column for drag and drop */}
-				<SplitterPanel className="border-l-4" minSize={20} size={60}>
+				<SplitterPanel className="border-l-4 overflow-y-scroll" minSize={20} size={60}>
 					<div id="pane2_1" className="h-full">
 						<div className="p-4 text-white">
 							<Exercise

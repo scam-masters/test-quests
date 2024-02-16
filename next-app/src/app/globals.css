@@ -110,7 +110,7 @@ pre code {
 }
 
 #timer {
-	@apply border-2 mx-auto my-2 p-2 bg-tq-primary;
+	@apply border-2 mx-auto mt-2 p-2 bg-tq-primary;
 	width: 5em;
 	text-align: center;
 	font-size: 2em;

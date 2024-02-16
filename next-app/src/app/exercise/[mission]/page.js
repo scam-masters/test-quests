@@ -82,9 +82,8 @@ export default async function Exercise({ params }) {
   /* Placeholder content for exercise link to its chapter page */
   const missionChapter = "/chapter/" + missionContent.difficulty;
 
+  /* Use the LearningComponent with mission-specific content */
   return (
-    <div>
-      {/* Use the LearningComponent with mission-specific content */}
       <ExerciseView
         missionId={missionContent.id}
         missionChapter={missionChapter}
@@ -96,6 +95,5 @@ export default async function Exercise({ params }) {
         exerciseThreshold={missionContent.threshold}
         time={missionContent.time}
       />
-    </div>
   );
 }
