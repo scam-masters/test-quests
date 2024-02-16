@@ -136,7 +136,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 			<Splitter className="flex-auto h-0 border-4 m-2" gutterSize={10}>
 				{/* Column for the exercise description */}
 				<SplitterPanel
-					className="flex flex-col border-r-4 overflow-y-scroll"
+					className="flex flex-col border-r-4 overflow-auto"
 					minSize={20}
 					size={40}
 				>
@@ -144,7 +144,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				</SplitterPanel>
 
 				{/* Right column for drag and drop */}
-				<SplitterPanel className="border-l-4 overflow-y-scroll" minSize={20} size={60}>
+				<SplitterPanel className="border-l-4 overflow-auto" minSize={20} size={60}>
 					<div id="pane2_1" className="h-full">
 						<div className="p-4 text-white">
 							<Exercise
@@ -168,7 +168,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				missionId={missionId}
 			/>
 
-			<div className="grid grid-cols-3 justify-between  mx-auto ml-4 mr-4">
+			<div className="grid grid-cols-3 justify-between mx-auto ml-4 mr-4">
 				<Link href={missionChapter}>
 					<Button type='blue'>
 						Go back to chapter page
