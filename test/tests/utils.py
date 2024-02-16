@@ -33,6 +33,11 @@ def wait_chapter3_landing_render(driver):
     # landing page by searching an element with the text "Chapter 1"
     driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 3')]")
 
+def wait_storyline1_render(driver):
+    driver.find_element(By.XPATH, "//button[contains(text(), 'Chapter 3')]")
+
+
+
 
 def login(driver, email, password, wait_for_landing=True):
 
