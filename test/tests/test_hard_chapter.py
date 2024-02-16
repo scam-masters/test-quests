@@ -1,9 +1,9 @@
 import pytest
 from selenium.webdriver.common.by import By
-
+from time import sleep
 
 from utils import login
-from utils import wait_chapter3_landing_render
+from utils import wait_chapter3_landing_render, wait_storyline1_render
 
 
 @pytest.fixture(scope="class", autouse=True)
@@ -20,6 +20,8 @@ def navigate_to_hard_chapter(driver, base_url):
 
 class TestChapterPageSuccess:
     def test_first_mission_unlocked(self, driver):
+        wait_chapter3_landing_render(driver)
+
         first_circle_mission = driver.find_element(
             By.XPATH, "/html/body/div[1]/div[1]/a/button"
         )
@@ -31,5 +33,10 @@ class TestChapterPageSuccess:
         # print(go_back_button_xpath.text)
         assert go_back_button_xpath.text == "Go back to storyline"
 
+        # the chapter page has a state which is initialized with an empty string, so 
+        # the link does not work without waiting 🤡
+        sleep(1)
         go_back_button_xpath.click()
-        wait_chapter3_landing_render(driver)
+
+        # there should be a button to go to the chapter 3
+        wait_storyline1_render(driver)
