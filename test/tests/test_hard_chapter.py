@@ -29,7 +29,7 @@ class TestChapterPageSuccess:
         go_back_button_xpath = driver.find_element(By.ID, "back_to_main")
 
         # print(go_back_button_xpath.text)
-        assert go_back_button_xpath.text == "Go back to main page"
+        assert go_back_button_xpath.text == "Go back to storyline"
 
         go_back_button_xpath.click()
         wait_chapter3_landing_render(driver)
