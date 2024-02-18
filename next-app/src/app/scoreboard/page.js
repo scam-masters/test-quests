@@ -1,12 +1,15 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ScoreboardComponent from '@/components/Scoreboard/scoreboard'
 
 import { getScoreboardData } from "@/app/user_actions"
 
-export default async function Scoreboard() {
+export default function Scoreboard() {
     // scoreboardContent returns an array of couples (name, score)
-    const scoreboardContent = await getScoreboardData();
+    const [scoreboardContent, setScoreboardContent] = useState([]);
+    useEffect(() => {
+        getScoreboardData().then(setScoreboardContent)
+    }, [])
     return (
         <div>
             {/* Use the ScoreboardComponent with data retrieved from backend */}
