@@ -11,34 +11,11 @@ export default function Landing() {
     const router = useRouter()
     const [storylines, setStorylines] = useState([])
 
-    // ******************* Retrieve storylines and user progress ******************* //
-    async function retrieveStorylines() {
-        const storylines = await getStorylineList()
-        return DisplayStorylines(storylines);
-    }
-
-    function DisplayStorylines(storylines) {
-
-        return (
-            <div>
-                {storylines.map((storyline, index) => (
-                    <div key={`${storyline}_${index}`} className='text-center m-5 align-middle'>
-                        <Link href={`/storyline/${storyline}`} id={`storyline_${index}`}>
-                            <CircleMission type={'gradient-' + (index % 3)}>
-                                {storyline.charAt(0).toUpperCase() + storyline.slice(1)}
-                            </CircleMission>
-                        </Link>
-                    </div>
-                ))}
-            </div>
-        );
-    }
-
     useEffect(() => {
         /* when logged in show storylines, otherwise go to login page */
         getAuth().onAuthStateChanged(function (user) {
             if (user) {
-                retrieveStorylines().then(newStorylines => {
+                getStorylineList().then(newStorylines => {
                     setStorylines(newStorylines)
                 })
             } else
@@ -47,8 +24,18 @@ export default function Landing() {
     }, []);
 
     return (
-        <div className='p-10'>
-            {storylines}
-        </div>
+        < div className='p-10' >
+            {
+                storylines.map((storyline, index) => (
+                    <div key={`${storyline}_${index}`} className='text-center m-5 align-middle'>
+                        <Link href={`/storyline/${storyline}`} id={`storyline_${index}`}>
+                            <CircleMission type={'gradient-' + (index % 3)}>
+                                {storyline.charAt(0).toUpperCase() + storyline.slice(1)}
+                            </CircleMission>
+                        </Link>
+                    </div>
+                ))
+            }
+        </div >
     );
 }
