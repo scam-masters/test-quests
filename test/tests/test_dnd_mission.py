@@ -27,7 +27,8 @@ class TestFirstMission:
 
     def get_targets(self, driver):
         return [
-            driver.find_element(By.XPATH, self.empty_block_xpath(i)) for i in range(1, 8)
+            driver.find_element(By.XPATH, self.empty_block_xpath(i))
+            for i in range(1, 8)
         ]
 
     def get_elements(self, driver):
@@ -84,9 +85,8 @@ class TestFirstMission:
         action_chains.drag_and_drop(elements[3], targets[3]).perform()
         action_chains.drag_and_drop(elements[4], targets[2]).perform()
         action_chains.drag_and_drop(elements[5], targets[1]).perform()
-        action_chains.drag_and_drop(elements[6], targets[0]).perform()
 
         submit_button.click()
         popup = get_exercise_popup(driver)
 
-        assert "You need more effort!" in popup.text
+        assert "You need to fill all the blanks!" in popup.text

@@ -1,11 +1,11 @@
 from selenium.webdriver.common.by import By
-from utils import login, assert_to_be_on_landing
+from utils import login, wait_landing_render
 
 
 class TestLoginSuccessful:
     def test_login_success(self, driver, user_50_points):
         login(driver, user_50_points[0], user_50_points[1])
-        assert_to_be_on_landing(driver)
+        wait_landing_render(driver)
 
 
 class TestLoginUnsuccessful:

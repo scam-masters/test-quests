@@ -1,4 +1,4 @@
-"use server"
+"use client"
 
 import { db, app } from "../firebase/index";
 import { doc, getDoc, getDocs, setDoc, query, collection, where, or } from "firebase/firestore";
@@ -60,12 +60,16 @@ export async function getMissionList(language) {
 }
 
 // Retrieve the list of missions for a certain chapter (so for the difficulty level)
-export async function getMissionsByDifficulty(difficultyLevel) {
+export async function getChapterMissions(difficultyLevel, storyline) {
 	let missionList = [];
 	try {
 		// Create a query to filter documents based on difficulty
-		const q = query(collection(db, 'exercises'), where('difficulty', '==', difficultyLevel));
-
+		const q = query(
+			collection(db, 'exercises'), 
+			where('difficulty', '==', difficultyLevel),
+			where('storyline', '==', storyline)
+		);
+		
 		// Execute the query
 		const querySnapshot = await getDocs(q);
 

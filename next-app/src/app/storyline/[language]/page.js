@@ -65,7 +65,7 @@ export default function Storyline({ params }) {
                 {chapters.map((chapter, index) => (
                     <div key={chapter.id} className='text-center m-5 align-middle'>
                         {index < counter ? (
-                            <Link href={chapter.chapterLink} id={"chapter_"+chapter.id}>
+                            <Link href={`${params.language}/${chapter.chapterLink}`} id={`chapter_${chapter.id}`}>
                                 <CircleMission type={'gradient-' + (chapter.id % 3)}>
                                     {chapter.title}
                                 </CircleMission>

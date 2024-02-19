@@ -1,14 +1,22 @@
-"use server"
-import React from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import LearningComponent from '@/components/Learning/learning'
 
 import { getExerciseData } from "@/app/actions"
+import Loading from "@/components/Loading";
 
 // Learning Component
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
-export default async function Learning({ params }) {
+export default function Learning({ params }) {
+	const [missionContent, setMissionContent] = useState(null)
+
 	// Get the current mission
-	const missionContent = await getExerciseData(`mission_${params.mission}`);
+	useEffect(() => {
+		getExerciseData(`mission_${params.mission}`).then(setMissionContent);
+	})
+
+	if (!missionContent)
+		return <Loading />
 
 	/* Placeholder content for learning page explanation */
 	const learningContent = (

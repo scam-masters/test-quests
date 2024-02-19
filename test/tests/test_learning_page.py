@@ -1,7 +1,7 @@
 import pytest
 from selenium.webdriver.common.by import By
 
-from utils import login, assert_to_be_on_landing, assert_to_be_on_exercise
+from utils import login, wait_chapter1_landing_render, assert_to_be_on_exercise
 
 
 @pytest.fixture(scope="class", autouse=True)
@@ -26,7 +26,7 @@ class TestLearningPages:
     def test_learning_pages(self, driver, base_url, learning_url):
         driver.get(base_url + learning_url)
         self.get_buttons(driver)[0].click()
-        assert_to_be_on_landing(driver)
+        wait_chapter1_landing_render(driver)
 
         driver.get(base_url + learning_url)
         self.get_buttons(driver)[2].click()

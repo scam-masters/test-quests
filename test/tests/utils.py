@@ -17,9 +17,11 @@ def get_first_circle_chapter(driver):
 
 
 def wait_landing_render(driver):
-    # same as before check the presence of the first circle mission in the
-    # landing page by searching an element with the text "Chapter 1"
-    driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/a/button")
+    driver.find_element(By.XPATH, "//button[contains(text(), 'Python')]")
+
+
+def wait_chapter1_landing_render(driver):
+    driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 1')]")
 
 
 def wait_chapter2_landing_render(driver):
@@ -41,13 +43,13 @@ def wait_storyline1_render(driver):
 
 def login(driver, email, password, wait_for_landing=True):
 
-    def wait_for_email_element(driver):
-        # added because in some tests doesn't render the email element
-        wait = WebDriverWait(driver, 10)
-        email_element = wait.until(EC.presence_of_element_located((By.ID, "email")))
-        return email_element
+    # def wait_for_email_element(driver):
+    #     # added because in some tests doesn't render the email element
+    #     wait = WebDriverWait(driver, 10)
+    #     email_element = wait.until(EC.presence_of_element_located((By.ID, "email")))
+    #     return email_element
 
-    e = wait_for_email_element(driver)
+    e = driver.find_element(By.ID, "email")
     p = driver.find_element(By.ID, "password")
     s = driver.find_element(By.XPATH, "//button[@type='submit']")
 
@@ -80,8 +82,7 @@ def get_exercise_popup(driver):
 
 """General"""
 
-
-def assert_to_be_on_landing(driver):
+def assert_to_be_on_storyline(driver):
     first_circle_mission = get_first_circle_chapter(driver)
     assert "Chapter 1" in first_circle_mission.text
 
