@@ -1,10 +1,11 @@
 "use client"
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import { getProfileData } from "@/app/actions"
 
 import ProfileView from '@/components/profileView/view'
+import Loading from "@/components/Loading";
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 export default function Profile({ params }) {
