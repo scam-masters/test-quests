@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import LearningComponent from '@/components/Learning/learning'
 
 import { getExerciseData } from "@/app/actions"
+import Loading from "@/components/Loading";
 
 // Learning Component
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
