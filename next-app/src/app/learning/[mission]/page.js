@@ -12,7 +12,8 @@ export default function Learning({ params }) {
 
 	// Get the current mission
 	useEffect(() => {
-		getExerciseData(`mission_${params.mission}`).then(setMissionContent);
+		if (!missionContent)
+			getExerciseData(`mission_${params.mission}`).then(setMissionContent);
 	})
 
 	if (!missionContent)
@@ -26,10 +27,11 @@ export default function Learning({ params }) {
 	missionContent.learning.chapterLink = "/chapter/" + missionContent.difficulty;
 	missionContent.learning.contentHTML = learningContent;
 
+	console.log(missionContent)
 	return (
 		<div>
 			{/* Use the LearningComponent with mission-specific content */}
-			<LearningComponent {...missionContent.learning} />
+			<LearningComponent {...missionContent.learning} storyline={missionContent.storyline} />
 		</div>
 	);
 }

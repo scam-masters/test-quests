@@ -11,7 +11,8 @@ import Loading from "@/components/Loading";
 export default function Profile({ params }) {
     const [profileContent, setProfileContent] = useState(null)
     useEffect(() => {
-        getProfileData(params.username).then(setProfileContent);
+        if (!profileContent)
+            getProfileData(params.username).then(setProfileContent);
     })
 
     if (!profileContent) {

@@ -5,9 +5,14 @@ import { getAuth } from "firebase/auth";
 import { addFriendRequest, acceptFriendRequest, declineFriendRequest, getUserData, getAvatarByUsername } from "@/app/user_actions.js"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers, faBell, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { app } from "@/firebase/index";
+import { useRouter } from "next/navigation";
+
+const auth = getAuth(app);
 
 export default function ProfileView({ email, avatar, badges, username, friends, friendRequests, score }) {
-
+    
+    const router = useRouter();
     const [isOwner, setIsOwner] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
     const [friendsList, setFriendsList] = useState(friends);
@@ -95,6 +100,10 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
 
                                 <h1 className="text-5xl font-bold mr-8">{username}</h1>
                                 {isOwner && <Button type='blue' href="/changeUsername">Change Username</Button>}
+                                {isOwner && <Button type='blue' onClick={() => {
+                                    auth.signOut();
+                                    router.push("/Login")
+                                }}>Logout</Button>}
 
                             </div>
                             {isOwner && <p className="text-xl mt-4">Email: {email}</p>}
@@ -103,7 +112,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
 
                             <div className="flex flex-row ">
                                 {badges.map((badge, index) => (
-                                    <img title={badge.replace("_", " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
+                                    <img title={badge.replace(/_/g, " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
                                 ))}
                             </div>
                         </div>
