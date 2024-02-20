@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Button from "@/components/button/button";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { updateUserScore, updateInitialScore, updateChapterUnlocking } from "@/app/user_actions.js"
+import { checkStorylineCompletion } from "@/app/actions.js"
 
 import Link from "next/link"
 
@@ -10,10 +11,11 @@ export function Timer({ time }) {
 	return (<div id="timer">{Math.floor(time / 60).toString().padStart(2, "00")}:{(time % 60).toString().padStart(2, "00")}</div>)
 }
 
-function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, missionChapter, threshold, missionId }) {
+function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, isFinishedStoryline, missionChapter, threshold, missionId }) {
 	let title = `${correctness}%`
 	let resultMsg
 	let chapterMsg = ""
+	let newChapter = newChapterUnlock
 	let missionNumber = missionId.split('_')[1]
 	let button = <Button type="green" href={`/learning/${missionNumber}`}>Let's try again!</Button>
 
@@ -24,11 +26,18 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 			You have earned {exercisePoints} points!
 		</>
 		let continueButton
-		if (newChapterUnlock) {
+		// add the message for the finish storyline
+		if(isFinishedStoryline){
+			chapterMsg = "Congratulation! You have finished this storyline!"
+			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>
+			newChapter = false
+		}
+		if (newChapter) {
 			chapterMsg = "You have unlocked the next Chapter!"
 			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>
 		}
 		else {
+			if(!isFinishedStoryline)
 			continueButton = <Button classNames="mt-2" type="blue" href={missionChapter}>Continue</Button>
 		}
 		if (correctness < 100) {
@@ -71,6 +80,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 	const [correctness, setCorrectness] = useState(0);
 	const [isDialogVisible, setVisibleDialog] = useState(false);
 	const [isUnlockingNewChapter, setUnlockNewChapter] = useState(false);
+	const [isFinishedStoryline, setFinishedStoryline] = useState(false);
 	const [missionScore, setMissionScore] = useState(false);
 
 	const timeout = useRef(null)
@@ -115,13 +125,15 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 
 		const correctness = Math.round(computedCorrectness)
 		const unlock = await updateChapterUnlocking(missionId)
+		const finishedStoryline = await checkStorylineCompletion(missionId)
 		const missionScore = Math.round(exercisePoints * correctness / 100)
 
 		await updateUserScore(missionId, missionScore, correctness, exerciseThreshold)
 
 		setCorrectness(correctness);
-		setUnlockNewChapter(unlock)
-		setMissionScore(missionScore)
+		setUnlockNewChapter(unlock);
+		setFinishedStoryline(finishedStoryline);
+		setMissionScore(missionScore);
 		setVisibleDialog(true);
 	};
 
@@ -164,6 +176,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				exercisePoints={missionScore}
 				visible={isDialogVisible}
 				newChapterUnlock={isUnlockingNewChapter}
+				isFinishedStoryline={isFinishedStoryline}
 				missionChapter={missionChapter}
 				threshold={exerciseThreshold}
 				missionId={missionId}

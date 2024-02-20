@@ -3,6 +3,7 @@
 import { db, app } from "../firebase/index";
 import { doc, getDoc, getDocs, setDoc, query, collection, where, or } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getUserData, setUserData } from "./user_actions";
 
 export async function getProfileData(username) {
 	const usersRef = collection(db, "users")
@@ -81,6 +82,37 @@ export async function getChapterMissions(difficultyLevel, storyline) {
 		console.log('Error getting missions: ', error);
 	}
 	return missionList;
+}
+
+export async function getMIssionById(mission_id){
+	const docRef = doc(db, "exercises", mission_id);
+	const document = await getDoc(docRef);
+	const result = document.data();
+	result.id = document.id;
+	return result;
+}
+
+// check if the user have finished the storyline
+export async function checkStorylineCompletion(mission_id) {
+	try {
+		const missionData = await getMIssionById(mission_id);
+		const difficulty = missionData.difficulty;
+		const storyline = missionData.storyline;
+		getChapterMissions(difficulty, storyline).then(async (missions) => {
+			// if the mission is the last mission of the storyline thank return true
+			const lastMission = missions[missions.length - 1];
+			if (lastMission.id === mission_id) {
+				const userData = await getUserData()
+				userData.badges.push(`storyline_completion_${storyline}`)
+				setUserData(userData)
+				return true;
+			} else {
+				return false;
+			}
+		});
+	}catch (error) {
+		console.log("Error getting missions: ", error);
+	}
 }
 
 // Validate email address
