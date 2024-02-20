@@ -14,8 +14,8 @@ export function Timer({ time }) {
 function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, isFinishedStoryline, missionChapter, threshold, missionId }) {
 	let title = `${correctness}%`
 	let resultMsg
+	let storylineMsg = ""
 	let chapterMsg = ""
-	let newChapter = newChapterUnlock
 	let missionNumber = missionId.split('_')[1]
 	let button = <Button type="green" href={`/learning/${missionNumber}`}>Let's try again!</Button>
 
@@ -27,18 +27,14 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 		</>
 		let continueButton
 		// add the message for the finish storyline
-		if(isFinishedStoryline){
-			chapterMsg = "Congratulation! You have finished this storyline!"
-			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>
-			newChapter = false
-		}
-		if (newChapter) {
-			chapterMsg = "You have unlocked the next Chapter!"
-			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>
-		}
-		else {
-			if(!isFinishedStoryline)
-			continueButton = <Button classNames="mt-2" type="blue" href={missionChapter}>Continue</Button>
+		if (isFinishedStoryline) {
+			storylineMsg = "Congratulations! You have finished this storyline!";
+			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>;
+		}else if (newChapterUnlock) {
+			chapterMsg = "You have unlocked the next Chapter!";
+			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>;
+		} else {
+			continueButton = <Button classNames="mt-2" type="blue" href={missionChapter}>Continue</Button>;
 		}
 		if (correctness < 100) {
 			button = <>
@@ -67,6 +63,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 					<p className="text-center mb-4 text-4xl">{title}</p>
 					<p className="text-center mb-4 text-xl">{resultMsg}</p>
 					<p className="text-center mb-4 text-xl">{chapterMsg}</p>
+					<p className="text-center mb-4 text-xl">{storylineMsg}</p>
 				</div>
 				<div className="flex flex-col w-full justify-center mt-4">
 					{button}
@@ -126,6 +123,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		const correctness = Math.round(computedCorrectness)
 		const unlock = await updateChapterUnlocking(missionId)
 		const finishedStoryline = await checkStorylineCompletion(missionId)
+		console.log("finished storyline ", finishedStoryline)
 		const missionScore = Math.round(exercisePoints * correctness / 100)
 
 		await updateUserScore(missionId, missionScore, correctness, exerciseThreshold)

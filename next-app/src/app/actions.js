@@ -94,25 +94,24 @@ export async function getMIssionById(mission_id){
 
 // check if the user have finished the storyline
 export async function checkStorylineCompletion(mission_id) {
-	try {
-		const missionData = await getMIssionById(mission_id);
-		const difficulty = missionData.difficulty;
-		const storyline = missionData.storyline;
-		getChapterMissions(difficulty, storyline).then(async (missions) => {
-			// if the mission is the last mission of the storyline thank return true
-			const lastMission = missions[missions.length - 1];
-			if (lastMission.id === mission_id) {
-				const userData = await getUserData()
-				userData.badges.push(`storyline_completion_${storyline}`)
-				setUserData(userData)
-				return true;
-			} else {
-				return false;
-			}
-		});
-	}catch (error) {
-		console.log("Error getting missions: ", error);
+
+	const missionData = await getMIssionById(mission_id);
+	const difficulty = missionData.difficulty;
+	const storyline = missionData.storyline;
+	const missions = await getChapterMissions(difficulty, storyline);
+	// if the mission is the last mission of the storyline thank return true
+	console.log(missions.length)
+	const lastMission = missions[missions.length - 1];
+	if (lastMission.id === mission_id) {
+		// check that the user doesn't have this badge already
+		const userData = await getUserData()
+		if (!userData.badges.includes(`storyline_completion_${storyline}`)) {
+			userData.badges.push(`storyline_completion_${storyline}`)
+		}
+		setUserData(userData)
+		return true;
 	}
+	return false;
 }
 
 // Validate email address
