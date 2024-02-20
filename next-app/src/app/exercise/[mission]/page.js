@@ -18,7 +18,8 @@ export default function Exercise({ params }) {
 	// Get the current mission
 	const [missionContent, setMissionContent] = useState(null)
 	useEffect(() => {
-		getExerciseData(`mission_${params.mission}`).then(setMissionContent)
+		if (!missionContent)
+			getExerciseData(`mission_${params.mission}`).then(setMissionContent)
 	})
 
 	if (!missionContent)

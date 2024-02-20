@@ -9,7 +9,8 @@ export default function Scoreboard() {
 	// scoreboardContent returns an array of couples (name, score)
 	const [scoreboardContent, setScoreboardContent] = useState(null);
 	useEffect(() => {
-		getScoreboardData().then(setScoreboardContent)
+		if (!scoreboardContent)
+			getScoreboardData().then(setScoreboardContent)
 	}, [])
 	if (!scoreboardContent)
 		return <Loading />
