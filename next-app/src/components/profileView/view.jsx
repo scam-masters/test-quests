@@ -103,7 +103,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
 
                             <div className="flex flex-row ">
                                 {badges.map((badge, index) => (
-                                    <img title={badge.replace("_", " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
+                                    <img title={badge.replace(/_/g, " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
                                 ))}
                             </div>
                         </div>
