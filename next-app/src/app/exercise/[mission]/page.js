@@ -16,14 +16,21 @@ import Loading from "@/components/Loading";
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 export default function Exercise({ params }) {
 	// Get the current mission
-	const [missionContent, setMissionContent] = useState(null)
-	useEffect(() => {
-		if (!missionContent)
-			getExerciseData(`mission_${params.mission}`).then(setMissionContent)
-	})
+	const [missionContent, setMissionContent] = useState(null);
+	const [embed, setEmbed] = useState(false);
 
-	if (!missionContent)
-		return <Loading />
+	useEffect(() => {
+		if (!missionContent) {
+			getExerciseData(`mission_${params.mission}`).then((result) => {
+				setMissionContent(result);
+				setEmbed(result.embedding ? true : false);
+			});
+		}
+	}); // Add missionContent and params.mission as dependencies
+
+	if (!missionContent) {
+		return <Loading />;
+	}
 
 	let exercise;
 	let exerciseArgs;
@@ -40,7 +47,7 @@ export default function Exercise({ params }) {
 					() => Math.random() - 0.5
 				), // shuffle to obtain options
 			};
-			hint = "Drag and drop the blue blocks to fill all the blanks."
+			hint = "Drag and drop the blue blocks to fill all the blanks.";
 			break;
 		case "sd":
 			exercise = DropdownExercise;
@@ -50,7 +57,7 @@ export default function Exercise({ params }) {
 				name: missionContent.name,
 				text: missionContent.text,
 			};
-			hint = "Select the correct option from the dropdowns to fill all the blanks."
+			hint = "Select the correct option from the dropdowns to fill all the blanks.";
 			break;
 		case "mm":
 			exercise = DragAndDropMmExercise;
@@ -59,7 +66,7 @@ export default function Exercise({ params }) {
 				solution: missionContent.solution,
 				blocks: missionContent.blocks,
 			};
-			hint = "Reorder the blue blocks to match the statements on the left."
+			hint = "Reorder the blue blocks to match the statements on the left.";
 			break;
 		case "oc":
 			exercise = OpenCloseExercise;
@@ -67,7 +74,7 @@ export default function Exercise({ params }) {
 				blocks: missionContent.blocks,
 				solution: missionContent.solution,
 			};
-			hint = "Write your answers in the empty spaces."
+			hint = "Write your answers in the empty spaces.";
 			break;
 		case "debug":
 			exercise = DebugExercise;
@@ -78,24 +85,40 @@ export default function Exercise({ params }) {
 				}),
 				solution: missionContent.solution,
 			};
-			hint = "Select the buggy statements to fix the code."
-			break
+			hint = "Select the buggy statements to fix the code.";
+			break;
 		case "ms":
 			exercise = MultipleSelection;
 			exerciseArgs = missionContent;
-			hint = "Select all the correct answers among the options."
+			hint = "Select all the correct answers among the options.";
 	}
-
-	/* Placeholder content for exercise explanation */
-	const exerciseExplanation = (
-		<div
-			className="p-4 text-white"
-			dangerouslySetInnerHTML={{ __html: missionContent.explanation }}
-		></div>
-	);
 
 	/* Placeholder content for exercise link to its chapter page */
 	const missionChapter = "/chapter/" + missionContent.difficulty;
+
+	/* Placeholder content for exercise explanation */
+	const exerciseExplanation = (
+		<>
+			{embed ? (
+				<>
+					<div
+						className="p-4 text-white"
+						dangerouslySetInnerHTML={{ __html: missionContent.explanation }}
+					></div>
+					<iframe
+						className="w-full h-full p-2"
+						src={missionContent.embedding}
+						title="Embed"
+					></iframe>
+				</>
+			) : (
+				<div
+					className="p-4 text-white"
+					dangerouslySetInnerHTML={{ __html: missionContent.explanation }}
+				></div>
+			)}
+		</>
+	);
 
 	/* Use the LearningComponent with mission-specific content */
 	return (
