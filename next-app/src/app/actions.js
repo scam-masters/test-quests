@@ -107,8 +107,8 @@ export async function checkStorylineCompletion(mission_id) {
 		const userData = await getUserData()
 		if (!userData.badges.includes(`storyline_completion_${storyline}`)) {
 			userData.badges.push(`storyline_completion_${storyline}`)
+			setUserData(userData)
 		}
-		setUserData(userData)
 		return true;
 	}
 	return false;
