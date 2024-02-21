@@ -95,7 +95,7 @@ export default function Exercise({ params }) {
 	);
 
 	/* Placeholder content for exercise link to its chapter page */
-	const missionChapter = "/chapter/" + missionContent.difficulty;
+	const missionChapter = "/storyline/" + missionContent.storyline + "/chapter/" + missionContent.difficulty;
 
 	/* Use the LearningComponent with mission-specific content */
 	return (
