@@ -42,15 +42,15 @@ export async function getUserData() {
 }
 
 export async function searchUsers(searchString) {
-	const usersRef = collection(db, "users")
-	const docs = await getDocs(query(usersRef, where("username", ">=", searchString), where("username", "<=", searchString + "\uf8ff")))
+    const usersRef = collection(db, "users")
+    const docs = await getDocs(query(usersRef, where("username", ">=", searchString), where("username", "<=", searchString + "\uf8ff")))
 
-	const result = []
-	docs.forEach(doc => {
-		result.push(doc.data())
-	})
+    const result = []
+    docs.forEach(doc => {
+        result.push(doc.data())
+    })
 
-	return result
+    return result
 }
 
 export async function setUserData(userData) {
@@ -63,7 +63,7 @@ export async function setUserData(userData) {
 export async function setNewUsername(auth, newUsername) {
     // check the username is not already taken
     const usersRef = collection(db, "users")
-	const docs = await getDocs(query(usersRef, where("username", "==", newUsername)))
+    const docs = await getDocs(query(usersRef, where("username", "==", newUsername)))
     if (!docs.empty) {
         throw new Error("Username already taken")
     }
@@ -129,23 +129,31 @@ export async function updateUserScore(missionId, newMissionScore, correctness, t
     if (newMissionScore > userData.missions[missionId].score) {
         // update user general score, substract the old mission score
         userData.score = Math.max(userData.score, 0) + newMissionScore - Math.max(userData.missions[missionId].score, 0)
-        
+
         // update mission data (relative to the user)
         userData.missions[missionId].score = newMissionScore
         userData.missions[missionId].timestamp = Date.now()
-        
-        // unlock the next mission only when we get max score
+
+        // unlock the next mission only when the user has achieved a correctness above the threshold
         if (correctness >= threshold) {
             const missionNumber = missionId.split("_")[1]
             const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
-            userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
 
             const exerciseDoc = await getDoc(doc(db, "exercises", missionId));
-            const exerciseData = await exerciseDoc.data(); 
+            const exerciseData = exerciseDoc.data();
+            const nextExerciseDoc = await getDoc(doc(db, "exercises", nextMissionId));
+            const nextExerciseData = nextExerciseDoc.data();
 
+            // if the next mission is in the same storyline unlock it
+            // otherwise, it means that the user has finished the storyline and nothing needs to be done
+            if (nextExerciseData.storyline == exerciseData.storyline)
+                userData.missions[nextMissionId] = { id: nextMissionId, score: -1 }
+
+            // query the db to check how many missions of the same kind the user has completed    
             const usersRef = collection(db, "users")
             const docsKind = await getDocs(query(usersRef, where("kind", "==", exerciseData.kind)))
-            
+
+            // if the user has completed 5 or 10 missions of the same kind, give him a badge
             if (docsKind.length === 5 || docsKind.length === 10) {
                 userData.badges.push(`${docsKind.length}_${userData.missions[missionId].kind}`)
             }
@@ -154,6 +162,8 @@ export async function updateUserScore(missionId, newMissionScore, correctness, t
             // query the db to check if a user already achieved 100% on this mission
             const usersRef = collection(db, "users")
             const docs = await getDocs(query(usersRef, where("missions." + missionId + ".score", "==", newMissionScore)))
+
+            // if the user is the first to achieve 100% on this mission, give him a first blood badge
             if (docs.empty) {
                 userData.badges.push("first_blood")
             }
@@ -189,13 +199,13 @@ export async function updateChapterUnlocking(missionId) {
         // Check if the documents exist and have the 'difficulty' field or if the storyline is finished if they have the same storyline
         if (missionDoc && nextMissionDoc && missionDoc.data().difficulty == nextMissionDoc.data().difficulty) {
             // The difficulties or the storyline are the same
-            if(missionDoc.data().storyline == nextMissionDoc.data().storyline){ 
+            if (missionDoc.data().storyline == nextMissionDoc.data().storyline) {
                 console.log("Same storyline")
                 return false
-            }{// in this way even if we start a storyline with hard difficulty we can obtain the badge of the chapter completion
+            } {// in this way even if we start a storyline with hard difficulty we can obtain the badge of the chapter completion
                 console.log("Different storylines")
                 const userData = await getUserData()
-                if(userData.badges.includes(`chapter_completion_${missionDoc.data().difficulty}`)) {
+                if (userData.badges.includes(`chapter_completion_${missionDoc.data().difficulty}`)) {
                     return false
                 }
                 userData.badges.push(`chapter_completion_${missionDoc.data().difficulty}`)
@@ -206,7 +216,7 @@ export async function updateChapterUnlocking(missionId) {
             // The difficulties are different or we have changed the storyline
             console.log("different difficulties or storylines")
             const userData = await getUserData()
-            if(userData.badges.includes(`chapter_completion_${missionDoc.data().difficulty}`)) {
+            if (userData.badges.includes(`chapter_completion_${missionDoc.data().difficulty}`)) {
                 return false
             }
             userData.badges.push(`chapter_completion_${missionDoc.data().difficulty}`)
@@ -223,40 +233,40 @@ export async function updateChapterUnlocking(missionId) {
 
 // Retrieve scoreboard data (mock for testing)
 export async function getScoreboardData() {
-	const usersRef = collection(db, "users")
+    const usersRef = collection(db, "users")
 
-	const docs = await getDocs(query(usersRef, where("score", ">=", 0)))
+    const docs = await getDocs(query(usersRef, where("score", ">=", 0)))
 
-	const data = []
+    const data = []
 
-	// maybe we can get clever with firebase and have it sort and compute last timestamp in the db
-	docs.forEach(doc => {
-		let timestamp = 0
-		let completedCount = 0
-		for (let key in doc.data().missions) {
-			let missionData = doc.data().missions[key]
-			if (missionData.timestamp) {
-				timestamp = Math.max(doc.data().missions[key].timestamp, timestamp)
-				completedCount += 1
-			}
-		}
+    // maybe we can get clever with firebase and have it sort and compute last timestamp in the db
+    docs.forEach(doc => {
+        let timestamp = 0
+        let completedCount = 0
+        for (let key in doc.data().missions) {
+            let missionData = doc.data().missions[key]
+            if (missionData.timestamp) {
+                timestamp = Math.max(doc.data().missions[key].timestamp, timestamp)
+                completedCount += 1
+            }
+        }
 
-		data.push({
-			username: doc.data().username,
-			score: doc.data().score,
-			timestamp: timestamp,
-			completedCount
-		})
-	})
+        data.push({
+            username: doc.data().username,
+            score: doc.data().score,
+            timestamp: timestamp,
+            completedCount
+        })
+    })
 
-	data.sort((a, b) => {
-		if (a.score == b.score && a.timestamp == b.timestamp)
-			return 0
-		if (a.score > b.score || (a.score == b.score && a.timestamp < b.timestamp))
-			return -1
-		return 1
-	})
-	return data
+    data.sort((a, b) => {
+        if (a.score == b.score && a.timestamp == b.timestamp)
+            return 0
+        if (a.score > b.score || (a.score == b.score && a.timestamp < b.timestamp))
+            return -1
+        return 1
+    })
+    return data
 }
 
 export async function addFriendRequest(receiverUsername) {
@@ -264,7 +274,7 @@ export async function addFriendRequest(receiverUsername) {
     console.log("Friends requests from: ", sender.username, " to: ", receiverUsername);
 
     const { data: receiver, ref: receiverRef } = await getUserByUsername(receiverUsername);
-    
+
     if (receiver.friends.includes(sender.username)) {
         throw new Error("Already friends");
     }
@@ -276,7 +286,7 @@ export async function addFriendRequest(receiverUsername) {
     if (sender.friend_requests.includes(receiver.username)) {
         throw new Error("Friend request already received from this user")
     }
-    
+
     receiver.friend_requests.push(sender.username);
     await updateUser(receiverRef, receiver);
 }

@@ -66,11 +66,11 @@ export async function getChapterMissions(difficultyLevel, storyline) {
 	try {
 		// Create a query to filter documents based on difficulty
 		const q = query(
-			collection(db, 'exercises'), 
+			collection(db, 'exercises'),
 			where('difficulty', '==', difficultyLevel),
 			where('storyline', '==', storyline)
 		);
-		
+
 		// Execute the query
 		const querySnapshot = await getDocs(q);
 
@@ -84,7 +84,7 @@ export async function getChapterMissions(difficultyLevel, storyline) {
 	return missionList;
 }
 
-export async function getMIssionById(mission_id){
+export async function getMIssionById(mission_id) {
 	const docRef = doc(db, "exercises", mission_id);
 	const document = await getDoc(docRef);
 	const result = document.data();
@@ -101,7 +101,7 @@ export async function getStorylineMissions(storyline) {
 			collection(db, 'exercises'),
 			where('storyline', '==', storyline)
 		);
-		
+
 		// Execute the query
 		const querySnapshot = await getDocs(q);
 
@@ -130,7 +130,7 @@ export async function checkStorylineCompletion(mission_id) {
 		const currentMissionId = parseInt(currentMission.id.split('_')[1]);
 		return currentMissionId > prevMissionId ? currentMission : prevMission;
 	});
-	console.log("Last mission ",lastMission.id);
+	console.log("Last mission ", lastMission.id);
 	console.log(mission_id);
 	if (lastMission.id === mission_id) {
 		console.log("storyline completed");
@@ -174,6 +174,27 @@ export async function registerUser(email, password, username) {
 			throw new Error("Username already taken")
 		}
 
+		// Select the first mission of each storyline
+		const storylines = await getStorylineList();
+		const missions = new Map();
+		for (const storyline of storylines) {
+			const missionList = await getStorylineMissions(storyline);
+			missions.set(missionList[0].id, { id: missionList[0].id, score: 0 });
+		}
+
+		console.log(missions);
+
+		// Create user document in Firestore database
+		setDoc(doc(db, "users", email), {
+			username: username,
+			score: -1,
+			missions: { ...Object.fromEntries(missions) },
+			avatar: 0,
+			badges: [],
+			friends: [],
+			friend_requests: []
+		});
+
 		// If username is not taken, create the user account in Firebase Authentication
 		// Throws an error if the email is already used
 		await createUserWithEmailAndPassword(
@@ -181,18 +202,6 @@ export async function registerUser(email, password, username) {
 			email,
 			password
 		);
-
-		// Create user document in Firestore database
-		setDoc(doc(db, "users", email), {
-			username: username,
-			score: -1,
-			missions: { mission_1: { id: "mission_1", score: 0 } },
-			avatar: 0,
-			badges: [],
-			friends: [],
-			friend_requests: []
-		});
-
 	} catch (error) {
 		switch (error.message) {
 			case "Firebase: Error (auth/email-already-in-use).":
