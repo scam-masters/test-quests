@@ -51,7 +51,7 @@ export default function DebugExercise({ questions, onScoreComputed }) {
 				{answer}
 			</button></div>)
 		}
-		exercise.push(<><bold>{question}</bold>
+		exercise.push(<><pre><code>{question}</code></pre>
 			{selectables}
 		</>)
 	}
