@@ -126,7 +126,7 @@ export default function Exercise({ params }) {
 			missionId={missionContent.id}
 			missionChapter={missionChapter}
 			exerciseExplanation={exerciseExplanation}
-			resource={missionContent.resourceLink}
+			resource={missionContent.learning.resourceLink}
 			Exercise={exercise}
 			exerciseArguments={exerciseArgs}
 			exercisePoints={missionContent.points}

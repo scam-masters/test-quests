@@ -100,7 +100,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
 
                                 <h1 className="text-5xl font-bold mr-8">{username}</h1>
                                 {isOwner && <Button type='blue' href="/changeUsername">Change Username</Button>}
-                                {isOwner && <Button type='blue' onClick={() => {
+                                {isOwner && <Button type='blue' classNames="mx-4" onClick={() => {
                                     auth.signOut();
                                     router.push("/Login")
                                 }}>Logout</Button>}
@@ -139,7 +139,8 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
 
             <div className="flex w-7/12 justify-center">
                 <div className="w-1/2 max-w-1/2 p-3 min-h-[10vh]">
-                    <h2 className="text-3xl font-bold m-auto mb-4">
+                    <Button type="blue" href="/searchPlayers">Find Friends</Button>
+                    <h2 className="text-3xl font-bold m-auto my-4">
                         <FontAwesomeIcon icon={faUsers} className="mr-2 max-w-[50px]" />
                         Friends
                     </h2>
