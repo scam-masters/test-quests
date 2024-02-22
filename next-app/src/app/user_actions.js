@@ -173,6 +173,7 @@ export async function updateChapterUnlocking(missionId) {
     // retrieve the mission id of the current and the next one
     const missionNumber = missionId.split("_")[1]
     const nextMissionId = "mission_" + (parseInt(missionNumber) + 1).toString()
+    console.log(missionId, nextMissionId)
     try {
         // retrieve the mission performed and the next one
         const missionRef = doc(db, 'exercises', missionId)
@@ -185,13 +186,29 @@ export async function updateChapterUnlocking(missionId) {
         const missionDoc = await getDoc(missionRef)
         const nextMissionDoc = await getDoc(nextMissionRef)
 
-        // Check if the documents exist and have the 'difficulty' field
+        // Check if the documents exist and have the 'difficulty' field or if the storyline is finished if they have the same storyline
         if (missionDoc && nextMissionDoc && missionDoc.data().difficulty == nextMissionDoc.data().difficulty) {
-            // The difficulties are the same
-            return false
+            // The difficulties or the storyline are the same
+            if(missionDoc.data().storyline == nextMissionDoc.data().storyline){ 
+                console.log("Same storyline")
+                return false
+            }{// in this way even if we start a storyline with hard difficulty we can obtain the badge of the chapter completion
+                console.log("Different storylines")
+                const userData = await getUserData()
+                if(userData.badges.includes(`chapter_completion_${missionDoc.data().difficulty}`)) {
+                    return false
+                }
+                userData.badges.push(`chapter_completion_${missionDoc.data().difficulty}`)
+                setUserData(userData)
+                return true
+            }
         } else {
-            // The difficulties are different or one of the documents does not exist
+            // The difficulties are different or we have changed the storyline
+            console.log("different difficulties or storylines")
             const userData = await getUserData()
+            if(userData.badges.includes(`chapter_completion_${missionDoc.data().difficulty}`)) {
+                return false
+            }
             userData.badges.push(`chapter_completion_${missionDoc.data().difficulty}`)
             setUserData(userData)
             return true
@@ -199,6 +216,7 @@ export async function updateChapterUnlocking(missionId) {
     } catch (error) {
         console.log('Error getting missions: ', error);
     }
+    console.log("No next mission, out of scope")
     return false
 }
 

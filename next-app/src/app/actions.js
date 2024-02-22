@@ -60,7 +60,7 @@ export async function getMissionList(language) {
 	return missionList;
 }
 
-// Retrieve the list of missions for a certain chapter (so for the difficulty level)
+// Retrieve the list of missions for a certain chapter (so for the difficulty level) that belongs to a certain storyline
 export async function getChapterMissions(difficultyLevel, storyline) {
 	let missionList = [];
 	try {
@@ -92,17 +92,48 @@ export async function getMIssionById(mission_id){
 	return result;
 }
 
+// Retrieve the list of missions for a certain chapter (so for the difficulty level)
+export async function getStorylineMissions(storyline) {
+	let missionList = [];
+	try {
+		// Create a query to filter documents based on difficulty
+		const q = query(
+			collection(db, 'exercises'),
+			where('storyline', '==', storyline)
+		);
+		
+		// Execute the query
+		const querySnapshot = await getDocs(q);
+
+		// Iterate through the results and add them to the missionList
+		querySnapshot.forEach((doc) => {
+			missionList.push({ id: doc.id, data: doc.data() });
+		});
+	} catch (error) {
+		console.log('Error getting missions: ', error);
+	}
+	return missionList;
+}
+
 // check if the user have finished the storyline
 export async function checkStorylineCompletion(mission_id) {
 
 	const missionData = await getMIssionById(mission_id);
-	const difficulty = missionData.difficulty;
+	//const difficulty = missionData.difficulty;
 	const storyline = missionData.storyline;
-	const missions = await getChapterMissions(difficulty, storyline);
+	// i should get all the mission for a storyline not for a difficulty
+	const missions = await getStorylineMissions(storyline);
+
 	// if the mission is the last mission of the storyline thank return true
-	console.log(missions.length)
-	const lastMission = missions[missions.length - 1];
+	const lastMission = missions.reduce((prevMission, currentMission) => {
+		const prevMissionId = parseInt(prevMission.id.split('_')[1]);
+		const currentMissionId = parseInt(currentMission.id.split('_')[1]);
+		return currentMissionId > prevMissionId ? currentMission : prevMission;
+	});
+	console.log("Last mission ",lastMission.id);
+	console.log(mission_id);
 	if (lastMission.id === mission_id) {
+		console.log("storyline completed");
 		// check that the user doesn't have this badge already
 		const userData = await getUserData()
 		if (!userData.badges.includes(`storyline_completion_${storyline}`)) {
