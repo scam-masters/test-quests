@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-export default function DebugExercise({ questions, onScoreComputed }) {
+export default function MultipleSelection({ text, questions, onScoreComputed }) {
 	const [answers, setAnswers] = useState(() => {
 		let state = {}
 		for (const prompt in questions) {
@@ -46,19 +46,23 @@ export default function DebugExercise({ questions, onScoreComputed }) {
 		const selectables = []
 		for (const answer in questions[question]) {
 			selectables.push(<div><button key={"selectable_" + answer}
-				className={answers[question][answer] ? 'bug-selected' : 'bug-selectable'}
+				className={`${answers[question][answer] ? 'bug-selected' : 'bug-selectable'
+					} mb-2 mt-1`}
 				onClick={() => handleClick(question, answer)}>
 				{answer}
 			</button></div>)
 		}
-		exercise.push(<><pre><code>{question}</code></pre>
-			{selectables}
+		exercise.push(<>
+			<h1><b>{question}</b></h1>
+			<pre><code>{selectables}</code></pre>
+			<br />
 		</>)
 	}
 
 	return (
 		<>
 			<form id='exercise-form' onSubmit={handleSubmit}></form>
+			<pre><code>{text}</code></pre>
 			{exercise}
 		</>
 	)

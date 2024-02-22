@@ -89,7 +89,10 @@ export default function Exercise({ params }) {
 			break;
 		case "ms":
 			exercise = MultipleSelection;
-			exerciseArgs = missionContent;
+			exerciseArgs = {
+				text : missionContent.text,
+				questions: missionContent.questions,
+			}
 			hint = "Select all the correct answers among the options.";
 	}
 

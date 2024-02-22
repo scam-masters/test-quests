@@ -30,6 +30,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 		if (isFinishedStoryline) {
 			storylineMsg = "Congratulations! You have finished this storyline!";
 			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>;
+			chapterMsg = "You have finished the last Chapter!";
 		}else if (newChapterUnlock) {
 			chapterMsg = "You have unlocked the next Chapter!";
 			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>;
@@ -121,17 +122,21 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		stopTimer()
 
 		const correctness = Math.round(computedCorrectness)
-		const unlock = await updateChapterUnlocking(missionId)
-		const finishedStoryline = await checkStorylineCompletion(missionId)
-		console.log("finished storyline ", finishedStoryline)
 		const missionScore = Math.round(exercisePoints * correctness / 100)
 
 		await updateUserScore(missionId, missionScore, correctness, exerciseThreshold)
 
 		setCorrectness(correctness);
-		setUnlockNewChapter(unlock);
-		setFinishedStoryline(finishedStoryline);
 		setMissionScore(missionScore);
+		// if the user has passed the mission, update the badges and
+		if(correctness >= exerciseThreshold) { 
+			// check if the user has unlocked the next chapter
+			const unlock = await updateChapterUnlocking(missionId)
+			// or finished the storyline
+			const finishedStoryline = await checkStorylineCompletion(missionId)
+			setUnlockNewChapter(unlock);
+			setFinishedStoryline(finishedStoryline);
+		}
 		setVisibleDialog(true);
 	};
 
@@ -154,7 +159,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				</SplitterPanel>
 
 				{/* Right column for drag and drop */}
-				<SplitterPanel className="border-l-4 overflow-auto" minSize={20} size={60}>
+				<SplitterPanel className="border-l-4 overflow-auto" minSize={20} size={65}>
 					<div id="pane2_1" className="h-full">
 						<div className="p-4 text-white">
 							<div className="text-xl mb-4 font-bold">{hint}</div>
