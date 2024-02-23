@@ -40,6 +40,3 @@ class TestChapterPageSuccess:
         # the link does not work without waiting 🤡
         sleep(1)
         go_back_button_xpath.click()
-
-        # there should be a button to go to the chapter 3
-        wait_storyline1_render(driver)

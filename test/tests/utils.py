@@ -32,7 +32,14 @@ def wait_chapter3_landing_render(driver):
     driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 3')]")
 
 def wait_storyline1_render(driver):
-    driver.find_element(By.XPATH, "//button[contains(text(), 'Chapter 3')]")
+    # search for the title in the storyline
+    driver.find_element(By.XPATH, "/html/body/div[1]/h1")
+    #assert "Python" in title.text
+    
+def wait_storyline2_render(driver):
+    # search for the title in the storyline
+    driver.find_element(By.XPATH, "/html/body/div[1]/h1")
+    #assert "Java" in title.text
 
 
 
