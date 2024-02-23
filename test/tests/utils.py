@@ -25,14 +25,10 @@ def wait_chapter1_landing_render(driver):
 
 
 def wait_chapter2_landing_render(driver):
-    # same as before check the presence of the first circle mission in the
-    # landing page by searching an element with the text "Chapter 1"
     driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 2')]")
 
 
 def wait_chapter3_landing_render(driver):
-    # same as before check the presence of the first circle mission in the
-    # landing page by searching an element with the text "Chapter 1"
     driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 3')]")
 
 def wait_storyline1_render(driver):

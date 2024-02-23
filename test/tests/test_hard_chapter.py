@@ -15,7 +15,7 @@ def login_user_all_unlocked(driver, user_all_unlocked):
 # before each method we need to navigate to the correct page!!!!
 @pytest.fixture(scope="function", autouse=True)
 def navigate_to_hard_chapter(driver, base_url):
-    driver.get(base_url + "/chapter/hard")
+    driver.get(base_url + "/storyline/python/chapter/hard")
 
 
 class TestChapterPageSuccess:
@@ -25,13 +25,16 @@ class TestChapterPageSuccess:
         first_circle_mission = driver.find_element(
             By.XPATH, "/html/body/div[1]/div[1]/a/button"
         )
+        
+        first_circle_mission.click()
+        sleep(1)
 
         """ Check for accessing to the first learning page """
 
         go_back_button_xpath = driver.find_element(By.ID, "back_to_main")
 
         # print(go_back_button_xpath.text)
-        assert go_back_button_xpath.text == "Go back to storyline"
+        assert go_back_button_xpath.text == "Go back to chapter page"
 
         # the chapter page has a state which is initialized with an empty string, so 
         # the link does not work without waiting 🤡

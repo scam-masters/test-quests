@@ -14,7 +14,7 @@ def login_user_all_unlocked2(driver, user_all_unlocked2):
 # before each method we need to navigate to the correct page!!!!
 @pytest.fixture(scope="function", autouse=True)
 def navigate_to_easy_chapter(driver, base_url):
-    driver.get(base_url + "/chapter/medium")
+    driver.get(base_url + "/storyline/python/chapter/medium")
     driver.find_element(By.XPATH, "//button[contains(text(),'SQL Injection UNION Attacks')]")
 
 class TestChapterPageSuccess:
@@ -71,6 +71,6 @@ class TestChapterPageUnsuccess:
         """ Check for accessing to the first learning page """
         locked_circle_mission.click()
         popup_element = driver.find_element(
-            By.ID, "mission_locked_popup"
+           By.ID, "mission_locked_popup"
         )
         assert"Mission Locked" in popup_element.text

@@ -11,9 +11,12 @@ def driver():
     _options = webdriver.ChromeOptions()
     _options.add_argument("--no-sandbox")
     _options.add_argument("--disable-dev-shm-usage")
-    _options.add_argument("--headless")
+    #_options.add_argument("--headless")
+    _options.add_argument("--log-level=3")
+    #_options.browser_version = "122.0.6261.70"
+    _options._binary_location = "C:\\Users\\giaco\\chrome-win64\\chrome-win64\\chrome.exe"
     _driver = webdriver.Chrome(
-        options=_options, service=ChromeService(ChromeDriverManager().install())
+        options=_options, service=ChromeService(ChromeDriverManager(driver_version="122.0.6261.69").install())
     )
     _driver.implicitly_wait(5)
     yield _driver
