@@ -89,6 +89,7 @@ export default function Storyline({ params }) {
 	const router = useRouter()
 	const [visible_dialog, setVisibleDialog] = useState(false);
 	const [chapters, setChapters] = useState(null)
+	const [language, setLanguage] = useState(params.language)
 
 	const onClickChapterLocked = () => {
 		setVisibleDialog(true)
@@ -117,6 +118,7 @@ export default function Storyline({ params }) {
 	return (
 		<>
 			<div className='p-10'>
+				<h1 className='text-center text-4xl font-bold text-tq-white mb-2'>{language.charAt(0).toUpperCase() + language.slice(1)}</h1>
 				{chapters}
 				<Dialog
 					// className='bg-tq-black text-tq-white w-1/2 h-auto'
