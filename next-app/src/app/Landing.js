@@ -8,6 +8,14 @@ import { getStorylineList } from '@/app/actions';
 import CircleMission from '@/components/button/circle_mission';
 import Loading from '@/components/Loading';
 
+
+/**
+ * Renders the Landing component.
+ * This component displays a list of storylines if the user is logged in,
+ * otherwise it redirects to the login page.
+ *
+ * @returns {JSX.Element} The rendered Landing component.
+ */
 export default function Landing() {
 	const router = useRouter()
 	const [storylines, setStorylines] = useState(null)

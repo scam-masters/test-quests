@@ -10,6 +10,11 @@ import { useRouter } from "next/navigation";
 /* apparently you can put the api key in the client as long as you enforce what a user can read
  * and write with https://console.firebase.google.com/u/0/project/test-quests-a3712/firestore/rules .
  * See https://firebase.google.com/docs/projects/api-keys */
+/**
+ * Represents the Login component.
+ *
+ * @returns {JSX.Element} The rendered Login component.
+ */
 export default function Login() {
 	const router = useRouter()
 	const [error, setError] = useState(null); // State for managing error messages

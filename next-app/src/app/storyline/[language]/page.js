@@ -11,6 +11,14 @@ import CircleMission from '@/components/button/circle_mission';
 import Button from '@/components/button/button'
 import Loading from '@/components/Loading';
 
+/**
+ * Renders a list of chapters with clickable links based on the provided language, counter, and onClickChapterLocked function.
+ *
+ * @param {string} language - The language of the chapters.
+ * @param {number} counter - The counter indicating the current chapter.
+ * @param {Function} onClickChapterLocked - The function to be called when a locked chapter is clicked, ideally to display a dialog.
+ * @returns {JSX.Element} The JSX element representing the list of chapters.
+ */
 function DisplayChapters(language, counter, onClickChapterLocked) {
 	// Assuming chapters is an array of chapter objects
 	const chapters = [
@@ -43,6 +51,13 @@ function DisplayChapters(language, counter, onClickChapterLocked) {
 }
 
 // ******************* Retrieve chapters and user progress ******************* //
+/**
+ * Retrieves the chapters for a given language and user progress.
+ * 
+ * @param {string} language - The language for which to retrieve the chapters.
+ * @param {function} onClickChapterLocked - The callback function to handle click events on locked chapters.
+ * @returns {Promise<DisplayChapters>} A promise that resolves with the display of chapters.
+ */
 async function retrieveChapters(language, onClickChapterLocked) {
 	// retrieve all the list to check the progress of the user in the mission
 	// to display correclty chapters (watch line 43 for possible improvement)
@@ -70,6 +85,14 @@ async function retrieveChapters(language, onClickChapterLocked) {
 }
 
 
+/**
+ * Renders a dialog component.
+ *
+ * @param {Object} props - The props for the dialog component.
+ * @param {boolean} props.visible - Determines whether the dialog is visible or not.
+ * @param {Function} props.handleCloseDialog - The function to handle closing the dialog.
+ * @returns {JSX.Element|null} The rendered dialog component or null if not visible.
+ */
 function Dialog(props) {
 	return (props.visible ?
 		<div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50" onClick={props.handleCloseDialog}>
@@ -85,6 +108,12 @@ function Dialog(props) {
 }
 
 
+/**
+ * Represents the Storyline component.
+ * @param {Object} props - The component props.
+ * @param {Object} props.params - The parameters passed to the component.
+ * @returns {JSX.Element} The rendered Storyline component.
+ */
 export default function Storyline({ params }) {
 	const router = useRouter()
 	const [visible_dialog, setVisibleDialog] = useState(false);

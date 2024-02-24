@@ -8,6 +8,13 @@ import ProfileView from '@/components/profileView/view'
 import Loading from "@/components/Loading";
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
+/**
+ * Renders the profile page for a user.
+ * 
+ * @param {Object} params - The parameters passed to the component.
+ * @param {string} params.username - The username of the user.
+ * @returns {JSX.Element} The JSX element representing the profile page.
+ */
 export default function Profile({ params }) {
     const [profileContent, setProfileContent] = useState(null)
     useEffect(() => {
