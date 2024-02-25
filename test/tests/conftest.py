@@ -11,7 +11,7 @@ def driver():
     _options = webdriver.ChromeOptions()
     _options.add_argument("--no-sandbox")
     _options.add_argument("--disable-dev-shm-usage")
-    #_options.add_argument("--headless")
+    _options.add_argument("--headless")
     _options.add_argument("--log-level=3")
     #_options.browser_version = "122.0.6261.70"
     _options._binary_location = "C:\\Users\\giaco\\chrome-win64\\chrome-win64\\chrome.exe"
