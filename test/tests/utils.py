@@ -13,9 +13,6 @@ def get_first_circle_chapter(driver):
     return driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 1')]")
 
 
-""" Login """
-
-
 def wait_landing_render(driver):
     driver.find_element(By.XPATH, "//button[contains(text(), 'Python')]")
 
@@ -42,7 +39,7 @@ def wait_storyline2_render(driver):
     #assert "Java" in title.text
 
 
-
+""" Login """
 
 def login(driver, email, password, wait_for_landing=True):
 
@@ -61,6 +58,36 @@ def login(driver, email, password, wait_for_landing=True):
 
     e.send_keys(email)
     p.send_keys(password)
+
+    s.click()
+
+    if wait_for_landing:
+        wait_landing_render(driver)
+        
+def registration(driver, username, email, password, confirmPassword, baseUrl, wait_for_landing=True):
+
+    # def wait_for_email_element(driver):
+    #     # added because in some tests doesn't render the email element
+    #     wait = WebDriverWait(driver, 10)
+    #     email_element = wait.until(EC.presence_of_element_located((By.ID, "email")))
+    #     return email_element
+    driver.get(baseUrl + "/Registration")
+    
+    u = driver.find_element(By.ID, "username")
+    e = driver.find_element(By.ID, "email")
+    p = driver.find_element(By.ID, "new-password")
+    cp = driver.find_element(By.ID, "confirm-password")
+    s = driver.find_element(By.XPATH, "/html/body/div[1]/div/form/button")
+
+    u.clear()
+    e.clear()
+    p.clear()
+    cp.clear()
+
+    u.send_keys(username)
+    e.send_keys(email)
+    p.send_keys(password)
+    cp.send_keys(confirmPassword)
 
     s.click()
 

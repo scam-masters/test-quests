@@ -11,7 +11,7 @@ def driver():
     _options = webdriver.ChromeOptions()
     _options.add_argument("--no-sandbox")
     _options.add_argument("--disable-dev-shm-usage")
-    _options.add_argument("--headless")
+    #_options.add_argument("--headless")
     _options.add_argument("--log-level=3")
     #_options.browser_version = "122.0.6261.70"
     _options._binary_location = "C:\\Users\\giaco\\chrome-win64\\chrome-win64\\chrome.exe"
@@ -71,12 +71,34 @@ def user_all_unlocked():
 def user_freshly_registered():
     return ("test_mission_for_each_storyline@gmail.com", "test_mission_for_each_storyline")
 
+@pytest.fixture(scope="session")
+def user_all_unlocked2():
+    return ("test_all_unlocked2@gmail.com", "test_all_unlocked2")
+
+#----------------------- REGISTRATION -----------------------
+
+@pytest.fixture(scope="session")
+def user_registration_correct():
+    return ("test_registration_correct@gmail.com", "test_registration_correct", "test_registration_correct", "test_registration_correct")
+
+@pytest.fixture(scope="session")
+def user_registration_wrong_password_short():
+    return ("test_registration_wrong_password_short@gmail.com","test_registration_wrong_password_short", "test", "test")
+
+@pytest.fixture(scope="session")
+def user_registration_wrong_password_not_match():
+    return ("test_registration_wrong_password_not_match@gmail.com","test_registration_wrong_password_not_match", "testtestt", "testtesta")
+
+@pytest.fixture(scope="session")
+def user_registration_wrong_user_already_existent():
+    return ("test_registration_wrong_user_already_existent@gmail.com","test_registration_wrong_user_already_existent", "testtestt", "testtestt")
+
+@pytest.fixture(scope="session")
+def user_registration_empty():
+    return ("", "", "", "")
 
 @pytest.fixture(scope="class", autouse=True)
 def load_login_page(base_url, expected_title, driver):
     driver.get(base_url + "/Login")
     assert expected_title in driver.title
 
-@pytest.fixture(scope="session")
-def user_all_unlocked2():
-    return ("test_all_unlocked2@gmail.com", "test_all_unlocked2")
