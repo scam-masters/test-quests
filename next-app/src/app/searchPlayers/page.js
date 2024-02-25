@@ -5,6 +5,14 @@ import { searchUsers } from "@/app/user_actions"
 import { useRouter } from "next/navigation";
 import SearchResultsComponent from '@/components/SearchResults/searchResults'
 
+/**
+ * Renders a list of search suggestions based on the provided users array.
+ *
+ * @param {Object[]} users - The array of user objects.
+ * @param {number} selected - The index of the currently selected suggestion.
+ * @param {boolean} visible - Indicates whether the search suggestions are visible or not.
+ * @returns {JSX.Element} The rendered search suggestions list.
+ */
 function SearchSuggestion({ users, selected, visible }) {
     if (!visible || !users || users.length < 1)
         return <></>
@@ -24,6 +32,13 @@ function SearchSuggestion({ users, selected, visible }) {
     </ul>
 }
 
+/**
+ * A search bar component for searching players.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @returns {JSX.Element} The search bar component.
+ */
 export default function Searchbar({ }) {
     // searchUsers returns an array of users
     const [searchResults, setSearchResults] = React.useState([]);

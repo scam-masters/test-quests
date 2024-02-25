@@ -7,6 +7,13 @@ import Loading from "@/components/Loading";
 
 // Learning Component
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
+/**
+ * Renders the Learning component.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.params - The parameters for the current mission.
+ * @returns {JSX.Element} The rendered Learning component.
+ */
 export default function Learning({ params }) {
 	const [missionContent, setMissionContent] = useState(null)
 

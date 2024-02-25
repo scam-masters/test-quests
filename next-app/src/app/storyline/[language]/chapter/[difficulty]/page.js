@@ -13,6 +13,11 @@ import { getChapterMissions } from "@/app/actions"
 import Loading from "@/components/Loading";
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
+/**
+ * Renders a chapter component.
+ * @param {Object} params - The parameters for the chapter.
+ * @returns {JSX.Element} - The rendered chapter component.
+ */
 export default function Chapter({ params }) {
 	// Get the current mission
 	const router = useRouter()
@@ -21,6 +26,16 @@ export default function Chapter({ params }) {
 	const difficulty = params.difficulty.charAt(0).toUpperCase() + params.difficulty.slice(1)
 	const chapterName = getChapterName(difficulty)
 
+	/**
+	 * getChapterName
+	 * @param {string} difficulty - the difficulty of the chapter
+	 * @returns the name of the chapter
+	 * @description returns the name of the chapter based on the difficulty
+	 * @example
+	 * getChapterName("Easy") // returns "Chapter 1"
+	 * getChapterName("Medium") // returns "Chapter 2"
+	 * getChapterName("Hard") // returns "Chapter 3"
+	 */
 	function getChapterName(difficulty) {
 		const number =
 			difficulty == "Easy" ? 1 :
@@ -29,12 +44,22 @@ export default function Chapter({ params }) {
 		return `Chapter ${number}`
 	}
 
+	/**
+	 * MissionLocked
+	 * @returns {void} - sets the dialog to visible
+	 * @description sets the dialog to visible
+	 */
 	function MissionLocked() {
 		return (
 			setVisibleDialog(true)
 		)
 	}
 
+	/**
+	 * handleCloseDialog
+	 * @returns {void} - sets the dialog to invisible
+	 * @description sets the dialog to invisible
+	 */
 	function handleCloseDialog() {
 		return (
 			setVisibleDialog(false)
@@ -59,6 +84,11 @@ export default function Chapter({ params }) {
 		return result
 	}
 
+	/** getTranslation
+	 * set the alignment of the mission circles
+	 * @param {number} missionNum - the number of the mission
+	 * @returns {string} - the alignment of the mission circle (in tailwindcss format)
+	 */
 	function getTranslation(missionNum) {
 		const alignNum = missionNum % 8
 		let alignment = ""
@@ -76,6 +106,11 @@ export default function Chapter({ params }) {
 		return alignment
 	}
 
+	/**
+	 * lockedMission
+	 * @param {string} missionId - the id of the mission
+	 * @returns {JSX.Element} the locked mission component
+	 */
 	function lockedMission(missionId) {
 		const missionNum = missionId.split("_")[1]
 		const translation = getTranslation(missionNum)
@@ -87,6 +122,12 @@ export default function Chapter({ params }) {
 		)
 	}
 
+	/**
+	 * unlockedMission
+	 * @param {string} missionId - the id of the mission
+	 * @param {Object} missionData - the data of the mission
+	 * @returns {JSX.Element} the unlocked mission component
+	 */
 	async function unlockedMission(missionId, missionData) {
 		const userScore = await getUserScoreForMission(missionId);
 		const missionNum = missionId.split("_")[1]
@@ -103,6 +144,11 @@ export default function Chapter({ params }) {
 		)
 	}
 
+	/**
+	 * Dialog
+	 * @param {Object} props - the properties of the dialog
+	 * @returns {JSX.Element} the dialog component
+	 */
 	function Dialog(props) {
 		return (props.visible ?
 			<div id="mission_locked_popup" className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50" onClick={handleCloseDialog}>
@@ -141,18 +187,10 @@ export default function Chapter({ params }) {
 
 			{missions}
 
-			{/* <Dialog
-                className='bg-tq-black text-tq-white w-1/2 h-auto'
-                header="Mission Locked"
-                visible={visible_dialog}
-                onHide={handleCloseDialog}
-            >
-                <p>Please complete previous missions to access this one</p>
-            </Dialog> */}
 			<Dialog
 				visible={visible_dialog}
 				onHide={handleCloseDialog}
-			/>
+				/>
 
 			{/* "Go back to main page" button */}
 			<div className="fixed bottom-0 p-5 left-0 mb-5 z-50">

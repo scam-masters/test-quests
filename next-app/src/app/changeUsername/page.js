@@ -7,6 +7,11 @@ import { useRouter } from "next/navigation";
 import { setNewUsername } from "@/app/user_actions";
 import { usernameStore } from '@/stores/store';
 
+/**
+ * Function that renders the change username page.
+ * 
+ * @returns {JSX.Element} The change username page component.
+ */
 export default function changeUsername() {
 	const router = useRouter()
 	const [error, setError] = useState(null);
@@ -33,8 +38,8 @@ export default function changeUsername() {
 			await setNewUsername(getAuth(app), newUsername)
 			setUsername(newUsername)
 			router.push(`/profile/${newUsername}`)
-        } catch (error) {
-            setError(error.message)
+		} catch (error) {
+			setError(error.message)
 		}
 	};
 

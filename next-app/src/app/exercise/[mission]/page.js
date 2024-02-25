@@ -14,6 +14,13 @@ import { getExerciseData } from "@/app/actions";
 import Loading from "@/components/Loading";
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
+/**
+ * Represents an exercise component.
+ *
+ * @param {Object} props - The props for the Exercise component.
+ * @param {Object} props.params - The parameters for the exercise.
+ * @returns {JSX.Element} The Exercise component.
+ */
 export default function Exercise({ params }) {
 	// Get the current mission
 	const [missionContent, setMissionContent] = useState(null);

@@ -7,6 +7,14 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "@/firebase/index";
 
 
+/**
+ * Represents the Registration component.
+ *
+ * @component
+ * @example
+ * // Usage
+ * <Registration />
+ */
 function Registration() {
 	const router = useRouter()
 	const [email, setEmail] = useState("");

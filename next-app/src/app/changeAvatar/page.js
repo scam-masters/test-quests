@@ -8,18 +8,23 @@ import { setNewAvatar } from "@/app/user_actions";
 import { getUserData } from "@/app/user_actions";
 import { usernameStore } from "@/stores/store";
 
+/**
+ * Page for changing the avatar for the user.
+ *
+ * @returns {JSX.Element} The JSX element representing the changeAvatar page.
+ */
 export default function changeAvatar() {
-    const allAvatars = [
-        { src: '/avatars/0.png', alt: 'Avatar 0' },
-        { src: '/avatars/1.png', alt: 'Avatar 1' },
-        { src: '/avatars/2.png', alt: 'Avatar 2' },
-      ];
+	const allAvatars = [
+		{ src: '/avatars/0.png', alt: 'Avatar 0' },
+		{ src: '/avatars/1.png', alt: 'Avatar 1' },
+		{ src: '/avatars/2.png', alt: 'Avatar 2' },
+	];
 
 	const username = usernameStore((state) => state.username);
 
 	const router = useRouter()
 	const [error, setError] = useState(null);
-    const [currentAvatarIndex, setCurrentAvatarIndex] = useState(0);
+	const [currentAvatarIndex, setCurrentAvatarIndex] = useState(0);
 
 	useEffect(() => {
 		getAuth().onAuthStateChanged(function (user) {
@@ -41,19 +46,19 @@ export default function changeAvatar() {
 			await setNewAvatar(getAuth(app), newAvatarIndex)
 			router.push(`/profile/${username}`)
 		} catch (error) {
-            setError(error.message)
+			setError(error.message)
 		}
 	};
 
-    const handleNextAvatar = () => {
-        setCurrentAvatarIndex((currentAvatarIndex + 1) % allAvatars.length);
-    };
+	const handleNextAvatar = () => {
+		setCurrentAvatarIndex((currentAvatarIndex + 1) % allAvatars.length);
+	};
 
-    const handlePreviousAvatar = () => {
-        setCurrentAvatarIndex((currentAvatarIndex - 1 + allAvatars.length) % allAvatars.length);
-    };
+	const handlePreviousAvatar = () => {
+		setCurrentAvatarIndex((currentAvatarIndex - 1 + allAvatars.length) % allAvatars.length);
+	};
 
-    return (
+	return (
 		<div className="flex mt-20 items-center">
 			<div className="wrap w-full text-center">
 				<div className="profile mx-auto w-11/12 max-w-md bg-gray-200 rounded-lg p-6 relative shadow-md">
@@ -76,5 +81,5 @@ export default function changeAvatar() {
 				</div>
 			</div>
 		</div>
-    );
+	);
 }

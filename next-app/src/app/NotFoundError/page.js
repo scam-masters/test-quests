@@ -4,6 +4,12 @@ import logo from '../../../public/assets/logo-transparent.svg';
 import Button from '../../components/button/button';
 import Image from 'next/image';
 
+/**
+ * Renders the 404 Not Found page.
+ * 
+ * @param {Function} switchPage - A function to switch to another page.
+ * @returns {JSX.Element} The rendered 404 Not Found page.
+ */
 function Error404(switchPage) {
   return (
     <div className='bg-tq-white dark:bg-tq-black h-screen w-screen flex flex-col justify-center items-center'>

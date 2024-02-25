@@ -7,6 +7,12 @@ import { getAuth } from "firebase/auth";
 
 /* Utility functions */
 
+/**
+ * Retrieves a user by their username.
+ * @param {string} username - The username of the user to retrieve.
+ * @returns {Promise<{ref: DocumentReference, data: Object}>} - A promise that resolves to an object containing the reference and data of the user.
+ * @throws {Error} - If the user is not found.
+ */
 async function getUserByUsername(username) {
     const usersRef = collection(db, "users");
     const userSnapshot = await getDocs(query(usersRef, where("username", "==", username)));
@@ -21,6 +27,12 @@ async function getUserByUsername(username) {
     }
 }
 
+/**
+ * Updates a user document in the database.
+ * @param {DocumentReference} userRef - The reference to the user document.
+ * @param {Object} userData - The updated user data.
+ * @returns {Promise<void>} - A promise that resolves when the update is complete.
+ */
 async function updateUser(userRef, userData) {
     await setDoc(userRef, userData, { merge: true });
 }
@@ -28,11 +40,20 @@ async function updateUser(userRef, userData) {
 
 /* Exported Functions */
 
+/**
+ * Retrieves the avatar of a user by their username.
+ * @param {string} username - The username of the user.
+ * @returns {Promise<string>} The URL of the user's avatar.
+ */
 export async function getAvatarByUsername(username) {
     const user = await getUserByUsername(username);
     return user.data.avatar;
 }
 
+/**
+ * Retrieves the user data from the Firestore database.
+ * @returns {Promise<Object>} The user data object.
+ */
 export async function getUserData() {
     const auth = getAuth(app);
     const user = auth.currentUser;
@@ -41,6 +62,11 @@ export async function getUserData() {
     return document.data()
 }
 
+/**
+ * Searches for users based on a given search string.
+ * @param {string} searchString - The search string to match against usernames.
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of user data objects.
+ */
 export async function searchUsers(searchString) {
     const usersRef = collection(db, "users")
     const docs = await getDocs(query(usersRef, where("username", ">=", searchString), where("username", "<=", searchString + "\uf8ff")))
@@ -53,6 +79,12 @@ export async function searchUsers(searchString) {
     return result
 }
 
+/**
+ * Sets the user data in the database.
+ * 
+ * @param {Object} userData - The user data to be set.
+ * @returns {Promise<void>} - A promise that resolves when the user data is successfully set.
+ */
 export async function setUserData(userData) {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -60,6 +92,14 @@ export async function setUserData(userData) {
     await updateUser(docRef, userData);
 }
 
+/**
+ * Sets a new username for the authenticated user.
+ * 
+ * @param {Object} auth - The authentication object.
+ * @param {string} newUsername - The new username to set.
+ * @throws {Error} If the new username is already taken.
+ * @returns {Promise<void>} A promise that resolves when the username is successfully set.
+ */
 export async function setNewUsername(auth, newUsername) {
     // check the username is not already taken
     const usersRef = collection(db, "users")
@@ -100,6 +140,12 @@ export async function setNewUsername(auth, newUsername) {
     await setDoc(currentUserRef, currentUserData, { merge: true });
 }
 
+/**
+ * Sets a new avatar for the authenticated user.
+ * @param {Object} auth - The authentication object.
+ * @param {number} newAvatarIndex - The index of the new avatar.
+ * @returns {Promise<void>} - A promise that resolves when the new avatar is set.
+ */
 export async function setNewAvatar(auth, newAvatarIndex) {
     const user = auth.currentUser;
     const docRef = doc(db, "users", user.email);
@@ -109,6 +155,11 @@ export async function setNewAvatar(auth, newAvatarIndex) {
     await setDoc(docRef, userData, { merge: true });
 }
 
+/**
+ * Updates the initial score for the user.
+ * If the user's score is -1, it sets the score to 0.
+ * @returns {Promise<void>} A promise that resolves when the score is updated.
+ */
 export async function updateInitialScore() {
     await getUserData().then(userData => {
         if (userData.score == -1) {
@@ -118,7 +169,15 @@ export async function updateInitialScore() {
     })
 }
 
-/* updates the user's data when the solution a mission is successfully submitted */
+/**
+ * Updates the user's score for a specific mission.
+ * 
+ * @param {string} missionId - The ID of the mission.
+ * @param {number} newMissionScore - The new score for the mission.
+ * @param {number} correctness - The correctness of the user's submission.
+ * @param {number} threshold - The threshold for unlocking the next mission.
+ * @returns {Promise<void>} - A promise that resolves when the user's score is updated.
+ */
 export async function updateUserScore(missionId, newMissionScore, correctness, threshold) {
     if (correctness < threshold) {
         await updateInitialScore() // TODO: check if needed
@@ -172,13 +231,21 @@ export async function updateUserScore(missionId, newMissionScore, correctness, t
     }
 }
 
-/* returns the score for the mission missionId from the database */
+/**
+ * Retrieves the score of a user for a specific mission.
+ * @param {string} missionId - The ID of the mission.
+ * @returns {Promise<number>} - The score of the user for the mission.
+ */
 export async function getUserScoreForMission(missionId) {
     const userData = await getUserData()
     return userData.missions[missionId].score
 }
 
-/* returns a boolean indicating if we need display a different popup message for the last mission of a chapter completion */
+/**
+ * Updates the chapter unlocking logic based on the given mission ID.
+ * @param {string} missionId - The ID of the current mission.
+ * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating whether the chapter has been successfully unlocked.
+ */
 export async function updateChapterUnlocking(missionId) {
     // retrieve the mission id of the current and the next one
     const missionNumber = missionId.split("_")[1]
@@ -230,8 +297,12 @@ export async function updateChapterUnlocking(missionId) {
     return false
 }
 
-
 // Retrieve scoreboard data (mock for testing)
+/**
+ * Retrieves the scoreboard data from the database.
+ * 
+ * @returns {Promise<Array<Object>>} The scoreboard data, sorted by score and timestamp.
+ */
 export async function getScoreboardData() {
     const usersRef = collection(db, "users")
 
@@ -269,6 +340,15 @@ export async function getScoreboardData() {
     return data
 }
 
+/**
+ * Adds a friend request from the current user to the specified receiver.
+ * 
+ * @param {string} receiverUsername - The username of the receiver.
+ * @throws {Error} If the receiver is already a friend.
+ * @throws {Error} If a friend request has already been sent to the receiver.
+ * @throws {Error} If a friend request has already been received from the receiver.
+ * @returns {Promise<void>} A promise that resolves when the friend request is successfully added.
+ */
 export async function addFriendRequest(receiverUsername) {
     const sender = await getUserData();
     console.log("Friends requests from: ", sender.username, " to: ", receiverUsername);
@@ -291,6 +371,13 @@ export async function addFriendRequest(receiverUsername) {
     await updateUser(receiverRef, receiver);
 }
 
+/**
+ * Accepts a friend request from a sender.
+ * 
+ * @param {string} senderUsername - The username of the sender.
+ * @returns {Promise<void>} - A promise that resolves when the friend request is accepted.
+ * @throws {Error} - If the sender and receiver are already friends.
+ */
 export async function acceptFriendRequest(senderUsername) {
     const receiver = await getUserData();
     console.log("Accept friend request from: ", senderUsername, " to: ", receiver.username);
@@ -308,6 +395,12 @@ export async function acceptFriendRequest(senderUsername) {
     await setUserData(receiver);
 }
 
+/**
+ * Declines a friend request from a sender.
+ * 
+ * @param {string} senderUsername - The username of the sender.
+ * @returns {Promise<void>} - A promise that resolves when the friend request is declined.
+ */
 export async function declineFriendRequest(senderUsername) {
     const user = await getUserData();
     console.log("Decline friend request from: ", senderUsername, " to: ", user.username);
