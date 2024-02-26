@@ -11,12 +11,15 @@ def driver():
     _options = webdriver.ChromeOptions()
     _options.add_argument("--no-sandbox")
     _options.add_argument("--disable-dev-shm-usage")
-    #_options.add_argument("--headless")
+    _options.add_argument("--headless")
     _options.add_argument("--log-level=3")
-    #_options.browser_version = "122.0.6261.70"
-    _options._binary_location = "C:\\Users\\giaco\\chrome-win64\\chrome-win64\\chrome.exe"
+    # _options.browser_version = "122.0.6261.70"
+    # _options._binary_location = "C:\\Users\\giaco\\chrome-win64\\chrome-win64\\chrome.exe"
     _driver = webdriver.Chrome(
-        options=_options, service=ChromeService(ChromeDriverManager(driver_version="122.0.6261.69").install())
+        options=_options,
+        service=ChromeService(
+            ChromeDriverManager(driver_version="122.0.6261.69").install()
+        ),
     )
     _driver.implicitly_wait(5)
     yield _driver
@@ -31,6 +34,7 @@ def base_url():
 @pytest.fixture(scope="session")
 def expected_title():
     return "test quests"
+
 
 @pytest.fixture(scope="function")
 def submit_exercise_button(driver):
@@ -67,38 +71,69 @@ def user_non_existent():
 def user_all_unlocked():
     return ("test_all_unlocked@gmail.com", "test_all_unlocked")
 
+
 @pytest.fixture(scope="session")
 def user_freshly_registered():
-    return ("test_mission_for_each_storyline@gmail.com", "test_mission_for_each_storyline")
+    return (
+        "test_mission_for_each_storyline@gmail.com",
+        "test_mission_for_each_storyline",
+    )
+
 
 @pytest.fixture(scope="session")
 def user_all_unlocked2():
     return ("test_all_unlocked2@gmail.com", "test_all_unlocked2")
 
-#----------------------- REGISTRATION -----------------------
+
+# ----------------------- REGISTRATION -----------------------
+
 
 @pytest.fixture(scope="session")
 def user_registration_correct():
-    return ("test_registration_correct@gmail.com", "test_registration_correct", "test_registration_correct", "test_registration_correct")
+    return (
+        "test_registration_correct@gmail.com",
+        "test_registration_correct",
+        "test_registration_correct",
+        "test_registration_correct",
+    )
+
 
 @pytest.fixture(scope="session")
 def user_registration_wrong_password_short():
-    return ("test_registration_wrong_password_short@gmail.com","test_registration_wrong_password_short", "test", "test")
+    return (
+        "test_registration_wrong_password_short@gmail.com",
+        "test_registration_wrong_password_short",
+        "test",
+        "test",
+    )
+
 
 @pytest.fixture(scope="session")
 def user_registration_wrong_password_not_match():
-    return ("test_registration_wrong_password_not_match@gmail.com","test_registration_wrong_password_not_match", "testtestt", "testtesta")
+    return (
+        "test_registration_wrong_password_not_match@gmail.com",
+        "test_registration_wrong_password_not_match",
+        "testtestt",
+        "testtesta",
+    )
+
 
 @pytest.fixture(scope="session")
 def user_registration_wrong_user_already_existent():
-    return ("test_registration_wrong_user_already_existent@gmail.com","test_registration_wrong_user_already_existent", "testtestt", "testtestt")
+    return (
+        "test_registration_wrong_user_already_existent@gmail.com",
+        "test_registration_wrong_user_already_existent",
+        "testtestt",
+        "testtestt",
+    )
+
 
 @pytest.fixture(scope="session")
 def user_registration_empty():
     return ("", "", "", "")
 
+
 @pytest.fixture(scope="class", autouse=True)
 def load_login_page(base_url, expected_title, driver):
     driver.get(base_url + "/Login")
     assert expected_title in driver.title
-

@@ -24,7 +24,7 @@ export default function changeUsername() {
 		setError(null)
 
 		const formData = new FormData(event.target)
-		const newUsername = formData.get("username")
+		const newUsername = formData.get("username-input")
 
 		if (!newUsername) {
 			setError("Please fill all the fields.")
@@ -52,9 +52,9 @@ export default function changeUsername() {
 						<label className="mb-1">New Username</label>
 						<input
 							className="border rounded px-2 py-1 bg-white text-black"
-							name="username"
+							name="username-input"
 							type="text"
-							id="username"
+							id="username-input"
 							autoComplete="username"
 						/>
 					</div>

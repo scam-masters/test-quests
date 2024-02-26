@@ -89,17 +89,17 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
             <div className="flex flex-row p-4 justify-center flex-wrap">
                 <div className="flex flex-col items-center justify-center">
                     <img src={`/avatars/${avatar}.png`} alt={`avatar${avatar}`} className="rounded-full m-3 w-40 h-40 border-2 border-white" />
-                    {isOwner && <Button type='blue' href="/changeAvatar">Change Avatar</Button>}
+                    {isOwner && <Button id="change-avatar" type='blue' href="/changeAvatar">Change Avatar</Button>}
                 </div>
 
                 <div className="flex flex-col ml-5 mt-auto mb-auto flex-wrap pt-8">
-                    <h1 className="text-5xl font-bold mr-8">{username}</h1>
-                    {isOwner && <p className="text-xl mt-4">Email: {email}</p>}
-                    <p className="text-xl mt-4">Score: {score}</p>
+                    <h1 id="username" className="text-5xl font-bold mr-8">{username}</h1>
+                    {isOwner && <p id="email" className="text-xl mt-4">Email: {email}</p>}
+                    <p id="score" className="text-xl mt-4">Score: {score}</p>
 
                     <div className="flex flex-row items-center flex-wrap pt-4">
-                        {isOwner && <Button type='blue' href="/changeUsername">Change Username</Button>}
-                        {isOwner && <Button type='blue' classNames="mx-4" onClick={() => {
+                        {isOwner && <Button id="change-username" type='blue' href="/changeUsername">Change Username</Button>}
+                        {isOwner && <Button id="logout" type='blue' classNames="mx-4" onClick={() => {
                             auth.signOut();
                             router.push("/Login")
                         }}>Logout</Button>}
@@ -137,7 +137,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                     Friends
                 </h2>
 
-                {isOwner ? <Button classNames="flex max-w-sm m-auto justify-center" type="blue" href="/searchPlayers">Find Friends</Button> : <></>}
+                {isOwner ? <Button id="find-friends" classNames="flex max-w-sm m-auto justify-center" type="blue" href="/searchPlayers">Find Friends</Button> : <></>}
 
                 {friendsList.length > 0 ? (
                     <ul>
