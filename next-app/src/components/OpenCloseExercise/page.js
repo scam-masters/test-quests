@@ -51,8 +51,6 @@ export default function OpenCloseExercise({ onScoreComputed, blocks, solution })
 
 	return (
 		<>
-			<p>Complete the blanks by inserting the following values:</p>
-			<br />
 			<form id='exercise-form' autoComplete="none" onSubmit={handleSubmit}>
 				{parseInput(blocks)}
 			</form >
