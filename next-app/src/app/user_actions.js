@@ -23,7 +23,7 @@ async function getUserByUsername(username) {
             data: userSnapshot.docs[0].data()
         };
     } else {
-        throw new Error("User not found");
+        throw new Error("Could not find user with username: " + username);
     }
 }
 
