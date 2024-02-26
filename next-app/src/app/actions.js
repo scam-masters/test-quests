@@ -15,7 +15,7 @@ export async function getProfileData(username) {
 	const docs = await getDocs(query(usersRef, where("username", "==", username)))
 
 	if (docs.empty) {
-		return null
+		return undefined
 	}
 	let document = docs.docs[0] // username is unique
 

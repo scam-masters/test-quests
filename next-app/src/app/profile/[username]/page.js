@@ -22,8 +22,19 @@ export default function Profile({ params }) {
             getProfileData(params.username).then(setProfileContent);
     })
 
-    if (!profileContent) {
+    if (profileContent === null) {
         return <Loading />;
+    } else if (profileContent === undefined) {
+        return (
+            <div className="flex justify-center items-center h-[75vh]">
+                <div className="text-center">
+                    <h1 className="text-4xl font-bold mb-4 mt-[10vh]">User not found</h1>
+                    <p className="text-gray-300">
+                        Sorry, the requested user <span className="font-bold">{params.username}</span> does not exist.
+                    </p>
+                </div>
+            </div>
+        );
     }
 
     let profileArgs = {
