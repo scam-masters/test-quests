@@ -86,48 +86,44 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
 
     return (
         <div className="flex flex-col justify-center items-center w-full">
-            <div className="flex flex-row justify-center">
-                <div className="flex flex-row p-4 justify-center">
-                    <div className="flex flex-col items-center justify-center">
-                        <img src={`/avatars/${avatar}.png`} alt={`avatar${avatar}`} className="rounded-full m-3 w-40 h-40 border-2 border-white" />
-                        {isOwner && <Button type='blue' href="/changeAvatar">Change Avatar</Button>}
+            <div className="flex flex-row p-4 justify-center flex-wrap">
+                <div className="flex flex-col items-center justify-center">
+                    <img src={`/avatars/${avatar}.png`} alt={`avatar${avatar}`} className="rounded-full m-3 w-40 h-40 border-2 border-white" />
+                    {isOwner && <Button type='blue' href="/changeAvatar">Change Avatar</Button>}
+                </div>
+
+                <div className="flex flex-col ml-5 mt-auto mb-auto flex-wrap pt-8">
+                    <h1 className="text-5xl font-bold mr-8">{username}</h1>
+                    {isOwner && <p className="text-xl mt-4">Email: {email}</p>}
+                    <p className="text-xl mt-4">Score: {score}</p>
+
+                    <div className="flex flex-row items-center flex-wrap pt-4">
+                        {isOwner && <Button type='blue' href="/changeUsername">Change Username</Button>}
+                        {isOwner && <Button type='blue' classNames="mx-4" onClick={() => {
+                            auth.signOut();
+                            router.push("/Login")
+                        }}>Logout</Button>}
                     </div>
 
-                    <div className="ml-5 mt-auto mb-auto">
-                        <div className="flex flex-row items-center">
-
-                            <h1 className="text-5xl font-bold mr-8">{username}</h1>
-                            {isOwner && <Button type='blue' href="/changeUsername">Change Username</Button>}
-                            {isOwner && <Button type='blue' classNames="mx-4" onClick={() => {
-                                auth.signOut();
-                                router.push("/Login")
-                            }}>Logout</Button>}
-
-                        </div>
-                        {isOwner && <p className="text-xl mt-4">Email: {email}</p>}
-                        <p className="text-xl mt-4">Score: {score}</p>
-
-                        {isOwner ? <></> : (
-                            <>
-                                {status === 'friend' ? (<Button classNames="my-4" type='green'>Mutual friends</Button>) : null}
-                                {status === 'request' ? (<Button classNames="my-4" type='green'>Request sent</Button>) : null}
-                                {status === 'stranger' ? (<Button classNames="my-4" type='blue' onClick={handleAddFriend} id="add_friend">Add Friend</Button>) : null}
-                                {errorMessage && <div className="error-message">{errorMessage}</div>}
-                            </>
-                        )}
-                    </div>
+                    {isOwner ? <></> : (
+                        <>
+                            {status === 'friend' ? (<Button classNames="my-4 max-w-xs w-[400px]" type='green'>Mutual friends</Button>) : null}
+                            {status === 'request' ? (<Button classNames="my-4 max-w-xs w-[400px]" type='green'>Request sent</Button>) : null}
+                            {status === 'stranger' ? (<Button classNames="my-4 max-w-xs w-[400px]" type='blue' onClick={handleAddFriend} id="add_friend">Add Friend</Button>) : null}
+                            {errorMessage && <div className="error-message">{errorMessage}</div>}
+                        </>
+                    )}
                 </div>
             </div>
 
-
-            <div className="flex flex-col p-3 space-y-4 w-full max-w-lg m-auto">
+            <div className="flex flex-col p-3 space-y-4 w-full max-w-2xl m-auto">
 
                 <h2 className="text-3xl font-bold m-auto">
                     <FontAwesomeIcon icon={faMedal} className="mr-2 max-w-[50px]" />
                     Badges
                 </h2>
 
-                <div className="flex flex-row flex-wrap pb-5">
+                <div className="flex flex-row flex-wrap pb-5 justify-center">
                     {badges.length != 0 ? badges.map((badge, index) => (
                         <img title={badge.replace(/_/g, " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
                     ))
@@ -155,7 +151,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                         ))}
                     </ul>
                 ) : (
-                    <p>No friends found.</p>
+                    <p className="text-center">No friends found.</p>
                 )}
 
                 {isOwner ?
@@ -180,7 +176,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                                 ))}
                             </ul>
                         ) : (
-                            <p>No friend requests found.</p>
+                            <p className="text-center">No friend requests found.</p>
                         )}
                     </>) :
                     <></>
