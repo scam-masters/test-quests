@@ -8,6 +8,7 @@ I need to perform several tests, we are in the profile page, so try the function
 - Check logout
 """
 
+from time import sleep
 import pytest
 from selenium.webdriver.common.by import By
 from utils import login
@@ -58,23 +59,27 @@ class TestProfile:
 
         username = driver.find_element(By.ID, "username-input")
         username.clear()
-        username.send_keys("new_username")
+        username.send_keys("new-username")
 
         submit = driver.find_element(By.XPATH, "/html/body/div[1]/div/form/button")
         submit.click()
+
+        # Check the presence of the new username in the profile page
+        driver.find_element(By.XPATH, f"//*[contains(text(), new-username)]")
 
         # rechange to the previous one
         change_username = driver.find_element(By.ID, "change-username")
         change_username.click()
 
-        username = driver.find_element(By.ID, "username-input")
-        username.clear()
-        username.send_keys(user_50_points[1])
+        username_input = driver.find_element(By.ID, "username-input")
+        username_input.clear()
+        username_input.send_keys(user_50_points[1])
 
         submit = driver.find_element(By.XPATH, "/html/body/div[1]/div/form/button")
         submit.click()
 
-        # Check if the redirect is correct by checking the presence of the previous username
+        sleep(2)
+        # Check the presence of the new username in the profile page
         driver.find_element(By.XPATH, f"//*[contains(text(), {user_50_points[1]})]")
 
     def test_friends(self, driver):
