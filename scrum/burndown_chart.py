@@ -127,7 +127,7 @@ def create_burndown(tasks, chosen_sprint):
 
     plt.figure(figsize=(10, 6))
     
-    print("Hours Remaining", hours_remaining_per_day["Hours_Remaining"], "Ideal", hours_remaining_per_day["Ideal"])
+    print("Hours Remaining\n", hours_remaining_per_day["Hours_Remaining"], "Ideal\n", hours_remaining_per_day["Ideal"])
           
     plt.plot(hours_remaining_per_day["Date"], hours_remaining_per_day["Hours_Remaining"], label="Remaining Hours", marker='o')
     plt.plot(hours_remaining_per_day["Date"], hours_remaining_per_day["Ideal"], label="Ideal", linestyle='--')
