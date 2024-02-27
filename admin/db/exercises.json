@@ -84,6 +84,7 @@
             },
             "type": "dnd",
             "explanation": "<p>Objective:<br> The objective of this exercise is to implement automated tests using Selenium and PyTest to interact with the Google search page and verify specific functionalities.<br><br> </p> <p>Test Cases:<br> 1. <strong>Test Search Functionality:</strong><br>    - Open the Google homepage.<br>    - Enter \"Webdriver Manager\" into the search box.<br>    - Press Enter.<br>    - Verify that the search results page title contains \"webdrivermanager\".<br> <br> 2. <strong>Test Images Search:</strong><br>    - Open the Google homepage.<br>    - Click on the \"Images\" link.<br>    - Verify that the page title changes to \"Google Images\".<br> <br> Provided Code:<br> - The provided code contains a PyTest test class named <code>TestGoogle</code>.<br> - It includes fixtures to set up and tear down the WebDriver session, as well as additional setup to maximize the browser window.<br> - Three test methods are defined to execute the test cases mentioned above: <code>test_search</code> and <code>test_images_search</code>.",
+            "time": 90,
             "points": 150
         },
         "mission_11": {
@@ -97,30 +98,34 @@
                 "content": "    <center><h1><b>Welcome to Mission 11</b> </h1>     <h2>About Understanding Semantic and Syntax Bugs using pytest</h2></center>     <p>         Semantic and Syntax bugs are common issues encountered during software development. It's crucial to distinguish between them to effectively debug and maintain code.     </p>     <br>     <p>         Semantic bugs occur when the logic of the program is flawed, leading to unexpected behavior. These bugs may not result in syntax errors but can cause incorrect program output or undesired outcomes. Semantic bugs are often harder to detect than syntax bugs because they involve understanding the intended functionality of the code. Examples of semantic bugs include miscalculations, incorrect conditional statements, and improper data handling.     </p>     <br>     <p>         Syntax bugs, on the other hand, are errors in the structure or grammar of the code. These bugs violate the rules of the programming language, causing the interpreter or compiler to raise errors. Syntax bugs are usually easier to identify and fix compared to semantic bugs because they are detected by the compiler or interpreter during the code compilation or execution process. Common syntax bugs include missing semicolons, mismatched parentheses, and misspelled keywords.     </p>     <br>     <h3>Risks and Impact:</h3>     <p>         Semantic bugs can have significant consequences, such as incorrect computation results, security vulnerabilities, or system crashes. These bugs can lead to data corruption, loss of user trust, and financial losses for organizations. Syntax bugs typically prevent the code from executing altogether, resulting in immediate errors during compilation or runtime. While less severe than semantic bugs, syntax bugs can still disrupt development workflow and delay project timelines.     </p>     <br>     <h3>Preventing and Resolving Bugs:</h3>     <p>         To prevent semantic bugs, developers should thoroughly understand the requirements and specifications of the software and conduct rigorous testing. Code reviews, unit testing, and integration testing are essential for identifying and addressing semantic bugs early in the development lifecycle. Debugging semantic bugs involves analyzing the program's behavior, identifying discrepancies between expected and actual outcomes, and implementing corrective measures.     </p>     <br>     <p>         Syntax bugs can be avoided by adhering to the syntax rules of the programming language, using linting tools, and paying attention to compiler or interpreter error messages. Code editors with syntax highlighting and auto-completion features can also help prevent syntax errors during development. Debugging syntax bugs involves analyzing the code for syntax errors indicated by error messages and correcting them accordingly using code editors or integrated development environments (IDEs).     </p>",
                 "resouceLink": "https://www.honeybadger.io/blog/beginners-guide-to-software-testing-in-python/"
             },
-            "text": "class TestBook:\n  @pytest.mark.parametrize(\"title, author, pages\",\n\t\t\t\t\t\t [(\"Harry Potter\", \"J.K. Rowling\", 500),\n\t\t\t\t\t\t  (\"The Great Gatsby\", \"F. Scott Fitzgerald\", 218),\n\t\t\t\t\t\t  (\"To Kill a Mockingbird\", \"Harper Lee\", 281)])\n  def test_read_book(self, title, author, pages):\n      book = Book(title, author, pages)\n      assert Book.read_book() == f\"Reading {title} by {author}\"\n\n  def test_flip_pages_valid(self, title, author, pages, page_number):\n      book = Book(title, author, pages)\n      assert book.flip_pages(page_number) == f\"Flipping to page {author} of {title}\"\n\n  def test_invalid_title(self):\n      book = Book(\"J.K. Rowling\", 500)\n      assert book.read_book() == \"Reading J.K. Rowling\"\n\n  def test_valid_read(self, subject):\n\t  book = Book(\"Harry Potter\", \"J.K. Rowling\", 500)\n\t  assert book.read_book(subject) == \"Reading J.K. Rowling\"\n\t\n  def test_flip_pages_invalid(self, title, author, pages):\n      book = Book(author, title, pages)\n      with pytest.raises(AssertionError):\n          book.flip_pages(1000)",
+            "text": "class TestBook:\n  @pytest.mark.parametrize(\"title, author, pages\",\n\t\t\t\t\t\t [(\"Harry Potter\", \"J.K. Rowling\", 500),\n\t\t\t\t\t\t  (\"The Great Gatsby\", \"F. Scott Fitzgerald\", 218),\n\t\t\t\t\t\t  (\"To Kill a Mockingbird\", \"Harper Lee, 281)])\n  def test_read_books(self, title, author, pages):\n      book = Book(title, author, pages)\n      assert Book.read_book() == f\"Reading {title} by {author}\"\n\n  def test_flip_pages_valid(self):\n      book = Book(\"1984\", \"G. Orwell\", 328)\n      assert book.flip_pages(100) == f\"Flipping to page G. Orwell of 1984\"\n\n\n def test_invalid_title(self):\n      book = Book(\"J.K. Rowling\", 500)\n      assert book.read_book() == \"Reading Harry Potter of J.K. Rowling\"\n\n\n def test_flip_pages_invalid(self, title, author, pages):\n      book = Book(\"1984\", \"G. Orwell\", 328)\n      with pytest.raises(AssertionError):\n          book.flip_pages(1000)",
             "type": "debug",
-            "explanation": "You have a class <code>Book:<br><br>class Book:<br><br>&emsp;def __init__(self, title, author, pages):<br>&emsp;&emsp;self.title = title<br>&emsp;&emsp;self.author = author<br>&emsp;&emsp;self.pages = pages<br><br>&emsp;def read_book(self):<br>&emsp;&emsp;return f\"Reading {self.title} by {self.author}\"<br><br>&emsp;def flip_pages(self, page_number):<br>&emsp;&emsp;if page_number > self.pages:<br>&emsp;&emsp;&emsp;raise ValueError(\"Page number exceeds total pages of the book.\")<br>&emsp;&emsp;return f\"Flipping to page {page_number} of {self.title}\"</code><br><br> Consider the pytest class on the right, which is importing and using the <code>Book</code> class to test it.<br>Your goal is to spot bugs in the code of the tests.",
+            "explanation": "You have a class <code>Book:<br><br>class Book:<br>&emsp;def __init__(self, title, author, pages):<br>&emsp;&emsp;self.title = title<br>&emsp;&emsp;self.author = author<br>&emsp;&emsp;self.pages = pages<br><br>&emsp;def read_book(self):<br>&emsp;&emsp;return f\"Reading {self.title} by {self.author}\"<br><br>&emsp;def flip_pages(self, page_number):<br>&emsp;&emsp;if page_number > self.pages:<br>&emsp;&emsp;&emsp;raise ValueError(\"Page number exceeded\")<br>&emsp;&emsp;return f\"Flipping to page {page_number} of {self.title}\"</code><br><br> Consider the pytest class on the right, which is importing and using the <code>Book</code> class to test it.<br>Your goal is to spot bugs in the code of the tests.",
             "points": 150,
             "selectables": [
                 "122-170",
+                "180-223",
                 "290-316",
-                "536-576",
-                "623-648",
-                "655-678",
-                "799-829",
-                "923-956",
-                "963-998",
-                "1008-1030"
+                "350-380",
+                "467-494",
+                "498-536",
+                "539-568",
+                "582-607",
+                "613-638",
+                "641-680",
+                "683-739"
             ],
             "solution": [
-                true,
-                true,
-                false,
                 false,
                 true,
                 false,
                 false,
                 false,
+                true,
+                false,
+                true,
+                false,
+                true,
                 true
             ]
         },
@@ -155,6 +160,7 @@
             "text": "class SlowCalculatorTest(): \n\tdef setUp(self): \n\t  self.driver = webdriver.Chrome() \n\t  self.driver.get(\"https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html\") \n\n\tdef test_sum(self): \n\t\tbutton_five = self.driver.findElement(By.xpath('//*[@id=\"calculator\"]/div[2]/span[6]')) \n\t\tbutton_sum = self.driver.findElement(By.xpath('//*[@id=\"calculator\"]/div[2]/span[4]')) \n\t\tbutton_equals = self.driver.findElement(By.xpath('//*[@id=\"calculator\"]/div[2]/span[15]')) \n\t\tresult = {/* insert your first answer here */}      \n\n\t\tbutton_five.click() \n\t\tbutton_sum.click() \n\t\tbutton_five.click()     \n\t\tbutton_equals.click()      \n\n\t\t{/* wait until the result is not displayed */}\n\n",
             "type": "ms",
             "explanation": "",
+            "time": 90,
             "points": "150"
         },
         "mission_13": {
