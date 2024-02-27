@@ -7,7 +7,12 @@ import { useRouter } from "next/navigation";
 import { setNewUsername } from "@/app/user_actions";
 import { usernameStore } from '@/stores/store';
 
-export default function changeUsername() {
+/**
+ * Function that renders the change username page.
+ * 
+ * @returns {JSX.Element} The change username page component.
+ */
+export default function ChangeUsername() {
 	const router = useRouter()
 	const [error, setError] = useState(null);
 
@@ -19,7 +24,7 @@ export default function changeUsername() {
 		setError(null)
 
 		const formData = new FormData(event.target)
-		const newUsername = formData.get("username")
+		const newUsername = formData.get("username-input")
 
 		if (!newUsername) {
 			setError("Please fill all the fields.")
@@ -33,8 +38,8 @@ export default function changeUsername() {
 			await setNewUsername(getAuth(app), newUsername)
 			setUsername(newUsername)
 			router.push(`/profile/${newUsername}`)
-        } catch (error) {
-            setError(error.message)
+		} catch (error) {
+			setError(error.message)
 		}
 	};
 
@@ -47,9 +52,9 @@ export default function changeUsername() {
 						<label className="mb-1">New Username</label>
 						<input
 							className="border rounded px-2 py-1 bg-white text-black"
-							name="username"
+							name="username-input"
 							type="text"
-							id="username"
+							id="username-input"
 							autoComplete="username"
 						/>
 					</div>

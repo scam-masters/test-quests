@@ -6,6 +6,7 @@ export default function LearningComponent({
 	exerciseLink,
 	chapterLink,
 	contentHTML,
+	storyline
 }) {
 	return (
 		<div className="text-white text-left">
@@ -13,7 +14,7 @@ export default function LearningComponent({
 				{contentHTML}
 			</div>
 			<div className="grid grid-cols-3 justify-between w-4/5 mx-auto mb-8">
-				<Link href={chapterLink}>
+				<Link href={'/storyline/' + storyline + '/'+ chapterLink}>
 					<Button type='blue' id="back_to_main">
 						Go back to chapter page
 					</Button>

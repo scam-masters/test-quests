@@ -6,24 +6,40 @@
 
 @layer base {
 
-  :root {
-    --color-primary: #374161;
-    --color-accent: #3C486B;
-    --color-red: #F45050;
-    --color-yellow: #F9D949;
-    --color-green: #69995D;
-    --color-white: #F0F0F0;
-    --color-black: #181a1b;
-    --color-gray: #2a2d2e;
-  }
+	:root {
+		--color-primary: #374265;
+		--color-accent: rgb(81, 77, 137);
+		--color-red: #F45050;
+		--color-yellow: #F9D949;
+		--color-green: #69995D;
+		--color-white: #F0F0F0;
+		--color-black: #141313;
+		--color-gray: #2a2d2e;
+	}
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 button {
 	@apply text-tq-white font-bold py-2 px-4 rounded-full transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md
+}
+
+.background-gradient {
+	@apply bg-gradient-to-br from-indigo-400 to-blue-900
+}
+
+.background-gradient-blue {
+	@apply bg-gradient-to-br from-blue-400 to-blue-900
+}
+
+.background-gradient-green {
+	@apply bg-gradient-to-br from-green-400 to-green-900
+}
+
+.background-gradient-red {
+	@apply bg-gradient-to-br from-red-400 to-red-900
 }
 
 .circle-base {
@@ -31,19 +47,23 @@ button {
 }
 
 .circle-mission-gradient {
-  @apply circle-base bg-gradient-to-br from-orange-400 to-orange-800
+	@apply circle-base bg-gradient-to-br from-orange-400 to-orange-800
 }
+
 .circle-mission-gradient-0 {
-  @apply circle-base bg-gradient-to-br from-indigo-400 to-orange-950 hover:shadow-2xl hover:shadow-indigo-800
+	@apply circle-base bg-gradient-to-br from-indigo-400 to-orange-950 hover:shadow-2xl hover:shadow-indigo-800
 }
+
 .circle-mission-gradient-1 {
-  @apply circle-base bg-gradient-to-br from-green-400 to-purple-950 hover:shadow-2xl hover:shadow-green-800
+	@apply circle-base bg-gradient-to-br from-green-400 to-purple-950 hover:shadow-2xl hover:shadow-green-800
 }
+
 .circle-mission-gradient-2 {
-  @apply circle-base bg-gradient-to-br from-orange-300 to-indigo-600 hover:shadow-2xl hover:shadow-blue-800
+	@apply circle-base bg-gradient-to-br from-orange-300 to-indigo-600 hover:shadow-2xl hover:shadow-blue-800
 }
+
 .circle-mission-locked {
-  @apply circle-base bg-gradient-to-tr from-gray-700 to-gray-600 cursor-not-allowed hover:scale-100 text-white
+	@apply circle-base bg-gradient-to-tr from-gray-700 to-gray-600 cursor-not-allowed hover:scale-100 text-white
 }
 
 /* ------------ SCOREBOARD ------------ */
@@ -57,7 +77,7 @@ button {
 }
 
 .scoreboard thead th {
-	@apply px-5 py-3 text-left text-xl font-semibold uppercase text-center tracking-wider
+	@apply px-5 py-3 text-xl font-semibold uppercase text-center tracking-wider
 }
 
 .scoreboard td {
@@ -75,7 +95,7 @@ button {
 }
 
 .searchResults thead th {
-	@apply px-5 py-3 text-left text-xl font-semibold uppercase text-center tracking-wider
+	@apply px-5 py-3 text-xl font-semibold uppercase text-center tracking-wider
 }
 
 .searchResults td {
@@ -85,11 +105,11 @@ button {
 /* ------------ GENERAL ------------ */
 
 body {
-  scrollbar-width: none;
+	scrollbar-width: none;
 }
 
 body::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 /* TODO: improve those styles */
@@ -116,4 +136,3 @@ pre code {
 	font-size: 2em;
 	border-radius: 4px;
 }
-

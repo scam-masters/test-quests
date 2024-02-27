@@ -14,7 +14,7 @@ def login_user_50_points(driver, user_50_points):
 # before each method we need to navigate to the correct page!!!!
 @pytest.fixture(scope="function", autouse=True)
 def navigate_to_easy_chapter(driver, base_url):
-    driver.get(base_url + "/chapter/easy")
+    driver.get(base_url + "/storyline/python/chapter/easy")
     driver.find_element(By.XPATH, "//button[contains(text(),'Unit Test: Mastering Basics')]")
 
 

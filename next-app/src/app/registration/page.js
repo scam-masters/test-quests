@@ -7,6 +7,14 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "@/firebase/index";
 
 
+/**
+ * Represents the Registration component.
+ *
+ * @component
+ * @example
+ * // Usage
+ * <Registration />
+ */
 function Registration() {
 	const router = useRouter()
 	const [email, setEmail] = useState("");
@@ -27,7 +35,7 @@ function Registration() {
 			setError("Passwords do not match")
 			return;
 		}
-		
+
 		const error = await registerUser(email, password, username);
 
 		if (error)
@@ -85,7 +93,7 @@ function Registration() {
 							type="password"
 							id="confirm-password"
 							value={confirm_password}
-							onChange={(e) => setConfirmPassword(e.target.value)}	
+							onChange={(e) => setConfirmPassword(e.target.value)}
 							className="border rounded px-2 py-1 bg-white text-black"
 							required
 							minLength="6"
@@ -93,7 +101,7 @@ function Registration() {
 					</div>
 					<button
 						type="submit"
-						className="bg-tq-primary hover:bg-tq-accent font-bold py-2 px-4 rounded"
+						className="background-gradient hover:bg-tq-accent font-bold py-2 px-4 rounded"
 
 					>
 						Submit

@@ -1,18 +1,26 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import LearningComponent from '@/components/Learning/learning'
+import LearningComponent from '@/components/learning/learning'
 
 import { getExerciseData } from "@/app/actions"
-import Loading from "@/components/Loading";
+import Loading from "@/components/loading/loading";
 
 // Learning Component
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
+/**
+ * Renders the Learning component.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.params - The parameters for the current mission.
+ * @returns {JSX.Element} The rendered Learning component.
+ */
 export default function Learning({ params }) {
 	const [missionContent, setMissionContent] = useState(null)
 
 	// Get the current mission
 	useEffect(() => {
-		getExerciseData(`mission_${params.mission}`).then(setMissionContent);
+		if (!missionContent)
+			getExerciseData(`mission_${params.mission}`).then(setMissionContent);
 	})
 
 	if (!missionContent)
@@ -26,10 +34,11 @@ export default function Learning({ params }) {
 	missionContent.learning.chapterLink = "/chapter/" + missionContent.difficulty;
 	missionContent.learning.contentHTML = learningContent;
 
+	console.log(missionContent)
 	return (
 		<div>
 			{/* Use the LearningComponent with mission-specific content */}
-			<LearningComponent {...missionContent.learning} />
+			<LearningComponent {...missionContent.learning} storyline={missionContent.storyline} />
 		</div>
 	);
 }

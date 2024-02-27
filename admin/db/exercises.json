@@ -3,11 +3,11 @@
         "mission_1": {
             "kind": "unit",
             "blocks": [
-                "A. A single scenario to test a specific function of the website.",
-                "B. Checking if the output matches the expected result.",
-                "C. A collection of several test cases.",
-                "D. A tool used to execute test cases.",
-                "F. Setting up a simulated user environment before running each test."
+                "A single scenario to test a specific function of the website.",
+                "Checking if the output matches the expected result.",
+                "A collection of several test cases.",
+                "A tool used to execute test cases.",
+                "Setting up a simulated user environment before running each test."
             ],
             "threshold": 100,
             "learning": {
@@ -43,53 +43,35 @@
             "solution": [
                 "webdriver",
                 "Chrome",
-                "ChromeDriverManager()",
                 "install()",
                 "quit()",
-                "maximize_window",
                 "find_element_by_name",
                 "\"webdrivermanager\"",
                 "find_element_by_link_text",
-                "\"Google Images\"",
-                "\"I'm Feeling Lucky\"",
-                "Confusion Statement 1",
-                "Confusion Statement 2",
-                "Confusion Statement 3",
-                "Confusion Statement 4"
+                "\"Google Images\""
             ],
             "kind": "unit",
             "blocks": [
-                "class TestGoogle:<br> <br> &emsp;@classmethod<br> &emsp;@pytest.fixture(scope=\"class\", autouse=True)<br> &emsp;def setup(cls, request):<br> &emsp;&emsp;# Set up WebDriver using Chrome with Webdriver Manager<br><br> &emsp;&emsp;cls.driver = [",
+                "<code>class TestGoogle:<br> &emsp;@classmethod<br> &emsp;@pytest.fixture(scope=\"class\", autouse=True)<br> &emsp;def setup(cls, request):<br>&emsp;&emsp;cls.driver = </code>",
                 "",
-                "].[",
+                "<code>.</code>",
                 "",
-                "]([",
+                "<code>(</code>",
+                "<code>ChromeDriverManager().</code>",
                 "",
-                "]().[",
+                "<code>)<br></code>",
+                "<code>&emsp;&emsp;yield<br></code>",
+                "<code>&emsp;&emsp;cls.driver.</code>",
                 "",
-                "]())<br>",
-                "&emsp;&emsp;yield<br>",
-                "&emsp;&emsp;cls.driver.[",
+                "<code><br><br> &emsp;def test_search(self):<br> &emsp;&emsp;self.driver.get(\"https://www.google.com\")<br> &emsp;&emsp;search = self.driver.</code>",
                 "",
-                "]()<br>",
-                "<br> &emsp;@classmethod<br> &emsp;@pytest.fixture(scope=\"class\")<br> &emsp;def additional_setup(cls, request):<br> &emsp;&emsp;# Maximize the browser window before each test<br> &emsp;&emsp;cls.driver.[",
+                "<code>(\"q\")<br> &emsp;&emsp;search.send_keys(\"Webdriver Manager\")<br> &emsp;&emsp;search.send_keys(Keys.RETURN)<br> &emsp;&emsp;assert </code>",
                 "",
-                "]()<br>",
-                "<br> &emsp;@classmethod<br> &emsp;@pytest.fixture(scope=\"class\")<br> &emsp;def additional_setup(cls, request):<br> &emsp;&emsp;# Maximize the browser window before each test<br> &emsp;&emsp;cls.driver.[",
+                "<code> in self.driver.title<br> <br> &emsp;def test_images_search(self):<br> &emsp;&emsp;self.driver.get(\"https://www.google.com\")<br> &emsp;&emsp;imgLink = self.driver.</code>",
                 "",
-                "]()<br>",
-                "<br> &emsp;def test_search(self):<br> &emsp;&emsp;self.driver.get(\"https://www.google.com\")<br> &emsp;&emsp;search_box = self.driver.[",
-                "a",
+                "<code>(\"Images\")<br> &emsp;&emsp;imgLink.click()<br> &emsp;&emsp;assert </code>",
                 "",
-                "](\"q\")<br> &emsp;&emsp;search_box.send_keys(\"Webdriver Manager\")<br> &emsp;&emsp;search_box.send_keys(Keys.RETURN)<br> &emsp;&emsp;assert [",
-                "",
-                "] in self.driver.title<br> <br> &emsp;def test_images_search(self):<br> &emsp;&emsp;self.driver.get(\"https://www.google.com\")<br> &emsp;&emsp;images_link = self.driver.[",
-                "",
-                "](\"Images\")<br> &emsp;&emsp;images_link.click()<br> &emsp;&emsp;assert [",
-                "",
-                "] in self.driver.title<br> <br> &emsp;def test_lucky_button(self):<br> &emsp;&emsp;self.driver.get(\"https://www.google.com\")<br> &emsp;&emsp;lucky_button = self.driver.find_element_by_name(\"btnI\")<br> &emsp;&emsp;lucky_button.click()<br> &emsp;&emsp;assert [",
-                "",
-                "] in self.driver.title<br>"
+                "<code> in self.driver.title<br>"
             ],
             "storyline": "python",
             "name": "WebDriver Manager",
@@ -101,25 +83,12 @@
                 "content": "   <center><h1><b>Welcome to Mission 10</b> </h1>     <h2>About Webdriver Manager</h2>     </center>     <br><p>         Webdriver Manager is a Python library designed to streamline the management of binary drivers essential for automating web browsers using Selenium. It aims to simplify the often cumbersome process of downloading, installing, and configuring these drivers across different platforms and browser versions.     </p><br>     <p>         The core functionality of Webdriver Manager revolves around providing an easy-to-use interface for developers to handle the setup of browser drivers effortlessly. It supports a variety of popular web browsers such as Chrome, Firefox, Edge, Opera, Brave, and Internet Explorer, ensuring compatibility with Selenium versions 3.x and 4.x.     </p><br>     <p>         Prior to the introduction of Webdriver Manager, developers had to manually download the appropriate driver binaries, extract them to a specific location, and set up environment variables or specify paths within their codebase. This process was not only time-consuming but also prone to errors, especially when managing multiple browser versions or operating systems.     </p><br>     <p>         With Webdriver Manager, developers can now install the manager itself using Python package manager (pip), and then seamlessly integrate it into their Selenium automation scripts. The library takes care of downloading the necessary driver binaries, managing their versions, and ensuring compatibility with the installed browser versions.     </p><br>     <p>         Furthermore, Webdriver Manager offers various configuration options to cater to different use cases and environments. Developers can customize settings such as cache management, SSL verification, browser version specification, and even use custom HTTP clients for more advanced scenarios.     </p><br>     <p>         In summary, Webdriver Manager serves as a vital tool in the toolkit of Python developers engaged in web automation, offering a convenient and reliable solution for managing browser drivers and streamlining the Selenium testing process.     </p>"
             },
             "type": "dnd",
-            "explanation": "<p>Based on the provided Drag-and-Drop Exercise and its solution, here is an explanation for the exercise:<br> </p> <p>Exercise Explanation:<br> </p> <p>Objective:<br> The objective of this exercise is to implement automated tests using Selenium and PyTest to interact with the Google search page and verify specific functionalities.<br> </p> <p>Test Cases:<br> 1. <strong>Test Search Functionality:</strong><br>    - Open the Google homepage.<br>    - Enter \"Webdriver Manager\" into the search box.<br>    - Press Enter.<br>    - Verify that the search results page title contains \"webdrivermanager\".<br> <br> 2. <strong>Test Images Search:</strong><br>    - Open the Google homepage.<br>    - Click on the \"Images\" link.<br>    - Verify that the page title changes to \"Google Images\".<br> <br> 3. <strong>Test \"I'm Feeling Lucky\" Button:</strong><br>    - Open the Google homepage.<br>    - Click on the \"I'm Feeling Lucky\" button.<br>    - Verify that the page title changes to \"I'm Feeling Lucky\".<br> <br> Provided Code:<br> - The provided code contains a PyTest test class named <code>TestGoogle</code>.<br> - It includes fixtures to set up and tear down the WebDriver session, as well as additional setup to maximize the browser window.<br> - Three test methods are defined to execute the test cases mentioned above: <code>test_search</code>, <code>test_images_search</code>, and <code>test_lucky_button</code>.<br> <br> Missing Parts:<br> - The code provided has certain parts missing, denoted by placeholders such as <code>[---------]</code> and <code>[----------------------]</code>.<br> - These placeholders need to be replaced with appropriate Selenium WebDriver methods or attributes to complete the test automation code.<br> <br> Solution:<br> - The solution code provided fills in the missing parts with the correct WebDriver methods and attributes to interact with the Google search page and perform the desired actions.<br> - It completes the test automation code for the provided test cases, allowing the tests to execute successfully and verify the expected behavior of the Google search page.<br> <br> Execution and Verification:<br> - To execute the test cases, the complete test automation code (including the solution) needs to be run using PyTest.<br> - The tests will open a Chrome browser, navigate to the Google homepage, perform the specified actions, and verify the expected outcomes.<br> - Upon execution, the test results will indicate whether the test cases pass or fail based on the assertions defined in the test methods.<br> <br> Learning Outcome:<br> - By completing this exercise, learners will gain hands-on experience in writing automated tests using Selenium and PyTest to interact with web pages, perform actions, and verify expected outcomes.<br> - Learners will also become familiar with common Selenium WebDriver methods for locating elements and performing actions such as clicking links and entering text into input fields.<br> </p>",
+            "explanation": "<p>Objective:<br> The objective of this exercise is to implement automated tests using Selenium and PyTest to interact with the Google search page and verify specific functionalities.<br><br> </p> <p>Test Cases:<br> 1. <strong>Test Search Functionality:</strong><br>    - Open the Google homepage.<br>    - Enter \"Webdriver Manager\" into the search box.<br>    - Press Enter.<br>    - Verify that the search results page title contains \"webdrivermanager\".<br> <br> 2. <strong>Test Images Search:</strong><br>    - Open the Google homepage.<br>    - Click on the \"Images\" link.<br>    - Verify that the page title changes to \"Google Images\".<br> <br> Provided Code:<br> - The provided code contains a PyTest test class named <code>TestGoogle</code>.<br> - It includes fixtures to set up and tear down the WebDriver session, as well as additional setup to maximize the browser window.<br> - Three test methods are defined to execute the test cases mentioned above: <code>test_search</code> and <code>test_images_search</code>.",
+            "time": 90,
             "points": 150
         },
         "mission_11": {
             "difficulty": "hard",
-            "solution": [
-                false,
-                false,
-                "true",
-                "true",
-                "true",
-                "False"
-            ],
-            "selectables": [
-                "20-57",
-                "89-117",
-                "12-20",
-                "12-30"
-            ],
             "storyline": "python",
             "name": "Semantic and Syntax Errors on pytest",
             "threshold": 90,
@@ -129,39 +98,69 @@
                 "content": "    <center><h1><b>Welcome to Mission 11</b> </h1>     <h2>About Understanding Semantic and Syntax Bugs using pytest</h2></center>     <p>         Semantic and Syntax bugs are common issues encountered during software development. It's crucial to distinguish between them to effectively debug and maintain code.     </p>     <br>     <p>         Semantic bugs occur when the logic of the program is flawed, leading to unexpected behavior. These bugs may not result in syntax errors but can cause incorrect program output or undesired outcomes. Semantic bugs are often harder to detect than syntax bugs because they involve understanding the intended functionality of the code. Examples of semantic bugs include miscalculations, incorrect conditional statements, and improper data handling.     </p>     <br>     <p>         Syntax bugs, on the other hand, are errors in the structure or grammar of the code. These bugs violate the rules of the programming language, causing the interpreter or compiler to raise errors. Syntax bugs are usually easier to identify and fix compared to semantic bugs because they are detected by the compiler or interpreter during the code compilation or execution process. Common syntax bugs include missing semicolons, mismatched parentheses, and misspelled keywords.     </p>     <br>     <h3>Risks and Impact:</h3>     <p>         Semantic bugs can have significant consequences, such as incorrect computation results, security vulnerabilities, or system crashes. These bugs can lead to data corruption, loss of user trust, and financial losses for organizations. Syntax bugs typically prevent the code from executing altogether, resulting in immediate errors during compilation or runtime. While less severe than semantic bugs, syntax bugs can still disrupt development workflow and delay project timelines.     </p>     <br>     <h3>Preventing and Resolving Bugs:</h3>     <p>         To prevent semantic bugs, developers should thoroughly understand the requirements and specifications of the software and conduct rigorous testing. Code reviews, unit testing, and integration testing are essential for identifying and addressing semantic bugs early in the development lifecycle. Debugging semantic bugs involves analyzing the program's behavior, identifying discrepancies between expected and actual outcomes, and implementing corrective measures.     </p>     <br>     <p>         Syntax bugs can be avoided by adhering to the syntax rules of the programming language, using linting tools, and paying attention to compiler or interpreter error messages. Code editors with syntax highlighting and auto-completion features can also help prevent syntax errors during development. Debugging syntax bugs involves analyzing the code for syntax errors indicated by error messages and correcting them accordingly using code editors or integrated development environments (IDEs).     </p>",
                 "resouceLink": "https://www.honeybadger.io/blog/beginners-guide-to-software-testing-in-python/"
             },
-            "text": "",
+            "text": "class TestBook:\n  @pytest.mark.parametrize(\"title, author, pages\",\n\t\t\t\t\t\t [(\"Harry Potter\", \"J.K. Rowling\", 500),\n\t\t\t\t\t\t  (\"The Great Gatsby\", \"F. Scott Fitzgerald\", 218),\n\t\t\t\t\t\t  (\"To Kill a Mockingbird\", \"Harper Lee, 281)])\n  def test_read_books(self, title, author, pages):\n      book = Book(title, author, pages)\n      assert Book.read_book() == f\"Reading {title} by {author}\"\n\n  def test_flip_pages_valid(self):\n      book = Book(\"1984\", \"G. Orwell\", 328)\n      assert book.flip_pages(100) == f\"Flipping to page G. Orwell of 1984\"\n\n\n def test_invalid_title(self):\n      book = Book(\"J.K. Rowling\", 500)\n      assert book.read_book() == \"Reading Harry Potter of J.K. Rowling\"\n\n\n def test_flip_pages_invalid(self, title, author, pages):\n      book = Book(\"1984\", \"G. Orwell\", 328)\n      with pytest.raises(AssertionError):\n          book.flip_pages(1000)",
             "type": "debug",
-            "explanation": "    <h3>Explanation</h3>     <p>You have a class <code>Book</code>:</p>     <p>         class Book:<br>         &emsp;def __init__(self, title, author, pages):<br>         &emsp;&emsp;self.title = title<br>         &emsp;&emsp;self.author = author<br>         &emsp;&emsp;self.pages = pages<br><br>         &emsp;def read_book(self):<br>         &emsp;&emsp;return f\"Reading {self.title} by {self.author}\"<br><br>         &emsp;def flip_pages(self, page_number):<br>         &emsp;&emsp;if page_number > self.pages:<br>         &emsp;&emsp;&emsp;raise ValueError(\"Page number exceeds total pages of the book.\")<br>         &emsp;&emsp;return f\"Flipping to page {page_number} of {self.title}\"<br>     </p>     <p>Consider the pytest class on the right, which is importing and using the <code>Book</code> class to test it.</p>     <p>Your goal is to spot bugs in the code of the tests.</p>",
-            "points": 150
+            "explanation": "You have a class <code>Book:<br><br>class Book:<br>&emsp;def __init__(self, title, author, pages):<br>&emsp;&emsp;self.title = title<br>&emsp;&emsp;self.author = author<br>&emsp;&emsp;self.pages = pages<br><br>&emsp;def read_book(self):<br>&emsp;&emsp;return f\"Reading {self.title} by {self.author}\"<br><br>&emsp;def flip_pages(self, page_number):<br>&emsp;&emsp;if page_number > self.pages:<br>&emsp;&emsp;&emsp;raise ValueError(\"Page number exceeded\")<br>&emsp;&emsp;return f\"Flipping to page {page_number} of {self.title}\"</code><br><br> Consider the pytest class on the right, which is importing and using the <code>Book</code> class to test it.<br>Your goal is to spot bugs in the code of the tests.",
+            "points": 150,
+            "selectables": [
+                "122-170",
+                "180-223",
+                "290-316",
+                "350-380",
+                "467-494",
+                "498-536",
+                "539-568",
+                "582-607",
+                "613-638",
+                "641-680",
+                "683-739"
+            ],
+            "solution": [
+                false,
+                true,
+                false,
+                false,
+                false,
+                true,
+                false,
+                true,
+                false,
+                true,
+                true
+            ]
         },
         "mission_12": {
             "difficulty": "hard",
             "kind": "e2e",
             "storyline": "python",
+            "name": "Slow Calculator",
             "questions": {
-                "Implement the test for the addition...": {
-                    "answer2 ....": false,
-                    "answer3 ....": false,
-                    "answer1 ....": true,
-                    "answer4 ....": false
+                "Considering that the calculator needs 5 seconds to get the results, how can I make sure that the result is displayed?": {
+                    "WebDriverWait(self.driver, 6).until(EC.text_to_be_present_in_element(result, '10'))": true,
+                    "assert result.text == 10": false,
+                    "assert wait_until(lambda: result.text == '10', timeout=6)": true,
+                    "sleep(6); assert result.text == 10": true,
+                    "driver.implicitly_wait(2)": true
                 },
-                "Implement the test for the subtraction...": {
-                    "answer2 ....": true,
-                    "answer3 ....": false,
-                    "answer1 ....": false,
-                    "answer4 ....": false
+                "How can I retrieve the result display screen?": {
+                    "self.driver.findElement(By.xpath('//*[@id='calculator']/div[1]/div'))": true,
+                    "driver.find_element(By.ID, 'screen')": false,
+                    "self.driver.findElement(By.xpath('/html/body/main/div/div[4]/div/div/div[1]/div’))": true,
+                    "driver.find_element(By.CLASS_NAME, 'screen')": true
                 }
             },
-            "name": "Slow Calculator",
             "threshold": "80",
             "learning": {
                 "exerciseLink": "/exercise/12",
                 "learningLink": "/learning/12",
-                "resourceLink": "",
-                "content": ""
+                "resourceLink": "https://www.selenium.dev/documentation/webdriver/waits/",
+                "content": "<center>   <h1><b>Welcome to Mission 12</b></h1>   <h2><b>About Understanding Testing for a Slow Calculator</b></h2> </center> <p>   In this mission, you will learn about testing a slow calculator that   introduces a 5-second delay before displaying results. Testing such a   calculator involves understanding its behavior under various conditions and   ensuring accurate results despite the delay. </p> <br /> <h3 style=\"text-align: center\"><b>Testing Objectives:</b></h3> <ul style=\"list-style-type: disc; padding-left: 20px\">   <li>     Ensuring accurate computation despite the delay introduced by the     calculator.   </li>   <li>     Verifying that the calculator displays results after the expected waiting     period.   </li>   <li>     Testing the functionality of the calculator's operations (addition,     subtraction, multiplication, division) under delay conditions.   </li>   <li>     Validating the responsiveness of the calculator's interface during the     waiting period.   </li> </ul> <br /> <h3 style=\"text-align: center\"><b>Types of Tests:</b></h3> <ul style=\"list-style-type: disc; padding-left: 20px\">   <li>     Functional Testing: Verifies that each operation (addition, subtraction,     multiplication, division) produces correct results despite the delay.   </li>   <li>     Integration Testing: Ensures seamless interaction between different     components of the calculator, including the display and computation modules.   </li>   <li>     User Interface Testing: Checks the responsiveness of the calculator's     interface during the waiting period to ensure a smooth user experience.   </li>   <li>     Performance Testing: Measures the calculator's response time and resource     utilization under delay conditions to assess its efficiency.   </li> </ul> <br /> <h3 style=\"text-align: center\"><b>Challenges:</b></h3> <ul style=\"list-style-type: disc; padding-left: 20px\">   <li>     Managing expectations: Users may expect immediate results, so it's crucial     to communicate the delay effectively.   </li>   <li>     Handling concurrency: Testing multiple operations simultaneously to simulate     real-world usage scenarios.   </li>   <li>     Ensuring accuracy: Verifying that the delayed results are correct and     consistent with the expected outcomes.   </li>   <li>     Optimizing performance: Identifying bottlenecks and optimizing the     calculator's performance to minimize the impact of the delay.   </li> </ul> <br /> <h3 style=\"text-align: center\"><b>Conclusion:</b></h3> <p>   Testing a slow calculator requires a comprehensive approach to ensure accurate   results and a seamless user experience despite the delay. By understanding the   behavior of the calculator and applying appropriate testing techniques, you   can identify and resolve any issues effectively. </p>"
             },
+            "embedding": "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html",
+            "text": "class SlowCalculatorTest(): \n\tdef setUp(self): \n\t  self.driver = webdriver.Chrome() \n\t  self.driver.get(\"https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html\") \n\n\tdef test_sum(self): \n\t\tbutton_five = self.driver.findElement(By.xpath('//*[@id=\"calculator\"]/div[2]/span[6]')) \n\t\tbutton_sum = self.driver.findElement(By.xpath('//*[@id=\"calculator\"]/div[2]/span[4]')) \n\t\tbutton_equals = self.driver.findElement(By.xpath('//*[@id=\"calculator\"]/div[2]/span[15]')) \n\t\tresult = {/* insert your first answer here */}      \n\n\t\tbutton_five.click() \n\t\tbutton_sum.click() \n\t\tbutton_five.click()     \n\t\tbutton_equals.click()      \n\n\t\t{/* wait until the result is not displayed */}\n\n",
             "type": "ms",
             "explanation": "",
+            "time": 90,
             "points": "150"
         },
         "mission_13": {
@@ -179,7 +178,7 @@
             "type": "ms",
             "explanation": "",
             "points": "50",
-            "difficulty": "hard"
+            "difficulty": "easy"
         },
         "mission_2": {
             "difficulty": "easy",
@@ -217,9 +216,9 @@
                     1
                 ]
             },
-            "text": "The exercise is to craft the post request payload for the password field: SELECT * FROM users WHERE username='$username' AND password='$password';<br/> Username: `admin`  Password: {}<br /> The login query processed if the attack is correct is: {}<br /> As a result, the query returns True and the user logs in as {}",
+            "text": "The exercise is to craft the post request payload for the password field:<br><br><b><code>SELECT * FROM users WHERE username='$username' AND password='$password'</code></b>;<br><br>Username: <b><code>admin</code></b><br>Password: {}<br><br> The login query processed if the attack is correct is {}<br><br>As a result, the query returns True and the user logs in as {}",
             "type": "sd",
-            "explanation": "    <h2 style=\"font-weight: bold;\">Website Description:</h2>     <br>     <p>Imagine a simple login system where users can log in with their username and password: the login functionality is implemented using SQL queries to check user credentials against a database.</p>     <br>     <h2 style=\"font-weight: bold;\">Target:</h2>     <br>     <p>The goal is to bypass the login mechanism and gain unauthorized access by exploiting SQL injection vulnerabilities.</p>     <br>     <h2 style=\"font-weight: bold;\">Website Structure:</h2>     <br>     <ul>         <li><strong>Login Page:</strong> <code>http://example.com/login.php</code></li>         <li><strong>Database Connection:</strong> The login system connects to a MySQL database with a table named <code>users</code> containing columns <code>username</code> and <code>password</code>.</li>     </ul>     <br>     <h2 style=\"font-weight: bold;\">Attack Description:</h2>     <br>     <p>The login system is vulnerable to SQL injection, and the injection point is the user input fields for username and password.</p>     <br>     <p>The login query is something like:</p>     <br>     <pre>         <code>SELECT * FROM users WHERE username='$username' AND password='$password';</code>     </pre>     <br>     <p>The website does not properly validate and sanitize user inputs, allowing an attacker to manipulate the SQL query.</p>     <br>     <h2 style=\"font-weight: bold;\">Craft a SQL Injection Attack:</h2>     <br>     <p>Assume that you already know a valid username (e.g., <code>admin, arthur, giacomo</code>) but you need to bypass the password check: your goal is to bypass the login and gain unauthorized access.</p>     <br>",
+            "explanation": "    <h2 style=\"font-weight: bold;\">Website Description:</h2>     <br>     <p>Imagine a simple login system where users can log in with their username and password: the login functionality is implemented using SQL queries to check user credentials against a database.</p>     <br>     <h2 style=\"font-weight: bold;\">Target:</h2>     <br>     <p>The goal is to bypass the login mechanism and gain unauthorized access by exploiting SQL injection vulnerabilities.</p>     <br>     <h2 style=\"font-weight: bold;\">Website Structure:</h2>     <br>     <ul>         <li><strong>Login Page:</strong> <code>http://example.com/login.php</code></li>         <li><strong>Database Connection:</strong> The login system connects to a MySQL database with a table named <code>users</code> containing columns <code>username</code> and <code>password</code>.</li>     </ul>     <br>     <h2 style=\"font-weight: bold;\">Attack Description:</h2>     <br>     <p>The login system is vulnerable to SQL injection, and the injection point is the user input fields for username and password.</p>     <br>     <p>The login query is something like:</p><br><pre><code>SELECT * FROM users<br>&emsp;&emsp;WHERE username='$username' AND password='$password';</code>     </pre>     <br>     <p>The website does not properly validate and sanitize user inputs, allowing an attacker to manipulate the SQL query.</p>     <br>     <h2 style=\"font-weight: bold;\">Craft a SQL Injection Attack:</h2>     <br>     <p>Assume that you already know a valid username (e.g., <code>admin, arthur, giacomo</code>) but you need to bypass the password check: your goal is to bypass the login and gain unauthorized access.</p>     <br>",
             "points": 50
         },
         "mission_3": {
@@ -249,7 +248,7 @@
             },
             "text": "",
             "type": "oc",
-            "explanation": "<h2 style=\"font-weight: bold;\">Website Description:</h2><br> <p>Consider the following simple login form with two fields, email and password, and a submit button.</p> <br>  <iframe srcdoc='     <html lang=\"en\">     <head>         <meta charset=\"UTF-8\">         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">         <style>             .border { border: 1px solid #000; }             .rounded { border-radius: 5px; }         </style>     </head>     <body>         <form onSubmit=\"\" class=\"flex flex-col space-y-4\">             <div class=\"flex flex-col text-white\">                 Email: <br>                 <input class=\"border rounded px-2 py-1 text-black\" name=\"email\" type=\"email\" id=\"email\" />             </div>             <div class=\"flex flex-col text-white\">                 Password: <br>                 <input class=\"border rounded px-2 py-1 text-black\" name=\"password\" type=\"password\" id=\"password\" />             </div><br>             <button type=\"submit\" class=\"bg-tq-primary hover:bg-tq-accent text-white font-bold py-2 px-4 rounded\">                 Submit             </button>         </form>     </body>     </html> ' width=\"300\" height=\"150\"></iframe> <br><br>  <h2 style=\"font-weight: bold;\">Form Structure:</h2><br> Each element of the form: <ul style=\"list-style: circle; margin-left:3%;\">     <li>Can be identified by an <code>id</code></li>     <li>It is characterized by a <code>class</code></li>     <li>It is located in the DOM tree by an <code>XPath</code></li> </ul><br>  <p>The values of these attributes can be found with the <b>browser's developer console</b>, using the inspect function     to access the elements of this page. This function allows one to explore the HTML and CSS of a web page, finding and     modifying specific elements.</p> <br>  <h2 style=\"font-weight: bold;\">Exercise Description:</h2> <br> <p>The exercise consists of completing blanks by typing in the right solution for each of the three form elements. The     solution is a string that can be found by inspecting this page. </p> <br>",
+            "explanation": "<h2 style=\"font-weight: bold;\">Website Description:</h2><br> <p>Consider the following simple login form with two fields, email and password, and a submit button.</p> <br>  <iframe srcdoc='     <html lang=\"en\">     <head>         <meta charset=\"UTF-8\">         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">         <style>             .border { border: 1px solid #000; }             .rounded { border-radius: 5px; }         </style>     </head>     <body>         <form onSubmit=\"\" className=\"flex flex-col space-y-4\">             <div className=\"flex flex-col text-white\">                 Email: <br>                 <input className=\"border rounded px-2 py-1 text-black\" name=\"email\" type=\"email\" id=\"email\" />             </div>             <div className=\"flex flex-col text-white\">                 Password: <br>                 <input className=\"border rounded px-2 py-1 text-black\" name=\"password\" type=\"password\" id=\"password\" />             </div><br>             <button type=\"submit\" className=\"bg-tq-primary hover:bg-tq-accent text-white font-bold py-2 px-4 rounded\">                 Submit             </button>         </form>     </body>     </html> ' width=\"300\" height=\"150\"></iframe> <br><br>  <h2 style=\"font-weight: bold;\">Form Structure:</h2><br> Each element of the form: <ul style=\"list-style: circle; margin-left:3%;\">     <li>Can be identified by an <code>id</code></li>     <li>It is characterized by a <code>class</code></li>     <li>It is located in the DOM tree by an <code>XPath</code></li> </ul><br>  <p>The values of these attributes can be found with the <b>browser's developer console</b>, using the inspect function     to access the elements of this page. This function allows one to explore the HTML and CSS of a web page, finding and     modifying specific elements.</p> <br>  <h2 style=\"font-weight: bold;\">Exercise Description:</h2> <br> <p>The exercise consists of completing blanks by typing in the right solution for each of the three form elements. The     solution is a string that can be found by inspecting this page. </p> <br>",
             "points": 50
         },
         "mission_4": {
@@ -327,24 +326,24 @@
                 "resourceLink": "https://owasp.org/www-community/attacks/Path_Traversal",
                 "content": "<center><p><strong>Welcome to Mission Number 5</strong></p> <p>It's time to learn, the rocket is starting...</p> </center><br>  <p><strong>Understanding Path Traversal</strong></p> <p>Path Traversal, also known as Directory Traversal, is a security vulnerability that allows an attacker to access files and directories that are outside the web root directory. This vulnerability occurs when user input is not properly sanitized and validated.</p> <br>  <p><strong>Risks and Impact</strong></p> <ul>     <li><strong>Unauthorized Access:</strong> Exploiting path traversal vulnerabilities can lead to unauthorized access to sensitive files, including configuration files, user data, or even system files.</li>     <li><strong>Data Leakage:</strong> Attackers can read and potentially modify files they shouldn’t have access to, compromising data integrity and confidentiality.</li>     <li><strong>System Compromise:</strong> In severe cases, path traversal can lead to full system compromise, enabling attackers to execute arbitrary code.</li> </ul> <br>  <p><strong>Preventing Path Traversal</strong></p> <p>To mitigate path traversal vulnerabilities, developers should:</p> <ul>     <li>- <strong>Input Validation:</strong> Validate and sanitize user input to ensure that it adheres to expected formats and does not contain malicious characters.</li>     <li>- <strong>Use Whitelists:</strong> Employ whitelists to specify valid file and directory names, limiting the scope of allowed inputs.</li>     <li>- <strong>Implement Access Controls:</strong> Enforce proper access controls to restrict users' access to only the necessary files and directories.</li> </ul> <br> <p><strong>What you need to do?</strong></p> <p>You will complete a drag and drop exercise to play with Path Traversal. The score of the mission will be evaluated checking the correctness of the drags and drop that you will perform so play with your brain.</p>"
             },
-            "explanation": "<p><strong>Website Structure:</strong></p> <p>Suppose we have a simple website structure with the following directories:</p> <br> <ul>   <li><strong>/home/</strong> (contains user home directories)</li>   <li><strong>/public/</strong> (publicly accessible files)</li>   <li><strong>/server/</strong> (server-related files)</li>   <li><strong>/admin/</strong> (admin-related files)</li> </ul> <br> <code> <p> /<br> |-- home/<br> |&nbsp;&nbsp;|-- user1/<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- public/<br> |&nbsp;&nbsp;|-- index.html<br> |&nbsp;&nbsp;|-- about.html<br> |&nbsp;&nbsp;|-- user_uploaded_file.txt<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- server/<br> |&nbsp;&nbsp;|-- secrets/<br> |&nbsp;&nbsp;&nbsp;&nbsp;|-- flag.txt<br> |<br> |-- index.html<br> |-- about.html<br> |-- contact.html<br> |-- files.php<br> </p> </code> <br> <p><strong>Target File:</strong></p> <p>The sensitive file we want to access is located at: <strong>/server/secrets/flag.txt</strong></p> <br> <p><strong>Website Description:</strong></p> <p>The website allows users to access certain public files.</p> <p>The website employs a simple mechanism to serve files based on user requests. The URL structure might look like this: <strong>http://example.com/files.php?file=user_uploaded_file.txt</strong></p>",
+            "explanation": "<p>Suppose we have a simple website structure with the following directories:</p><br><code> <p> /<br> |-- home/<br> |&nbsp;&nbsp;|-- user1/<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- public/<br> |&nbsp;&nbsp;|-- index.html<br> |&nbsp;&nbsp;|-- about.html<br> |&nbsp;&nbsp;|-- user_uploaded_file.txt<br> |&nbsp;&nbsp;|-- ...<br> |<br> |-- server/<br> |&nbsp;&nbsp;|-- secrets/<br> |&nbsp;&nbsp;&nbsp;&nbsp;|-- flag.txt<br> |<br> |-- index.html<br> |-- about.html<br> |-- contact.html<br> |-- files.php<br> </p> </code> <br> <p><strong>Target File:</strong></p> <p>The sensitive file we want to access is located at: <strong>/server/secrets/flag.txt</strong></p> <br> <p><strong>Website Description:</strong></p> <p>The website allows users to access certain public files, serving files based on user requests, which URL might look like this: <br><code><strong>http://example.com/files.php?file=user_uploaded_file.txt</strong></code></p>",
             "type": "dnd",
             "points": 50
         },
         "mission_6": {
             "difficulty": "medium",
             "solution": [
-                "5",
+                "6",
                 "2",
-                "' UNION ALL SELECT *, 3, 4, 5, 6 FROM real_data -- -"
+                "' UNION ALL SELECT *, '42', '42', '42', '42' FROM real_data -- -"
             ],
             "kind": "security",
             "blocks": [
-                "Question 1",
+                "<b>Question 1</b>: How many columns does the table <code>dummy_data</code> have?&emsp;",
                 "",
-                "<br>Question 2",
+                "<br><br><b>Question 2</b>: How many columns does the table <code>real_data</code> have?&emsp;",
                 "",
-                "<br>Question 3",
+                "<br><br><b>Question 3</b>: Write the correct payload to retrieve the content of the table <code>real_data</code>.<br> <i> Padding should be something like</i>: <code>..., '42', '42', ...</code>&emsp;&emsp;",
                 ""
             ],
             "storyline": "python",
@@ -356,9 +355,9 @@
                 "resourceLink": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
                 "content": "<center><h1 className=\"p-4 text-center\"><strong>Welcome to Mission Number 6</strong></h1>  intricate world of SQL injection UNION attacks </center><br/> <p>In this thrilling mission, you are about to embark on a journey into the intricate world of SQL injection UNION attacks.      These attacks are a notorious technique employed by cunning hackers to manipulate and extract sensitive data from a database.</p> <br> <p>Get ready to dive deep into the realm of cybersecurity as you unravel the nuances of SQL injection. The stakes are high, and your mission is to understand the intricacies of UNION attacks – a maneuver that involves injecting a SELECT statement to cunningly combine results from multiple queries.</p>  <br> <p>As you navigate through this mission, be prepared to encounter real-world scenarios where SQL injection poses a significant threat. Your objective? To not only comprehend how these attacks work but to equip yourself with the knowledge needed to thwart them. Learn the art of implementing robust input validation and master the use of parameterized queries in your applications.</p>    <br>  <p><strong>Note:</strong> A word of caution – these exercises should only be conducted in controlled environments or with explicit permission. Unauthorized SQL injection attempts on real-world websites are not only illegal but also highly unethical.</p>  <p>Prepare for an immersive experience, where the lines between attacker and defender blur, and your skills as a cybersecurity enthusiast are put to the test.</p>   <br><strong><h2>Exploring SQL Injection</h2>  </strong> <p>Before delving into UNION attacks, let's take a moment to understand the broader concept of SQL injection. It occurs when an attacker exploits vulnerabilities by injecting malicious SQL code into a query. This nefarious practice can lead to unauthorized access, data disclosure, and potential havoc.</p> <br>   <p>The key to defending against SQL injection lies in your ability to comprehend the intricacies of database interactions and fortify your applications with robust security measures.</p>  <br> <strong> <h2>The Art of Prevention</h2> </strong>  <p>Equipped with knowledge and armed with preventative measures, you will learn how to safeguard your applications against SQL injection threats. Explore the world of input validation, where every piece of data is scrutinized and validated before reaching the database.</p>   <br> <p>Parameterized queries will become your go-to weapon, allowing you to execute queries safely and securely. With these tools in your arsenal, you can confidently face the challenges posed by SQL injection and emerge victorious.</p>  <br><strong> <h3>Challenge Yourself</h3>  </strong> <p>Ready for a challenge? Test your newfound skills by navigating through simulated scenarios that mimic real-world threats.      Only by immersing yourself in these challenges can you truly master the art of defending against SQL injection.</p>   <br> <p>Stay vigilant, stay secure, and may your journey through Mission 5 be both enlightening and empowering!</p>"
             },
-            "text": "<br><br> The     executed query is:<br>     <code>SELECT * FROM dummy_data WHERE id='' UNION ALL SELECT *, 3, 4, 5, 6 FROM real_data -- -'</code><br><br> And it     returns:<br> <code>1, TQTS{YAY!!}, 3, 4, 5, 6</code> ",
+            "text": "<br><br> The     executed query is:<br>     <code>SELECT * FROM dummy_data WHERE id='' UNION ALL SELECT *, 3, 4, 5, 6 FROM real_data -- -</code><br><br> And it     returns:<br> <code>1, TQTS{YAY!!}, 3, 4, 5, 6</code> ",
             "type": "oc",
-            "explanation": "<h2 style=\"font-weight: bold;\"> Exercise Description</h2> The database consists of a table named <code     style=\"color: brown;\"> real_data</code> and we want to know what’s inside it. <br><br><strong> First Step</strong> <aside style=\"background-color: #0e0d0d; border: 1px solid #c77777; padding: 10px; margin: 20px;\"> You have a     vulnerable query<br>     <code><strong>SELECT</strong> * <strong>FROM</strong> dummy_data <strong>WHERE</strong> <strong>id</strong>='<user_input>'</code><br><br>     If you input <code>1</code> it gets back: <code>1, dummy value1, 3, another_value1, lollo, 4</code><br><br> So you     know it has <code>&lt;Question 1&gt;</code> columns.<br><br> </aside> <strong>Second Step</strong> <aside style=\"background-color: #0e0d0d; border: 1px solid #c77777; padding: 10px; margin: 20px;\"> You can retrieve the     <code>TABLE_NAME</code> from <code>information_schema</code> by injecting:<br>     <code>' UNION ALL SELECT TABLE_NAME, TABLE_NAME, TABLE_NAME, TABLE_NAME, TABLE_NAME, TABLE_SCHEMA FROM information_schema.tables -- -</code><br><br>     Which returns:<br> <code>real_data, real_data, real_data, real_data, real_data, uniondb</code><br><br> You can now     retrieve the number of columns in <code>real_data</code> by injecting:<br>     <code>SELECT * FROM dummy_data WHERE id='' UNION ALL SELECT COUNT(*), 2, 3, 4, 5, 6 FROM INFORMATION_SCHEMA.COLUMNS WHERE  table_name = 'real_data'-- -'</code><br><br>     Which runs the query:<br>     <code>SELECT * FROM dummy_data WHERE id='' UNION ALL SELECT COUNT(*), 2, 3, 4, 5, 6 FROM INFORMATION_SCHEMA.COLUMNS WHERE  table_name = 'real_data'-- -'</code><br><br>     And returns: <code>2, 2, 3, 4, 5, 6</code><br><br> <code>real_data</code> has <code>&lt;Question 2&gt;</code>     columns.<br><br> </aside> <strong>Third Step</strong> <aside style=\"background-color: #0e0d0d; border: 1px solid #c77777; padding: 10px; margin: 20px;\"> I can mockup the     remaining four to retrieve the information inside the table. Here’s the payload to inject:     <code>&lt;Question 3</Question>&gt;</code></aside>",
+            "explanation": "<h2 style=\"font-weight: bold;\"> Exercise Description</h2> The database consists of a table named <code>dummy_data</code>, of which we know the existence. However, we are told that there is another table inside the database, and we want to know what’s inside it. <br><br><strong> First Step:</strong><br>Know how many columns <code>dummy_data</code> has, in order to do the UNION SQL injection.<aside style=\"background-color: #0e0d0d; border: 1px solid #c77777; padding: 10px; margin: 20px;\"> You have a     vulnerable query<br>     <code><strong>SELECT</strong> * <strong>FROM</strong> dummy_data <strong>WHERE</strong> <strong>id</strong>='<user_input>'</code><br><br>     If you input <code>1</code> it gets back:<br><code>1, dummy value1, 3, another_value1, lollo, 4</code><br><br>Considering the number of values the query has returned, answer the first question on the right side.<br></aside> <strong>Second Step</strong><br>Know name and number of columns of the target table, in order to retrieve its content later.<br> <aside style=\"background-color: #0e0d0d; border: 1px solid #c77777; padding: 10px; margin: 20px;\"> You can retrieve the name of the target table from <code>TABLE_NAME</code> inside <code>information_schema</code>, by injecting the payload:<br>     <code>' UNION ALL SELECT TABLE_NAME, '42', '42', '42', '42', '42'  FROM information_schema.tables -- -</code><br><br>     Which returns:<br> <code>real_data, 42, 42, 42, 42, 42</code><br><br> We have used a padding of random values (42), to get to the correct number of columns!! <br><br>You can now     retrieve the number of columns in <code>real_data</code> by injecting:<br>     <code>' UNION ALL SELECT COUNT(*), '42', '42', '42', '42', '42' FROM INFORMATION_SCHEMA.COLUMNS WHERE  table_name = 'real_data' -- -</code><br><br> The query returns: <code>2, 42, 42, 42, 42, 42</code><br><br> Considering the returned values, answer to the second question!<br> </aside> <strong>Third Step</strong><br>Leak the content of <code>real_data</code><br><aside style=\"background-color: #0e0d0d; border: 1px solid #c77777; padding: 10px; margin: 20px;\"> <b>Padding with <code>'42'</code></b> as we did before, using the right number of columns, we have to inject the correct payload, which will be something like: <br><br><code>' UNION ALL SELECT ||add cols + padding here|| FROM real_data -- -<br><br></code>Considering you can use <code>*</code> to retrieve the real columns, try guessing the payload on the question 3!!</aside>",
             "points": 100
         },
         "mission_7": {

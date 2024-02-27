@@ -4,19 +4,19 @@ const Button = ({ classNames = '', children, type, onClick, href, external, clic
 	var custom_classes = classNames;
 	switch (type) {
 		case 'red':
-			custom_classes += ' bg-tq-red hover:bg-tq-red-500';
+			custom_classes += ' background-gradient-red';
 			break;
 		case 'yellow':
 			custom_classes += ' bg-tq-yellow hover:bg-tq-yellow-500';
 			break;
 		case 'green':
-			custom_classes += ' bg-tq-green hover:bg-tq-green-500';
+			custom_classes += ' background-gradient-green';
 			break;
 		case 'blue':
-			custom_classes += ' bg-tq-accent hover:bg-tq-secondary-500';
+			custom_classes += ' background-gradient';
 			break;
 		default:
-			custom_classes += ' bg-tq-accent hover:bg-tq-primary-500';
+			custom_classes += ' background-gradient';
 			break;
 	}
 

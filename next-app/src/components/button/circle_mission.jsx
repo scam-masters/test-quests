@@ -7,7 +7,7 @@ function CircleMission({ children, type, userScore, maxPoints, className }) {
 		currentScore = String(userScore) + '/' + maxPoints;
 	}
 	return (
-		<button className={'circle-mission-' + type + ' ' + className}>
+		<button className={'min-w-[10%] circle-mission-' + type + ' ' + className}>
 			{children}
 			{currentScore && <><br /><span>{currentScore}</span></>}
 		</button>

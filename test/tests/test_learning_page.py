@@ -6,7 +6,7 @@ from utils import login, wait_chapter1_landing_render, assert_to_be_on_exercise
 
 @pytest.fixture(scope="class", autouse=True)
 def load_page(base_url, expected_title, driver):
-    driver.get(base_url + "/Login")
+    driver.get(base_url + "/login")
     assert expected_title in driver.title
 
 

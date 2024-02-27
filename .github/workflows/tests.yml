@@ -1,13 +1,10 @@
 name: Run tests
 
 on:
-    pull_request:
-        branches:
-            - production
-    workflow_dispatch:
-    push:
-        branches:
-            - production
+  workflow_dispatch:
+  push:
+      branches:
+          - production
 jobs:
   test:
     runs-on: ubuntu-latest

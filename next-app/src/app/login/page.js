@@ -10,6 +10,11 @@ import { useRouter } from "next/navigation";
 /* apparently you can put the api key in the client as long as you enforce what a user can read
  * and write with https://console.firebase.google.com/u/0/project/test-quests-a3712/firestore/rules .
  * See https://firebase.google.com/docs/projects/api-keys */
+/**
+ * Represents the Login component.
+ *
+ * @returns {JSX.Element} The rendered Login component.
+ */
 export default function Login() {
 	const router = useRouter()
 	const [error, setError] = useState(null); // State for managing error messages
@@ -70,14 +75,14 @@ export default function Login() {
 					</div>
 					<button
 						type="submit"
-						className="bg-tq-primary hover:bg-tq-accentfont-bold py-2 px-4 rounded"
+						className="background-gradient hover:bg-tq-accentfont-bold py-2 px-4 rounded"
 					>
 						Submit
 					</button>
 					{error && <div className="text-red-500 mb-4" id="error_msg">{error}</div>} {/* Display error message */}
 					<div className="text-center mt-4">
 						Don't have an account?<br />
-						<Link href={"/Registration"} className="text-white-500 hover:underline">Sign up here</Link>
+						<Link href={"/registration"} className="text-white-500 hover:underline">Sign up here</Link>
 					</div>
 				</form>
 			</div>

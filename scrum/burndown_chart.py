@@ -114,20 +114,21 @@ def create_burndown(tasks, chosen_sprint):
     hours_spent_per_day_df["Date"] = hours_spent_per_day_df["Date"].dt.date
     hours_spent_per_day_df = pd.merge(all_days_df, hours_spent_per_day_df, on="Date", how="left").fillna(0).groupby('Date')['Hours'].sum().reset_index()
     
-    
-    print(hours_spent_per_day_df)
-    print(sprint_hours_df)
+    total_hours = max(sprint_hours_df["Hours"].max(), hours_spent_per_day_df["Hours"].cumsum().max())
+    print("Total Hours", float(total_hours))
 
     hours_remaining_per_day = pd.DataFrame({
         "Date": all_days_in_sprint,
-        "Hours_Remaining": sprint_hours_df["Hours"] - hours_spent_per_day_df["Hours"].cumsum()
+        "Hours_Remaining": total_hours - hours_spent_per_day_df["Hours"].cumsum()
     })
 
-    ideal_hours_per_day = min(sprint_hours.values()) / len(all_days_in_sprint)
-    hours_remaining_per_day["Ideal"] = min(sprint_hours.values()) - ideal_hours_per_day * hours_spent_per_day_df.index
+    ideal_hours_per_day = total_hours / len(all_days_in_sprint)
+    hours_remaining_per_day["Ideal"] = total_hours - (ideal_hours_per_day * (hours_remaining_per_day.index + 1))
 
     plt.figure(figsize=(10, 6))
     
+    print("Hours Remaining\n", hours_remaining_per_day["Hours_Remaining"], "Ideal\n", hours_remaining_per_day["Ideal"])
+          
     plt.plot(hours_remaining_per_day["Date"], hours_remaining_per_day["Hours_Remaining"], label="Remaining Hours", marker='o')
     plt.plot(hours_remaining_per_day["Date"], hours_remaining_per_day["Ideal"], label="Ideal", linestyle='--')
     

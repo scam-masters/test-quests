@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Button from "@/components/button/button";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { updateUserScore, updateInitialScore, updateChapterUnlocking } from "@/app/user_actions.js"
+import { checkStorylineCompletion } from "@/app/actions.js"
 
 import Link from "next/link"
 
@@ -10,9 +11,10 @@ export function Timer({ time }) {
 	return (<div id="timer">{Math.floor(time / 60).toString().padStart(2, "00")}:{(time % 60).toString().padStart(2, "00")}</div>)
 }
 
-function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, missionChapter, threshold, missionId }) {
+function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoints, newChapterUnlock, isFinishedStoryline, missionChapter, threshold, missionId }) {
 	let title = `${correctness}%`
 	let resultMsg
+	let storylineMsg = ""
 	let chapterMsg = ""
 	let missionNumber = missionId.split('_')[1]
 	let button = <Button type="green" href={`/learning/${missionNumber}`}>Let's try again!</Button>
@@ -24,12 +26,16 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 			You have earned {exercisePoints} points!
 		</>
 		let continueButton
-		if (newChapterUnlock) {
-			chapterMsg = "You have unlocked the next Chapter!"
-			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>
-		}
-		else {
-			continueButton = <Button classNames="mt-2" type="blue" href={missionChapter}>Continue</Button>
+		// add the message for the finish storyline
+		if (isFinishedStoryline) {
+			storylineMsg = "Congratulations! You have finished this storyline!";
+			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>;
+			chapterMsg = "You have finished the last Chapter!";
+		} else if (newChapterUnlock) {
+			chapterMsg = "You have unlocked the next Chapter!";
+			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>;
+		} else {
+			continueButton = <Button classNames="mt-2" type="blue" href={missionChapter}>Continue</Button>;
 		}
 		if (correctness < 100) {
 			button = <>
@@ -50,7 +56,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 		resultMsg = "You need to fill all the blanks!"
 	}
 
-	return ( visible ?
+	return (visible ?
 		<div id="popup" className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50" onClick={handleCloseDialog}>
 			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto rounded-xl min-w-1/3 bg-tq-primary p-10">
 				<button className="absolute top-0 right-0 p-5 text-red-500 ml-4" onClick={handleCloseDialog}>X</button>
@@ -58,19 +64,21 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 					<p className="text-center mb-4 text-4xl">{title}</p>
 					<p className="text-center mb-4 text-xl">{resultMsg}</p>
 					<p className="text-center mb-4 text-xl">{chapterMsg}</p>
+					<p className="text-center mb-4 text-xl">{storylineMsg}</p>
 				</div>
 				<div className="flex flex-col w-full justify-center mt-4">
 					{button}
 				</div>
 			</div>
 		</div>
-	: null )
+		: null)
 }
 
 export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, missionChapter, exercisePoints, exerciseArguments, exerciseThreshold, time, hint }) {
 	const [correctness, setCorrectness] = useState(0);
 	const [isDialogVisible, setVisibleDialog] = useState(false);
 	const [isUnlockingNewChapter, setUnlockNewChapter] = useState(false);
+	const [isFinishedStoryline, setFinishedStoryline] = useState(false);
 	const [missionScore, setMissionScore] = useState(false);
 
 	const timeout = useRef(null)
@@ -114,14 +122,21 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		stopTimer()
 
 		const correctness = Math.round(computedCorrectness)
-		const unlock = await updateChapterUnlocking(missionId)
 		const missionScore = Math.round(exercisePoints * correctness / 100)
 
 		await updateUserScore(missionId, missionScore, correctness, exerciseThreshold)
 
 		setCorrectness(correctness);
-		setUnlockNewChapter(unlock)
-		setMissionScore(missionScore)
+		setMissionScore(missionScore);
+		// if the user has passed the mission, update the badges and
+		if (correctness >= exerciseThreshold) {
+			// check if the user has unlocked the next chapter
+			const unlock = await updateChapterUnlocking(missionId)
+			// or finished the storyline
+			const finishedStoryline = await checkStorylineCompletion(missionId)
+			setUnlockNewChapter(unlock);
+			setFinishedStoryline(finishedStoryline);
+		}
 		setVisibleDialog(true);
 	};
 
@@ -133,10 +148,10 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 	return (
 		<>
 			{time && Timer({ time: remainingTime })}
-			<Splitter className="flex-auto h-0 border-4 m-2" gutterSize={10}>
+			<Splitter className="flex-auto h-0 border-4 m-2 bg-tq-black border-tq-accent" gutterSize={5}>
 				{/* Column for the exercise description */}
 				<SplitterPanel
-					className="flex flex-col border-r-4 overflow-auto"
+					className="flex flex-col border-r-4 overflow-auto border-tq-accent"
 					minSize={20}
 					size={40}
 				>
@@ -144,7 +159,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				</SplitterPanel>
 
 				{/* Right column for drag and drop */}
-				<SplitterPanel className="border-l-4 overflow-auto" minSize={20} size={60}>
+				<SplitterPanel className="border-l-4 overflow-auto border-tq-accent" minSize={20} size={65}>
 					<div id="pane2_1" className="h-full">
 						<div className="p-4 text-white">
 							<div className="text-xl mb-4 font-bold">{hint}</div>
@@ -164,6 +179,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				exercisePoints={missionScore}
 				visible={isDialogVisible}
 				newChapterUnlock={isUnlockingNewChapter}
+				isFinishedStoryline={isFinishedStoryline}
 				missionChapter={missionChapter}
 				threshold={exerciseThreshold}
 				missionId={missionId}
