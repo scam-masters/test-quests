@@ -17,7 +17,7 @@ function SearchSuggestion({ users, selected, visible }) {
     if (!visible || !users || users.length < 1)
         return <></>
 
-    return <ul id="search-suggestions" className="fixed w-96 border-2 bg-white border-tq-primary rounded-lg text-black overflow-hidden">
+    return <ul id="search-suggestions" className="fixed w-96 border-2 bg-white border-tq-accent rounded-lg text-black overflow-hidden">
         {
             users.map((u, i) => {
                 let classes = "hover:bg-slate-200"
@@ -98,12 +98,13 @@ export default function Searchbar({ }) {
     }
 
     return (
-        <div className='text-center mt-20'>
+        <div className='text-center mt-10 space-y-4'>
+            <h1 className="text-3xl font-bold text-tq-white">Search for a player</h1>
             <div >
                 <form className="w-96 m-auto" onSubmit={handleSubmit}>
-                    <div className="w-full flex border-2 border-tq-primary rounded-full overflow-hidden">
+                    <div className="w-full flex border-2 rounded-full overflow-hidden">
                         <input
-                            className="w-9/12 h-10  px-2 py-1 bg-white text-black"
+                            className="w-9/12 h-10 px-2 py-1 bg-white text-black"
                             autoComplete="off"
                             name="username"
                             type="text"
@@ -116,7 +117,7 @@ export default function Searchbar({ }) {
                                 setSuggestionVisible(true)
                             }}
                             placeholder="Search for a player" />
-                        <button className="w-3/12 h-10 inline bg-tq-primary hover:bg-tq-accentfont-bold rounded-none" type="submit">Search</button>
+                        <button className="w-3/12 h-10 inline background-gradient font-bold rounded-none" type="submit">Search</button>
                     </div>
                     <SearchSuggestion users={searchSuggestions} selected={suggestionSelection} visible={suggestionVisible} />
                 </form>

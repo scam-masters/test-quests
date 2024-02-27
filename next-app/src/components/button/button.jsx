@@ -13,10 +13,10 @@ const Button = ({ classNames = '', children, type, onClick, href, external, clic
 			custom_classes += ' bg-tq-green hover:bg-tq-green-500';
 			break;
 		case 'blue':
-			custom_classes += ' bg-tq-accent hover:bg-tq-secondary-500';
+			custom_classes += ' background-gradient hover:bg-tq-secondary-500';
 			break;
 		default:
-			custom_classes += ' bg-tq-accent hover:bg-tq-primary-500';
+			custom_classes += ' background-gradient hover:bg-tq-primary-500';
 			break;
 	}
 

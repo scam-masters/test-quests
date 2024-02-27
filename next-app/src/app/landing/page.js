@@ -36,6 +36,8 @@ export default function Landing() {
 
 	return (
 		< div className='p-10' >
+			<h1 className='text-center text-4xl font-bold text-white'>Welcome to Test Quests!</h1>
+			<h3 className='text-center text-2xl text-gray-300 pb-4'>Choose a storyline to start your adventure</h3>
 			{
 				storylines.map((storyline, index) => (
 					<div key={`${storyline}_${index}`} className='text-center m-5 align-middle'>

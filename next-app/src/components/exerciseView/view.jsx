@@ -31,7 +31,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 			storylineMsg = "Congratulations! You have finished this storyline!";
 			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>;
 			chapterMsg = "You have finished the last Chapter!";
-		}else if (newChapterUnlock) {
+		} else if (newChapterUnlock) {
 			chapterMsg = "You have unlocked the next Chapter!";
 			continueButton = <Button classNames="mt-2" type="blue" href="/">Continue</Button>;
 		} else {
@@ -56,7 +56,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 		resultMsg = "You need to fill all the blanks!"
 	}
 
-	return ( visible ?
+	return (visible ?
 		<div id="popup" className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50" onClick={handleCloseDialog}>
 			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto rounded-xl min-w-1/3 bg-tq-primary p-10">
 				<button className="absolute top-0 right-0 p-5 text-red-500 ml-4" onClick={handleCloseDialog}>X</button>
@@ -71,7 +71,7 @@ function ExerciseDialog({ correctness, handleCloseDialog, visible, exercisePoint
 				</div>
 			</div>
 		</div>
-	: null )
+		: null)
 }
 
 export default function ExerciseView({ exerciseExplanation, resource, Exercise, missionId, missionChapter, exercisePoints, exerciseArguments, exerciseThreshold, time, hint }) {
@@ -129,7 +129,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		setCorrectness(correctness);
 		setMissionScore(missionScore);
 		// if the user has passed the mission, update the badges and
-		if(correctness >= exerciseThreshold) { 
+		if (correctness >= exerciseThreshold) {
 			// check if the user has unlocked the next chapter
 			const unlock = await updateChapterUnlocking(missionId)
 			// or finished the storyline
@@ -148,10 +148,10 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 	return (
 		<>
 			{time && Timer({ time: remainingTime })}
-			<Splitter className="flex-auto h-0 border-4 m-2" gutterSize={10}>
+			<Splitter className="flex-auto h-0 border-4 m-2 bg-tq-black border-tq-accent" gutterSize={5}>
 				{/* Column for the exercise description */}
 				<SplitterPanel
-					className="flex flex-col border-r-4 overflow-auto"
+					className="flex flex-col border-r-4 overflow-auto border-tq-accent"
 					minSize={20}
 					size={40}
 				>
@@ -159,7 +159,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				</SplitterPanel>
 
 				{/* Right column for drag and drop */}
-				<SplitterPanel className="border-l-4 overflow-auto" minSize={20} size={65}>
+				<SplitterPanel className="border-l-4 overflow-auto border-tq-accent" minSize={20} size={65}>
 					<div id="pane2_1" className="h-full">
 						<div className="p-4 text-white">
 							<div className="text-xl mb-4 font-bold">{hint}</div>

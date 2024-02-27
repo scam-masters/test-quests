@@ -182,8 +182,8 @@ export default function Chapter({ params }) {
 	return (
 		<div className='p-10'>
 
-			<h1 className='text-center text-4xl font-bold text-tq-blue mb-2'>{chapterName}</h1>
-			<h3 className='text-center text-2xl font-bold text-tq-blue mb-10'>Difficulty: {difficulty}</h3>
+			<h1 className='text-center text-4xl font-bold text-white mb-2'>{chapterName}</h1>
+			<h3 className='text-center text-2xl text-gray-300 mb-10'>Difficulty: {difficulty}</h3>
 
 			{missions}
 
