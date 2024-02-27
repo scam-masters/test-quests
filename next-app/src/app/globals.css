@@ -7,13 +7,13 @@
 @layer base {
 
 	:root {
-		--color-primary: #374161;
-		--color-accent: #3C486B;
+		--color-primary: #374265;
+		--color-accent: rgb(81, 77, 137);
 		--color-red: #F45050;
 		--color-yellow: #F9D949;
 		--color-green: #69995D;
 		--color-white: #F0F0F0;
-		--color-black: #181a1b;
+		--color-black: #141313;
 		--color-gray: #2a2d2e;
 	}
 }
@@ -24,6 +24,22 @@
 
 button {
 	@apply text-tq-white font-bold py-2 px-4 rounded-full transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md
+}
+
+.background-gradient {
+	@apply bg-gradient-to-br from-indigo-400 to-blue-900
+}
+
+.background-gradient-blue {
+	@apply bg-gradient-to-br from-blue-400 to-blue-900
+}
+
+.background-gradient-green {
+	@apply bg-gradient-to-br from-green-400 to-green-900
+}
+
+.background-gradient-red {
+	@apply bg-gradient-to-br from-red-400 to-red-900
 }
 
 .circle-base {

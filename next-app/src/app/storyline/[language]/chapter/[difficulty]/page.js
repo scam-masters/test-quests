@@ -11,6 +11,7 @@ import CircleMission from '@/components/button/circle_mission';
 
 import { getChapterMissions } from "@/app/actions"
 import Loading from "@/components/loading/loading";
+import Dialog from "@/components/dialog/dialog";
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 /**
@@ -52,17 +53,6 @@ export default function Chapter({ params }) {
 	function MissionLocked() {
 		return (
 			setVisibleDialog(true)
-		)
-	}
-
-	/**
-	 * handleCloseDialog
-	 * @returns {void} - sets the dialog to invisible
-	 * @description sets the dialog to invisible
-	 */
-	function handleCloseDialog() {
-		return (
-			setVisibleDialog(false)
 		)
 	}
 
@@ -144,26 +134,6 @@ export default function Chapter({ params }) {
 		)
 	}
 
-	/**
-	 * Dialog
-	 * @param {Object} props - the properties of the dialog
-	 * @returns {JSX.Element} the dialog component
-	 */
-	function Dialog(props) {
-		return (props.visible ?
-			<div id="mission_locked_popup" className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50" onClick={handleCloseDialog}>
-				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto rounded-xl min-w-1/3 bg-tq-primary p-10">
-					<button className="absolute top-0 right-0 p-5 text-red-500 ml-4" onClick={handleCloseDialog}>X</button>
-					<div>
-						<p className="text-center mb-4 text-4xl">Mission Locked</p>
-						<p className="text-center mb-4 text-xl">Please complete previous missions to access this one</p>
-					</div>
-				</div>
-			</div>
-			: null
-		)
-	}
-
 	useEffect(() => {
 		/* when logged in show missions, otherwise go to login page */
 		getAuth().onAuthStateChanged(function (user) {
@@ -182,14 +152,18 @@ export default function Chapter({ params }) {
 	return (
 		<div className='p-10'>
 
-			<h1 className='text-center text-4xl font-bold text-tq-blue mb-2'>{chapterName}</h1>
-			<h3 className='text-center text-2xl font-bold text-tq-blue mb-10'>Difficulty: {difficulty}</h3>
+			<h1 className='text-center text-4xl font-bold text-white mb-2'>{chapterName}</h1>
+			<h3 className='text-center text-2xl text-gray-300 mb-10'>Difficulty: {difficulty}</h3>
 
 			{missions}
 
 			<Dialog
+				title="Mission Locked"
+				message="Please complete previous missions to access this one"
+				buttonText="OK"
+				buttonOnClick={()=>{setVisibleDialog(false)}}
+				buttonColor="purple"
 				visible={visible_dialog}
-				onHide={handleCloseDialog}
 			/>
 
 			{/* "Go back to main page" button */}

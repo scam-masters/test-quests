@@ -75,7 +75,7 @@ export default function Login() {
 					</div>
 					<button
 						type="submit"
-						className="bg-tq-primary hover:bg-tq-accentfont-bold py-2 px-4 rounded"
+						className="background-gradient hover:bg-tq-accentfont-bold py-2 px-4 rounded"
 					>
 						Submit
 					</button>
