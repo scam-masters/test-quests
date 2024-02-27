@@ -1,4 +1,4 @@
-name: run scrum actions
+name: Run scrum actions
 
 on:
   schedule:

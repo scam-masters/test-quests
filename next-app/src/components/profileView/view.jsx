@@ -101,7 +101,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                         {isOwner && <Button id="change-username" type='blue' href="/changeUsername">Change Username</Button>}
                         {isOwner && <Button id="logout" type='blue' classNames="mx-4" onClick={() => {
                             auth.signOut();
-                            router.push("/Login")
+                            router.push("/login")
                         }}>Logout</Button>}
                     </div>
 

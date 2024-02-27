@@ -10,7 +10,7 @@ import { getUserData, getUserScoreForMission } from '@/app/user_actions';
 import CircleMission from '@/components/button/circle_mission';
 
 import { getChapterMissions } from "@/app/actions"
-import Loading from "@/components/Loading";
+import Loading from "@/components/loading/loading";
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 /**
@@ -166,13 +166,13 @@ export default function Chapter({ params }) {
 
 	useEffect(() => {
 		/* when logged in show missions, otherwise go to login page */
-		getAuth().onAuthStateChanged(function(user) {
+		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
 				retrieveMissions(`${params.difficulty}`).then(newMissions => {
 					setMissions(newMissions)
 				})
 			} else
-				router.push("/Login")
+				router.push("/login")
 		});
 	}, []);
 
@@ -190,7 +190,7 @@ export default function Chapter({ params }) {
 			<Dialog
 				visible={visible_dialog}
 				onHide={handleCloseDialog}
-				/>
+			/>
 
 			{/* "Go back to main page" button */}
 			<div className="fixed bottom-0 p-5 left-0 mb-5 z-50">

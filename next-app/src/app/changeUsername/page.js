@@ -12,7 +12,7 @@ import { usernameStore } from '@/stores/store';
  * 
  * @returns {JSX.Element} The change username page component.
  */
-export default function changeUsername() {
+export default function ChangeUsername() {
 	const router = useRouter()
 	const [error, setError] = useState(null);
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { searchUsers } from "@/app/user_actions"
 import { useRouter } from "next/navigation";
-import SearchResultsComponent from '@/components/SearchResults/searchResults'
+import SearchResultsComponent from '@/components/searchResults/searchResults'
 
 /**
  * Renders a list of search suggestions based on the provided users array.
@@ -109,16 +109,16 @@ export default function Searchbar({ }) {
                             type="text"
                             onChange={onChange}
                             onKeyDown={onKeyDown}
-                            onBlur={()=>{
+                            onBlur={() => {
                                 setSuggestionVisible(false)
                             }}
-                            onFocus={()=>{
+                            onFocus={() => {
                                 setSuggestionVisible(true)
                             }}
                             placeholder="Search for a player" />
                         <button className="w-3/12 h-10 inline bg-tq-primary hover:bg-tq-accentfont-bold rounded-none" type="submit">Search</button>
                     </div>
-                    <SearchSuggestion users={searchSuggestions} selected={suggestionSelection} visible={suggestionVisible}/>
+                    <SearchSuggestion users={searchSuggestions} selected={suggestionSelection} visible={suggestionVisible} />
                 </form>
             </div>
             {searchResults.length != 0 ? <SearchResultsComponent results={searchResults} /> : <></>}

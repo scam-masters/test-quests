@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import Select
 
 from utils import login, get_exercise_submit_button, get_exercise_popup
 
+
 @pytest.fixture(scope="class", autouse=True)
 def login_user_tests(driver, user_tests):
     login(driver, user_tests[0], user_tests[1])
@@ -41,7 +42,8 @@ class TestFirstMission:
         popup = get_exercise_popup(driver)
         assert "33%" in popup.text
         driver.find_element(
-            By.XPATH, "//button[contains(@class,'bg-tq-green hover:bg-tq-green-500 w-full')]"
+            By.XPATH,
+            "//button[contains(@class,'bg-tq-green hover:bg-tq-green-500 w-full')]",
         ).click()
 
     def test_all_correct_answers(self, driver):

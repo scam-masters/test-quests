@@ -6,8 +6,7 @@ import { getAuth } from "firebase/auth";
 
 import { getStorylineList } from '@/app/actions';
 import CircleMission from '@/components/button/circle_mission';
-import Loading from '@/components/Loading';
-
+import Loading from '@/components/loading/loading';
 
 /**
  * Renders the Landing component.
@@ -22,13 +21,13 @@ export default function Landing() {
 
 	useEffect(() => {
 		/* when logged in show storylines, otherwise go to login page */
-		getAuth().onAuthStateChanged(function(user) {
+		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
 				getStorylineList().then(newStorylines => {
 					setStorylines(newStorylines)
 				})
 			} else
-				router.push("/Login")
+				router.push("/login")
 		});
 	}, []);
 

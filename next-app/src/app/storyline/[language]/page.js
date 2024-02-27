@@ -9,7 +9,7 @@ import { getUserData, getUserScoreForMission } from '@/app/user_actions';
 import CircleMission from '@/components/button/circle_mission';
 
 import Button from '@/components/button/button'
-import Loading from '@/components/Loading';
+import Loading from '@/components/loading/loading';
 
 /**
  * Renders a list of chapters with clickable links based on the provided language, counter, and onClickChapterLocked function.
@@ -131,13 +131,13 @@ export default function Storyline({ params }) {
 
 	useEffect(() => {
 		/* when logged in show missions, otherwise go to login page */
-		getAuth().onAuthStateChanged(function(user) {
+		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
 				retrieveChapters(params.language, onClickChapterLocked).then(newChapters => {
 					setChapters(newChapters)
 				})
 			} else
-				router.push("/Login")
+				router.push("/login")
 		});
 	}, []);
 

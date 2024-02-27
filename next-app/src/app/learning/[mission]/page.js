@@ -1,9 +1,9 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import LearningComponent from '@/components/Learning/learning'
+import LearningComponent from '@/components/learning/learning'
 
 import { getExerciseData } from "@/app/actions"
-import Loading from "@/components/Loading";
+import Loading from "@/components/loading/loading";
 
 // Learning Component
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
