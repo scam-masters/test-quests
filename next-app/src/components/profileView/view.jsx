@@ -125,7 +125,16 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
 
                 <div className="flex flex-row flex-wrap pb-5 justify-center">
                     {badges.length != 0 ? badges.map((badge, index) => (
-                        <img title={badge.replace(/_/g, " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
+                        <ul role="list">
+                            <li className="group/item pb-4">
+                                <img key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-14 h-14 mr-2 mt-4 group index" />
+                                <div class="group/edit invisible group-hover/item:visible pt-2">
+                                    <div className="absolute bg-tq-white text-black p-2 rounded-lg shadow-md">
+                                        {badge.replace(/_/g, " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     ))
                         :
                         isOwner ? <p className="text-lg">Complete missions to earn badges!</p> : <p className="text-lg">No badges found.</p>
