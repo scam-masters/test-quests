@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react";
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 
 import ExerciseView from "@/components/exerciseView/view";
-import DropdownExercise from "@/components/DropdownExercise/exercise";
-import DragAndDropExercise from "@/components/DragAndDropExercise/page";
-import DragAndDropMmExercise from "@/components/DragAndDropMultipleMatching/page";
-import OpenCloseExercise from "@/components/OpenCloseExercise/page";
-import DebugExercise from "@/components/DebugExercise/page";
+import DropdownExercise from "@/components/dropdownExercise/exercise";
+import DragAndDropExercise from "@/components/dragAndDropExercise/page";
+import DragAndDropMmExercise from "@/components/dragAndDropMultipleMatching/page";
+import OpenCloseExercise from "@/components/openCloseExercise/page";
+import DebugExercise from "@/components/debugExercise/page";
 import MultipleSelection from "@/components/MultipleSelection";
 
 import { getExerciseData } from "@/app/actions";
-import Loading from "@/components/Loading";
+import Loading from "@/components/loading/loading";
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 /**
@@ -97,7 +97,7 @@ export default function Exercise({ params }) {
 		case "ms":
 			exercise = MultipleSelection;
 			exerciseArgs = {
-				text : missionContent.text,
+				text: missionContent.text,
 				questions: missionContent.questions,
 			}
 			hint = "Select all the correct answers among the options.";

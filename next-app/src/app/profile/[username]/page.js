@@ -5,7 +5,7 @@ import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import { getProfileData } from "@/app/actions"
 
 import ProfileView from '@/components/profileView/view'
-import Loading from "@/components/Loading";
+import Loading from "@/components/loading/loading";
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 /**

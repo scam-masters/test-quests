@@ -33,7 +33,7 @@ export default function changeAvatar() {
 					setCurrentAvatarIndex(user.avatar);
 				})
 			} else {
-				router.push("/Login")
+				router.push("/login")
 			}
 		});
 	}, []);

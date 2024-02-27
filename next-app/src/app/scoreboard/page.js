@@ -1,9 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import ScoreboardComponent from '@/components/Scoreboard/scoreboard'
+import ScoreboardComponent from '@/components/scoreboard/scoreboard'
 
 import { getScoreboardData } from "@/app/user_actions"
-import Loading from '@/components/Loading';
+import Loading from '@/components/loading/loading';
 
 /**
  * Renders the Scoreboard component.
