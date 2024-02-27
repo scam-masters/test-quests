@@ -30,15 +30,14 @@ import React, { useState } from 'react';
  *  />
  * )
  */
-const Dialog = ({ title, message, buttonText, buttonOnClick, buttonColor, visible }) => {
+const Dialog = ({ title, message, buttonText, buttonOnClick, buttonColor, onClose, visible }) => {
 	title = title || '';
 	message = message || '';
 	buttonText = buttonText || 'OK';
-	buttonOnClick = buttonOnClick || (() => { });
+	onClose = onClose || (() => { });
+	buttonOnClick = buttonOnClick || onClose || (() => { });
 	visible = visible || false;
 	buttonColor = buttonColor || 'orange';
-
-	const [isOpen, setIsOpen] = useState(visible);
 
 	const colorClasses = {
 		red: 'bg-red-500',
@@ -51,25 +50,17 @@ const Dialog = ({ title, message, buttonText, buttonOnClick, buttonColor, visibl
 		pink: 'bg-pink-500',
 	};
 
-	const handleClose = () => {
-		setIsOpen(false);
-	};
-
-	const handleBackgroundClick = () => {
-		setIsOpen(false);
-	};
-
 	return (
 		<>
-			{isOpen && (
+			{visible && (
 				<div
 					className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
-					onClick={handleBackgroundClick}
+					onClick={onClose}
 				>
 					<div className="background-gradient-blue p-6 rounded-lg drop-shadow-[0_25px_50px_rgba(0,0,0,.5)]">
 						<div
 							className="absolute top-2 right-2 p-2 text-white hover:bg-red-500 rounded-lg cursor-pointer"
-							onClick={handleClose}
+							onClick={buttonOnClick}
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -86,8 +77,8 @@ const Dialog = ({ title, message, buttonText, buttonOnClick, buttonColor, visibl
 								/>
 							</svg>
 						</div>
-						<h2 className="text-xl font-bold mb-4">{title}</h2>
-						<p className="mb-4">{message}</p>
+						<h2 className="text-xl font-bold mb-4 text-white">{title}</h2>
+						<p className="mb-4 text-white">{message}</p>
 						<button className={`${colorClasses[buttonColor]} text-white px-4 py-2 rounded-md`} onClick={buttonOnClick}>
 							{buttonText}
 						</button>
