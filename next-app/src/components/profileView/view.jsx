@@ -94,8 +94,8 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
 
                 <div className="flex flex-col ml-5 mt-auto mb-auto flex-wrap pt-8">
                     <h1 id="username" className="text-5xl font-bold mr-8">{username}</h1>
-                    {isOwner && <p id="email" className="text-xl mt-4">Email: {email}</p>}
-                    <p id="score" className="text-xl mt-4">Score: {score}</p>
+                    {isOwner && <p id="email" className="text-lg mt-4">Email: {email}</p>}
+                    <p id="score" className="text-lg mt-4">Score: {score}</p>
 
                     <div className="flex flex-row items-center flex-wrap pt-4">
                         {isOwner && <Button id="change-username" type='blue' href="/changeUsername">Change Username</Button>}
@@ -128,7 +128,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                         <img title={badge.replace(/_/g, " ")} key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-10 h-10 mr-2 mt-4" />
                     ))
                         :
-                        isOwner ? <p>Complete missions to earn badges!</p> : <p>No badges found.</p>
+                        isOwner ? <p className="text-lg">Complete missions to earn badges!</p> : <p className="text-lg">No badges found.</p>
                     }
                 </div>
 
@@ -151,7 +151,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                         ))}
                     </ul>
                 ) : (
-                    <p className="text-center">No friends found.</p>
+                    <p className="text-center text-lg">No friends found</p>
                 )}
 
                 {isOwner ?
@@ -176,7 +176,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                                 ))}
                             </ul>
                         ) : (
-                            <p className="text-center">No friend requests found.</p>
+                            <p className="text-center text-lg">No friend requests found.</p>
                         )}
                     </>) :
                     <></>
