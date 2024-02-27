@@ -13,7 +13,7 @@ import { usernameStore } from "@/stores/store";
  *
  * @returns {JSX.Element} The JSX element representing the changeAvatar page.
  */
-export default function changeAvatar() {
+export default function ChangeAvatar() {
 	const allAvatars = [
 		{ src: '/avatars/0.png', alt: 'Avatar 0' },
 		{ src: '/avatars/1.png', alt: 'Avatar 1' },

@@ -8,7 +8,7 @@ import DragAndDropExercise from "@/components/dragAndDropExercise/page";
 import DragAndDropMmExercise from "@/components/dragAndDropMultipleMatching/page";
 import OpenCloseExercise from "@/components/openCloseExercise/page";
 import DebugExercise from "@/components/debugExercise/page";
-import MultipleSelection from "@/components/MultipleSelection";
+import MultipleSelection from "@/components/multipleSelection/multipleSelection";
 
 import { getExerciseData } from "@/app/actions";
 import Loading from "@/components/loading/loading";
