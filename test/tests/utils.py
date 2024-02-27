@@ -28,18 +28,21 @@ def wait_chapter2_landing_render(driver):
 def wait_chapter3_landing_render(driver):
     driver.find_element(By.XPATH, "//*[contains(text(), 'Chapter 3')]")
 
+
 def wait_storyline1_render(driver):
     # search for the title in the storyline
     driver.find_element(By.XPATH, "/html/body/div[1]/h1")
-    #assert "Python" in title.text
-    
+    # assert "Python" in title.text
+
+
 def wait_storyline2_render(driver):
     # search for the title in the storyline
     driver.find_element(By.XPATH, "/html/body/div[1]/h1")
-    #assert "Java" in title.text
+    # assert "Java" in title.text
 
 
 """ Login """
+
 
 def login(driver, email, password, wait_for_landing=True):
 
@@ -63,16 +66,19 @@ def login(driver, email, password, wait_for_landing=True):
 
     if wait_for_landing:
         wait_landing_render(driver)
-        
-def registration(driver, username, email, password, confirmPassword, baseUrl, wait_for_landing=True):
+
+
+def registration(
+    driver, username, email, password, confirmPassword, baseUrl, wait_for_landing=True
+):
 
     # def wait_for_email_element(driver):
     #     # added because in some tests doesn't render the email element
     #     wait = WebDriverWait(driver, 10)
     #     email_element = wait.until(EC.presence_of_element_located((By.ID, "email")))
     #     return email_element
-    driver.get(baseUrl + "/Registration")
-    
+    driver.get(baseUrl + "/registration")
+
     u = driver.find_element(By.ID, "username")
     e = driver.find_element(By.ID, "email")
     p = driver.find_element(By.ID, "new-password")
@@ -111,6 +117,7 @@ def get_exercise_popup(driver):
 
 
 """General"""
+
 
 def assert_to_be_on_storyline(driver):
     first_circle_mission = get_first_circle_chapter(driver)

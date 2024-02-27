@@ -15,9 +15,7 @@ def driver():
     _options.add_argument("--log-level=3")
     _driver = webdriver.Chrome(
         options=_options,
-        service=ChromeService(
-            ChromeDriverManager().install()
-        ),
+        service=ChromeService(ChromeDriverManager().install()),
     )
     _driver.implicitly_wait(5)
     yield _driver
@@ -133,5 +131,5 @@ def user_registration_empty():
 
 @pytest.fixture(scope="class", autouse=True)
 def load_login_page(base_url, expected_title, driver):
-    driver.get(base_url + "/Login")
+    driver.get(base_url + "/login")
     assert expected_title in driver.title
