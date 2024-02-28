@@ -12,7 +12,8 @@ from time import sleep
 import pytest
 from selenium.webdriver.common.by import By
 from utils import login
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 @pytest.fixture(scope="class", autouse=True)
 def login_user_tests(driver, user_50_points):
@@ -68,7 +69,7 @@ class TestProfile:
         driver.find_element(By.XPATH, f"//*[contains(text(), new-username)]")
 
         # rechange to the previous one
-        change_username = driver.find_element(By.ID, "change-username")
+        change_username = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "change-username")))
         change_username.click()
 
         username_input = driver.find_element(By.ID, "username-input")
