@@ -54,7 +54,7 @@ class TestProfile:
         # Check if the redirect is correct by checking the presence of the username field
         driver.find_element(By.XPATH, f"//*[contains(text(), {user_50_points[1]})]")
 
-    def test_change_username(self, driver, user_50_points):
+    def test_change_username(self, driver):
         change_username = driver.find_element(By.ID, "change-username")
         change_username.click()
 
@@ -68,6 +68,7 @@ class TestProfile:
         # Check the presence of the new username in the profile page
         driver.find_element(By.XPATH, f"//*[contains(text(), new-username)]")
 
+    def test_rechange_username(self, driver, user_50_points):
         # rechange to the previous one
         change_username = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "change-username")))
         change_username.click()
