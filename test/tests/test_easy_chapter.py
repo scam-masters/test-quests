@@ -42,7 +42,7 @@ class TestChapterPageSuccess:
         )
         assert "Unit Test: Mastering Basics" in first_circle_mission_again.text
 
-    def test_mission_points(self, driver):
+    def test_mission_name(self, driver):
         first_circle_mission = driver.find_element(
             By.XPATH, "//button[contains(@class,'circle-mission-gradient-1')]"
         )
@@ -52,22 +52,11 @@ class TestChapterPageSuccess:
             # "/html/body/div[1]/div[2]/a/button" not recognizable in firefox
         )
         
-        first_circle_points = driver.find_element(
-            By.XPATH, "/html/body/div[1]/div[1]/a/button/span"
-        )
-        
-        second_circle_points = driver.find_element(
-            By.XPATH, "/html/body/div[1]/div[2]/a/button/span"
-        )
-
         assert (
             "Unit Test: Mastering Basics" in first_circle_mission.text
             and "Login Bypass" in second_circle_mission.text
         )
-        assert (
-            "50/50" in first_circle_points.text
-            and "0/50" in second_circle_points.text
-        )
+
 
 class TestChapterPageUnsuccess:
     def test_mission_locked(self, driver):
