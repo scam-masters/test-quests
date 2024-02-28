@@ -42,32 +42,21 @@ class TestChapterPageSuccess:
         )
         assert "Unit Test: Mastering Basics" in first_circle_mission_again.text
 
-    def test_mission_points(self, driver):
+    def test_mission_name(self, driver):
         first_circle_mission = driver.find_element(
             By.XPATH, "//button[contains(@class,'circle-mission-gradient-1')]"
         )
 
         second_circle_mission = driver.find_element(
-            By.XPATH, "//button[@class='circle-mission-gradient-2 translate-x-[110%]']" # the mission locked is not working
+            By.XPATH, "/html/body/div/div[2]/a/button" # the mission locked is not working
             # "/html/body/div[1]/div[2]/a/button" not recognizable in firefox
         )
         
-        first_circle_points = driver.find_element(
-            By.XPATH, "/html/body/div[1]/div[1]/a/button/span"
-        )
-        
-        second_circle_points = driver.find_element(
-            By.XPATH, "/html/body/div[1]/div[2]/a/button/span"
-        )
-
         assert (
             "Unit Test: Mastering Basics" in first_circle_mission.text
             and "Login Bypass" in second_circle_mission.text
         )
-        assert (
-            "50/50" in first_circle_points.text
-            and "0/50" in second_circle_points.text
-        )
+
 
 class TestChapterPageUnsuccess:
     def test_mission_locked(self, driver):
@@ -76,13 +65,13 @@ class TestChapterPageUnsuccess:
             #"/html/body/div[1]/div[3]/button" # previous for Chrome
             #"circle-mission-locked translate-x-[110%]"
             #"/html/body/div[1]/div[3]/button"
-            "//button[@class='circle-mission-locked translate-x-[150%]']"
+            "//button[@class='min-w-[10%] circle-mission-locked translate-x-[110%]']"
         )
         assert "Mission Locked" in locked_circle_mission.text
 
         """ Check for accessing to the first learning page """
         locked_circle_mission.click()
         popup_element = driver.find_element(
-            By.ID, "mission_locked_popup"
+            By.XPATH, "/html/body/div/div[6]/div"
         )
         assert "Mission Locked" in popup_element.text

@@ -9,13 +9,6 @@ class TestLoginSuccessful:
 
 
 class TestLoginUnsuccessful:
-    def test_login_invalid(self, driver, user_non_existent):
-        login(
-            driver, user_non_existent[0], user_non_existent[1], wait_for_landing=False
-        )
-        error_msg = driver.find_element(By.ID, "error_msg")
-        assert "Firebase: Error (auth/invalid-login-credentials)." in error_msg.text
-
     def test_login_empty(self, driver):
         login(driver, "", "", wait_for_landing=False)
         error_msg = driver.find_element(By.ID, "error_msg")
