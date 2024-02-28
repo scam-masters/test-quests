@@ -3,7 +3,7 @@ name: Run scrum actions
 on:
   schedule:
     # run at the end of every day (23:55)
-    - cron: '55 23 * * *'
+    # - cron: '55 23 * * *' # inactive now (finished sprint)
   # run if triggered manually
   workflow_dispatch:
 

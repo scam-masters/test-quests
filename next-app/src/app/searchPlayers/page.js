@@ -24,7 +24,7 @@ function SearchSuggestion({ users, selected, visible }) {
                 if (i == selected)
                     classes = "bg-tq-accent text-white"
 
-                return <a key={u.username} href={`/profile/${u.username}`}>
+                return <a key={u.username} className='suggestion' href={`/profile/${u.username}`}>
                     <li className={classes}>{u.username}
                     </li></a>
             })
@@ -78,10 +78,12 @@ export default function Searchbar({ }) {
 
     function onKeyDown(event) {
         if (event.code === "ArrowUp") {
+            event.preventDefault()
             setSuggestionSelection(x => {
                 return Math.max(-1, x - 1)
             })
         } else if (event.code === "ArrowDown") {
+            event.preventDefault()
             setSuggestionSelection(x => {
                 return Math.min(searchSuggestions.length - 1, x + 1)
             })
@@ -100,22 +102,25 @@ export default function Searchbar({ }) {
     return (
         <div className='text-center mt-10 space-y-4'>
             <h1 className="text-3xl font-bold text-tq-white">Search for a player</h1>
-            <div >
-                <form className="w-96 m-auto" onSubmit={handleSubmit}>
+            <div
+            >
+                <form className="w-96 m-auto" onSubmit={handleSubmit}
+                >
                     <div className="w-full flex border-2 rounded-full overflow-hidden">
                         <input
                             className="w-9/12 h-10 px-2 py-1 bg-white text-black"
                             autoComplete="off"
                             name="username"
                             type="text"
-                            onChange={onChange}
-                            onKeyDown={onKeyDown}
-                            onBlur={() => {
-                                setSuggestionVisible(false)
+                            onBlur={(e) => {
+                                if (e?.relatedTarget?.className != 'suggestion')
+                                    setSuggestionVisible(false)
                             }}
                             onFocus={() => {
                                 setSuggestionVisible(true)
                             }}
+                            onChange={onChange}
+                            onKeyDown={onKeyDown}
                             placeholder="Search for a player" />
                         <button className="w-3/12 h-10 inline background-gradient font-bold rounded-none" type="submit">Search</button>
                     </div>
