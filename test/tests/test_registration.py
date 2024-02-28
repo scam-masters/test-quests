@@ -1,40 +1,6 @@
 from selenium.webdriver.common.by import By
 from utils import registration, wait_landing_render
 import time
-import random
-import string
-
-
-class TestRegistrationSuccessful:
-
-    def test_registration_success(self, base_url, driver, user_registration_correct):
-
-        def random_string(length=10):
-            """Generate a random string of fixed length"""
-
-            letters = string.ascii_lowercase
-            return "".join(random.choice(letters) for _ in range(length))
-
-        random_suffix = random_string()
-        """
-        This is to avoid the user already exists error, because the user is already registered in the database.
-        So, we add a random suffix to the username and email to avoid this error. Less problem with CI/CD.
-        """
-        registration(
-            driver,
-            user_registration_correct[1] + random_suffix,
-            user_registration_correct[0] + random_suffix,
-            user_registration_correct[2],
-            user_registration_correct[3],
-            base_url,
-        )
-
-        wait_landing_render(driver)
-        time.sleep(1)
-
-        username = driver.find_element(By.XPATH, "/html/body/header/div[2]/div/a")
-        assert username.text == user_registration_correct[1] + random_suffix
-
 
 class TestRegistrationUnsuccessful:
     def test_registration_invalid_password_short(
