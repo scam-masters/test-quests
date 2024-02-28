@@ -48,7 +48,7 @@ class TestChapterPageSuccess:
         )
 
         second_circle_mission = driver.find_element(
-            By.XPATH, "//button[@class='circle-mission-gradient-2 translate-x-[110%]']" # the mission locked is not working
+            By.XPATH, "/html/body/div/div[2]/a/button" # the mission locked is not working
             # "/html/body/div[1]/div[2]/a/button" not recognizable in firefox
         )
         
@@ -76,13 +76,13 @@ class TestChapterPageUnsuccess:
             #"/html/body/div[1]/div[3]/button" # previous for Chrome
             #"circle-mission-locked translate-x-[110%]"
             #"/html/body/div[1]/div[3]/button"
-            "//button[@class='circle-mission-locked translate-x-[150%]']"
+            "//button[@class='min-w-[10%] circle-mission-locked translate-x-[110%]']"
         )
         assert "Mission Locked" in locked_circle_mission.text
 
         """ Check for accessing to the first learning page """
         locked_circle_mission.click()
         popup_element = driver.find_element(
-            By.ID, "mission_locked_popup"
+            By.XPATH, "/html/body/div/div[6]/div"
         )
         assert "Mission Locked" in popup_element.text
