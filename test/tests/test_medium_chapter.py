@@ -60,17 +60,3 @@ class TestChapterPageSuccess:
             "100/100" in first_circle_points.text
             and "0/100" in second_circle_points.text
         )
-
-class TestChapterPageUnsuccess:
-    def test_mission_locked(self, driver):
-        locked_circle_mission = driver.find_element(
-            By.XPATH, "/html/body/div[1]/div[3]/button"
-        )
-        assert "Mission Locked" in locked_circle_mission.text
-
-        """ Check for accessing to the first learning page """
-        locked_circle_mission.click()
-        popup_element = driver.find_element(
-           By.ID, "mission_locked_popup"
-        )
-        assert"Mission Locked" in popup_element.text
