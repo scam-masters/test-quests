@@ -1,9 +1,10 @@
 name: Run scrum actions
 
 on:
-  schedule:
+  # inactive now (finished sprint)
+  # schedule:
     # run at the end of every day (23:55)
-    # - cron: '55 23 * * *' # inactive now (finished sprint)
+    # - cron: '55 23 * * *'
   # run if triggered manually
   workflow_dispatch:
 
