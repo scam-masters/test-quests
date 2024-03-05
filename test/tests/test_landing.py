@@ -12,7 +12,7 @@ def login_user_50_points(driver, user_freshly_registered):
     
 # before each method we need to navigate to the correct page!!!!
 @pytest.fixture(scope="function", autouse=True)
-def navigate_to_hard_chapter(driver, base_url):
+def navigate_to_landing(driver, base_url):
     driver.get(base_url)
 
 

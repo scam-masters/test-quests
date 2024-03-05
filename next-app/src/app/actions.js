@@ -160,10 +160,10 @@ export async function checkStorylineCompletion(mission_id) {
 	const missionData = await getMIssionById(mission_id);
 	//const difficulty = missionData.difficulty;
 	const storyline = missionData.storyline;
-	// i should get all the mission for a storyline not for a difficulty
+	// get all the mission for a storyline
 	const missions = await getStorylineMissions(storyline);
 
-	// if the mission is the last mission of the storyline thank return true
+	// if the mission is the last mission of the storyline return true
 	const lastMission = missions.reduce((prevMission, currentMission) => {
 		const prevMissionId = parseInt(prevMission.id.split('_')[1]);
 		const currentMissionId = parseInt(currentMission.id.split('_')[1]);
@@ -225,6 +225,7 @@ export async function registerUser(email, password, username) {
 		const missions = new Map();
 		for (const storyline of storylines) {
 			const missionList = await getStorylineMissions(storyline);
+			// set the first mission of each storyline to 0 points to allow the user to start playing from any storyline
 			missions.set(missionList[0].id, { id: missionList[0].id, score: 0 });
 		}
 

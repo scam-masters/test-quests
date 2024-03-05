@@ -81,6 +81,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 	const [isFinishedStoryline, setFinishedStoryline] = useState(false);
 	const [missionScore, setMissionScore] = useState(false);
 
+	// we don't want to use the state for the timer, because it will be re-rendered every time the count decreases
 	const timeout = useRef(null)
 	const interval = useRef(null)
 	const [remainingTime, setRemainingTime] = useState(time)
@@ -89,11 +90,13 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		if (time) {
 			setRemainingTime(time)
 			console.log("started timer")
+			// Schedules execution of a one-time callback after 1000 milliseconds.
 			timeout.current = setTimeout(() => {
 				console.log("time is up")
 				document.getElementById("submit_button").click()
 			}, time * 1000)
-
+			
+			// Schedules repeated execution of callback every 1000 milliseconds.
 			interval.current = setInterval(() => {
 				setRemainingTime(x => Math.max(x - 1, 0))
 			}, 1000)
@@ -104,15 +107,17 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		if (time) {
 			console.log("stopped timer")
 			setRemainingTime(0)
+			// clear the timeout and interval
 			clearTimeout(timeout.current)
 			clearInterval(interval.current)
 		}
 	}
 
-	// use effect will be called twice on debug build 🤡 
+	// use effect will be called twice on debug build 
 	useEffect(() => {
 		console.log("loaded")
 		startTimer()
+		// cleanup function. Called when the component unmounts (user navigates away from this page)
 		return stopTimer
 	}, []);
 
@@ -123,16 +128,18 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 
 		const correctness = Math.round(computedCorrectness)
 		const missionScore = Math.round(exercisePoints * correctness / 100)
-
+		// update the user score and unlock the next mission if necessary
 		await updateUserScore(missionId, missionScore, correctness, exerciseThreshold)
 
 		setCorrectness(correctness);
 		setMissionScore(missionScore);
 		// if the user has passed the mission, update the badges and
 		if (correctness >= exerciseThreshold) {
-			// check if the user has unlocked the next chapter
+			// check if the user has unlocked the next chapter to give him a badge and notify into the dialog (updateChapterUnlocking returns a boolean)
+			// used by ExerciseDialog to display the message
 			const unlock = await updateChapterUnlocking(missionId)
-			// or finished the storyline
+			// check if the user has finished the storyline to give him a badge and notify into the dialog (checkStorylineCompletion returns a boolean)
+			// used by ExerciseDialog to display the message
 			const finishedStoryline = await checkStorylineCompletion(missionId)
 			setUnlockNewChapter(unlock);
 			setFinishedStoryline(finishedStoryline);

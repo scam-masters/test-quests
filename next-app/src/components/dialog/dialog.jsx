@@ -62,6 +62,7 @@ const Dialog = ({ title, message, buttonText, buttonOnClick, buttonColor, onClos
 							className="absolute top-2 right-2 p-2 text-white hover:bg-red-500 rounded-lg cursor-pointer"
 							onClick={buttonOnClick}
 						>
+							{/* close icon (the x at the top right corner of the dialog box) */}
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								className="h-6 w-6"
@@ -69,6 +70,8 @@ const Dialog = ({ title, message, buttonText, buttonOnClick, buttonColor, onClos
 								viewBox="0 0 24 24"
 								stroke="currentColor"
 							>
+								{/* the path property is used to define the shape of the icon, in this case a cross */}
+								{/* basically it defines the movements of the pen to draw the icon */}
 								<path
 									strokeLinecap="round"
 									strokeLinejoin="round"

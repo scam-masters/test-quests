@@ -27,13 +27,14 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
 	let i = 0;
 	let exercise = [];
 	for (const [index, item] of selectables.entries()) {
+		// the unselectable string is the text between the last selectable and the current one
 		let unselectable = text.substring(i, item[0]);
+		// create a button for each selectable string
 		let selectable = <button key="selectable_${index}"
 			className={answers[index] ? 'bug-selected' : 'bug-selectable'}
 			onClick={click.bind(null, index)}>
 			{text.substring(item[0], item[1])}
 		</button>
-
 
 		i = item[1];
 		exercise.push(unselectable);

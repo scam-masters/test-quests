@@ -23,6 +23,7 @@ export default function ChangeUsername() {
 		event.preventDefault();
 		setError(null)
 
+		// Get the new username from the form: event.target refers to the form
 		const formData = new FormData(event.target)
 		const newUsername = formData.get("username-input")
 
@@ -35,6 +36,7 @@ export default function ChangeUsername() {
 		}
 
 		try {
+			// Call the setNewUsername function from user_actions.js to update the username in the database and inside the friends list of the user's friends
 			await setNewUsername(getAuth(app), newUsername)
 			setUsername(newUsername)
 			router.push(`/profile/${newUsername}`)

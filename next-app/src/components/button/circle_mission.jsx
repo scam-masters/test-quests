@@ -9,6 +9,8 @@ function CircleMission({ children, type, userScore, maxPoints, className }) {
 	return (
 		<button className={'min-w-[10%] circle-mission-' + type + ' ' + className}>
 			{children}
+			{/* if currentScore is not null the part after the && operator will be rendered. */}
+			{/* the rendered part will show the user the current score compared to the max points obtainable */}
 			{currentScore && <><br /><span>{currentScore}</span></>}
 		</button>
 	);

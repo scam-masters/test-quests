@@ -1,8 +1,13 @@
 import React, { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 
-
+// Answer is a component that represents an answer block in the drag and drop exercise
 export default function Answer({ id, text, swap, type }) {
+	/*
+	id is a unique identifier for each answer block, text is the content of the answer block,
+	swap is a function to handle the swapping of answer blocks when one is dropped onto another,
+	and type is used to determine the color of the answer block (the default is test-quests-blue).
+	*/
 	const ref = useRef(null)
 	const commonClasses = ' rounded-sm font-bold m-1 text-tq-white w-fit p-2 '
 	var custom_classes = '';
@@ -25,6 +30,9 @@ export default function Answer({ id, text, swap, type }) {
 	}
 	custom_classes += commonClasses + ' cursor-grab transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md ';
 
+	// useDrag is a hook from the react-dnd library that allows the answer block to be draggable
+	// the swap function is called when the answer block is dropped onto another. It is defined inside
+	// components/dragAndDropExercise/page.js (basically it swaps the text of the two answer blocks)
 	const [{ opacity }, drag] = useDrag(
 		() => ({
 			type: 'answer',
@@ -44,6 +52,7 @@ export default function Answer({ id, text, swap, type }) {
 		[text]
 	)
 
+	// useDrop is a hook from the react-dnd library that allows the answer block to be a drop target
 	const [, drop] = useDrop(() => ({
 		accept: "answer",
 		drop: function() {

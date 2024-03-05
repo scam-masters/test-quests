@@ -13,7 +13,10 @@ import SearchResultsComponent from '@/components/searchResults/searchResults'
  * @param {boolean} visible - Indicates whether the search suggestions are visible or not.
  * @returns {JSX.Element} The rendered search suggestions list.
  */
+
+// component that renders on screen the search suggestions (a list of users navigable by arrow keys and enter key)
 function SearchSuggestion({ users, selected, visible }) {
+    // users, selected, and visible are useState variables
     if (!visible || !users || users.length < 1)
         return <></>
 
@@ -44,6 +47,7 @@ export default function Searchbar({ }) {
     const [searchResults, setSearchResults] = React.useState([]);
 
     const [searchSuggestions, setSearchSuggestions] = React.useState([]);
+    // suggestionSelection is the index of the currently selected suggestion in the searchSuggestions array
     const [suggestionSelection, setSuggestionSelection] = React.useState(-1)
     const [suggestionVisible, setSuggestionVisible] = React.useState(false)
 
@@ -59,20 +63,23 @@ export default function Searchbar({ }) {
             setSearchResults([]);
             return;
         }
+        // search for the user in the database
         let result = await searchUsers(formData.get("username"));
         if (result.length == 0) {
             setError("No results found");
         }
         setSearchResults(result);
     }
-
+    // this function is called when the input in the search bar changes
     async function onChange(event) {
         let username = event.target.value
         if (!username) {
             setSearchSuggestions([])
             return
         }
+        // search for users with the provided username on the database and set the searchSuggestions array to the result
         setSearchSuggestions(await searchUsers(username))
+        // reset the suggestion selection when the input changes (index = -1 means no selection)
         setSuggestionSelection(-1)
     }
 
@@ -88,6 +95,7 @@ export default function Searchbar({ }) {
                 return Math.min(searchSuggestions.length - 1, x + 1)
             })
         } else if (event.code === "Enter") {
+            // if a suggestion is selected, navigate to the profile of the selected user
             if (suggestionSelection >= 0 && suggestionSelection < searchSuggestions.length) {
                 event.preventDefault()
                 // navigate to the profile of the selected user
@@ -95,6 +103,8 @@ export default function Searchbar({ }) {
             }
         }
         else if (event.code === "Escape") {
+            // document.activeElement returns the Element within the document that is currently focused
+            // blur() method removes focus from it. 
             document.activeElement.blur()
         }
     }
@@ -109,17 +119,22 @@ export default function Searchbar({ }) {
                     <div className="w-full flex border-2 rounded-full overflow-hidden">
                         <input
                             className="w-9/12 h-10 px-2 py-1 bg-white text-black"
+                            // disables the browser's autocomplete
                             autoComplete="off"
                             name="username"
                             type="text"
+                            // if the user clicks outside the search bar and not inside the suggestions area, hide the suggestions
                             onBlur={(e) => {
                                 if (e?.relatedTarget?.className != 'suggestion')
                                     setSuggestionVisible(false)
                             }}
+                            // if the user clicks inside the search bar, show the suggestions (if there are any word inside the search bar)
                             onFocus={() => {
                                 setSuggestionVisible(true)
                             }}
+                            // fired when the value of the input field changes
                             onChange={onChange}
+                            // event handler for the keydown event fired when a key is pressed 
                             onKeyDown={onKeyDown}
                             placeholder="Search for a player" />
                         <button className="w-3/12 h-10 inline background-gradient font-bold rounded-none" type="submit">Search</button>
@@ -127,6 +142,7 @@ export default function Searchbar({ }) {
                     <SearchSuggestion users={searchSuggestions} selected={suggestionSelection} visible={suggestionVisible} />
                 </form>
             </div>
+            {/* component that shows the search results (similar to the scoreboard component) */}
             {searchResults.length != 0 ? <SearchResultsComponent results={searchResults} /> : <></>}
             <text className="text-red-400"> {error}</text>
         </div>

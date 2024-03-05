@@ -35,7 +35,7 @@ function Header() {
 		return userInfo.username;
 	}
 
-	// ******************* Retrieve if the user can access the exercise ******************* //
+	// ******************* Retrieve if the user can access the exercise passing through the url ******************* //
 	async function getUserAccess() {
 		const userInfo = await getUserData();
 		if (pathname.includes("exercise") || pathname.includes("learning")) {

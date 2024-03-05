@@ -28,6 +28,7 @@ export default function DropdownExercise({ text, dropdowns, onScoreComputed: onC
 		onCorrectnessComputed(correctness * 100 / solutions.length)
 	}
 
+	// The makeSelect function creates a <select> element and maps over the options array and creates an <option> element for each option.
 	function makeSelect(name, options) {
 		return <select key={name} name={name} defaultValue={-1}>
 			<option key={-1} value={-1} disabled={true}>--Please select one answer--</option>

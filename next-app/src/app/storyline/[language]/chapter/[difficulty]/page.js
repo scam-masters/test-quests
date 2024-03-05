@@ -37,6 +37,7 @@ export default function Chapter({ params }) {
 	 * getChapterName("Medium") // returns "Chapter 2"
 	 * getChapterName("Hard") // returns "Chapter 3"
 	 */
+	// convert the difficulty to the chapter name
 	function getChapterName(difficulty) {
 		const number =
 			difficulty == "Easy" ? 1 :
@@ -56,11 +57,11 @@ export default function Chapter({ params }) {
 		)
 	}
 
-	// ******************* Retrieve missions and user progress ******************* //
+	// Retrieve missions and user progress
 	async function retrieveMissions(difficultyLevel) {
 		const userInfo = await getUserData()
-
-		const missions = await getChapterMissions(difficultyLevel, params.language) //  Retrieve the list of missions by difficulty level from the database
+		// Retrieve the list of missions by difficulty and storyline level from the database
+		const missions = await getChapterMissions(difficultyLevel, params.language)
 		const result = []
 
 		// For each mission, check if it is included in the user progress
@@ -75,7 +76,7 @@ export default function Chapter({ params }) {
 	}
 
 	/** getTranslation
-	 * set the alignment of the mission circles
+	 * allign the title of the mission with the circle (the position of the circle changes based on the mission number)
 	 * @param {number} missionNum - the number of the mission
 	 * @returns {string} - the alignment of the mission circle (in tailwindcss format)
 	 */
@@ -106,6 +107,7 @@ export default function Chapter({ params }) {
 		const translation = getTranslation(missionNum)
 
 		return (
+			// the onlick function spawns the locked mission dialog
 			<div key={missionId} className='text-center m-5 align-middle' onClick={MissionLocked}>
 				<CircleMission className={translation} type="locked">Mission Locked</CircleMission>
 			</div>
@@ -119,10 +121,12 @@ export default function Chapter({ params }) {
 	 * @returns {JSX.Element} the unlocked mission component
 	 */
 	async function unlockedMission(missionId, missionData) {
+		// Get the user score for the mission
 		const userScore = await getUserScoreForMission(missionId);
 		const missionNum = missionId.split("_")[1]
+		// allign the title of the mission with the circle (the position of the circle changes based on the mission number)
 		const translation = getTranslation(missionNum)
-
+		// render the bubble with the mission name and the user score
 		return (
 			<div key={missionId} className='text-center m-5 align-middle'>
 				<Link href={missionData.learning.learningLink}>
@@ -138,6 +142,7 @@ export default function Chapter({ params }) {
 		/* when logged in show missions, otherwise go to login page */
 		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
+				// get and show missions to the user
 				retrieveMissions(`${params.difficulty}`).then(newMissions => {
 					setMissions(newMissions)
 				})

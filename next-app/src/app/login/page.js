@@ -33,6 +33,8 @@ export default function Login() {
 		}
 
 		try {
+			// use the firebase auth to sign in with email and password. If successful, the getAuth(app) will be updated to reflect the 
+			// logged user
 			await signInWithEmailAndPassword(getAuth(app), email, password)
 			router.push("/")
 		} catch (error) {

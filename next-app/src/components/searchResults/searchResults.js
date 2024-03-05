@@ -1,4 +1,5 @@
 export default function SearchResultsComponent({ results }) {
+    // itearate over the results array and display the username and score of each user as in the scoreboard
     return (
         <div className="p-4 max-w-screen-xl m-auto">
             <div className="tq-black rounded-lg text-center overflow-hidden text-tq-white border-2 border-tq-accent">

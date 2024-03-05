@@ -15,6 +15,7 @@ export default function Scoreboard() {
 	const [scoreboardContent, setScoreboardContent] = useState(null);
 	useEffect(() => {
 		if (!scoreboardContent)
+			// get all the user to display them in the scoreboard aready ordered
 			getScoreboardData().then(setScoreboardContent)
 	}, [])
 	if (!scoreboardContent)

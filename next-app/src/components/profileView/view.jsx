@@ -21,6 +21,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
     const [avatars, setAvatars] = useState({})
 
     const getUsername = async () => {
+        // get user from getAuth(data)
         const user = await getUserData();
         return user.username;
     };
@@ -43,6 +44,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
             if (user) {
                 setIsOwner(user.email === email);
                 getUsername().then((username) => {
+                    // check the owner of the pahpage is a friend, stranger or has a request of the current logged user
                     if (friendsList.includes(username)) {
                         setStatus('friend');
                     } else if (friendRequestsList.includes(username)) {
@@ -59,6 +61,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
     }, []);
 
     const handleAddFriend = () => {
+        // add the current user to the friend requests of the owner of the page
         addFriendRequest(username).then(() => {
             setStatus('request');
         }).catch(error => {
@@ -67,6 +70,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
     };
 
     function handleAccept(senderUsername) {
+        // accept the friend request of the sender
         acceptFriendRequest(senderUsername).then(() => {
             setFriendRequestsList(friendRequestsList.filter(request => request !== senderUsername));
             setFriendsList([...friendsList, senderUsername]);
@@ -76,6 +80,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
     };
 
     function handleDecline(senderUsername) {
+        // decline the friend request of the sender
         declineFriendRequest(senderUsername).then(() => {
             setFriendRequestsList(friendRequestsList.filter(request => request !== senderUsername));
         }).catch(error => {
@@ -109,6 +114,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                         <>
                             {status === 'friend' ? (<Button classNames="my-4 max-w-xs w-[400px]" type='green'>Mutual friends</Button>) : null}
                             {status === 'request' ? (<Button classNames="my-4 max-w-xs w-[400px]" type='green'>Request sent</Button>) : null}
+                            {/* if is a stranger, show the add friend button */}
                             {status === 'stranger' ? (<Button classNames="my-4 max-w-xs w-[400px]" type='blue' onClick={handleAddFriend} id="add_friend">Add Friend</Button>) : null}
                             {errorMessage && <div className="error-message">{errorMessage}</div>}
                         </>
@@ -119,6 +125,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
             <div className="flex flex-col p-3 space-y-4 w-full max-w-2xl m-auto">
 
                 <h2 className="text-3xl font-bold m-auto">
+                    {/* include a medal icon */}
                     <FontAwesomeIcon icon={faMedal} className="mr-2 max-w-[50px]" />
                     Badges
                 </h2>
@@ -130,6 +137,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                                 <img key={index} src={`/badges/${badge}.png`} alt={`badge${badge}`} className="w-14 h-14 mr-2 mt-4 group index" />
                                 <div class="group/edit invisible group-hover/item:visible pt-2">
                                     <div className="absolute bg-tq-white text-black p-2 rounded-lg shadow-md">
+                                        {/* make the badge name more readable when hover */}
                                         {badge.replace(/_/g, " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
                                     </div>
                                 </div>
@@ -142,17 +150,19 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                 </div>
 
                 <h2 className="text-3xl font-bold m-auto">
+                    {/* include a user icon */}
                     <FontAwesomeIcon icon={faUsers} className="mr-2 max-w-[50px]" />
                     Friends
                 </h2>
 
                 {isOwner ? <Button id="find-friends" classNames="flex max-w-sm m-auto justify-center" type="blue" href="/searchPlayers">Find Friends</Button> : <></>}
-
+                {/* show the friends only if the owner of the page is the current logged user */}
                 {friendsList.length > 0 ? (
                     <ul>
                         {friendsList.map((friend, index) => (
                             <li key={`f_${index}_${friend}`} className="flex items-center mb-2 ">
                                 <a href={`/profile/${friend}`} className="flex items-center hover:text-blue-500 hover:underline">
+                                    {/* get the avatar of the friend using the mapping created by fetchAvatars */}
                                     {avatars[friend] !== undefined && <img src={`/avatars/${avatars[friend]}.png`} alt={`avatar`} className="rounded-full w-16 h-16 mr-2" />}
                                     <span className="text-xl px-2">{friend}</span>
                                 </a>
@@ -162,10 +172,11 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                 ) : (
                     <p className="text-center text-lg">No friends found</p>
                 )}
-
+                {/* show the friend requests only if the owner of the page is the current logged user */}
                 {isOwner ?
                     (<>
                         <h2 className="text-3xl font-bold m-auto mb-4">
+                            {/* include a bell icon */}
                             <FontAwesomeIcon icon={faBell} className="mr-2 max-w-[50px]" />
                             Friend Requests
                         </h2>
@@ -174,6 +185,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                                 {friendRequestsList.map((friend, index) => (
                                     <li key={`fr_${index}_${friend}`} className="flex items-center justify-between mb-2 ">
                                         <a href={`/profile/${friend}`} className="flex items-center hover:text-blue-500 hover:underline">
+                                            {/* again get the avatar of the friend using the mapping created by fetchAvatars */}
                                             {avatars[friend] !== undefined && <img src={`/avatars/${avatars[friend]}.png`} alt={`avatar`} className="rounded-full w-16 h-16 mr-2" />}
                                             <span className="text-xl px-2">{friend}</span>
                                         </a>

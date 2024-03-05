@@ -23,6 +23,7 @@ const Button = ({ classNames = '', children, type, onClick, href, external, clic
 	if (href) {
 		if (external) {
 			return (
+				// external means that the link is to a external website and will open in a new tab (target="_blank")
 				<a href={href} target="_blank" rel="noopener noreferrer">
 					<button className={custom_classes + " w-full"} id={id}  >
 						{children}
@@ -39,12 +40,14 @@ const Button = ({ classNames = '', children, type, onClick, href, external, clic
 			);
 		}
 	} else if (clickable) {
+		// form is used to submit the associated form when the button is clicked
 		<button className={custom_classes} id={id} form={form}>
 			{children}
 		</button>
 	}
 	else {
 		return (
+			// onclick is used to call the associated function when the button is clicked
 			<button className={custom_classes} id={id} onClick={onClick} form={form}>
 				{children}
 			</button>

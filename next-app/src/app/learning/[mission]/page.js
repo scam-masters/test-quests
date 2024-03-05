@@ -26,7 +26,7 @@ export default function Learning({ params }) {
 	if (!missionContent)
 		return <Loading />
 
-	/* Placeholder content for learning page explanation */
+	// html content for the learning component to be passsed to the LearningComponent
 	const learningContent = (
 		<div className="p-4 text-white" dangerouslySetInnerHTML={{ __html: missionContent.learning.content }}>
 		</div>

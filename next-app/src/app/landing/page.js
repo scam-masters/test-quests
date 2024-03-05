@@ -20,9 +20,10 @@ export default function Landing() {
 	const [storylines, setStorylines] = useState(null)
 
 	useEffect(() => {
-		/* when logged in show storylines, otherwise go to login page */
+		//when logged in show storylines, otherwise go to login page
 		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
+				// get a list with all storylines
 				getStorylineList().then(newStorylines => {
 					setStorylines(newStorylines)
 				})
@@ -39,6 +40,7 @@ export default function Landing() {
 			<h1 className='text-center text-4xl font-bold text-white'>Welcome to Test Quests!</h1>
 			<h3 className='text-center text-2xl text-gray-300 pb-4'>Choose a storyline to start your adventure</h3>
 			{
+				// iterate over the storylines and create a button for each one
 				storylines.map((storyline, index) => (
 					<div key={`${storyline}_${index}`} className='text-center m-5 align-middle'>
 						<Link href={`/storyline/${storyline}`} id={`storyline_${index}`}>

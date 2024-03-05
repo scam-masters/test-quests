@@ -218,7 +218,7 @@ export async function updateUserScore(missionId, newMissionScore, correctness, t
             }
         }
         if (correctness == 100) {
-            // query the db to check if a user already achieved 100% on this mission
+            // query the db to check if any user already achieved 100% on this mission
             const usersRef = collection(db, "users")
             const docs = await getDocs(query(usersRef, where("missions." + missionId + ".score", "==", newMissionScore)))
 

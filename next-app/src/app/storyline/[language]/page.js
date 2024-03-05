@@ -13,7 +13,7 @@ import Button from '@/components/button/button'
 import Loading from '@/components/loading/loading';
 
 /**
- * Renders a list of chapters with clickable links based on the provided language, counter, and onClickChapterLocked function.
+ * Renders a list of chapters accessible by the user with clickable links based on the provided language, counter, and onClickChapterLocked function.
  *
  * @param {string} language - The language of the chapters.
  * @param {number} counter - The counter indicating the current chapter.
@@ -31,7 +31,9 @@ function DisplayChapters(language, counter, onClickChapterLocked) {
 	return (
 		<div>
 			{chapters.map((chapter, index) => (
+				//  For each chapter, a div is created with chapter.id as key
 				<div key={chapter.id} className='text-center m-5 align-middle'>
+					{/* check if the user has completed the previous chapters (counter is the number of chapters unlocked by the user) */}
 					{index < counter ? (
 						<Link href={`${language}/${chapter.chapterLink}`} id={`chapter_${chapter.id}`}>
 							<CircleMission type={'gradient-' + (chapter.id % 3)}>
@@ -60,15 +62,16 @@ function DisplayChapters(language, counter, onClickChapterLocked) {
  * @returns {Promise<DisplayChapters>} A promise that resolves with the display of chapters.
  */
 async function retrieveChapters(language, onClickChapterLocked) {
-	// retrieve all the list to check the progress of the user in the mission
+	// retrieve all the list to check the progress of the user in the missions
 	// to display correclty chapters (watch line 43 for possible improvement)
 	const userInfo = await getUserData()
-	const missions = await getMissionList(language) //  Retrieve the list of missions from the database
+	// Retrieve the list of missions from the database
+	const missions = await getMissionList(language) 
 
 	// todo: take missions that belong to language from params
 
 	// For each mission, check if it is included in the user progress
-	// If so, let's extract the difficulty of the mission performed 
+	// If so, extract the difficulty of the mission performed 
 	// by the user in order to understand which chapter display
 	let counter = 0;
 
@@ -76,7 +79,7 @@ async function retrieveChapters(language, onClickChapterLocked) {
 		// TODO: change this checking only the difficulty of the last mission 
 		// performed by the user to avoid checking all the missions
 		if (missions[m].id in userInfo.missions) {
-			// check for the difficulty
+			// if the user has completed for example a difficult mission, then should see the third chapter
 			if (missions[m].data.difficulty == "easy" && counter < 1) counter = 1;
 			else if (missions[m].data.difficulty == "medium" && counter < 2) counter = 2;
 			else if (missions[m].data.difficulty == "hard" && counter < 3) counter = 3;
@@ -111,6 +114,7 @@ export default function Storyline({ params }) {
 		/* when logged in show missions, otherwise go to login page */
 		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
+				// show the chapters based on the language. newChapters is the list of chapters accessible by the user
 				retrieveChapters(params.language, onClickChapterLocked).then(newChapters => {
 					setChapters(newChapters)
 				})
