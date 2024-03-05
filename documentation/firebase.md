@@ -1,69 +1,108 @@
 # Firebase Documentation
 
-## Access Firebase Console
-To access the Firebase console, visit [Firebase Console](https://console.firebase.google.com/u/0/project/test-quests-a3712).
+## Admin Console
+The website is managed through the Firebase Console, that allows to define authentication methods, manage users, and deploy the website so it can be accessed via a public link. To access the Firebase console, visit [this link](https://console.firebase.google.com/u/0/project/test-quests-a3712).
 
-## Cloud Firestore
-
-### Perform Queries
-
-Performing queries in Cloud Firestore allows you to retrieve data from your database efficiently. The following steps illustrate a simple query:
-
-#### Import Firestore for Data Retrieval
-
-Import the necessary Firestore modules in your JavaScript code:
-
+To make our code interact with the Firebase Console, all we need is a simple configuration file ([next-app/src/firebase/index.js](https://github.com/scam-masters/test-quests/blob/main/next-app/src/firebase/index.js))
 ```javascript
-import {db} from "../../firebase/index";
-import { collection, getDocs } from "firebase/firestore"; 
-```
+import { initializeApp } from "firebase/app";
 
-#### Instantiate an Object to Get Documents from a Collection
-
-Create a query snapshot to retrieve documents from a specific collection:
-
-```javascript
-const querySnapshot = await getDocs(collection(db, <COLLECTION>));
-```
-
-Replace `<COLLECTION>` with the name of your Firestore collection.
-
-#### Filter Documents
-
-Optionally, you can filter documents based on specific criteria. In the example below, documents are filtered based on their ID:
-
-```javascript
-const filteredDocs = querySnapshot.docs.filter((doc) => doc.id === <YOUR_DOC_ID>);
-```
-
-Replace `<YOUR_DOC_ID>` with the specific ID you are looking for.
-
-#### Retrieve Data
-
-Retrieve data from the documents:
-
-```javascript
-const exercisesData = {
-    your_field_1: yourDocs[<idx>].data().your_field_1,
-    your_field_2: yourDocs[<idx>].data().your_field_2
+const firebaseConfig = {
+  apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  authDomain: "test-quests-a3712.firebaseapp.com",
+  projectId: "test-quests-a3712",
+  storageBucket: "test-quests-a3712.appspot.com",
+  messagingSenderId: "XXXXXXXXXXX",
+  appId: "1:249502392786:web:6086acbbb9986197f5a80b"
 };
 
-return exercisesData;
+const app = initializeApp(firebaseConfig);
 ```
 
-Rertreive data from a collection for a specific document
+### Authentication and session management
+The firebase console allows to choose for the following authentication methods:
+- Native provider, i.e., email and password (choosen one)
+- External providers (Google, Apple, GitHub, Microsoft, etc.)
+
+Firebase automatically manages authentication and session tokens. All we have to do is import the Firebase javascript modules in our code.
+
+
+#### Registration
+To register a new user, we can use the `getAuth()` and the `createUserWithEmailAndPassword()` methods provided from the `firebase/auth` module. In particular, with the following few simple lines of code we are able to register a new user using email and password.
 
 ```javascript
-const docRef = doc(db, "cities", "SF");
-const docSnap = await getDoc(docRef);
+import { app } from "@/firebase/index";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-if (docSnap.exists()) {
-  console.log("Document data:", docSnap.data());
-} else {
-  // docSnap.data() will be undefined in this case
-  console.log("No such document!");
-}
+const auth = getAuth(app);
+await createUserWithEmailAndPassword(
+  auth,
+  email,
+  password
+);
 ```
 
-Ensure to customize the data retrieval based on your specific document structure.
-For more detailed information on Firestore queries, refer to the [official Firebase documentation on querying data](https://firebase.google.com/docs/firestore/query-data/queries?hl=en).
+#### Login and session management
+As for registration, login can be easily implemented using the `signInWithEmailAndPassword()` method.
+
+```javascript
+import { app } from "@/firebase/index";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+try {
+  await signInWithEmailAndPassword(getAuth(app), email, password)
+  router.push("/")
+} catch (error) {
+  switch (error.code) {
+    case 'auth/invalid-credential':
+      setError("Invalid e-mail or password.")
+      break;
+    default:
+      setError(error.message)
+      break;
+  }
+}
+```
+To check if a session exists, for example at the beginning of pages accessible only to logged-in users, we can use the `getAuth()` function:
+
+```javascript
+import { getAuth } from "firebase/auth";
+
+getAuth().onAuthStateChanged(user => {
+  if (user)
+    // Session exists, user is authenticated
+  else
+    router.push("/login") // Session not found, redirect to login page
+});
+```
+
+### Deployment
+The website is deployed and publicly accessible at this link: [https://test-quests-a3712.web.app](https://test-quests-a3712.web.app)
+
+To deploy the website we set up a GitHub Action that is automatically executed every time some commits are pushed on the `production` branch:
+
+```yaml
+name: Deploy to Firebase Hosting
+'on':
+  workflow_dispatch:
+  push:
+    branches:
+      - production
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: cd next-app && npm i && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEST_QUESTS_A3712 }}'
+          channelId: live
+          projectId: test-quests-a3712
+          entryPoint: ./next-app
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
+```
+
+
