@@ -13,6 +13,8 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
 		})
 	}
 
+
+	// each exercise componet has its function to evaluate the correctness of the answers
 	function handleSubmit(e) {
 		e.preventDefault()
 		let count = 0
@@ -21,6 +23,8 @@ export default function DebugExercise({ text, selectables, solution, onScoreComp
 				count++;
 			}
 		}
+		// here we are calling the onScoreComputed function that was passed as a prop passing the score as an argument.
+		// the onScoreComputed function is defined in components/exerciseView/view.jsx (its name is handleCorrectnessComputed)
 		onScoreComputed(100 * count / answers.length);
 	}
 

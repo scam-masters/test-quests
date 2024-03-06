@@ -27,6 +27,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
     };
 
     const fetchAvatars = async () => {
+        // map each friend with its avatar
         const avatarMap = {};
         for (const friend of friendsList) {
             const avatar = await getAvatarByUsername(friend);
@@ -144,6 +145,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                             </li>
                         </ul>
                     ))
+                        // if the user doesn't have any badge, check if is the owner of the page and show a message
                         :
                         isOwner ? <p className="text-lg">Complete missions to earn badges!</p> : <p className="text-lg">No badges found.</p>
                     }

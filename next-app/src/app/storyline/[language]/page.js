@@ -55,7 +55,7 @@ function DisplayChapters(language, counter, onClickChapterLocked) {
 
 // ******************* Retrieve chapters and user progress ******************* //
 /**
- * Retrieves the chapters for a given language and user progress.
+ * Get the chapters accessible by the user based on the language 
  * 
  * @param {string} language - The language for which to retrieve the chapters.
  * @param {function} onClickChapterLocked - The callback function to handle click events on locked chapters.
@@ -65,7 +65,7 @@ async function retrieveChapters(language, onClickChapterLocked) {
 	// retrieve all the list to check the progress of the user in the missions
 	// to display correclty chapters (watch line 43 for possible improvement)
 	const userInfo = await getUserData()
-	// Retrieve the list of missions from the database
+	// Retrieve the list of missions from the database based on the language
 	const missions = await getMissionList(language) 
 
 	// todo: take missions that belong to language from params
@@ -75,6 +75,8 @@ async function retrieveChapters(language, onClickChapterLocked) {
 	// by the user in order to understand which chapter display
 	let counter = 0;
 
+	// very tricky way to check what chapters the user has unlocked. Basically, if the user has
+	// completed a mission of a certain difficulty, then the user has unlocked the chapter of that difficulty
 	for (let m in missions) {
 		// TODO: change this checking only the difficulty of the last mission 
 		// performed by the user to avoid checking all the missions
@@ -114,7 +116,7 @@ export default function Storyline({ params }) {
 		/* when logged in show missions, otherwise go to login page */
 		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
-				// show the chapters based on the language. newChapters is the list of chapters accessible by the user
+				// show the chapters based on the language. newChapters is the html containing the chapters accessible or not by the user
 				retrieveChapters(params.language, onClickChapterLocked).then(newChapters => {
 					setChapters(newChapters)
 				})
@@ -130,6 +132,7 @@ export default function Storyline({ params }) {
 		<>
 			<div className='p-10'>
 				<h1 className='text-center text-4xl font-bold text-tq-white mb-2'>{language.charAt(0).toUpperCase() + language.slice(1)}</h1>
+				{/* chapter contains the html of the chapters accessible or not by the user */}
 				{chapters}
 				<Dialog
 					title="Mission Locked"

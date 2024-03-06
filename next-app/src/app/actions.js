@@ -163,7 +163,9 @@ export async function checkStorylineCompletion(mission_id) {
 	// get all the mission for a storyline
 	const missions = await getStorylineMissions(storyline);
 
-	// if the mission is the last mission of the storyline return true
+	// return the last mission inside the storyline. the reduce method is being used to find the mission with the highest ID,
+	// If the ID of the currentMission is greater than the ID of the prevMission, the currentMission is returned and becomes
+	// the prevMission for the next iteration. If not, the prevMission is returned.
 	const lastMission = missions.reduce((prevMission, currentMission) => {
 		const prevMissionId = parseInt(prevMission.id.split('_')[1]);
 		const currentMissionId = parseInt(currentMission.id.split('_')[1]);

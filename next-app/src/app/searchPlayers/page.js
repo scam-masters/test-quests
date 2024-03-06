@@ -57,6 +57,7 @@ export default function Searchbar({ }) {
     async function handleSubmit(event) {
         event.preventDefault();
         setError("");
+        // the target property, is a reference to the element that dispatched the event (in this case, the input field)
         let formData = new FormData(event.target);
         // if the search bar is empty, don't search and clear the results
         if (formData.get("username") == "") {
@@ -70,6 +71,7 @@ export default function Searchbar({ }) {
         }
         setSearchResults(result);
     }
+
     // this function is called when the input in the search bar changes
     async function onChange(event) {
         let username = event.target.value
@@ -79,7 +81,7 @@ export default function Searchbar({ }) {
         }
         // search for users with the provided username on the database and set the searchSuggestions array to the result
         setSearchSuggestions(await searchUsers(username))
-        // reset the suggestion selection when the input changes (index = -1 means no selection)
+        // reset the highlighted suggestion selection when the input changes (index = -1 means no selection)
         setSuggestionSelection(-1)
     }
 

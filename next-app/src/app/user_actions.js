@@ -269,7 +269,8 @@ export async function updateChapterUnlocking(missionId) {
             if (missionDoc.data().storyline == nextMissionDoc.data().storyline) {
                 console.log("Same storyline")
                 return false
-            } {// in this way even if we start a storyline with hard difficulty we can obtain the badge of the chapter completion
+            } {
+                // in this way even if we start a storyline with hard difficulty we can obtain the badge of the chapter completion
                 console.log("Different storylines")
                 const userData = await getUserData()
                 if (userData.badges.includes(`chapter_completion_${missionDoc.data().difficulty}`)) {

@@ -52,6 +52,7 @@ const Dialog = ({ title, message, buttonText, buttonOnClick, buttonColor, onClos
 
 	return (
 		<>
+			{/* if visible is true, then render the dialog */}
 			{visible && (
 				<div
 					className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"

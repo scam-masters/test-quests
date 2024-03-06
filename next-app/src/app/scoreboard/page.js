@@ -11,7 +11,7 @@ import Loading from '@/components/loading/loading';
  * @returns {JSX.Element} The rendered Scoreboard component.
  */
 export default function Scoreboard() {
-	// scoreboardContent returns an array of couples (name, score)
+	// scoreboardContent is an array of couples (name, score)
 	const [scoreboardContent, setScoreboardContent] = useState(null);
 	useEffect(() => {
 		if (!scoreboardContent)

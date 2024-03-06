@@ -20,7 +20,7 @@ import Dialog from "@/components/dialog/dialog";
  * @returns {JSX.Element} - The rendered chapter component.
  */
 export default function Chapter({ params }) {
-	// Get the current mission
+	// Get the accessible missions for the user
 	const router = useRouter()
 	const [visible_dialog, setVisibleDialog] = useState(false);
 	const [missions, setMissions] = useState(null)
@@ -57,7 +57,7 @@ export default function Chapter({ params }) {
 		)
 	}
 
-	// Retrieve missions and user progress
+	// returns the list of missions accessible and not accessible by the user as locked or unlocked bubbles
 	async function retrieveMissions(difficultyLevel) {
 		const userInfo = await getUserData()
 		// Retrieve the list of missions by difficulty and storyline level from the database
@@ -76,7 +76,7 @@ export default function Chapter({ params }) {
 	}
 
 	/** getTranslation
-	 * allign the title of the mission with the circle (the position of the circle changes based on the mission number)
+	 * allign the title of the mission with the circle (the position of the circle in the page changes based on the mission number)
 	 * @param {number} missionNum - the number of the mission
 	 * @returns {string} - the alignment of the mission circle (in tailwindcss format)
 	 */
@@ -160,6 +160,7 @@ export default function Chapter({ params }) {
 			<h1 className='text-center text-4xl font-bold text-white mb-2'>{chapterName}</h1>
 			<h3 className='text-center text-2xl text-gray-300 mb-10'>Difficulty: {difficulty}</h3>
 
+			{/* list of missions accessible or not as html components */}
 			{missions}
 
 			<Dialog
