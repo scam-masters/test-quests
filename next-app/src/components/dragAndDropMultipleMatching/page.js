@@ -36,12 +36,14 @@ export default function DndMmExercise({ onScoreComputed, options, blocks, soluti
 		onScoreComputed(computeCorrectness(answers));
 	}
 
-	// build the draggable answers
+	// build the draggable answers using the aswer component that contains the dnd provider
 	let draggableAnswers = answers.map((x, i) => {
 		return (<Answer key={i} id={i} text={x} swap={swap} />)
 	})
 
-	// function to parse the input and replace the blanks with the draggable answers
+	// Match blocks with draggableAnswers (sloutions from the db in random order).
+	// Each table row contains two table data (<td>) cells: one for an element from
+	// blocks and one for the corresponding element from draggableAnswers.
 	function parseInput(draggableAnswers, blocks) {
 		let res = [];
 		for (let i = 0; i < blocks.length; i++) {

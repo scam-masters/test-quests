@@ -50,12 +50,14 @@ export default function DndExercise({
     onScoreComputed(computeCorrectness(answers));
   }
 
-  // build the draggable answers
+  // build the draggable answers with the Answer componed that contains the dnd provider
   let draggableAnswers = answers.map((x, i) => {
     return <Answer key={i} id={i} text={x} swap={swap} />;
   });
 
-  // function to parse the input and replace the blanks with the draggable answers
+  // process an array of blocks and replace any empty strings ("")
+  // with corresponding elements from the draggableAnswers array. Positions
+  // where blocks can be dropped are identified by the empty string in the db
   function parseInput(blocks) {
     let res = Array(blocks.length).fill(null);
 

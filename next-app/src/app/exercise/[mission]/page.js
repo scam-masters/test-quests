@@ -50,6 +50,7 @@ export default function Exercise({ params }) {
 				explanation: missionContent.explanation,
 				blocks: missionContent.blocks,
 				solution: missionContent.solution,
+				// take the options or the solution (based on their presence) and shuffle them
 				options: (missionContent.options || missionContent.solution).toSorted(
 					() => Math.random() - 0.5
 				), // shuffle to obtain options

@@ -4,9 +4,11 @@
 import { Fragment } from "react"
 
 export default function DropdownExercise({ text, dropdowns, onScoreComputed: onCorrectnessComputed }) {
-	// the text has {} for each dropdown. Dropdowns is an object of arrays,
-	// the object has stringified numbers as keys that indicate the position in the text
-	// the solutions are in dropdowns and they indicate the index of the correct answer for each dropdown
+	// the text has {} for each dropdown. Dropdowns is an object composed by arrays. Inside the dropdowns object,
+	// the index of the array is the index of the dropdown in the text. e.g. the first array contains the options for the first dropdown. 
+	// The solutions are represented as the index of the correct answer for each dropdown and are cotained in the dropdowns object.
+	// e.g. dropdowns.solutions = [2, 0, 1] means that the first dropdown has the third option as the correct answer, the second dropdown has
+	// the first option and so on.
 	const solutions = dropdowns.solutions;
 
 	function handleSubmit(e) {
@@ -28,7 +30,7 @@ export default function DropdownExercise({ text, dropdowns, onScoreComputed: onC
 		onCorrectnessComputed(correctness * 100 / solutions.length)
 	}
 
-	// The makeSelect function creates a <select> element and maps over the options array and creates an <option> element for each option.
+	// The makeSelect function creates a <select> element and creates an <option> element for each option.
 	function makeSelect(name, options) {
 		return <select key={name} name={name} defaultValue={-1}>
 			<option key={-1} value={-1} disabled={true}>--Please select one answer--</option>
@@ -42,6 +44,7 @@ export default function DropdownExercise({ text, dropdowns, onScoreComputed: onC
 				{
 					text.split("{}").map((t, i) => {
 						// Fragment is like <></> but can use key property
+						// for each {} in the text insert a <select> element containing the <options> 
 						return <Fragment key={i}>
 							<span key={'span_' + i} dangerouslySetInnerHTML={{ __html: t }} />
 							{t && makeSelect(i, dropdowns['' + i])}

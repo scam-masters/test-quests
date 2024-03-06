@@ -81,7 +81,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 	const [isFinishedStoryline, setFinishedStoryline] = useState(false);
 	const [missionScore, setMissionScore] = useState(false);
 
-	// we don't want to use the state for the timer, because it will be re-rendered every time the count decreases
+	// we don't want to use useState for the timer, because it will be re-rendered every time the count decreases
 	const timeout = useRef(null)
 	const interval = useRef(null)
 	const [remainingTime, setRemainingTime] = useState(time)
@@ -96,7 +96,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 				document.getElementById("submit_button").click()
 			}, time * 1000)
 			
-			// Schedules repeated execution of callback every 1000 milliseconds.
+			// Schedules repeated execution of callback every 1000 milliseconds to decrease the time by 1 second
 			interval.current = setInterval(() => {
 				setRemainingTime(x => Math.max(x - 1, 0))
 			}, 1000)

@@ -30,9 +30,9 @@ export default function Answer({ id, text, swap, type }) {
 	}
 	custom_classes += commonClasses + ' cursor-grab transition duration-200 ease-in-out hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-md ';
 
-	// useDrag is a hook from the react-dnd library that allows the answer block to be draggable
-	// the swap function is called when the answer block is dropped onto another. It is defined inside
-	// components/dragAndDropExercise/page.js (basically it swaps the text of the two answer blocks)
+	// useDrag is a hook from the react-dnd library that allows the answer block to be draggable.
+	// the swap function is called when the answer block is dropped onto another. Its implememntation is inside
+	// components/dragAndDropExercise/page.js (basically it swaps the text of the two answer blocks).
 	const [{ opacity }, drag] = useDrag(
 		() => ({
 			type: 'answer',
