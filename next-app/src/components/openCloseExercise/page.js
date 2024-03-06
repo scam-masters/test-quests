@@ -42,6 +42,7 @@ export default function OpenCloseExercise({ onScoreComputed, blocks, solution })
 				/>)
 				answerId++
 			}
+			// if the block is not empty, render it as a span putting the html retrieves from the database inside
 			else {
 				res[i] = <span key={i} dangerouslySetInnerHTML={{ __html: blocks[i] }}></span >
 			}

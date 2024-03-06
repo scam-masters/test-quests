@@ -391,6 +391,7 @@ export async function acceptFriendRequest(senderUsername) {
 
     receiver.friends.push(sender.username);
     sender.friends.push(receiver.username);
+    // remove the sender's username from the receiver's list of friend requests
     receiver.friend_requests = receiver.friend_requests.filter(request => request !== senderUsername);
     await updateUser(senderRef, sender);
     await setUserData(receiver);
@@ -405,7 +406,7 @@ export async function acceptFriendRequest(senderUsername) {
 export async function declineFriendRequest(senderUsername) {
     const user = await getUserData();
     console.log("Decline friend request from: ", senderUsername, " to: ", user.username);
-
+    // remove the sender's username from the receiver's list of friend requests
     user.friend_requests = user.friend_requests.filter(request => request !== senderUsername);
     await setUserData(user);
 }

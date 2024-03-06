@@ -33,6 +33,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
             const avatar = await getAvatarByUsername(friend);
             avatarMap[friend] = avatar;
         }
+        // map each user inside the friend requests list with its avatar
         for (const friend of friendRequestsList) {
             const avatar = await getAvatarByUsername(friend);
             avatarMap[friend] = avatar;
@@ -43,6 +44,7 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
     useEffect(() => {
         getAuth().onAuthStateChanged(function (user) {
             if (user) {
+                // set if the owner of the page is the current logged user
                 setIsOwner(user.email === email);
                 getUsername().then((username) => {
                     // check the owner of the pahpage is a friend, stranger or has a request of the current logged user
@@ -158,7 +160,6 @@ export default function ProfileView({ email, avatar, badges, username, friends, 
                 </h2>
 
                 {isOwner ? <Button id="find-friends" classNames="flex max-w-sm m-auto justify-center" type="blue" href="/searchPlayers">Find Friends</Button> : <></>}
-                {/* show the friends only if the owner of the page is the current logged user */}
                 {friendsList.length > 0 ? (
                     <ul>
                         {friendsList.map((friend, index) => (

@@ -113,7 +113,6 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		}
 	}
 
-	// use effect will be called twice on debug build 
 	useEffect(() => {
 		console.log("loaded")
 		startTimer()
@@ -121,7 +120,8 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		return stopTimer
 	}, []);
 
-	// This will be called once by the exercise when the player finishes
+	// This will be called once by the exercise when the player finishes. This function is passed to all exercise components
+	// and is called by them when the player finishes the exercise passing the correctness of the exercise as a parameter
 	const handleCorrectnessComputed = async (computedCorrectness) => {
 		console.log("submitted")
 		stopTimer()
@@ -156,7 +156,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 		<>
 			{time && Timer({ time: remainingTime })}
 			<Splitter className="flex-auto h-0 border-4 m-2 bg-tq-black border-tq-accent" gutterSize={5}>
-				{/* Column for the exercise description */}
+				{/* Left column for the exercise description */}
 				<SplitterPanel
 					className="flex flex-col border-r-4 overflow-auto border-tq-accent"
 					minSize={20}
@@ -165,7 +165,7 @@ export default function ExerciseView({ exerciseExplanation, resource, Exercise, 
 					<div className="h-full px-2">{exerciseExplanation}</div>
 				</SplitterPanel>
 
-				{/* Right column for drag and drop */}
+				{/* Right column for the exercise */}
 				<SplitterPanel className="border-l-4 overflow-auto border-tq-accent" minSize={20} size={65}>
 					<div id="pane2_1" className="h-full">
 						<div className="p-4 text-white">

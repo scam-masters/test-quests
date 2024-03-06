@@ -118,6 +118,7 @@ export default function Exercise({ params }) {
 					></div>
 					<iframe
 						className="w-full h-full p-2"
+						// take the page to embed (as a link) from the mission content retreived from the db 
 						src={missionContent.embedding}
 						title="Embed"
 					></iframe>

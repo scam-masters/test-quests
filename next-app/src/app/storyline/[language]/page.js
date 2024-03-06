@@ -53,7 +53,7 @@ function DisplayChapters(language, counter, onClickChapterLocked) {
 	);
 }
 
-// ******************* Retrieve chapters and user progress ******************* //
+// Retrieve chapters and user progress 
 /**
  * Get the chapters accessible by the user based on the language 
  * 

@@ -25,19 +25,19 @@ function Header() {
 	// access the setUsername function from store for setting the username
 	const setUsername = usernameStore((state) => state.setUsername)
 
-	// ******************* Retrieve points ******************* //
+	// Retrieve points
 	async function retrievePoints() {
 		const userInfo = await getUserData();
 		return userInfo.score;
 	}
 
-	// ******************* Retrieve username ******************* //
+	// Retrieve username
 	async function retrieveUsername() {
 		const userInfo = await getUserData();
 		return userInfo.username;
 	}
 
-	// ******************* Retrieve if the user can access the exercise passing through the url ******************* //
+	// Retrieve if the user can access the exercise passing through the url 
 	async function getUserAccess() {
 		const userInfo = await getUserData();
 		if (pathname.includes("exercise") || pathname.includes("learning")) {
@@ -58,7 +58,7 @@ function Header() {
 				setCurrentUser(null);
 			}
 		});
-		/* when logged in show points, otherwise go to login page */
+		// when logged in show points, otherwise go to login page
 		getAuth().onAuthStateChanged(function (user) {
 			if (user) {
 				// check if the user can access the exercise

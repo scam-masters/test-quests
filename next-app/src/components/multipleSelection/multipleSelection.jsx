@@ -3,7 +3,10 @@
 import { useState } from "react"
 
 export default function MultipleSelection({ text, questions, onScoreComputed }) {
+	// the setAnswers function is called with a function as its argument.
+	// This function receives the previous state (prevState) and returns the new state.
 	const [answers, setAnswers] = useState(() => {
+		// create an object mirroring the structure of the questions object, but with all values set to false
 		let state = {}
 		for (const prompt in questions) {
 			state[prompt] = {}
@@ -14,10 +17,13 @@ export default function MultipleSelection({ text, questions, onScoreComputed }) 
 		return state
 	})
 
+	// update the answer state nopping the selected answer (toggle between true and false)
 	function handleClick(question, answer) {
 		setAnswers(prevState => {
 			let newState = {
+				// make a copy of the previous state using the spread operator (...prevState)
 				...prevState,
+				// then, for the selected question, a new object is created by spreading the previous state of the question and updating the value of the selected answer
 				[question]: {
 					...prevState[question],
 					[answer]: !prevState[question][answer]
@@ -41,6 +47,7 @@ export default function MultipleSelection({ text, questions, onScoreComputed }) 
 		onScoreComputed(100 * count / total);
 	}
 
+	// create for each question a list of selectable buttons with the possible answers
 	let exercise = [];
 	let count = 0;
 	for (const question in questions) {
