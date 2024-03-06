@@ -24,7 +24,8 @@ def get_choices(driver):
         driver.find_element(By.ID, f"id_{i}")
         for i in range(0, 9)
     ]
-    
+
+# as the order of the choices is randomized, we need to retrieve the correct indexes of the choices that contain the correct text
 def get_choice_indexes(choices, text):
     correct_indexes = []
     for i, choice in enumerate(choices):
@@ -32,7 +33,7 @@ def get_choice_indexes(choices, text):
             correct_indexes.append(i)
     return correct_indexes
     
-class TestMultipleChoices:
+class TestMultipleChoicesExercise:
     def test_all_correct_answers(self, driver):
         choices = get_choices(driver)
 

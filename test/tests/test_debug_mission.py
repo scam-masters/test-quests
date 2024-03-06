@@ -26,7 +26,7 @@ def get_choices(driver):
         for i in range(1, 11)
     ]
 
-class TestDebug:
+class TestDebugExercise:
     def test_all_correct_answers(self, driver):
         choices = get_choices(driver)
 

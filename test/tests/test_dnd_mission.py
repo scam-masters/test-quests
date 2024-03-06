@@ -14,11 +14,11 @@ def login_user_tests(driver, user_tests):
 
 # before each method we need to navigate to the correct page!!!!
 @pytest.fixture(scope="function", autouse=True)
-def navigate_to_first_mission(driver, base_url):
+def navigate_to_mission(driver, base_url):
     driver.get(base_url + "/exercise/5")
 
 
-class TestFirstMission:
+class TestDndExercise:
     def empty_block_xpath(self, i):
         return f'//*[@id="pane2_1"]/div/p[2]/span[text() = "___"][{i}]'
 

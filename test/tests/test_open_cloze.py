@@ -9,7 +9,7 @@ def login_user_tests(driver, user_all_unlocked):
     login(driver, user_all_unlocked[0], user_all_unlocked[1])
 
 
-class TestOpenCloze:
+class TestOpenClozeExercise:
     solutions = ["email", "border rounded px-2 py-1 text-black", "/html/body/form/button"]
 
     @pytest.fixture(scope="function")
@@ -18,7 +18,7 @@ class TestOpenCloze:
 
     # before each method we need to navigate to the correct page
     @pytest.fixture(scope="function", autouse=True)
-    def navigate_to_first_mission(self, driver, base_url):
+    def navigate_to_mission(self, driver, base_url):
         driver.get(base_url + "/exercise/3")
 
     def test_score_correct(self, driver, input_boxes, submit_exercise_button):

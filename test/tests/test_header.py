@@ -9,6 +9,7 @@ def retrieve_the_header_points_text(driver):
         )
         return header_points.text
 
+# expected_title contains test quests
 class TestHeaderUserNew:
     def test_working_page(self, driver, expected_title, user_new):
         login(driver, user_new[0], user_new[1])

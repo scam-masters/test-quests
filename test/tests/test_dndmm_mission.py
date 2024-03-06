@@ -10,10 +10,10 @@ def login_user_tests(driver, user_tests):
 
 # before each method we need to navigate to the correct page
 @pytest.fixture(scope="function", autouse=True)
-def navigate_to_first_mission(driver, base_url):
+def navigate_to_mission(driver, base_url):
     driver.get(base_url + "/exercise/1")
 
-class TestFifthMission:
+class TestDndmmExercise:
     def answer_block_xpath(self, text):
         return f'//*[@id="pane2_1"]/div/table/tbody/tr/td[2]/span[text()="{text}"]'
 

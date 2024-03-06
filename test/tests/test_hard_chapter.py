@@ -37,6 +37,6 @@ class TestChapterPageSuccess:
         assert go_back_button_xpath.text == "Go back to chapter page"
 
         # the chapter page has a state which is initialized with an empty string, so 
-        # the link does not work without waiting 🤡
+        # the link does not work without waiting 
         sleep(1)
         go_back_button_xpath.click()

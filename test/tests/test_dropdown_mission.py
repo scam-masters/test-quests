@@ -16,7 +16,7 @@ def navigate_to_second_mission(driver, base_url):
     driver.get(base_url + "/exercise/2")
 
 
-class TestFirstMission:
+class TestDropdownExercise:
     def get_dropdowns(self, driver):
         return [
             Select(
