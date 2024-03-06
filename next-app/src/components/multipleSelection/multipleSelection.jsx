@@ -47,8 +47,10 @@ export default function MultipleSelection({ text, questions, onScoreComputed }) 
 		const selectables = []
 		for (const answer in questions[question]) {
 			selectables.push(<div><button id={"id_" + count} key={"selectable_" + answer}
+				// The className is set to either 'bug-selected' or 'bug-selectable' depending on whether the current answer has been selected
 				className={`${answers[question][answer] ? 'bug-selected' : 'bug-selectable'
 					} mb-2 mt-1`}
+				// update the selectable state when the button is clicked
 				onClick={() => handleClick(question, answer)}>
 				{answer}
 			</button></div>)

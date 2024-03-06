@@ -20,6 +20,7 @@ export default function ChangeAvatar() {
 		{ src: '/avatars/2.png', alt: 'Avatar 2' },
 	];
 
+	// retrieve username from store
 	const username = usernameStore((state) => state.username);
 
 	const router = useRouter()
@@ -54,6 +55,7 @@ export default function ChangeAvatar() {
 		setCurrentAvatarIndex((currentAvatarIndex + 1) % allAvatars.length);
 	};
 
+	// (currentAvatarIndex - 1 + allAvatars.length) is used to ensure that the index wraps around to the end of the array when it reaches the start
 	const handlePreviousAvatar = () => {
 		setCurrentAvatarIndex((currentAvatarIndex - 1 + allAvatars.length) % allAvatars.length);
 	};

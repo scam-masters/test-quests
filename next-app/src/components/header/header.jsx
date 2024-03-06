@@ -20,7 +20,9 @@ function Header() {
 	const [currentUser, setCurrentUser] = useState(null);
 	const [points, setPoints] = useState(0);
 
+	// access the username state from store
 	const username = usernameStore((state) => state.username)
+	// access the setUsername function from store for setting the username
 	const setUsername = usernameStore((state) => state.setUsername)
 
 	// ******************* Retrieve points ******************* //

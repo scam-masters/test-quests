@@ -16,7 +16,9 @@ export default function ChangeUsername() {
 	const router = useRouter()
 	const [error, setError] = useState(null);
 
+	// access the username state from store
 	const username = usernameStore((state) => state.username)
+	// access the setUsername function from store for setting the username
 	const setUsername = usernameStore((state) => state.setUsername)
 
 	const handleSubmit = async (event) => {

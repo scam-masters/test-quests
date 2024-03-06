@@ -28,6 +28,7 @@ export default function OpenCloseExercise({ onScoreComputed, blocks, solution })
 	}
 
 	// function to parse the input and replace the blanks with open answers
+	// inside the database there are empty blocks (containing "") that in the page will be rendered as input fields
 	function parseInput(blocks) {
 		let res = [];
 
